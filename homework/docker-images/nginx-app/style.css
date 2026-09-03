@@ -1,0 +1,8 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 80px;
+  background: #eef7f0;
+}
+h1 { color: #009639; }
+.small { color: #666; font-size: 14px; }

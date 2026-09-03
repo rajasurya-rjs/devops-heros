@@ -1,0 +1,21 @@
+body {
+  font-family: sans-serif;
+  background: #20232a;
+  color: #ffffff;
+  margin: 0;
+}
+.app {
+  text-align: center;
+  margin-top: 80px;
+}
+h1 { color: #61dafb; }
+button {
+  font-size: 16px;
+  padding: 8px 18px;
+  border-radius: 6px;
+  border: 1px solid #61dafb;
+  background: transparent;
+  color: #61dafb;
+  cursor: pointer;
+}
+.small { color: #9aa0a6; font-size: 14px; margin-top: 40px; }
