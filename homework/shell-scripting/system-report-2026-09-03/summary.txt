@@ -1,8 +1,0 @@
-System Report - Thu Sep  3 19:12:54 IST 2026
-----------------------------------
-Hostname   : Rajasuryas-MacBook-Air.local
-User       : rajasurya
-Name       : Rajasurya J
-Roll number: 24BCS10086
-Comment    : First shell script for the DevOps homework
-Processes  :      491 lines saved in process.log
