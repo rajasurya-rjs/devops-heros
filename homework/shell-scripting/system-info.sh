@@ -45,8 +45,10 @@ df -h
 
 # ---------- 5. running processes ----------
 echo ""
-echo "5) Running processes (top 10 by memory)"
-ps aux | head -11
+echo "5) Running processes (top 10 by CPU)"
+# cut to terminal width so the report stays readable - the full untrimmed
+# output still goes into process.log further down via > redirection
+ps aux | head -11 | cut -c1-105
 
 # ---------- 6. take input from the user ----------
 echo ""
@@ -96,8 +98,8 @@ echo "Verification"
 echo "======================================================"
 ls -l "$report_dir"
 echo ""
-echo "--- first 5 lines of $process_file ---"
-head -5 "$process_file"
+echo "--- first 5 lines of $process_file (cut to width) ---"
+head -5 "$process_file" | cut -c1-105
 echo ""
 echo "--- $summary_file ---"
 cat "$summary_file"
