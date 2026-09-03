@@ -1,20 +1,17 @@
-# Git and GitHub - Homework
+# Session 5 - Git and GitHub
 
 **Name:** Rajasurya J
-**Roll number:** 24BCS10086
+**Enrollment Number:** 24BCS10086
 
 ## Where I did this
 
-I did both tasks inside this same repository, but on a separate branch called
-**`git-hw-main`** so that I did not clutter the real `main` branch with practice
-commits. For the cherry-pick task `git-hw-main` plays the role of "main" and
-`feature-pages` is the new branch.
+Both tasks were done in this repository, on a separate branch called
+**`git-hw-main`** so the practice commits do not clutter the real `main`. For the
+cherry-pick task `git-hw-main` plays the role of "main" and `feature-pages` is
+the new branch. Both branches are pushed, so every hash below can be checked:
 
-Both branches are pushed, so all the commits and hashes below can actually be
-checked:
-
-- `git-hw-main` -> https://github.com/rajasurya-rjs/devops-heros/commits/git-hw-main
-- `feature-pages` -> https://github.com/rajasurya-rjs/devops-heros/commits/feature-pages
+- [`git-hw-main`](https://github.com/rajasurya-rjs/devops-heros/commits/git-hw-main)
+- [`feature-pages`](https://github.com/rajasurya-rjs/devops-heros/commits/feature-pages)
 
 ```bash
 git clone https://github.com/rajasurya-rjs/devops-heros.git
@@ -22,33 +19,59 @@ cd devops-heros
 git log --oneline --graph --all
 ```
 
-The practice files live in `homework/git/practice/` on those branches.
+The practice files live in `session5-git-github/Rajasurya-24BCS10086/practice/`
+on those two branches.
 
 ---
 
-# Task 1 - `git commit -a -m` vs `git commit -m`
+## Task 1: git commit -a -m
 
-## Setup
+- Practice `git commit -a -m "message"`.
+- Understand the difference between `git commit -a -m` and `git commit -m`.
+- Test both commands and observe the difference.
 
+### Commands
+
+Set up a tracked file, then make **two different kinds of change** - modify the
+tracked file *and* create a brand new untracked one:
+
+```bash
+git switch -c git-hw-main
+mkdir -p session5-git-github/Rajasurya-24BCS10086/practice
+cd session5-git-github/Rajasurya-24BCS10086/practice
+echo "line 1 - my first note" > notes.txt
+git add notes.txt
+git commit -m "add notes.txt for the commit -a practice"
+
+echo "line 2 - added after the first commit" >> notes.txt   # modify a TRACKED file
+echo "this file has never been committed" > extra.txt       # create an UNTRACKED file
+git status
 ```
-$ git switch -c git-hw-main
+
+### Output
+
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git switch -c git-hw-main
 Switched to a new branch 'git-hw-main'
 
-$ mkdir -p homework/git/practice && cd homework/git/practice
-$ echo "line 1 - my first note" > notes.txt
-$ git add notes.txt
-$ git commit -m "add notes.txt for the commit -a practice"
-```
+rajasurya@Rajasuryas-MacBook-Air devops-heros % mkdir -p session5-git-github/Rajasurya-24BCS10086/practice &&
+cd session5-git-github/Rajasurya-24BCS10086/practice
 
-Now the tree is clean. Then I made **two different kinds of change**:
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo "line 1 - my first note" > notes.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add notes.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git commit -m "add notes.txt for the commit -a practice"
+[git-hw-main ce8d855] add notes.txt for the commit -a practice
+ 1 file changed, 1 insertion(+)
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/notes.txt
 
-```
-$ echo "line 2 - added after the first commit" >> notes.txt   # modify a TRACKED file
-$ echo "this file has never been committed" > extra.txt       # create an UNTRACKED file
-```
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git status --short --branch
+## git-hw-main
 
-```
-$ git status
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo "line 2 - added after the first commit" >> notes.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo "this file has never been committed" > extra.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git status
 On branch git-hw-main
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -60,101 +83,142 @@ Untracked files:
 	extra.txt
 
 no changes added to commit (use "git add" and/or "git commit -a")
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-Two separate sections: `notes.txt` is **modified but not staged**, `extra.txt` is
-**untracked**. This is the setup that makes the difference visible.
+![git status showing one modified tracked file and one untracked file](images/git-01-setup.png)
 
-## Test 1 - plain `git commit -m`
+`git status` shows them in two separate sections: `notes.txt` is **modified but
+not staged**, `extra.txt` is **untracked**. That is the setup that makes the
+difference visible.
 
+### Commands
+
+Now run both commands and compare:
+
+```bash
+git commit -m "try to commit without staging anything"
+git commit -a -m "add line 2 to notes.txt"
+git status
+git show --stat --oneline HEAD
 ```
-$ git commit -m "try to commit without staging anything"
+
+### Output
+
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cd session5-git-github/Rajasurya-24BCS10086/practice
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git commit -m "try to commit without staging anything"
 On branch git-hw-main
 Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
 	modified:   notes.txt
 
 Untracked files:
+  (use "git add <file>..." to include in what will be committed)
 	extra.txt
 
 no changes added to commit (use "git add" and/or "git commit -a")
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo "exit code: $?"
 exit code: 1
-```
 
-**It refused to commit** and exited with code 1. `git commit -m` only commits
-what is already in the **staging area (index)**, and I had not run `git add`, so
-there was nothing to commit. Git even tells you the two ways out: `git add` or
-`git commit -a`.
-
-## Test 2 - `git commit -a -m`
-
-```
-$ git commit -a -m "add line 2 to notes.txt"
-[git-hw-main b7cb29e] add line 2 to notes.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git commit -a -m "add line 2 to notes.txt"
+[git-hw-main 74cde13] add line 2 to notes.txt
  1 file changed, 1 insertion(+)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo "exit code: $?"
 exit code: 0
-```
 
-This time it worked - **1 file changed**. Note: *one* file, not two.
-
-## The important bit - what happened to `extra.txt`?
-
-```
-$ git status
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git status
 On branch git-hw-main
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 	extra.txt
 
 nothing added to commit but untracked files present (use "git add" to track)
-```
 
-```
-$ git show --stat --oneline HEAD
-b7cb29e add line 2 to notes.txt
- homework/git/practice/notes.txt | 1 +
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git show --stat --oneline HEAD
+74cde13 (HEAD -> git-hw-main) add line 2 to notes.txt
+ session5-git-github/Rajasurya-24BCS10086/practice/notes.txt | 1 +
  1 file changed, 1 insertion(+)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-**`extra.txt` is still untracked.** The commit only contains `notes.txt`. This is
-the whole point of the task: `-a` auto-stages **tracked** files, and a brand new
-file is not tracked yet, so `-a` ignores it completely.
+![git commit -m refusing with exit code 1, then git commit -a -m succeeding](images/git-02-commit-m-vs-a.png)
 
-To actually commit it I had to add it by hand:
+This is the whole answer:
 
+- **`git commit -m` refused** - `no changes added to commit`, **exit code 1**. It
+  only commits what is already in the **staging area (index)**, and I had not run
+  `git add`. Git even names the two ways out: `git add` or `git commit -a`.
+- **`git commit -a -m` worked** - but look at `git show --stat`: **1 file
+  changed**, and that file is `notes.txt`. Not two files.
+- `git status` afterwards still shows **`extra.txt` untracked**. `-a` auto-stages
+  **tracked** files, and a brand new file is not tracked yet, so `-a` ignores it
+  completely.
+
+### Commands
+
+The new file needs an explicit `git add`. And `-a` also picks up **deletions**:
+
+```bash
+git add extra.txt
+git commit -m "add extra.txt (needed git add first)"
+rm extra.txt
+git status --short
+git commit -a -m "remove extra.txt - -a picks up deletions too"
+git show --stat --oneline HEAD
+git log --oneline -4
 ```
-$ git add extra.txt
-$ git commit -m "add extra.txt (needed git add first)"
-[git-hw-main 55680d8] add extra.txt (needed git add first)
+
+### Output
+
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cd session5-git-github/Rajasurya-24BCS10086/practice
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add extra.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git commit -m "add extra.txt (needed git add first)"
+[git-hw-main 1e264c4] add extra.txt (needed git add first)
  1 file changed, 1 insertion(+)
- create mode 100644 homework/git/practice/extra.txt
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/extra.txt
 
-$ git status
-On branch git-hw-main
-nothing to commit, working tree clean
-```
-
-## Bonus test - `-a` also stages deletions
-
-Modifications are not the only thing `-a` catches. Deleting a tracked file counts
-as a change to a tracked file:
-
-```
-$ rm extra.txt
-$ git status --short
+rajasurya@Rajasuryas-MacBook-Air devops-heros % rm extra.txt
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git status --short
  D extra.txt
 
-$ git commit -a -m "remove extra.txt - -a picks up deletions too"
-[git-hw-main b6e0921] remove extra.txt - -a picks up deletions too
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git commit -a -m "remove extra.txt - -a picks up deletions too
+"
+[git-hw-main e524100] remove extra.txt - -a picks up deletions too
  1 file changed, 1 deletion(-)
- delete mode 100644 homework/git/practice/extra.txt
+ delete mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/extra.txt
 
-$ git status --short
-(clean)
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git show --stat --oneline HEAD
+e524100 (HEAD -> git-hw-main) remove extra.txt - -a picks up deletions too
+ session5-git-github/Rajasurya-24BCS10086/practice/extra.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git status --short
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git log --oneline -4
+e524100 (HEAD -> git-hw-main) remove extra.txt - -a picks up deletions too
+1e264c4 add extra.txt (needed git add first)
+74cde13 add line 2 to notes.txt
+ce8d855 add notes.txt for the commit -a practice
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-I never ran `git rm` or `git add` - `-a` staged the deletion by itself.
+![git add for the new file, then git commit -a staging a deletion by itself](images/git-03-commit-a-deletion.png)
 
-## Summary
+I never ran `git rm` or `git add` for the deletion - `-a` staged it by itself,
+because deleting a tracked file is a change to a tracked file.
+
+### Summary
 
 | | `git commit -m` | `git commit -a -m` |
 |---|---|---|
@@ -162,197 +226,261 @@ I never ran `git rm` or `git add` - `-a` staged the deletion by itself.
 | Deleted tracked file | ignored unless you `git add`/`git rm` | **staged automatically** |
 | **New untracked file** | ignored | **still ignored** |
 | Needs `git add` first? | yes | only for new files |
-| Empty index | fails with exit code 1 | commits the tracked changes |
+| Nothing staged | fails, exit code 1 | commits the tracked changes |
 
 **In one line:** `-a` means "stage every change to files git already knows about,
-then commit". It is a shortcut for `git add -u && git commit`, **not** for
+then commit". It is shorthand for `git add -u && git commit`, **not** for
 `git add . && git commit`.
 
-**What I learned / interview point:** `-a` is convenient but it is also a blunt
-instrument - it sweeps up *every* modified tracked file, so it is easy to commit
-a debug print or a stray config change you did not mean to include. `git status`
-before committing, and `git add` for specific files, is the safer habit. And you
-can never rely on `-a` when you have added new files.
+**Interview point:** `-a` is convenient but blunt - it sweeps up *every* modified
+tracked file, so it is easy to commit a stray debug print or config change you
+did not mean to include. `git status` before committing, and `git add` for
+specific files, is the safer habit. And you can never rely on `-a` when you have
+added new files.
 
 ---
 
-# Task 2 - Git Cherry-Pick
+## Task 2: Git Cherry-Pick
 
-## Step 1 - 3 commits on the main branch
+- Create 2-4 commits in the main branch.
+- Use `git log` to view the commits.
+- Create a new branch and make 2-3 commits there.
+- Use `git log` to identify a specific commit.
+- Cherry-pick one specific commit into the main branch.
+- Verify the change is now in the main branch.
 
+### Commands - three commits on the main branch
+
+```bash
+mkdir -p cherry-pick-practice && cd cherry-pick-practice
+echo '<h1>My Site</h1>' > index.html
+git add index.html && git commit -m "add index.html homepage"
+echo 'body { font-family: sans-serif; }' > style.css
+git add style.css && git commit -m "add basic stylesheet"
+echo '<p>Welcome to my site</p>' >> index.html
+git add index.html && git commit -m "add welcome text to homepage"
+git log --oneline -3
 ```
-$ mkdir -p cherry-pick-practice && cd cherry-pick-practice
 
-$ echo '<h1>My Site</h1>' > index.html
-$ git add index.html && git commit -m "add index.html homepage"
+### Output
 
-$ echo 'body { font-family: sans-serif; }' > style.css
-$ git add style.css && git commit -m "add basic stylesheet"
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 
-$ echo '<p>Welcome to my site</p>' >> index.html
-$ git add index.html && git commit -m "add welcome text to homepage"
-```
+rajasurya@Rajasuryas-MacBook-Air devops-heros % mkdir -p session5-git-github/Rajasurya-24BCS10086/practice/che
+rry-pick-practice && cd session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice
 
-```
-$ git log --oneline -3
-9fb12f1 add welcome text to homepage
-15ee298 add basic stylesheet
-ef399ee add index.html homepage
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo '<h1>My Site</h1>' > index.html
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add index.html && git commit -m "add index.html homepage"
+[git-hw-main 8d1ec00] add index.html homepage
+ 1 file changed, 1 insertion(+)
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice/index.html
 
-$ git branch --show-current
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo 'body { font-family: sans-serif; }' > style.css
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add style.css && git commit -m "add basic stylesheet"
+[git-hw-main 73f1299] add basic stylesheet
+ 1 file changed, 1 insertion(+)
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice/style.css
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo '<p>Welcome to my site</p>' >> index.html
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add index.html && git commit -m "add welcome text to homep
+age"
+[git-hw-main 2609996] add welcome text to homepage
+ 1 file changed, 1 insertion(+)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git log --oneline -3
+2609996 (HEAD -> git-hw-main) add welcome text to homepage
+73f1299 add basic stylesheet
+8d1ec00 add index.html homepage
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git branch --show-current
 git-hw-main
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % ls
+index.html style.css
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-## Step 2 - create a new branch and make 3 commits on it
+![three commits on git-hw-main shown with git log --oneline](images/git-04-main-commits.png)
 
+### Commands - a new branch with three more commits
+
+```bash
+git switch -c feature-pages
+echo '<h2>About</h2>' > about.html
+git add about.html && git commit -m "add about page"
+echo '<h2>Contact</h2><p>mail me</p>' > contact.html
+git add contact.html && git commit -m "add contact page"
+echo '<footer>copyright 2026</footer>' >> index.html
+git add index.html && git commit -m "add footer to homepage"
+git log --oneline -6
+ls
 ```
-$ git switch -c feature-pages
+
+### Output
+
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cd session5-git-github/Rajasurya-24BCS10086/practice/cherry-pi
+ck-practice
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git switch -c feature-pages
 Switched to a new branch 'feature-pages'
 
-$ echo '<h2>About</h2>' > about.html
-$ git add about.html && git commit -m "add about page"
-
-$ echo '<h2>Contact</h2><p>mail me</p>' > contact.html
-$ git add contact.html && git commit -m "add contact page"
-
-$ echo '<footer>copyright 2026</footer>' >> index.html
-$ git add index.html && git commit -m "add footer to homepage"
-```
-
-```
-$ git log --oneline -6
-2154497 add footer to homepage
-1e45e53 add contact page
-b0910b0 add about page
-9fb12f1 add welcome text to homepage
-15ee298 add basic stylesheet
-ef399ee add index.html homepage
-
-$ ls
-about.html
-contact.html
-index.html
-style.css
-```
-
-## Step 3 - identify the one commit I want
-
-I decided I only want the **contact page** on main - not the about page, not the
-footer. That is commit **`1e45e53`**.
-
-```
-$ git show --stat --oneline 1e45e53
-1e45e53 add contact page
- homework/git/practice/cherry-pick-practice/contact.html | 1 +
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo '<h2>About</h2>' > about.html
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add about.html && git commit -m "add about page"
+[feature-pages 3b40113] add about page
  1 file changed, 1 insertion(+)
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice/about.html
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo '<h2>Contact</h2><p>mail me</p>' > contact.html
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add contact.html && git commit -m "add contact page"
+[feature-pages 81680dd] add contact page
+ 1 file changed, 1 insertion(+)
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice/contact.html
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo '<footer>copyright 2026</footer>' >> index.html
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git add index.html && git commit -m "add footer to homepage"
+[feature-pages bc1873e] add footer to homepage
+ 1 file changed, 1 insertion(+)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git log --oneline -6
+bc1873e (HEAD -> feature-pages) add footer to homepage
+81680dd add contact page
+3b40113 add about page
+2609996 (git-hw-main) add welcome text to homepage
+73f1299 add basic stylesheet
+8d1ec00 add index.html homepage
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % ls
+about.html   contact.html index.html   style.css
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-## Step 4 - go back to main and cherry-pick it
+![three more commits on the feature-pages branch](images/git-05-branch-commits.png)
 
+Six commits now, and the branch has `about.html`, `contact.html` and a footer.
+
+### Commands - identify one commit and cherry-pick it
+
+I only want the **contact page** on main - not the about page, not the footer.
+That is commit **`81680dd`**.
+
+```bash
+git show --stat --oneline 81680dd
+git switch git-hw-main
+ls                       # only the original two files
+git cherry-pick 81680dd
+ls                       # contact.html is now here
+cat contact.html
+cat index.html
 ```
-$ git switch git-hw-main
+
+### Output
+
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cd session5-git-github/Rajasurya-24BCS10086/practice/cherry-pi
+ck-practice
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git show --stat --oneline 81680dd
+81680dd add contact page
+ session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice/contact.html | 1 +
+ 1 file changed, 1 insertion(+)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git switch git-hw-main
 Switched to branch 'git-hw-main'
 
-$ ls
-index.html
-style.css
-```
+rajasurya@Rajasuryas-MacBook-Air devops-heros % ls
+index.html style.css
 
-Only the two original files - as expected, none of the branch work is here yet.
-
-```
-$ git cherry-pick 1e45e53
-[git-hw-main 74c7ba6] add contact page
- Date: Thu Sep 3 18:10:48 2026 +0530
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git cherry-pick 81680dd
+[git-hw-main 2f45cfb] add contact page
+ Date: Thu Sep 3 20:48:19 2026 +0530
  1 file changed, 1 insertion(+)
- create mode 100644 homework/git/practice/cherry-pick-practice/contact.html
+ create mode 100644 session5-git-github/Rajasurya-24BCS10086/practice/cherry-pick-practice/contact.html
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % echo "exit code: $?"
 exit code: 0
-```
 
-## Step 5 - verify
+rajasurya@Rajasuryas-MacBook-Air devops-heros % ls
+contact.html index.html   style.css
 
-```
-$ ls
-contact.html
-index.html
-style.css
-
-$ cat contact.html
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cat contact.html
 <h2>Contact</h2><p>mail me</p>
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cat index.html
+<h1>My Site</h1>
+<p>Welcome to my site</p>
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-`contact.html` is now on main.
+![cherry-picking a single commit from feature-pages onto git-hw-main](images/git-06-cherry-pick.png)
 
-```
-$ git log --oneline -5
-74c7ba6 add contact page
-9fb12f1 add welcome text to homepage
-15ee298 add basic stylesheet
-ef399ee add index.html homepage
-b6e0921 remove extra.txt - -a picks up deletions too
+### Commands - verify
+
+```bash
+git log --oneline -5
+git log --oneline --graph --all -9
+git branch -v
 ```
 
-And the whole picture:
+### Output
 
-```
-$ git log --oneline --graph --all -9
-* 74c7ba6 add contact page
-| * 2154497 add footer to homepage
-| * 1e45e53 add contact page
-| * b0910b0 add about page
+```text
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % cd session5-git-github/Rajasurya-24BCS10086/practice/cherry-pi
+ck-practice
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git log --oneline -5
+2f45cfb (HEAD -> git-hw-main) add contact page
+2609996 add welcome text to homepage
+73f1299 add basic stylesheet
+8d1ec00 add index.html homepage
+e524100 remove extra.txt - -a picks up deletions too
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git log --oneline --graph --all -9
+* 2f45cfb (HEAD -> git-hw-main) add contact page
+| * bc1873e (feature-pages) add footer to homepage
+| * 81680dd add contact page
+| * 3b40113 add about page
 |/
-* 9fb12f1 add welcome text to homepage
-* 15ee298 add basic stylesheet
-* ef399ee add index.html homepage
-* b6e0921 remove extra.txt - -a picks up deletions too
-* 55680d8 add extra.txt (needed git add first)
+* 2609996 add welcome text to homepage
+* 73f1299 add basic stylesheet
+* 8d1ec00 add index.html homepage
+* e524100 remove extra.txt - -a picks up deletions too
+* 1e264c4 add extra.txt (needed git add first)
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros % git branch -v
+  feature-pages bc1873e add footer to homepage
+* git-hw-main   2f45cfb add contact page
+  main          0d33d82 [ahead 2] restructure: move homework into per-session Name-Enrollment folders with ima ges
+
+rajasurya@Rajasuryas-MacBook-Air devops-heros %
 ```
 
-```
-$ git branch -v
-  feature-pages 2154497 add footer to homepage
-* git-hw-main   74c7ba6 add contact page
-  main          76f3591 [ahead 3] shell scripting homework: system-info.sh
-```
+![git log --graph --all showing the cherry-picked commit with a new hash](images/git-07-verify.png)
 
-## What the output actually proves
+### What this proves
 
-1. **Only one commit came across.** `ls` on main shows `contact.html` but **not**
-   `about.html`, and:
+1. **Only one commit came across.** `ls` on `git-hw-main` shows `contact.html`
+   but **not** `about.html`, and `cat index.html` has **no `<footer>` line**. The
+   other two commits were left behind - exactly the one change I asked for.
 
-   ```
-   $ cat index.html
-   <h1>My Site</h1>
-   <p>Welcome to my site</p>
-   ```
+2. **The hash changed: `81680dd` -> `2f45cfb`.** Same message, same diff, but a
+   **different commit object**, because a commit hash is computed from its
+   content *and its parent*, and the copy has a different parent. Cherry-pick
+   does not move a commit; it **replays the diff as a brand new commit**.
 
-   No `<footer>` line. So commits `b0910b0` and `2154497` were left behind - I
-   copied exactly the one change I asked for.
-
-2. **The hash changed: `1e45e53` -> `74c7ba6`.** The message and the diff are
-   identical, but it is a **different commit object**. That is because a commit
-   hash is computed from its content *and its parent*, and the new copy has a
-   different parent (`9fb12f1` instead of `b0910b0`). Cherry-pick does not move a
-   commit - it **replays the diff** as a brand new commit.
-
-3. The graph shows the two lines of history diverging at `9fb12f1`, with
-   `add contact page` appearing on **both** sides - once as the original and once
-   as the replayed copy.
-
-## What I learned
-
-- `git cherry-pick <hash>` = "take the change this one commit made and apply it
-  here". Very useful for pulling a single bugfix from a feature branch into a
-  release branch without merging the half-finished features with it.
-- The commit hash **always changes**, so the same change now exists twice in the
-  repo. If the feature branch is merged later, git usually notices the identical
-  patch and does not duplicate it, but it can also cause a conflict - which is
-  why cherry-pick is for exceptions, not a substitute for merging.
-- `git log --oneline --graph --all` is the command that makes any of this make
-  sense. Without `--graph` I could not see that the branches diverged.
-- If the patch does not apply cleanly you get a conflict and have to fix it, then
-  `git cherry-pick --continue` (or `--abort` to back out). Mine applied cleanly
-  because `contact.html` was a brand new file that nothing else touched.
+3. The graph shows the two lines of history diverging at `2609996`, with
+   `add contact page` appearing on **both** sides - once as the original
+   `81680dd` and once as the replayed `2f45cfb`.
 
 ## Command reference from this homework
 
@@ -360,14 +488,31 @@ $ git branch -v
 |---|---|
 | `git status` | what is modified / staged / untracked |
 | `git status --short` | the compact two-column version |
-| `git add <file>` | stage a specific file (only way to add a new file) |
+| `git add <file>` | stage a specific file (the only way to add a new file) |
 | `git commit -m "msg"` | commit **only what is staged** |
 | `git commit -a -m "msg"` | auto-stage tracked modifications + deletions, then commit |
 | `git log --oneline` | compact history |
-| `git log --oneline --graph --all` | history of all branches with the branch structure |
+| `git log --oneline --graph --all` | all branches with the branch structure |
 | `git show --stat <hash>` | what one commit changed |
 | `git switch -c <branch>` | create a branch and move to it |
 | `git switch <branch>` | move to an existing branch |
-| `git branch -v` | list branches with their latest commit |
+| `git branch -v` | branches with their latest commit |
 | `git cherry-pick <hash>` | replay one commit onto the current branch |
-| `git cherry-pick --abort` | undo a cherry-pick that hit a conflict |
+| `git cherry-pick --abort` | back out of a cherry-pick that hit a conflict |
+
+## What I learned
+
+- `-a` is `git add -u`, not `git add .`. It never picks up new files, and the
+  `git show --stat` output proving "1 file changed" made that concrete.
+- `git cherry-pick <hash>` means "take the change this one commit made and apply
+  it here" - useful for pulling a single bugfix from a feature branch into a
+  release branch without dragging the half-finished features along.
+- The hash **always** changes, so the same change now exists twice in the repo.
+  If the feature branch is merged later git usually notices the identical patch,
+  but it can also conflict - which is why cherry-pick is for exceptions, not a
+  substitute for merging.
+- `git log --oneline --graph --all` is the command that makes any of this make
+  sense. Without `--graph` I could not see that the branches had diverged.
+- Mine applied cleanly because `contact.html` was a brand new file nothing else
+  touched. If it conflicted I would fix the files and run
+  `git cherry-pick --continue`, or `--abort` to back out.

@@ -8,17 +8,17 @@ My notes and homework for the DevOps course.
 ## DevOps HomeWork
 - Assignment doc: https://docs.google.com/document/d/1cjXFYf2Thm8cBEN-0C48B-v02cj3jGLd47lcO18prHE/edit
 
-### My completed homework -> [`homework/`](homework/README.md)
+### My completed homework -> [`HOMEWORK.md`](HOMEWORK.md)
 
 | Section | Link |
 |---|---|
-| Linux Fundamentals | [homework/linux](homework/linux/README.md) |
-| Shell Scripting | [homework/shell-scripting](homework/shell-scripting/README.md) |
-| Networking | [homework/networking](homework/networking/README.md) |
-| Git and GitHub | [homework/git](homework/git/README.md) |
-| Docker Images | [homework/docker-images](homework/docker-images/README.md) |
-| Docker Multi-Stage Build | [homework/docker-multistage](homework/docker-multistage/README.md) |
-| Docker Networking and Volumes | [homework/docker-networking](homework/docker-networking/README.md) |
+| Linux Fundamentals | [session2-linux/Rajasurya-24BCS10086](session2-linux/Rajasurya-24BCS10086/README.md) |
+| Shell Scripting | [session3-shell-scripting/Rajasurya-24BCS10086](session3-shell-scripting/Rajasurya-24BCS10086/README.md) |
+| Networking | [session4-networking/Rajasurya-24BCS10086](session4-networking/Rajasurya-24BCS10086/README.md) |
+| Git and GitHub | [session5-git-github/Rajasurya-24BCS10086](session5-git-github/Rajasurya-24BCS10086/README.md) |
+| Docker Fundamentals | [session6-docker/Rajasurya-24BCS10086](session6-docker/Rajasurya-24BCS10086/README.md) |
+| Dockerfiles & Images | [session7-dockerfiles-images/Rajasurya-24BCS10086](session7-dockerfiles-images/Rajasurya-24BCS10086/README.md) |
+| Docker Networking and Volumes | [session8-docker-networking-volume/Rajasurya-24BCS10086](session8-docker-networking-volume/Rajasurya-24BCS10086/README.md) |
 
 ## Class notes by session
 - [session1 - DevOps engineer roadmap](session1-devops-engineer-roadmap/)
@@ -27,6 +27,7 @@ My notes and homework for the DevOps course.
 - [session4 - Networking](session4-networking/)
 - [session5 - Git & GitHub](session5-git-github/)
 - [session6 - Docker](session6-docker/)
+- [session7 - Dockerfiles & images](session7-dockerfiles-images/)
 - [session8 - Docker networking & volumes](session8-docker-networking-volume/)
 
 ## Submission link
