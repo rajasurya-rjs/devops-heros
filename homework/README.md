@@ -22,6 +22,10 @@ output they produced.
 
 Screenshots are in [`docs/screenshots/`](docs/screenshots/).
 
+The pushed repository:
+
+![The homework folder on GitHub](docs/screenshots/github-repo.png)
+
 ## My setup
 
 - **Laptop:** MacBook Air (Apple Silicon), macOS 26.6
