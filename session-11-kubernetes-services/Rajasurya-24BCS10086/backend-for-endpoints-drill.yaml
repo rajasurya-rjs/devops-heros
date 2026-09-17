@@ -1,0 +1,30 @@
+# A tiny real backend so the empty-endpoints triage drill has something
+# that SHOULD have matched, making the selector typo visible.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yatri-backend
+  labels:
+    app: yatri-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: yatri-backend
+  template:
+    metadata:
+      labels:
+        app: yatri-backend
+    spec:
+      containers:
+        - name: backend
+          image: nginx:1.25-alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "32Mi"
+            limits:
+              cpu: "80m"
+              memory: "64Mi"

@@ -1,0 +1,56 @@
+# Same lesson as k8s-core-objects/statefulset.yml (ordinal identity + one PVC per pod),
+# but with an image that has an arm64 build and a memory footprint that fits a 3 GB
+# minikube VM. The upstream manifest pins mysql:5.7, which is published for amd64 only
+# and therefore cannot start on an Apple Silicon Mac.
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-ordinal
+  labels:
+    app: web-ordinal
+spec:
+  clusterIP: None          # headless service - required by a StatefulSet
+  selector:
+    app: web-ordinal
+  ports:
+    - name: web
+      port: 80
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: web-ordinal
+spec:
+  serviceName: "web-ordinal"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-ordinal
+  template:
+    metadata:
+      labels:
+        app: web-ordinal
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.25-alpine
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: data
+              mountPath: /usr/share/nginx/html
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "32Mi"
+            limits:
+              cpu: "80m"
+              memory: "64Mi"
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 128Mi

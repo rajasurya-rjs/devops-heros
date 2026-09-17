@@ -1,0 +1,35 @@
+# Task 7 - a Service with NO selector, plus a hand-written Endpoints object.
+#
+# Normally the EndpointSlice controller fills in a Service's backends by running
+# its selector against the pods. A Service with no selector is never touched by
+# that controller, so YOU own the backend list. This is the standard way to give
+# an external dependency (a managed database, a legacy VM, a third-party API)
+# a stable in-cluster DNS name and ClusterIP.
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-legacy-api
+spec:
+  type: ClusterIP
+  # NOTE: no `selector:` block at all - that is the whole point.
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+---
+# The Endpoints object MUST be named exactly like the Service it backs.
+# That name match is the only thing linking the two.
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: external-legacy-api
+subsets:
+  - addresses:
+      # An address outside the pod CIDR - here the minikube node itself,
+      # standing in for a machine that lives outside the cluster.
+      - ip: 192.168.64.2
+    ports:
+      - name: http
+        port: 80
+        protocol: TCP

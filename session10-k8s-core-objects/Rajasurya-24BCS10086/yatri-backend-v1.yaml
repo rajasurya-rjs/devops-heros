@@ -1,0 +1,44 @@
+# A HEALTHY v1 of the same Deployment that troubleshooting/broken-image.yaml
+# upgrades. Needed so the broken rollout has healthy old pods to protect -
+# that is the whole point of the drill.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yatri-backend
+  labels:
+    app: yatri-backend
+    version: "v1"
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: yatri-backend
+  template:
+    metadata:
+      labels:
+        app: yatri-backend
+        version: "v1"
+    spec:
+      containers:
+        - name: backend
+          image: nginx:1.24-alpine
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "32Mi"
+            limits:
+              cpu: "80m"
+              memory: "64Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 5
