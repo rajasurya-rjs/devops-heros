@@ -1,0 +1,177 @@
+---
+# Source: operations-notes-three-tier/templates/backend.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: backend-config}
+data:
+  APP_TITLE: Operations Notes
+  APP_VERSION: three-tier
+  PGHOST: database
+  PGUSER: notes
+  PGDATABASE: notes
+---
+# Source: operations-notes-three-tier/templates/backend.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: backend}
+spec:
+  selector: {app: backend}
+  ports: [{port: 8080, targetPort: 8080}]
+---
+# Source: operations-notes-three-tier/templates/database.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: database}
+spec:
+  clusterIP: None
+  selector: {app: database}
+  ports: [{port: 5432, targetPort: 5432}]
+---
+# Source: operations-notes-three-tier/templates/frontend.yaml
+apiVersion: v1
+kind: Service
+metadata: {name: frontend}
+spec:
+  selector: {app: frontend}
+  ports: [{port: 8080, targetPort: 8080}]
+---
+# Source: operations-notes-three-tier/templates/backend.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: backend}
+spec:
+  selector: {matchLabels: {app: backend}}
+  template:
+    metadata: {labels: {app: backend}}
+    spec:
+      securityContext: {runAsNonRoot: true, runAsUser: 10001, runAsGroup: 10001}
+      containers:
+        - name: backend
+          image: "ops-notes-backend:local"
+          imagePullPolicy: IfNotPresent
+          ports: [{containerPort: 8080}]
+          envFrom: [{configMapRef: {name: backend-config}}]
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef: {name: three-tier-credentials, key: password}
+            - name: APP_TOKEN
+              valueFrom:
+                secretKeyRef: {name: three-tier-credentials, key: token}
+          resources:
+            requests: {cpu: 20m, memory: 32Mi}
+            limits: {cpu: 300m, memory: 128Mi}
+          startupProbe:
+            httpGet: {path: /ready, port: 8080}
+            failureThreshold: 60
+            periodSeconds: 3
+          readinessProbe:
+            httpGet: {path: /ready, port: 8080}
+            periodSeconds: 3
+          livenessProbe:
+            httpGet: {path: /health, port: 8080}
+            periodSeconds: 10
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+          volumeMounts: [{name: tmp, mountPath: /tmp}]
+      volumes: [{name: tmp, emptyDir: {}}]
+---
+# Source: operations-notes-three-tier/templates/frontend.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: frontend}
+spec:
+  replicas: 1
+  selector: {matchLabels: {app: frontend}}
+  template:
+    metadata: {labels: {app: frontend}}
+    spec:
+      securityContext: {runAsNonRoot: true, runAsUser: 101, runAsGroup: 101}
+      containers:
+        - name: frontend
+          image: "ops-notes-frontend:local"
+          imagePullPolicy: IfNotPresent
+          ports: [{containerPort: 8080}]
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+          readinessProbe: {httpGet: {path: /health, port: 8080}, periodSeconds: 3}
+          livenessProbe: {httpGet: {path: /, port: 8080}, periodSeconds: 10}
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+          volumeMounts: [{name: tmp, mountPath: /tmp}]
+      volumes: [{name: tmp, emptyDir: {}}]
+---
+# Source: operations-notes-three-tier/templates/backend.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: {name: backend}
+spec:
+  scaleTargetRef: {apiVersion: apps/v1, kind: Deployment, name: backend}
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: {type: Utilization, averageUtilization: 50}
+---
+# Source: operations-notes-three-tier/templates/database.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: {name: database}
+spec:
+  serviceName: database
+  replicas: 1
+  selector: {matchLabels: {app: database}}
+  template:
+    metadata: {labels: {app: database}}
+    spec:
+      securityContext: {runAsUser: 70, runAsGroup: 70, fsGroup: 70}
+      containers:
+        - name: postgres
+          image: postgres:17-alpine
+          ports: [{containerPort: 5432}]
+          env:
+            - {name: POSTGRES_USER, value: notes}
+            - {name: POSTGRES_DB, value: notes}
+            - {name: PGDATA, value: /var/lib/postgresql/data/pgdata}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef: {name: three-tier-credentials, key: password}
+          resources:
+            requests: {cpu: 30m, memory: 64Mi}
+            limits: {cpu: 300m, memory: 256Mi}
+          readinessProbe:
+            exec: {command: [pg_isready, -U, notes, -d, notes]}
+            periodSeconds: 3
+          livenessProbe:
+            exec: {command: [pg_isready, -U, notes, -d, notes]}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          volumeMounts: [{name: postgres-data, mountPath: /var/lib/postgresql/data}]
+  volumeClaimTemplates:
+    - metadata: {name: postgres-data}
+      spec:
+        accessModes: [ReadWriteOnce]
+        storageClassName: standard
+        resources: {requests: {storage: 256Mi}}
+---
+# Source: operations-notes-three-tier/templates/frontend.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata: {name: frontend}
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: notes.project.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: {name: frontend, port: {number: 8080}}

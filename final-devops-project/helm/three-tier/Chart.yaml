@@ -1,0 +1,6 @@
+apiVersion: v2
+name: operations-notes-three-tier
+description: Frontend, backend and PostgreSQL deployment
+type: application
+version: 1.0.0
+appVersion: three-tier

@@ -1,0 +1,116 @@
+name: Three-tier Project CI CD
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'final-devops-project/application/**'
+      - 'final-devops-project/docker/**'
+      - 'final-devops-project/helm/three-tier/**'
+      - '.github/workflows/three-tier-project.yml'
+  pull_request:
+    paths:
+      - 'final-devops-project/application/**'
+      - 'final-devops-project/docker/**'
+      - 'final-devops-project/helm/three-tier/**'
+      - '.github/workflows/three-tier-project.yml'
+permissions:
+  contents: read
+jobs:
+  test-security:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: notes
+          POSTGRES_DB: notes
+          POSTGRES_PASSWORD: ci-test-only
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U notes -d notes" --health-interval 5s --health-timeout 3s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - name: Install application and security dependencies
+        run: pip install -r final-devops-project/application/requirements.txt bandit pip-audit
+      - name: Backend tests with SQLite and PostgreSQL
+        run: |
+          set -o pipefail
+          mkdir -p reports
+          python -m unittest discover -s final-devops-project/application/tests -v 2>&1 | tee reports/sqlite-tests.txt
+          PGHOST=127.0.0.1 PGUSER=notes PGDATABASE=notes PGPASSWORD=ci-test-only python -m unittest discover -s final-devops-project/application/tests -v 2>&1 | tee reports/postgres-tests.txt
+      - name: SAST and SCA gates
+        run: |
+          set -o pipefail
+          bandit -r final-devops-project/application -x final-devops-project/application/tests 2>&1 | tee reports/sast.txt
+          pip-audit -r final-devops-project/application/requirements.txt 2>&1 | tee reports/sca.txt
+      - name: Secret scanning gate
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          set -o pipefail
+          gh release download --repo gitleaks/gitleaks --pattern '*linux_x64.tar.gz' --dir /tmp/gitleaks
+          tar -xzf /tmp/gitleaks/*linux_x64.tar.gz -C /tmp/gitleaks
+          /tmp/gitleaks/gitleaks dir final-devops-project --redact --no-banner 2>&1 | tee reports/secrets.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: three-tier-test-security, path: reports/}
+  build-push-deploy:
+    needs: test-security
+    runs-on: ubuntu-latest
+    permissions: {contents: read, packages: write}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build frontend and backend
+        run: |
+          prefix="ghcr.io/${GITHUB_REPOSITORY,,}"
+          echo "IMAGE_PREFIX=$prefix" >> "$GITHUB_ENV"
+          docker build -t "$prefix/ops-notes-backend:$GITHUB_SHA" -f final-devops-project/docker/backend.Dockerfile final-devops-project
+          docker build -t "$prefix/ops-notes-frontend:$GITHUB_SHA" -f final-devops-project/docker/frontend.Dockerfile final-devops-project
+      - uses: aquasecurity/setup-trivy@v0.3.1
+      - name: Trivy gates for both application images
+        run: |
+          set -o pipefail
+          mkdir -p reports
+          for tier in backend frontend; do
+            trivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 "$IMAGE_PREFIX/ops-notes-$tier:$GITHUB_SHA" 2>&1 | tee "reports/trivy-$tier.txt"
+          done
+      - name: Push scanned images to GHCR
+        if: github.event_name != 'pull_request'
+        env: {REGISTRY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'}
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE_PREFIX/ops-notes-backend:$GITHUB_SHA"
+          docker push "$IMAGE_PREFIX/ops-notes-frontend:$GITHUB_SHA"
+      - uses: helm/kind-action@v1.12.0
+        with: {cluster_name: three-tier-ci}
+      - uses: azure/setup-helm@v4
+        with: {version: v3.22.0}
+      - name: Deploy all three tiers using Helm
+        run: |
+          kind load docker-image "$IMAGE_PREFIX/ops-notes-backend:$GITHUB_SHA" "$IMAGE_PREFIX/ops-notes-frontend:$GITHUB_SHA" --name three-tier-ci
+          kubectl create namespace project-three-tier
+          password_file=$(mktemp)
+          token_file=$(mktemp)
+          trap 'rm -f "$password_file" "$token_file"' EXIT
+          openssl rand -hex 24 | tr -d '\n' > "$password_file"
+          openssl rand -hex 24 > "$token_file"
+          kubectl create secret generic three-tier-credentials -n project-three-tier --from-file=password="$password_file" --from-file=token="$token_file"
+          helm upgrade --install notes final-devops-project/helm/three-tier -n project-three-tier \
+            --set backend.repository="$IMAGE_PREFIX/ops-notes-backend" --set backend.tag="$GITHUB_SHA" \
+            --set frontend.repository="$IMAGE_PREFIX/ops-notes-frontend" --set frontend.tag="$GITHUB_SHA" \
+            --set ingress.enabled=false --set hpa.enabled=false --wait --timeout 300s
+      - name: Verify frontend, API and PostgreSQL
+        run: |
+          set -o pipefail
+          kubectl get pods,svc,pvc -n project-three-tier | tee reports/kubernetes.txt
+          kubectl port-forward -n project-three-tier svc/frontend 18082:8080 >/tmp/port-forward.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18082/ready; then break; fi
+            sleep 1
+          done
+          python3 final-devops-project/kubernetes/verify-api.py http://127.0.0.1:18082 | tee reports/api.txt
+          kubectl exec -n project-three-tier database-0 -- psql -U notes -d notes -c 'SELECT id, text FROM notes;' | tee reports/database.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: three-tier-build-deploy, path: reports/}

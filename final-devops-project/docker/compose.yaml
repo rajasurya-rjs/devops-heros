@@ -1,18 +1,53 @@
 services:
-  notes:
-    image: ${OPS_NOTES_IMAGE:-ops-notes:local}
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    ports: ["127.0.0.1:18080:8080"]
-    environment:
-      APP_TITLE: Operations Notes
-      APP_VERSION: v1
-    volumes: ["notes-data:/data"]
+  frontend:
+    image: ${FRONTEND_IMAGE:-ops-notes-frontend:local}
+    build: {context: .., dockerfile: docker/frontend.Dockerfile}
+    ports: ["127.0.0.1:18082:8080"]
+    depends_on:
+      backend: {condition: service_healthy}
+    networks: [web]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health')"]
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/health"]
       interval: 5s
       timeout: 3s
-      retries: 5
+      retries: 10
+  backend:
+    image: ${BACKEND_IMAGE:-ops-notes-backend:local}
+    build: {context: .., dockerfile: docker/backend.Dockerfile}
+    environment:
+      DATABASE_URL: postgresql://notes:${DB_PASSWORD:?Set DB_PASSWORD in the local .env file}@database:5432/notes
+      APP_TITLE: Operations Notes
+      APP_VERSION: three-tier
+    depends_on:
+      database: {condition: service_healthy}
+    networks: [web, data]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/ready')"]
+      interval: 5s
+      timeout: 6s
+      retries: 10
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: notes
+      POSTGRES_DB: notes
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in the local .env file}
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    networks: [data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U notes -d notes"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+networks:
+  web:
+  data:
+    internal: true
 volumes:
-  notes-data:
+  postgres-data:

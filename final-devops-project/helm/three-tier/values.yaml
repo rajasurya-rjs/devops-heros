@@ -1,0 +1,17 @@
+frontend:
+  repository: ops-notes-frontend
+  tag: local
+backend:
+  repository: ops-notes-backend
+  tag: local
+postgresImage: postgres:17-alpine
+existingSecret: three-tier-credentials
+storageClass: standard
+storageSize: 256Mi
+replicas: 2
+ingress:
+  enabled: true
+  className: nginx
+  host: notes.project.local
+hpa:
+  enabled: true

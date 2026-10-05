@@ -1,4 +1,4 @@
-"""Operations Notes: standard-library HTTP API, SQLite persistence and metrics."""
+"""Operations Notes HTTP API with PostgreSQL or SQLite persistence and metrics."""
 import json
 import os
 import resource
@@ -10,13 +10,46 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 DB_PATH = os.environ.get("DB_PATH", "/data/notes.db")
+DATABASE_URL = os.environ.get("DATABASE_URL")
+POSTGRES = bool(DATABASE_URL or os.environ.get("PGHOST"))
+if POSTGRES:
+    import psycopg
+    DATABASE_ERRORS = (sqlite3.Error, psycopg.Error)
+else:
+    DATABASE_ERRORS = (sqlite3.Error,)
 STARTED = time.monotonic()
 COUNTERS = {"requests": 0, "errors": 0}
 LOCK = threading.Lock()
 
+class Database:
+    """Use the same bound-parameter operations for either storage engine."""
+    def __init__(self):
+        self.db = (psycopg.connect(DATABASE_URL or "", connect_timeout=5)
+                   if POSTGRES else sqlite3.connect(DB_PATH, timeout=15))
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, kind, value, traceback):
+        try:
+            self.db.rollback() if kind else self.db.commit()
+        finally:
+            self.db.close()
+
+    def execute(self, query, params=()):
+        return self.db.execute(query.replace("?", "%s") if POSTGRES else query, params)
+
+
 def connect():
-    db = sqlite3.connect(DB_PATH, timeout=15)
-    return db
+    return Database()
+
+
+def init_db():
+    schema = ("CREATE TABLE IF NOT EXISTS notes (id SERIAL PRIMARY KEY, text TEXT NOT NULL)"
+              if POSTGRES else
+              "CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
+    with connect() as db:
+        db.execute(schema)
 
 class Handler(BaseHTTPRequestHandler):
     def respond(self, status, body, content_type="application/json"):
@@ -40,7 +73,7 @@ class Handler(BaseHTTPRequestHandler):
                 with connect() as db:
                     db.execute("SELECT 1").fetchone()
                 self.respond(200, {"status": "ok", "version": os.getenv("APP_VERSION", "v1")})
-            except sqlite3.Error:
+            except DATABASE_ERRORS:
                 self.respond(503, {"status": "database unavailable"})
         elif path == "/api/notes":
             with connect() as db:
@@ -49,7 +82,8 @@ class Handler(BaseHTTPRequestHandler):
         elif path == "/api/config":
             self.respond(200, {"title": os.getenv("APP_TITLE", "Operations Notes"),
                               "version": os.getenv("APP_VERSION", "v1"),
-                              "secret_injected": bool(os.getenv("APP_TOKEN"))})
+                              "secret_injected": bool(os.getenv("APP_TOKEN")),
+                              "database": "PostgreSQL" if POSTGRES else "SQLite"})
         elif path == "/metrics":
             usage = resource.getrusage(resource.RUSAGE_SELF)
             with LOCK:
@@ -96,7 +130,7 @@ ops_memory_maxrss {usage.ru_maxrss}
                         self.respond(404, {"error": "note not found"})
                         return
                 else:
-                    ident = db.execute("INSERT INTO notes(text) VALUES (?)", (text,)).lastrowid
+                    ident = db.execute("INSERT INTO notes(text) VALUES (?) RETURNING id", (text,)).fetchone()[0]
             self.respond(200 if update else 201, {"id": ident, "text": text})
         except (ValueError, TypeError, AttributeError):
             self.respond(400, {"error": "invalid note"})
@@ -130,9 +164,17 @@ ops_memory_maxrss {usage.ru_maxrss}
         print(json.dumps({"component": "http", "message": fmt % args}), flush=True)
 
 if __name__ == "__main__":
-    Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
-    with connect() as db:
-        db.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
+    if not POSTGRES:
+        Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
+    for attempt in range(60):
+        try:
+            init_db()
+            break
+        except DATABASE_ERRORS:
+            if attempt == 59:
+                raise
+            print("Waiting for database startup", flush=True)
+            time.sleep(2)
     # Container port must accept traffic from the Service and probes.
     server = ThreadingHTTPServer(("0.0.0.0", int(os.getenv("PORT", "8080"))), Handler)  # nosec B104
     print("Operations Notes listening on port 8080", flush=True)

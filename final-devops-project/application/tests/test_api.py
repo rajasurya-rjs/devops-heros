@@ -17,8 +17,7 @@ class APITests(unittest.TestCase):
     def setUpClass(cls):
         cls.directory = tempfile.TemporaryDirectory()
         app.DB_PATH = str(Path(cls.directory.name) / "test.db")
-        with app.connect() as db:
-            db.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
+        app.init_db()
         cls.server = ThreadingHTTPServer(("127.0.0.1", 0), app.Handler)
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.thread.start()
@@ -67,6 +66,20 @@ class APITests(unittest.TestCase):
 
     def test_update_missing(self):
         self.assertEqual(self.request("/api/notes/99999", "PUT", {"text": "missing"})[0], 404)
+
+    def test_ready(self):
+        self.assertEqual(self.request("/ready")[0], 200)
+
+    def test_config(self):
+        code, body = self.request("/api/config")
+        self.assertEqual(code, 200)
+        self.assertEqual(json.loads(body)["database"], "PostgreSQL" if app.POSTGRES else "SQLite")
+
+    def test_work_endpoint(self):
+        self.assertEqual(self.request("/burn")[0], 200)
+
+    def test_invalid_delete_id(self):
+        self.assertEqual(self.request("/api/notes/invalid", "DELETE")[0], 400)
 
     def test_metrics(self):
         code, body = self.request("/metrics")

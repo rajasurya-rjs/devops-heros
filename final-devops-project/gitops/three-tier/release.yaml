@@ -1,0 +1,24 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: notes
+  namespace: project-three-tier
+spec:
+  interval: 1m
+  releaseName: notes
+  timeout: 5m
+  chart:
+    spec:
+      chart: ./final-devops-project/helm/three-tier
+      reconcileStrategy: Revision
+      sourceRef:
+        kind: GitRepository
+        name: homework
+        namespace: hw-gitops
+  values:
+    frontend: {repository: ops-notes-frontend, tag: local}
+    backend: {repository: ops-notes-backend, tag: local}
+    existingSecret: three-tier-credentials
+    storageClass: standard
+    ingress: {enabled: true, className: nginx, host: notes.project.local}
+    hpa: {enabled: true}
