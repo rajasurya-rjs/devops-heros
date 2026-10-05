@@ -1,5 +1,6 @@
 services:
   notes:
+    image: ${OPS_NOTES_IMAGE:-ops-notes:local}
     build:
       context: ..
       dockerfile: docker/Dockerfile

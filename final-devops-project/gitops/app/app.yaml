@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ops-notes:local
+          image: ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64
           env:
             - {name: DB_PATH, value: /tmp/gitops-notes.db}
           envFrom:
