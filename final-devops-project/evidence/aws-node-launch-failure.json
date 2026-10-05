@@ -1,0 +1,139 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "instances": [
+      {
+        "id": "i-017807d33c0bafaba",
+        "type": "t3.micro",
+        "state": {
+          "Code": 48,
+          "Name": "terminated"
+        },
+        "tags": [
+          {
+            "Key": "Enrollment",
+            "Value": "24BCS10086"
+          },
+          {
+            "Key": "Owner",
+            "Value": "Rajasurya"
+          },
+          {
+            "Key": "Name",
+            "Value": "rajasurya-devops-hw19-web"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "DevOps homework"
+          }
+        ]
+      },
+      {
+        "id": "i-029fb2fc75faa02df",
+        "type": "t3.micro",
+        "state": {
+          "Code": 16,
+          "Name": "running"
+        },
+        "tags": [
+          {
+            "Key": "Enrollment",
+            "Value": "24BCS10086"
+          },
+          {
+            "Key": "Purpose",
+            "Value": "DevOps homework"
+          },
+          {
+            "Key": "Name",
+            "Value": "rajasurya-final-devops-web"
+          },
+          {
+            "Key": "Owner",
+            "Value": "Rajasurya"
+          }
+        ],
+        "subnet": "subnet-0a003dcfb1d6234e0"
+      }
+    ],
+    "groups": [
+      {
+        "name": "eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2",
+        "desired": 1,
+        "instances": []
+      }
+    ],
+    "activities": [
+      {
+        "Activities": [
+          {
+            "ActivityId": "a6a6842d-3a3b-bbc4-83cd-5f9f378710bb",
+            "AutoScalingGroupName": "eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2",
+            "Description": "Launching a new EC2 instance.  Status Reason: Could not launch On-Demand Instances. InvalidParameterCombination - The specified instance type is not eligible for Free Tier. For a list of Free Tier instance types, run 'describe-instance-types' with the filter 'free-tier-eligible=true'. Launching EC2 instance failed.",
+            "Cause": "At 2026-10-05T09:04:18Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.",
+            "StartTime": "2026-10-05T09:04:20.206000+00:00",
+            "EndTime": "2026-10-05T09:04:20+00:00",
+            "StatusCode": "Failed",
+            "StatusMessage": "Could not launch On-Demand Instances. InvalidParameterCombination - The specified instance type is not eligible for Free Tier. For a list of Free Tier instance types, run 'describe-instance-types' with the filter 'free-tier-eligible=true'. Launching EC2 instance failed.",
+            "Progress": 100,
+            "Details": "{\"Availability Zone ID\":\"apse2-az3\",\"Subnet ID\":\"subnet-0d9e385ec0ffa74df\",\"Availability Zone\":\"ap-southeast-2b\"}",
+            "AutoScalingGroupARN": "arn:aws:autoscaling:ap-southeast-2:089540175430:autoScalingGroup:389bd983-56bb-47eb-bb8a-cddb65937324:autoScalingGroupName/eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2"
+          },
+          {
+            "ActivityId": "3416842d-3297-73e6-3657-97414fa8dfc8",
+            "AutoScalingGroupName": "eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2",
+            "Description": "Launching a new EC2 instance.  Status Reason: Could not launch On-Demand Instances. InvalidParameterCombination - The specified instance type is not eligible for Free Tier. For a list of Free Tier instance types, run 'describe-instance-types' with the filter 'free-tier-eligible=true'. Launching EC2 instance failed.",
+            "Cause": "At 2026-10-05T09:02:13Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.",
+            "StartTime": "2026-10-05T09:02:15.004000+00:00",
+            "EndTime": "2026-10-05T09:02:15+00:00",
+            "StatusCode": "Failed",
+            "StatusMessage": "Could not launch On-Demand Instances. InvalidParameterCombination - The specified instance type is not eligible for Free Tier. For a list of Free Tier instance types, run 'describe-instance-types' with the filter 'free-tier-eligible=true'. Launching EC2 instance failed.",
+            "Progress": 100,
+            "Details": "{\"Availability Zone ID\":\"apse2-az3\",\"Subnet ID\":\"subnet-0d9e385ec0ffa74df\",\"Availability Zone\":\"ap-southeast-2b\"}",
+            "AutoScalingGroupARN": "arn:aws:autoscaling:ap-southeast-2:089540175430:autoScalingGroup:389bd983-56bb-47eb-bb8a-cddb65937324:autoScalingGroupName/eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2"
+          },
+          {
+            "ActivityId": "7b06842d-2ec5-c0f9-5953-388e6703a17e",
+            "AutoScalingGroupName": "eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2",
+            "Description": "Launching a new EC2 instance.  Status Reason: Could not launch On-Demand Instances. InvalidParameterCombination - The specified instance type is not eligible for Free Tier. For a list of Free Tier instance types, run 'describe-instance-types' with the filter 'free-tier-eligible=true'. Launching EC2 instance failed.",
+            "Cause": "At 2026-10-05T09:01:08Z a user request created an AutoScalingGroup changing the desired capacity from 0 to 1.  At 2026-10-05T09:01:10Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 0 to 1.",
+            "StartTime": "2026-10-05T09:01:12.432000+00:00",
+            "EndTime": "2026-10-05T09:01:12+00:00",
+            "StatusCode": "Failed",
+            "StatusMessage": "Could not launch On-Demand Instances. InvalidParameterCombination - The specified instance type is not eligible for Free Tier. For a list of Free Tier instance types, run 'describe-instance-types' with the filter 'free-tier-eligible=true'. Launching EC2 instance failed.",
+            "Progress": 100,
+            "Details": "{\"Availability Zone ID\":\"apse2-az1\",\"Subnet ID\":\"subnet-0a003dcfb1d6234e0\",\"Availability Zone\":\"ap-southeast-2a\"}",
+            "AutoScalingGroupARN": "arn:aws:autoscaling:ap-southeast-2:089540175430:autoScalingGroup:389bd983-56bb-47eb-bb8a-cddb65937324:autoScalingGroupName/eks-homework-workers-04d085a5-60bb-ada0-8e77-a6fc93cf57a2"
+          }
+        ]
+      }
+    ]
+  },
+  "api_calls": [
+    {
+      "service": "ec2",
+      "operation": "DescribeInstances",
+      "status": "success",
+      "n_items": {
+        "Reservations": 2
+      }
+    },
+    {
+      "service": "autoscaling",
+      "operation": "DescribeAutoScalingGroups",
+      "status": "success",
+      "n_items": {
+        "AutoScalingGroups": 1
+      }
+    },
+    {
+      "service": "autoscaling",
+      "operation": "DescribeScalingActivities",
+      "status": "success",
+      "n_items": {
+        "Activities": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,712 @@
+module.cloud.data.aws_ami.linux: Reading...
+module.cloud.data.aws_ami.linux: Read complete after 1s [id=ami-0720cb7af233b0529]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_eks_addon.ebs will be created
+  + resource "aws_eks_addon" "ebs" {
+      + addon_name           = "aws-ebs-csi-driver"
+      + addon_version        = (known after apply)
+      + arn                  = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + configuration_values = (known after apply)
+      + created_at           = (known after apply)
+      + id                   = (known after apply)
+      + modified_at          = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags_all             = (known after apply)
+
+      + namespace_config (known after apply)
+    }
+
+  # aws_eks_addon.pod_identity will be created
+  + resource "aws_eks_addon" "pod_identity" {
+      + addon_name           = "eks-pod-identity-agent"
+      + addon_version        = (known after apply)
+      + arn                  = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + configuration_values = (known after apply)
+      + created_at           = (known after apply)
+      + id                   = (known after apply)
+      + modified_at          = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags_all             = (known after apply)
+
+      + namespace_config (known after apply)
+    }
+
+  # aws_eks_cluster.main will be created
+  + resource "aws_eks_cluster" "main" {
+      + arn                           = (known after apply)
+      + bootstrap_self_managed_addons = true
+      + certificate_authority         = (known after apply)
+      + cluster_id                    = (known after apply)
+      + created_at                    = (known after apply)
+      + deletion_protection           = (known after apply)
+      + enabled_cluster_log_types     = [
+          + "api",
+          + "audit",
+          + "authenticator",
+        ]
+      + endpoint                      = (known after apply)
+      + id                            = (known after apply)
+      + identity                      = (known after apply)
+      + name                          = "rajasurya-final-devops"
+      + platform_version              = (known after apply)
+      + region                        = "ap-southeast-2"
+      + role_arn                      = (known after apply)
+      + status                        = (known after apply)
+      + tags_all                      = (known after apply)
+      + version                       = "1.36"
+
+      + access_config (known after apply)
+
+      + compute_config (known after apply)
+
+      + control_plane_scaling_config (known after apply)
+
+      + kube_api_server_config (known after apply)
+
+      + kube_controller_manager_config (known after apply)
+
+      + kube_scheduler_config (known after apply)
+
+      + kubernetes_network_config (known after apply)
+
+      + storage_config (known after apply)
+
+      + upgrade_policy (known after apply)
+
+      + vpc_config {
+          + cluster_security_group_id = (known after apply)
+          + control_plane_egress_mode = (known after apply)
+          + endpoint_private_access   = true
+          + endpoint_public_access    = true
+          + public_access_cidrs       = [
+              + "103.197.113.59/32",
+            ]
+          + subnet_ids                = (known after apply)
+          + vpc_id                    = (known after apply)
+        }
+    }
+
+  # aws_eks_node_group.main will be created
+  + resource "aws_eks_node_group" "main" {
+      + ami_type               = "AL2023_x86_64_STANDARD"
+      + arn                    = (known after apply)
+      + capacity_type          = (known after apply)
+      + cluster_name           = "rajasurya-final-devops"
+      + disk_size              = (known after apply)
+      + id                     = (known after apply)
+      + instance_types         = [
+          + "t3.medium",
+        ]
+      + node_group_name        = "homework-workers"
+      + node_group_name_prefix = (known after apply)
+      + node_role_arn          = (known after apply)
+      + region                 = "ap-southeast-2"
+      + release_version        = (known after apply)
+      + resources              = (known after apply)
+      + status                 = (known after apply)
+      + subnet_ids             = (known after apply)
+      + tags_all               = (known after apply)
+      + version                = (known after apply)
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + node_repair_config (known after apply)
+
+      + scaling_config {
+          + desired_size = 1
+          + max_size     = 2
+          + min_size     = 1
+        }
+
+      + update_config (known after apply)
+    }
+
+  # aws_eks_pod_identity_association.ebs will be created
+  + resource "aws_eks_pod_identity_association" "ebs" {
+      + association_arn      = (known after apply)
+      + association_id       = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + disable_session_tags = false
+      + external_id          = (known after apply)
+      + id                   = (known after apply)
+      + namespace            = "kube-system"
+      + region               = "ap-southeast-2"
+      + role_arn             = (known after apply)
+      + service_account      = "ebs-csi-controller-sa"
+      + tags_all             = {}
+    }
+
+  # aws_iam_role.cluster will be created
+  + resource "aws_iam_role" "cluster" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "rajasurya-final-eks-cluster"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.ebs will be created
+  + resource "aws_iam_role" "ebs" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = [
+                          + "sts:AssumeRole",
+                          + "sts:TagSession",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "pods.eks.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "rajasurya-final-ebs-csi"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role.node will be created
+  + resource "aws_iam_role" "node" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "rajasurya-final-eks-node"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = (known after apply)
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # aws_iam_role_policy_attachment.cluster will be created
+  + resource "aws_iam_role_policy_attachment" "cluster" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+      + role       = "rajasurya-final-eks-cluster"
+    }
+
+  # aws_iam_role_policy_attachment.ebs will be created
+  + resource "aws_iam_role_policy_attachment" "ebs" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+      + role       = "rajasurya-final-ebs-csi"
+    }
+
+  # aws_iam_role_policy_attachment.node["AmazonEC2ContainerRegistryReadOnly"] will be created
+  + resource "aws_iam_role_policy_attachment" "node" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "rajasurya-final-eks-node"
+    }
+
+  # aws_iam_role_policy_attachment.node["AmazonEKSWorkerNodePolicy"] will be created
+  + resource "aws_iam_role_policy_attachment" "node" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+      + role       = "rajasurya-final-eks-node"
+    }
+
+  # aws_iam_role_policy_attachment.node["AmazonEKS_CNI_Policy"] will be created
+  + resource "aws_iam_role_policy_attachment" "node" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+      + role       = "rajasurya-final-eks-node"
+    }
+
+  # aws_launch_template.node will be created
+  + resource "aws_launch_template" "node" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + id              = (known after apply)
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "rajasurya-final-worker-"
+      + region          = "ap-southeast-2"
+      + tags_all        = (known after apply)
+
+      + block_device_mappings {
+          + device_name = "/dev/xvda"
+
+          + ebs {
+              + delete_on_termination      = "true"
+              + encrypted                  = "true"
+              + iops                       = (known after apply)
+              + throughput                 = (known after apply)
+              + volume_initialization_rate = (known after apply)
+              + volume_size                = 20
+              + volume_type                = "gp3"
+            }
+        }
+
+      + credit_specification {
+          + cpu_credits = "standard"
+        }
+
+      + metadata_options {
+          + http_endpoint               = (known after apply)
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = 2
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+    }
+
+  # module.cloud.aws_instance.web will be created
+  + resource "aws_instance" "web" {
+      + ami                                  = "ami-0720cb7af233b0529"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = (known after apply)
+      + availability_zone                    = (known after apply)
+      + disable_api_stop                     = (known after apply)
+      + disable_api_termination              = (known after apply)
+      + ebs_optimized                        = (known after apply)
+      + enable_primary_ipv6                  = (known after apply)
+      + force_destroy                        = false
+      + get_password_data                    = false
+      + host_id                              = (known after apply)
+      + host_resource_group_arn              = (known after apply)
+      + iam_instance_profile                 = (known after apply)
+      + id                                   = (known after apply)
+      + instance_initiated_shutdown_behavior = (known after apply)
+      + instance_lifecycle                   = (known after apply)
+      + instance_state                       = (known after apply)
+      + instance_type                        = "t3.micro"
+      + ipv6_address_count                   = (known after apply)
+      + ipv6_addresses                       = (known after apply)
+      + key_name                             = (known after apply)
+      + monitoring                           = (known after apply)
+      + outpost_arn                          = (known after apply)
+      + password_data                        = (known after apply)
+      + placement_group                      = (known after apply)
+      + placement_group_id                   = (known after apply)
+      + placement_partition_number           = (known after apply)
+      + primary_network_interface_id         = (known after apply)
+      + private_dns                          = (known after apply)
+      + private_ip                           = (known after apply)
+      + public_dns                           = (known after apply)
+      + public_ip                            = (known after apply)
+      + region                               = "ap-southeast-2"
+      + secondary_private_ips                = (known after apply)
+      + security_groups                      = (known after apply)
+      + source_dest_check                    = true
+      + spot_instance_request_id             = (known after apply)
+      + subnet_id                            = (known after apply)
+      + tags                                 = {
+          + "Name" = "rajasurya-final-devops-web"
+        }
+      + tags_all                             = {
+          + "Enrollment" = "24BCS10086"
+          + "Name"       = "rajasurya-final-devops-web"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + tenancy                              = (known after apply)
+      + user_data                            = <<-EOT
+            #!/bin/bash
+            dnf install -y nginx
+            echo '<h1>Rajasurya DevOps Terraform web server</h1>' > /usr/share/nginx/html/index.html
+            systemctl enable --now nginx
+        EOT
+      + user_data_base64                     = (known after apply)
+      + user_data_replace_on_change          = false
+      + vpc_security_group_ids               = (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + cpu_options (known after apply)
+
+      + credit_specification {
+          + cpu_credits = "standard"
+        }
+
+      + ebs_block_device (known after apply)
+
+      + enclave_options (known after apply)
+
+      + ephemeral_block_device (known after apply)
+
+      + instance_market_options (known after apply)
+
+      + maintenance_options (known after apply)
+
+      + metadata_options {
+          + http_endpoint               = "enabled"
+          + http_protocol_ipv6          = "disabled"
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + network_interface (known after apply)
+
+      + primary_network_interface (known after apply)
+
+      + private_dns_name_options (known after apply)
+
+      + root_block_device {
+          + delete_on_termination = true
+          + device_name           = (known after apply)
+          + encrypted             = true
+          + iops                  = (known after apply)
+          + kms_key_id            = (known after apply)
+          + tags_all              = (known after apply)
+          + throughput            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = 8
+          + volume_type           = (known after apply)
+        }
+
+      + secondary_network_interface (known after apply)
+    }
+
+  # module.cloud.aws_internet_gateway.main will be created
+  + resource "aws_internet_gateway" "main" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + region   = "ap-southeast-2"
+      + tags_all = {
+          + "Enrollment" = "24BCS10086"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.cloud.aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + region           = "ap-southeast-2"
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (12 unchanged attributes hidden)
+            },
+        ]
+      + tags_all         = {
+          + "Enrollment" = "24BCS10086"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.cloud.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.cloud.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + region         = "ap-southeast-2"
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.cloud.aws_s3_bucket.artifacts will be created
+  + resource "aws_s3_bucket" "artifacts" {
+      + acceleration_status         = (known after apply)
+      + acl                         = (known after apply)
+      + arn                         = (known after apply)
+      + bucket                      = "rajasurya-24bcs10086-final-20261005"
+      + bucket_domain_name          = (known after apply)
+      + bucket_namespace            = (known after apply)
+      + bucket_prefix               = (known after apply)
+      + bucket_region               = (known after apply)
+      + bucket_regional_domain_name = (known after apply)
+      + force_destroy               = false
+      + hosted_zone_id              = (known after apply)
+      + id                          = (known after apply)
+      + object_lock_enabled         = (known after apply)
+      + policy                      = (known after apply)
+      + region                      = "ap-southeast-2"
+      + request_payer               = (known after apply)
+      + tags_all                    = {
+          + "Enrollment" = "24BCS10086"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + website_domain              = (known after apply)
+      + website_endpoint            = (known after apply)
+
+      + cors_rule (known after apply)
+
+      + grant (known after apply)
+
+      + lifecycle_rule (known after apply)
+
+      + logging (known after apply)
+
+      + object_lock_configuration (known after apply)
+
+      + replication_configuration (known after apply)
+
+      + server_side_encryption_configuration (known after apply)
+
+      + versioning (known after apply)
+
+      + website (known after apply)
+    }
+
+  # module.cloud.aws_s3_bucket_public_access_block.artifacts will be created
+  + resource "aws_s3_bucket_public_access_block" "artifacts" {
+      + block_public_acls       = true
+      + block_public_policy     = true
+      + bucket                  = (known after apply)
+      + id                      = (known after apply)
+      + ignore_public_acls      = true
+      + region                  = "ap-southeast-2"
+      + restrict_public_buckets = true
+    }
+
+  # module.cloud.aws_s3_bucket_server_side_encryption_configuration.artifacts will be created
+  + resource "aws_s3_bucket_server_side_encryption_configuration" "artifacts" {
+      + bucket = (known after apply)
+      + id     = (known after apply)
+      + region = "ap-southeast-2"
+
+      + rule {
+          + blocked_encryption_types = (known after apply)
+          + bucket_key_enabled       = (known after apply)
+
+          + apply_server_side_encryption_by_default {
+              + kms_master_key_id = (known after apply)
+              + sse_algorithm     = "AES256"
+            }
+        }
+    }
+
+  # module.cloud.aws_security_group.web will be created
+  + resource "aws_security_group" "web" {
+      + arn                    = (known after apply)
+      + description            = "Managed by Terraform"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + from_port        = 0
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "-1"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = [
+                  + "103.197.113.59/32",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + name                   = (known after apply)
+      + name_prefix            = "rajasurya-final-devops-web-"
+      + owner_id               = (known after apply)
+      + region                 = "ap-southeast-2"
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "Enrollment" = "24BCS10086"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.cloud.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.24.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "rajasurya-final-devops-public-0"
+        }
+      + tags_all                                       = {
+          + "Enrollment" = "24BCS10086"
+          + "Name"       = "rajasurya-final-devops-public-0"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.cloud.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-2b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.24.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block                                = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = true
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + region                                         = "ap-southeast-2"
+      + tags                                           = {
+          + "Name" = "rajasurya-final-devops-public-1"
+        }
+      + tags_all                                       = {
+          + "Enrollment" = "24BCS10086"
+          + "Name"       = "rajasurya-final-devops-public-1"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.cloud.aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.24.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + region                               = "ap-southeast-2"
+      + tags                                 = {
+          + "Name" = "rajasurya-final-devops-vpc"
+        }
+      + tags_all                             = {
+          + "Enrollment" = "24BCS10086"
+          + "Name"       = "rajasurya-final-devops-vpc"
+          + "Owner"      = "Rajasurya"
+          + "Purpose"    = "DevOps homework"
+        }
+    }
+
+Plan: 26 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + cloud            = {
+      + bucket_name = "rajasurya-24bcs10086-final-20261005"
+      + instance_id = (known after apply)
+      + subnet_ids  = [
+          + (known after apply),
+          + (known after apply),
+        ]
+      + vpc_id      = (known after apply)
+      + web_url     = (known after apply)
+    }
+  + cluster_endpoint = (known after apply)
+  + cluster_name     = "rajasurya-final-devops"
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: homework.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "homework.tfplan"

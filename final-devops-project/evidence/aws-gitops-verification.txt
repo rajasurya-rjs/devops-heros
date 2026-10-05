@@ -1,0 +1,41 @@
++ export KUBECONFIG=/tmp/devops-audit-20261005/aws-kubeconfig.json
++ KUBECONFIG=/tmp/devops-audit-20261005/aws-kubeconfig.json
+++ kubectl config current-context
++ [[ aws-homework == aws-homework ]]
++ kubectl apply -f final-devops-project/gitops/eks/source.yaml
+gitrepository.source.toolkit.fluxcd.io/homework created
+kustomization.kustomize.toolkit.fluxcd.io/notes created
++ flux reconcile source git homework -n hw-gitops
+► annotating GitRepository homework in hw-gitops namespace
+✔ GitRepository annotated
+◎ waiting for GitRepository reconciliation
+✔ fetched revision main@sha1:c0da73bab7cde2034c5ffebb2293be3b90508241
++ flux reconcile kustomization notes -n hw-gitops --with-source
+► annotating GitRepository homework in hw-gitops namespace
+✔ GitRepository annotated
+◎ waiting for GitRepository reconciliation
+✔ fetched revision main@sha1:c0da73bab7cde2034c5ffebb2293be3b90508241
+► annotating Kustomization notes in hw-gitops namespace
+✔ Kustomization annotated
+◎ waiting for Kustomization reconciliation
+✔ applied revision main@sha1:c0da73bab7cde2034c5ffebb2293be3b90508241
++ flux get all -n hw-gitops
+NAME                  	REVISION          	SUSPENDED	READY	MESSAGE                                           
+gitrepository/homework	main@sha1:c0da73ba	False    	True 	stored artifact for revision 'main@sha1:c0da73ba'	
+
+NAME               	REVISION          	SUSPENDED	READY	MESSAGE                              
+kustomization/notes	main@sha1:c0da73ba	False    	True 	Applied revision: main@sha1:c0da73ba	
+
++ kubectl rollout status deployment/gitops-notes -n gitops-homework --timeout=180s
+deployment "gitops-notes" successfully rolled out
++ kubectl get deployments,pods,configmaps -n gitops-homework
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/gitops-notes   2/2     2            2           41s
+
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/gitops-notes-6d98cbbdc7-srqr4   1/1     Running   0          41s
+pod/gitops-notes-6d98cbbdc7-wvgxv   1/1     Running   0          41s
+
+NAME                         DATA   AGE
+configmap/gitops-config      2      41s
+configmap/kube-root-ca.crt   1      41s

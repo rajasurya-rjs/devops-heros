@@ -1,0 +1,44 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "ebs": {
+      "addon": {
+        "addonName": "aws-ebs-csi-driver",
+        "clusterName": "rajasurya-final-devops",
+        "status": "ACTIVE",
+        "addonVersion": "v1.66.0-eksbuild.1",
+        "health": {
+          "issues": []
+        },
+        "addonArn": "arn:aws:eks:ap-southeast-2:089540175430:addon/rajasurya-final-devops/aws-ebs-csi-driver/5cd085b5-4191-2ff4-bd5b-db3cca43df4f",
+        "createdAt": "2026-10-05T09:34:52.384000+00:00",
+        "modifiedAt": "2026-10-05T09:37:33.337000+00:00",
+        "tags": {},
+        "namespaceConfig": {
+          "namespace": "kube-system"
+        }
+      }
+    },
+    "nodegroups": {
+      "nodegroups": [
+        "homework-workers-free"
+      ]
+    }
+  },
+  "api_calls": [
+    {
+      "service": "eks",
+      "operation": "DescribeAddon",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "ListNodegroups",
+      "status": "success",
+      "n_items": {
+        "nodegroups": 1
+      }
+    }
+  ]
+}

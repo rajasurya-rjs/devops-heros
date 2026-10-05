@@ -7,8 +7,7 @@
 These are the 20 README fields in the order observed in the provided
 [Google Form](https://docs.google.com/forms/d/e/1FAIpQLScgSyxBswmgjHpTgygami8srGj5_EJ_7Cz5y1-DYVgF7GJY4w/viewform).
 The form has not been submitted. Copy each URL into its matching field. Sessions 18 and 19 have
-verified AWS deployment, API/HTTP checks, genuine screenshots and cleanup. Session 21 remains **PARTIAL**
-while its final EKS worker, application deployment and cloud evidence are being completed.
+verified AWS deployment, API/HTTP checks, genuine screenshots and cleanup. Session 21 also has verified EKS workers, application deployment, persistent storage, monitoring, GitOps and genuine cloud screenshots.
 
 | Order | Submission field | Status | Direct README URL |
 |---|---|---|---|
@@ -31,7 +30,7 @@ while its final EKS worker, application deployment and cloud evidence are being 
 | 17 | Session 18: Terraform & Infrastructure as Code | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session18-terraform-iac/Rajasurya-24BCS10086/README.md) |
 | 18 | Session 19: Cloud & Terraform in Action | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session19-cloud-terraform/Rajasurya-24BCS10086/README.md) |
 | 19 | Session 20: Monitoring, Observability & GitOps | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session20-monitoring-observability-gitops/Rajasurya-24BCS10086/README.md) |
-| 20 | Session 21: Final DevOps Project & Troubleshooting | PARTIAL | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/final-devops-project/README.md) |
+| 20 | Session 21: Final DevOps Project & Troubleshooting | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/final-devops-project/README.md) |
 
 ## Copyable URL list
 
@@ -59,6 +58,6 @@ while its final EKS worker, application deployment and cloud evidence are being 
 
 ## Outstanding cloud work
 
-Finish verifying the final EKS worker, application deployment and genuine cloud evidence for Session 21.
+None of the mandatory assignment requirements remain unresolved. The optional final-project cleanup plan has not been applied; its working resources remain on the verified Free plan.
 Sessions 18 and 19 completed their actual plan/apply/output/resource checks and destroy lifecycles in
 `ap-southeast-2`, using the isolated `devops-homework` profile on an ACTIVE FREE plan.

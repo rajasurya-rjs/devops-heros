@@ -1,0 +1,168 @@
+aws_iam_role.node: Refreshing state... [id=rajasurya-final-eks-node]
+aws_cloudwatch_log_group.cluster: Refreshing state... [id=/aws/eks/rajasurya-final-devops/cluster]
+aws_iam_role.ebs: Refreshing state... [id=rajasurya-final-ebs-csi]
+aws_iam_role.cluster: Refreshing state... [id=rajasurya-final-eks-cluster]
+aws_launch_template.node: Refreshing state... [id=lt-05ba07372261d1312]
+module.cloud.data.aws_ami.linux: Reading...
+module.cloud.aws_vpc.main: Refreshing state... [id=vpc-01f95e9237ca7dae1]
+module.cloud.aws_s3_bucket.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_iam_role_policy_attachment.node["AmazonEKS_CNI_Policy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_iam_role_policy_attachment.node["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.node["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+module.cloud.data.aws_ami.linux: Read complete after 2s [id=ami-072602730be089ec7]
+aws_iam_role_policy_attachment.ebs: Refreshing state... [id=rajasurya-final-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=rajasurya-final-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+module.cloud.aws_internet_gateway.main: Refreshing state... [id=igw-03024f21ada5ee6db]
+module.cloud.aws_subnet.public[0]: Refreshing state... [id=subnet-0a003dcfb1d6234e0]
+module.cloud.aws_subnet.public[1]: Refreshing state... [id=subnet-0d9e385ec0ffa74df]
+module.cloud.aws_security_group.web: Refreshing state... [id=sg-028c9037eba80af67]
+module.cloud.aws_route_table.public: Refreshing state... [id=rtb-0b68880791a93a328]
+aws_eks_cluster.main: Refreshing state... [id=rajasurya-final-devops]
+module.cloud.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-03ce8a9b6897c6fd2]
+module.cloud.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-04647510f2a76d67b]
+module.cloud.aws_instance.web: Refreshing state... [id=i-029fb2fc75faa02df]
+module.cloud.aws_s3_bucket_public_access_block.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+module.cloud.aws_s3_bucket_server_side_encryption_configuration.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_eks_node_group.main: Refreshing state... [id=rajasurya-final-devops:homework-workers]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
++/- create replacement and then destroy
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.cluster will be updated in-place
+  ~ resource "aws_cloudwatch_log_group" "cluster" {
+        id                          = "/aws/eks/rajasurya-final-devops/cluster"
+        name                        = "/aws/eks/rajasurya-final-devops/cluster"
+      ~ retention_in_days           = 0 -> 1
+        tags                        = {}
+        # (8 unchanged attributes hidden)
+    }
+
+  # aws_eks_addon.ebs will be created
+  + resource "aws_eks_addon" "ebs" {
+      + addon_name           = "aws-ebs-csi-driver"
+      + addon_version        = (known after apply)
+      + arn                  = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + configuration_values = (known after apply)
+      + created_at           = (known after apply)
+      + id                   = (known after apply)
+      + modified_at          = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags_all             = (known after apply)
+
+      + namespace_config (known after apply)
+    }
+
+  # aws_eks_addon.metrics will be created
+  + resource "aws_eks_addon" "metrics" {
+      + addon_name           = "metrics-server"
+      + addon_version        = "v0.9.0-eksbuild.11"
+      + arn                  = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + configuration_values = (known after apply)
+      + created_at           = (known after apply)
+      + id                   = (known after apply)
+      + modified_at          = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags_all             = (known after apply)
+
+      + namespace_config (known after apply)
+    }
+
+  # aws_eks_addon.pod_identity will be created
+  + resource "aws_eks_addon" "pod_identity" {
+      + addon_name           = "eks-pod-identity-agent"
+      + addon_version        = (known after apply)
+      + arn                  = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + configuration_values = (known after apply)
+      + created_at           = (known after apply)
+      + id                   = (known after apply)
+      + modified_at          = (known after apply)
+      + region               = "ap-southeast-2"
+      + tags_all             = (known after apply)
+
+      + namespace_config (known after apply)
+    }
+
+  # aws_eks_node_group.main is tainted, so must be replaced
++/- resource "aws_eks_node_group" "main" {
+      ~ arn                    = "arn:aws:eks:ap-southeast-2:089540175430:nodegroup/rajasurya-final-devops/homework-workers/04d085a5-60bb-ada0-8e77-a6fc93cf57a2" -> (known after apply)
+      ~ capacity_type          = "ON_DEMAND" -> (known after apply)
+      ~ disk_size              = 0 -> (known after apply)
+      ~ id                     = "rajasurya-final-devops:homework-workers" -> (known after apply)
+      ~ instance_types         = [
+          ~ "t3.medium" -> "c7i-flex.large",
+        ]
+      - labels                 = {} -> null
+      ~ node_group_name        = "homework-workers" -> "homework-workers-free"
+      + node_group_name_prefix = (known after apply)
+      ~ release_version        = "1.36.4-20260930" -> (known after apply)
+      ~ resources              = [] -> (known after apply)
+      ~ status                 = "DELETING" -> (known after apply)
+      - tags                   = {} -> null
+      ~ tags_all               = {} -> (known after apply)
+      ~ version                = "1.36" -> (known after apply)
+        # (5 unchanged attributes hidden)
+
+      ~ launch_template {
+            id      = "lt-05ba07372261d1312"
+          ~ name    = "rajasurya-final-worker-35b22406326264b4b108cc7b6d" -> (known after apply)
+          ~ version = "1" -> (known after apply)
+        }
+
+      ~ node_repair_config (known after apply)
+
+      ~ update_config (known after apply)
+      - update_config {
+          - max_unavailable            = 1 -> null
+          - max_unavailable_percentage = 0 -> null
+            # (1 unchanged attribute hidden)
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # aws_eks_pod_identity_association.ebs will be created
+  + resource "aws_eks_pod_identity_association" "ebs" {
+      + association_arn      = (known after apply)
+      + association_id       = (known after apply)
+      + cluster_name         = "rajasurya-final-devops"
+      + disable_session_tags = false
+      + external_id          = (known after apply)
+      + id                   = (known after apply)
+      + namespace            = "kube-system"
+      + region               = "ap-southeast-2"
+      + role_arn             = "arn:aws:iam::089540175430:role/rajasurya-final-ebs-csi"
+      + service_account      = "ebs-csi-controller-sa"
+      + tags_all             = {}
+    }
+
+  # aws_launch_template.node will be updated in-place
+  ~ resource "aws_launch_template" "node" {
+        id                                   = "lt-05ba07372261d1312"
+      ~ latest_version                       = 1 -> (known after apply)
+        name                                 = "rajasurya-final-worker-35b22406326264b4b108cc7b6d"
+        tags                                 = {}
+        # (18 unchanged attributes hidden)
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+        # (2 unchanged blocks hidden)
+    }
+
+Plan: 5 to add, 2 to change, 1 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: homework-replacement.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "homework-replacement.tfplan"

@@ -11,6 +11,11 @@ variable "instance_type" {
   type    = string
   default = "t3.micro"
 }
+variable "ami_id" {
+  type        = string
+  default     = null
+  description = "Optional pinned AMI; null keeps the existing latest-Amazon-Linux lookup."
+}
 variable "web_cidr" {
   type        = string
   description = "CIDR allowed to access HTTP; set your own public IPv4/32."

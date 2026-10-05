@@ -1,0 +1,41 @@
+{
+  "cloud": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "bucket_name": "string",
+        "instance_id": "string",
+        "subnet_ids": [
+          "tuple",
+          [
+            "string",
+            "string"
+          ]
+        ],
+        "vpc_id": "string",
+        "web_url": "string"
+      }
+    ],
+    "value": {
+      "bucket_name": "rajasurya-24bcs10086-final-20261005",
+      "instance_id": "i-029fb2fc75faa02df",
+      "subnet_ids": [
+        "subnet-0a003dcfb1d6234e0",
+        "subnet-0d9e385ec0ffa74df"
+      ],
+      "vpc_id": "vpc-01f95e9237ca7dae1",
+      "web_url": "http://3.106.200.186"
+    }
+  },
+  "cluster_endpoint": {
+    "sensitive": false,
+    "type": "string",
+    "value": "https://A061F6949C61C5CF09F68F2330DCACE1.yl4.ap-southeast-2.eks.amazonaws.com"
+  },
+  "cluster_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "rajasurya-final-devops"
+  }
+}

@@ -1,0 +1,36 @@
+module.cloud.data.aws_ami.linux: Reading...
+module.cloud.aws_vpc.main: Refreshing state... [id=vpc-01f95e9237ca7dae1]
+aws_iam_role.node: Refreshing state... [id=rajasurya-final-eks-node]
+module.cloud.aws_s3_bucket.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_cloudwatch_log_group.cluster: Refreshing state... [id=/aws/eks/rajasurya-final-devops/cluster]
+aws_iam_role.ebs: Refreshing state... [id=rajasurya-final-ebs-csi]
+aws_iam_role.cluster: Refreshing state... [id=rajasurya-final-eks-cluster]
+aws_eks_node_group.main (deposed object aaf73c05): Refreshing state... [id=rajasurya-final-devops:homework-workers]
+aws_launch_template.node: Refreshing state... [id=lt-05ba07372261d1312]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=rajasurya-final-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_iam_role_policy_attachment.ebs: Refreshing state... [id=rajasurya-final-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+aws_iam_role_policy_attachment.node["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+aws_iam_role_policy_attachment.node["AmazonEKS_CNI_Policy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_iam_role_policy_attachment.node["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+module.cloud.data.aws_ami.linux: Read complete after 1s [id=ami-072602730be089ec7]
+module.cloud.aws_internet_gateway.main: Refreshing state... [id=igw-03024f21ada5ee6db]
+module.cloud.aws_subnet.public[1]: Refreshing state... [id=subnet-0d9e385ec0ffa74df]
+module.cloud.aws_subnet.public[0]: Refreshing state... [id=subnet-0a003dcfb1d6234e0]
+module.cloud.aws_security_group.web: Refreshing state... [id=sg-028c9037eba80af67]
+module.cloud.aws_route_table.public: Refreshing state... [id=rtb-0b68880791a93a328]
+aws_eks_cluster.main: Refreshing state... [id=rajasurya-final-devops]
+module.cloud.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-04647510f2a76d67b]
+module.cloud.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-03ce8a9b6897c6fd2]
+aws_eks_node_group.main: Refreshing state... [id=rajasurya-final-devops:homework-workers-free]
+module.cloud.aws_instance.web: Refreshing state... [id=i-029fb2fc75faa02df]
+module.cloud.aws_s3_bucket_public_access_block.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+module.cloud.aws_s3_bucket_server_side_encryption_configuration.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_eks_addon.pod_identity: Refreshing state... [id=rajasurya-final-devops:eks-pod-identity-agent]
+aws_eks_addon.metrics: Refreshing state... [id=rajasurya-final-devops:metrics-server]
+aws_eks_pod_identity_association.ebs: Refreshing state... [id=a-mh3tje0hchl1a8roo]
+aws_eks_addon.ebs: Refreshing state... [id=rajasurya-final-devops:aws-ebs-csi-driver]
+
+No changes. Your infrastructure matches the configuration.
+
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.

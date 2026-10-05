@@ -1,0 +1,23 @@
++ export KUBECONFIG=/tmp/devops-audit-20261005/aws-kubeconfig.json
++ KUBECONFIG=/tmp/devops-audit-20261005/aws-kubeconfig.json
+++ kubectl config current-context
++ [[ aws-homework == aws-homework ]]
++ kubectl get pods -n final-homework -l app=ops-notes -o custom-columns=NAME:.metadata.name,UID:.metadata.uid
+NAME                         UID
+ops-notes-6b844dd54b-6xbgp   642f6fa8-e97e-4f10-a404-89979fb6d362
+ops-notes-6b844dd54b-82gvp   4046bdee-659f-412d-8c1f-9d554aab6c0e
++ kubectl delete pods -n final-homework -l app=ops-notes --wait=true
+pod "ops-notes-6b844dd54b-6xbgp" deleted from final-homework namespace
+pod "ops-notes-6b844dd54b-82gvp" deleted from final-homework namespace
++ kubectl rollout status deployment/ops-notes -n final-homework --timeout=180s
+deployment "ops-notes" successfully rolled out
++ kubectl wait --for=condition=Ready pod -n final-homework -l app=ops-notes --timeout=180s
+pod/ops-notes-6b844dd54b-gwhhq condition met
+pod/ops-notes-6b844dd54b-pjr48 condition met
++ kubectl get pods -n final-homework -l app=ops-notes -o custom-columns=NAME:.metadata.name,UID:.metadata.uid
+NAME                         UID
+ops-notes-6b844dd54b-gwhhq   394ae084-4d17-49e9-99d9-c3e4f98323ed
+ops-notes-6b844dd54b-pjr48   dce06f95-8e68-41da-b5bc-c401833c7980
++ python3 -
+HTTP 200 after replacing both application Pods: [{'id': 1, 'text': 'AWS EKS verification: application, Helm, Ingress and persistent EBS storage.'}]
+Persisted EBS-backed note verified after Pod replacement

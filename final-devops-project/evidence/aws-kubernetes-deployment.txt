@@ -1,0 +1,54 @@
+node/ip-10-24-0-11.ap-southeast-2.compute.internal condition met
+storageclass.storage.k8s.io/homework-gp3 created
+Release "aws-ingress" does not exist. Installing it now.
+NAME: aws-ingress
+LAST DEPLOYED: Mon Oct  5 15:08:17 2026
+NAMESPACE: ingress-nginx
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+NGINX Ingress Controller 5.6.3 has been installed.
+
+For release notes, see: https://docs.nginx.com/nginx-ingress-controller/changelog/
+
+For Helm installation instructions, see: https://docs.nginx.com/nginx-ingress-controller/install/helm/
+namespace/final-homework created
+secret/app-credentials created
+Release "ops-notes" does not exist. Installing it now.
+NAME: ops-notes
+LAST DEPLOYED: Mon Oct  5 15:08:50 2026
+NAMESPACE: final-homework
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+configmap/grafana-dashboard created
+configmap/prometheus-config created
+deployment.apps/prometheus created
+service/prometheus created
+configmap/grafana-provisioning created
+deployment.apps/grafana created
+service/grafana created
+Waiting for deployment "prometheus" rollout to finish: 0 of 1 updated replicas are available...
+deployment "prometheus" successfully rolled out
+Waiting for deployment "grafana" rollout to finish: 0 of 1 updated replicas are available...
+deployment "grafana" successfully rolled out
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/grafana-6f7b597dd9-n4d4s      1/1     Running   0          37s
+pod/ops-notes-6b844dd54b-6xbgp    1/1     Running   0          69s
+pod/ops-notes-6b844dd54b-82gvp    1/1     Running   0          54s
+pod/prometheus-6468567cd5-rfts5   1/1     Running   0          40s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   172.20.39.92    <none>        3000/TCP   36s
+service/ops-notes    ClusterIP   172.20.85.6     <none>        8080/TCP   69s
+service/prometheus   ClusterIP   172.20.88.135   <none>        9090/TCP   39s
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/ops-notes-data   Bound    pvc-9fe4c413-dc6b-4b80-a37f-183b00ca15ce   1Gi        RWO            homework-gp3   <unset>                 71s
+
+NAME                                            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/ops-notes   Deployment/ops-notes   cpu: 5%/50%   2         5         2          70s
+
+NAME                                  CLASS   HOSTS                ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/ops-notes   nginx   ops.homework.local             80      70s

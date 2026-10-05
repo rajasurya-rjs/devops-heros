@@ -1,0 +1,12 @@
+aws_cloudwatch_log_group.cluster: Importing from ID "/aws/eks/rajasurya-final-devops/cluster"...
+module.cloud.data.aws_ami.linux: Reading...
+aws_cloudwatch_log_group.cluster: Import prepared!
+  Prepared aws_cloudwatch_log_group for import
+aws_cloudwatch_log_group.cluster: Refreshing state... [id=/aws/eks/rajasurya-final-devops/cluster]
+module.cloud.data.aws_ami.linux: Read complete after 2s [id=ami-0720cb7af233b0529]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+

@@ -1,0 +1,196 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "plan": {
+      "accountId": "089540175430",
+      "accountPlanType": "FREE",
+      "accountPlanStatus": "ACTIVE",
+      "accountPlanRemainingCredits": {
+        "amount": 120,
+        "unit": "USD"
+      },
+      "accountPlanExpirationDate": "2027-04-05T08:24:38.467000+00:00"
+    },
+    "cluster": {
+      "name": "rajasurya-final-devops",
+      "status": "ACTIVE",
+      "version": "1.36",
+      "resourcesVpcConfig": {
+        "subnetIds": [
+          "subnet-0d9e385ec0ffa74df",
+          "subnet-0a003dcfb1d6234e0"
+        ],
+        "securityGroupIds": [],
+        "clusterSecurityGroupId": "sg-027ff816bd95a6af2",
+        "vpcId": "vpc-01f95e9237ca7dae1",
+        "endpointPublicAccess": true,
+        "endpointPrivateAccess": true,
+        "publicAccessCidrs": [
+          "103.197.113.59/32"
+        ],
+        "controlPlaneEgressMode": "AWS_MANAGED"
+      },
+      "logging": {
+        "clusterLogging": [
+          {
+            "types": [
+              "api",
+              "audit",
+              "authenticator"
+            ],
+            "enabled": true
+          },
+          {
+            "types": [
+              "controllerManager",
+              "scheduler"
+            ],
+            "enabled": false
+          }
+        ]
+      },
+      "accessConfig": {
+        "authenticationMode": "CONFIG_MAP"
+      }
+    },
+    "instances": [
+      {
+        "InstanceId": "i-029fb2fc75faa02df",
+        "State": {
+          "Code": 16,
+          "Name": "running"
+        },
+        "InstanceType": "t3.micro",
+        "PublicIpAddress": "3.106.200.186",
+        "MetadataOptions": {
+          "State": "applied",
+          "HttpTokens": "required",
+          "HttpPutResponseHopLimit": 2,
+          "HttpEndpoint": "enabled",
+          "HttpProtocolIpv6": "disabled",
+          "InstanceMetadataTags": "disabled"
+        },
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "AttachTime": "2026-10-05T08:51:12+00:00",
+              "DeleteOnTermination": true,
+              "Status": "attached",
+              "VolumeId": "vol-072e730adad6eac2a",
+              "EbsCardIndex": 0
+            }
+          }
+        ]
+      }
+    ],
+    "instance_status": {
+      "InstanceStatuses": [
+        {
+          "AvailabilityZone": "ap-southeast-2a",
+          "AvailabilityZoneId": "apse2-az1",
+          "Operator": {
+            "Managed": false,
+            "HiddenByDefault": false
+          },
+          "InstanceId": "i-029fb2fc75faa02df",
+          "InstanceState": {
+            "Code": 16,
+            "Name": "running"
+          },
+          "InstanceStatus": {
+            "Details": [
+              {
+                "Name": "reachability",
+                "Status": "passed"
+              }
+            ],
+            "Status": "ok"
+          },
+          "SystemStatus": {
+            "Details": [
+              {
+                "Name": "reachability",
+                "Status": "passed"
+              }
+            ],
+            "Status": "ok"
+          },
+          "AttachedEbsStatus": {
+            "Details": [
+              {
+                "Name": "reachability",
+                "Status": "passed"
+              }
+            ],
+            "Status": "ok"
+          }
+        }
+      ]
+    },
+    "bucket_encryption": {
+      "ServerSideEncryptionConfiguration": {
+        "Rules": [
+          {
+            "ApplyServerSideEncryptionByDefault": {
+              "SSEAlgorithm": "AES256"
+            },
+            "BucketKeyEnabled": false,
+            "BlockedEncryptionTypes": {
+              "EncryptionType": [
+                "SSE-C"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "bucket_public_access": {
+      "PublicAccessBlockConfiguration": {
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+      }
+    }
+  },
+  "api_calls": [
+    {
+      "service": "freetier",
+      "operation": "GetAccountPlanState",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "DescribeCluster",
+      "status": "success"
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeInstances",
+      "status": "success",
+      "n_items": {
+        "Reservations": 1
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeInstanceStatus",
+      "status": "success",
+      "n_items": {
+        "InstanceStatuses": 1
+      }
+    },
+    {
+      "service": "s3",
+      "operation": "GetBucketEncryption",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "GetPublicAccessBlock",
+      "status": "success"
+    }
+  ]
+}

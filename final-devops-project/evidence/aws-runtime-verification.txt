@@ -1,0 +1,22 @@
+GET /health 200 {"status": "ok", "version": "v1"}
+GET /ready 200 {"status": "ok", "version": "v1"}
+GET /api/config 200 {"title": "Operations Notes", "version": "v1", "secret_injected": true}
+POST /api/notes 201 {"id": 1, "text": "Genuine AWS EKS deployment verified with Helm and encrypted EBS storage."}
+PUT /api/notes/1 200 {"id": 1, "text": "AWS EKS verification: application, Helm, Ingress and persistent EBS storage."}
+POST /api/notes 201 {"id": 2, "text": "Temporary CRUD verification note"}
+DELETE /api/notes/2 200 {"deleted": true}
+GET /api/notes 200 [{"id": 1, "text": "AWS EKS verification: application, Helm, Ingress and persistent EBS storage."}]
+GET /metrics 200 # HELP ops_requests_total HTTP responses served.
+# TYPE ops_requests_total counter
+ops_requests_total 55
+# HELP ops_errors_total HTTP error responses.
+# TYPE ops_errors_total counter
+ops_errors_total 0
+# TYPE ops_uptime_seconds gauge
+ops_uptime_seconds 96.032
+# TYPE ops_cpu_seconds_total counter
+ops_cpu_seconds_total 0.184931
+# TYPE ops_memory_maxrss gauge
+ops_memory_maxrss 23364
+
+Verified EKS HTTP, CRUD, Secret injection and metrics; note saved for replacement check.

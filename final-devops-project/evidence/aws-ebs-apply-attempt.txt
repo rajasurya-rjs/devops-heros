@@ -1,0 +1,48 @@
+aws_cloudwatch_log_group.cluster: Modifying... [id=/aws/eks/rajasurya-final-devops/cluster]
+aws_launch_template.node: Modifying... [id=lt-05ba07372261d1312]
+aws_cloudwatch_log_group.cluster: Modifications complete after 3s [id=/aws/eks/rajasurya-final-devops/cluster]
+aws_launch_template.node: Modifications complete after 9s [id=lt-05ba07372261d1312]
+aws_eks_node_group.main: Creating...
+aws_eks_node_group.main: Still creating... [00m10s elapsed]
+aws_eks_node_group.main: Still creating... [00m20s elapsed]
+aws_eks_node_group.main: Still creating... [00m30s elapsed]
+aws_eks_node_group.main: Still creating... [00m40s elapsed]
+aws_eks_node_group.main: Still creating... [00m50s elapsed]
+aws_eks_node_group.main: Still creating... [01m00s elapsed]
+aws_eks_node_group.main: Still creating... [01m10s elapsed]
+aws_eks_node_group.main: Still creating... [01m20s elapsed]
+aws_eks_node_group.main: Creation complete after 1m23s [id=rajasurya-final-devops:homework-workers-free]
+aws_eks_addon.metrics: Creating...
+aws_eks_addon.pod_identity: Creating...
+aws_eks_addon.metrics: Still creating... [00m10s elapsed]
+aws_eks_addon.pod_identity: Still creating... [00m10s elapsed]
+aws_eks_addon.pod_identity: Still creating... [00m20s elapsed]
+aws_eks_addon.metrics: Still creating... [00m20s elapsed]
+aws_eks_addon.pod_identity: Creation complete after 27s [id=rajasurya-final-devops:eks-pod-identity-agent]
+aws_eks_addon.ebs: Creating...
+aws_eks_addon.metrics: Still creating... [00m30s elapsed]
+aws_eks_addon.ebs: Still creating... [00m10s elapsed]
+aws_eks_addon.metrics: Creation complete after 37s [id=rajasurya-final-devops:metrics-server]
+aws_eks_addon.ebs: Still creating... [00m20s elapsed]
+aws_eks_addon.ebs: Still creating... [00m30s elapsed]
+aws_eks_addon.ebs: Still creating... [00m40s elapsed]
+aws_eks_addon.ebs: Still creating... [00m50s elapsed]
+aws_eks_addon.ebs: Still creating... [01m00s elapsed]
+aws_eks_addon.ebs: Still creating... [01m10s elapsed]
+aws_eks_addon.ebs: Still creating... [01m20s elapsed]
+aws_eks_addon.ebs: Still creating... [01m30s elapsed]
+aws_eks_addon.ebs: Still creating... [01m40s elapsed]
+aws_eks_addon.ebs: Still creating... [01m50s elapsed]
+Stopping operation...
+
+Interrupt received.
+Please wait for Terraform to exit or data loss may occur.
+Gracefully shutting down...
+
+
+Warning: Running terraform apply again will remove the kubernetes add-on and attempt to create it again effectively purging previous add-on configuration
+
+  with aws_eks_addon.ebs,
+  on eks.tf line 77, in resource "aws_eks_addon" "ebs":
+  77: resource "aws_eks_addon" "ebs" {
+

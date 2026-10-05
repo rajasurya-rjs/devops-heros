@@ -143,8 +143,10 @@ capture live ttyd command execution; browser captures show the actual applicatio
 
 The successful remote workflow builds/scans/pushes both architectures and deploys to Kubernetes.
 The final application, PVC persistence, monitoring, GitOps drift correction and troubleshooting recovery
-were verified. AWS credentials were unavailable: real plan/apply/resource verification/destroy and cloud
-screenshots for Sessions 18/19/21 remain outstanding. Mock Terraform tests are explicitly labelled offline.
+were verified. Sessions 18 and 19 now also have real AWS plan/apply/resource verification, genuine cloud
+screenshots and completed destroy lifecycles in `ap-southeast-2`. The final EKS deployment is verified with a Ready worker, encrypted gp3 PVC, CRUD and persistence checks,
+Prometheus/Grafana and Flux reconciliation. It uses the isolated `devops-homework` profile on an
+ACTIVE FREE plan. No paid upgrade or commitment was made; mock Terraform tests remain labelled offline.
 
 [Exact submission fields and README URLs](SUBMISSION.md) list all 20 fields in form order.
 The Google Form has not been submitted.

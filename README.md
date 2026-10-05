@@ -31,9 +31,9 @@ My notes and homework for the DevOps course.
 | Session 18: Terraform & Infrastructure as Code | [README](session18-terraform-iac/Rajasurya-24BCS10086/README.md) | COMPLETE |
 | Session 19: Cloud & Terraform in Action | [README](session19-cloud-terraform/Rajasurya-24BCS10086/README.md) | COMPLETE |
 | Session 20: Monitoring, Observability & GitOps | [README](session20-monitoring-observability-gitops/Rajasurya-24BCS10086/README.md) | COMPLETE |
-| Session 21: Final DevOps Project & Troubleshooting | [README](final-devops-project/README.md) | PARTIAL |
+| Session 21: Final DevOps Project & Troubleshooting | [README](final-devops-project/README.md) | COMPLETE |
 
-[Submission fields and direct URLs](SUBMISSION.md). Sessions 18 and 19 have verified AWS deployment and cleanup evidence. Session 21 remains partial while its final EKS deployment is being verified. The submission form has not been submitted.
+[Submission fields and direct URLs](SUBMISSION.md). Sessions 18 and 19 have verified AWS deployment and cleanup evidence. Session 21 has verified real EKS deployment, persistent EBS storage, monitoring and GitOps evidence. The submission form has not been submitted.
 
 ## Class notes by session
 - [session1 - DevOps engineer roadmap](session1-devops-engineer-roadmap/)

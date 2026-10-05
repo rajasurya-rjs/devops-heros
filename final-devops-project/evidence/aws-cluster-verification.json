@@ -1,0 +1,206 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "plan": {
+      "accountId": "089540175430",
+      "accountPlanType": "FREE",
+      "accountPlanStatus": "ACTIVE",
+      "accountPlanRemainingCredits": {
+        "amount": 120,
+        "unit": "USD"
+      },
+      "accountPlanExpirationDate": "2027-04-05T08:24:38.467000+00:00"
+    },
+    "nodegroup": {
+      "nodegroupName": "homework-workers-free",
+      "status": "ACTIVE",
+      "instanceTypes": [
+        "c7i-flex.large"
+      ],
+      "version": "1.36",
+      "resources": {
+        "autoScalingGroups": [
+          {
+            "name": "eks-homework-workers-free-60d085b4-6bc7-0b97-e0c0-f4687ef18d4b"
+          }
+        ]
+      },
+      "health": {
+        "issues": []
+      },
+      "scalingConfig": {
+        "minSize": 1,
+        "maxSize": 2,
+        "desiredSize": 1
+      }
+    },
+    "remaining_nodegroups": {
+      "nodegroups": [
+        "homework-workers-free"
+      ]
+    },
+    "persistent_volume": {
+      "Volumes": [
+        {
+          "AvailabilityZoneId": "apse2-az1",
+          "Iops": 3000,
+          "Tags": [
+            {
+              "Key": "KubernetesCluster",
+              "Value": "rajasurya-final-devops"
+            },
+            {
+              "Key": "kubernetes.io/cluster/rajasurya-final-devops",
+              "Value": "owned"
+            },
+            {
+              "Key": "kubernetes.io/created-for/pv/name",
+              "Value": "pvc-9fe4c413-dc6b-4b80-a37f-183b00ca15ce"
+            },
+            {
+              "Key": "kubernetes.io/created-for/pvc/namespace",
+              "Value": "final-homework"
+            },
+            {
+              "Key": "Name",
+              "Value": "rajasurya-final-devops-dynamic-pvc-9fe4c413-dc6b-4b80-a37f-183b00ca15ce"
+            },
+            {
+              "Key": "ebs.csi.aws.com/cluster-name",
+              "Value": "rajasurya-final-devops"
+            },
+            {
+              "Key": "kubernetes.io/created-for/pvc/name",
+              "Value": "ops-notes-data"
+            },
+            {
+              "Key": "CSIVolumeName",
+              "Value": "pvc-9fe4c413-dc6b-4b80-a37f-183b00ca15ce"
+            },
+            {
+              "Key": "ebs.csi.aws.com/cluster",
+              "Value": "true"
+            }
+          ],
+          "VolumeType": "gp3",
+          "MultiAttachEnabled": false,
+          "Throughput": 125,
+          "Operator": {
+            "Managed": false,
+            "HiddenByDefault": false
+          },
+          "VolumeArn": "arn:aws:ec2:ap-southeast-2:089540175430:volume/vol-0f0d12f858647d5dd",
+          "OwnerId": "089540175430",
+          "VolumeId": "vol-0f0d12f858647d5dd",
+          "Size": 1,
+          "SnapshotId": "",
+          "AvailabilityZone": "ap-southeast-2a",
+          "State": "in-use",
+          "CreateTime": "2026-10-05T09:38:55.740000+00:00",
+          "Attachments": [
+            {
+              "DeleteOnTermination": false,
+              "EbsCardIndex": 0,
+              "VolumeId": "vol-0f0d12f858647d5dd",
+              "InstanceId": "i-0789be7573cf5a7f5",
+              "Device": "/dev/xvdaa",
+              "State": "attached",
+              "AttachTime": "2026-10-05T09:38:59+00:00"
+            }
+          ],
+          "Encrypted": true,
+          "KmsKeyId": "arn:aws:kms:ap-southeast-2:089540175430:key/17dfabf3-dfde-4f1b-96bd-840083151354"
+        }
+      ]
+    },
+    "pod_identity": {
+      "association": {
+        "clusterName": "rajasurya-final-devops",
+        "namespace": "kube-system",
+        "serviceAccount": "ebs-csi-controller-sa",
+        "roleArn": "arn:aws:iam::089540175430:role/rajasurya-final-ebs-csi",
+        "associationArn": "arn:aws:eks:ap-southeast-2:089540175430:podidentityassociation/rajasurya-final-devops/a-mh3tje0hchl1a8roo",
+        "associationId": "a-mh3tje0hchl1a8roo",
+        "tags": {},
+        "createdAt": "2026-10-05T09:36:54.213000+00:00",
+        "modifiedAt": "2026-10-05T09:36:54.213000+00:00",
+        "disableSessionTags": false
+      }
+    },
+    "addons": [
+      {
+        "addonName": "eks-pod-identity-agent",
+        "status": "ACTIVE",
+        "addonVersion": "v1.3.10-eksbuild.3",
+        "health": {
+          "issues": []
+        }
+      },
+      {
+        "addonName": "aws-ebs-csi-driver",
+        "status": "ACTIVE",
+        "addonVersion": "v1.66.0-eksbuild.1",
+        "health": {
+          "issues": []
+        }
+      },
+      {
+        "addonName": "metrics-server",
+        "status": "ACTIVE",
+        "addonVersion": "v0.9.0-eksbuild.11",
+        "health": {
+          "issues": []
+        }
+      }
+    ]
+  },
+  "api_calls": [
+    {
+      "service": "freetier",
+      "operation": "GetAccountPlanState",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "DescribeNodegroup",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "ListNodegroups",
+      "status": "success",
+      "n_items": {
+        "nodegroups": 1
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeVolumes",
+      "status": "success",
+      "n_items": {
+        "Volumes": 1
+      }
+    },
+    {
+      "service": "eks",
+      "operation": "DescribePodIdentityAssociation",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "DescribeAddon",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "DescribeAddon",
+      "status": "success"
+    },
+    {
+      "service": "eks",
+      "operation": "DescribeAddon",
+      "status": "success"
+    }
+  ]
+}

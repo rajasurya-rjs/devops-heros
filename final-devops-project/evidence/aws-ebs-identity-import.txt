@@ -1,0 +1,12 @@
+module.cloud.data.aws_ami.linux: Reading...
+aws_eks_pod_identity_association.ebs: Importing from ID "rajasurya-final-devops,a-mh3tje0hchl1a8roo"...
+aws_eks_pod_identity_association.ebs: Import prepared!
+  Prepared aws_eks_pod_identity_association for import
+aws_eks_pod_identity_association.ebs: Refreshing state... [id=a-mh3tje0hchl1a8roo]
+module.cloud.data.aws_ami.linux: Read complete after 2s [id=ami-0720cb7af233b0529]
+
+Import successful!
+
+The resources that were imported are shown above. These resources are now in
+your Terraform state and will henceforth be managed by Terraform.
+

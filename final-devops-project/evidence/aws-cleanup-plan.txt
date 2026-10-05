@@ -1,0 +1,887 @@
+module.cloud.data.aws_ami.linux: Reading...
+module.cloud.aws_vpc.main: Refreshing state... [id=vpc-01f95e9237ca7dae1]
+module.cloud.aws_s3_bucket.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_cloudwatch_log_group.cluster: Refreshing state... [id=/aws/eks/rajasurya-final-devops/cluster]
+aws_iam_role.ebs: Refreshing state... [id=rajasurya-final-ebs-csi]
+aws_iam_role.node: Refreshing state... [id=rajasurya-final-eks-node]
+aws_iam_role.cluster: Refreshing state... [id=rajasurya-final-eks-cluster]
+aws_launch_template.node: Refreshing state... [id=lt-05ba07372261d1312]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=rajasurya-final-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_iam_role_policy_attachment.ebs: Refreshing state... [id=rajasurya-final-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+aws_iam_role_policy_attachment.node["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.node["AmazonEKS_CNI_Policy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+aws_iam_role_policy_attachment.node["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+module.cloud.data.aws_ami.linux: Read complete after 2s [id=ami-072602730be089ec7]
+module.cloud.aws_internet_gateway.main: Refreshing state... [id=igw-03024f21ada5ee6db]
+module.cloud.aws_subnet.public[1]: Refreshing state... [id=subnet-0d9e385ec0ffa74df]
+module.cloud.aws_security_group.web: Refreshing state... [id=sg-028c9037eba80af67]
+module.cloud.aws_subnet.public[0]: Refreshing state... [id=subnet-0a003dcfb1d6234e0]
+module.cloud.aws_route_table.public: Refreshing state... [id=rtb-0b68880791a93a328]
+module.cloud.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-04647510f2a76d67b]
+module.cloud.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-03ce8a9b6897c6fd2]
+aws_eks_cluster.main: Refreshing state... [id=rajasurya-final-devops]
+module.cloud.aws_instance.web: Refreshing state... [id=i-029fb2fc75faa02df]
+module.cloud.aws_s3_bucket_public_access_block.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+module.cloud.aws_s3_bucket_server_side_encryption_configuration.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_eks_node_group.main: Refreshing state... [id=rajasurya-final-devops:homework-workers-free]
+aws_eks_addon.pod_identity: Refreshing state... [id=rajasurya-final-devops:eks-pod-identity-agent]
+aws_eks_addon.metrics: Refreshing state... [id=rajasurya-final-devops:metrics-server]
+aws_eks_pod_identity_association.ebs: Refreshing state... [id=a-mh3tje0hchl1a8roo]
+aws_eks_addon.ebs: Refreshing state... [id=rajasurya-final-devops:aws-ebs-csi-driver]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_cloudwatch_log_group.cluster will be destroyed
+  - resource "aws_cloudwatch_log_group" "cluster" {
+      - arn                         = "arn:aws:logs:ap-southeast-2:089540175430:log-group:/aws/eks/rajasurya-final-devops/cluster" -> null
+      - deletion_protection_enabled = false -> null
+      - id                          = "/aws/eks/rajasurya-final-devops/cluster" -> null
+      - log_group_class             = "STANDARD" -> null
+      - name                        = "/aws/eks/rajasurya-final-devops/cluster" -> null
+      - region                      = "ap-southeast-2" -> null
+      - retention_in_days           = 1 -> null
+      - skip_destroy                = false -> null
+      - tags                        = {} -> null
+      - tags_all                    = {} -> null
+        # (2 unchanged attributes hidden)
+    }
+
+  # aws_eks_addon.ebs will be destroyed
+  - resource "aws_eks_addon" "ebs" {
+      - addon_name               = "aws-ebs-csi-driver" -> null
+      - addon_version            = "v1.66.0-eksbuild.1" -> null
+      - arn                      = "arn:aws:eks:ap-southeast-2:089540175430:addon/rajasurya-final-devops/aws-ebs-csi-driver/5cd085b5-4191-2ff4-bd5b-db3cca43df4f" -> null
+      - cluster_name             = "rajasurya-final-devops" -> null
+      - created_at               = "2026-10-05T09:34:52Z" -> null
+      - id                       = "rajasurya-final-devops:aws-ebs-csi-driver" -> null
+      - modified_at              = "2026-10-05T09:37:33Z" -> null
+      - region                   = "ap-southeast-2" -> null
+      - tags                     = {} -> null
+      - tags_all                 = {} -> null
+        # (2 unchanged attributes hidden)
+
+      - namespace_config {
+          - namespace = "kube-system" -> null
+        }
+    }
+
+  # aws_eks_addon.metrics will be destroyed
+  - resource "aws_eks_addon" "metrics" {
+      - addon_name               = "metrics-server" -> null
+      - addon_version            = "v0.9.0-eksbuild.11" -> null
+      - arn                      = "arn:aws:eks:ap-southeast-2:089540175430:addon/rajasurya-final-devops/metrics-server/92d085b5-0d22-5f3e-a619-6d330843266a" -> null
+      - cluster_name             = "rajasurya-final-devops" -> null
+      - created_at               = "2026-10-05T09:34:25Z" -> null
+      - id                       = "rajasurya-final-devops:metrics-server" -> null
+      - modified_at              = "2026-10-05T09:35:00Z" -> null
+      - region                   = "ap-southeast-2" -> null
+      - tags                     = {} -> null
+      - tags_all                 = {} -> null
+        # (2 unchanged attributes hidden)
+
+      - namespace_config {
+          - namespace = "kube-system" -> null
+        }
+    }
+
+  # aws_eks_addon.pod_identity will be destroyed
+  - resource "aws_eks_addon" "pod_identity" {
+      - addon_name               = "eks-pod-identity-agent" -> null
+      - addon_version            = "v1.3.10-eksbuild.3" -> null
+      - arn                      = "arn:aws:eks:ap-southeast-2:089540175430:addon/rajasurya-final-devops/eks-pod-identity-agent/44d085b5-0d23-ffd0-d8ed-e380afdfa3e1" -> null
+      - cluster_name             = "rajasurya-final-devops" -> null
+      - created_at               = "2026-10-05T09:34:25Z" -> null
+      - id                       = "rajasurya-final-devops:eks-pod-identity-agent" -> null
+      - modified_at              = "2026-10-05T09:34:41Z" -> null
+      - region                   = "ap-southeast-2" -> null
+      - tags                     = {} -> null
+      - tags_all                 = {} -> null
+        # (2 unchanged attributes hidden)
+
+      - namespace_config {
+          - namespace = "kube-system" -> null
+        }
+    }
+
+  # aws_eks_cluster.main will be destroyed
+  - resource "aws_eks_cluster" "main" {
+      - arn                           = "arn:aws:eks:ap-southeast-2:089540175430:cluster/rajasurya-final-devops" -> null
+      - bootstrap_self_managed_addons = true -> null
+      - certificate_authority         = [
+          - {
+              - data = "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lRSG0wSjF5eGVMYmRQbTgwcDhERVVRakFOQmdrcWhraUc5dzBCQVFzRkFEQW4KTVJBd0RnWURWUVFLRXdkQlYxTWdSVXRUTVJNd0VRWURWUVFERXdwcmRXSmxjbTVsZEdWek1CNFhEVEkyTVRBdwpOVEE0TlRFeU5Gb1hEVE14TVRBd05EQTROVEV5TkZvd0p6RVFNQTRHQTFVRUNoTUhRVmRUSUVWTFV6RVRNQkVHCkExVUVBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQU0vbFJPbnU0SkRqVlZzWUVqZU9GMnBUL3JxSGE3S2MwZTQ2TllLdUNkV2RLRmhjV1Urd0s5d1RteVlncFEwbgpIeTdKWThlUUEzaUdlN0VqQUlNSnVuenNFbUNvWmRBait0dzJLWHBNUDF3VVVUeVlmdEhFZ3d5bmZJenNzamxPClVUWHRjRnZ4WFlLdHJEZjkrdGFtc3NCcDdsZGlPU2JoU2w0WXozeVV2dU1RenlpWnhjWFlyK0d0RnRlL2Q4dUoKS3ZQTGRHSU82UVpNd3I2QzVZWlVNaDlKc25samRyMEFSK3FFNlgzQXdrbmJHMkRoSmVJY1hNdmVoUGN3UzVGVQoxRjdZMzIzZ2tJRkgyUllndXFpTlJVa3VBZE1GWk1NWHdDc2JJdzB0UC9GTHVpaGlzZ2pDN2gxcTlZT0hOczVnCkk2VVNHTm5nRmJmMktNbXdya1hmTnlVQ0F3RUFBYU5aTUZjd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWQKRXdFQi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZPdk9QbUpBVWY4eEtQV3RSMDFmZ3YyRXBqT1ZNQlVHQTFVZApFUVFPTUF5Q0NtdDFZbVZ5Ym1WMFpYTXdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQ1k1bDFwRFZrQjZON3B0Cnk0dnVMRUFDMDF0Y1FWNVNKUE1IVElUK2NPdVcxTDdCWmgzZ2c0RU9rVVN3c0twN1Y4dW1GQnhra0RNYlBsSUEKNHJjeFhqbjJUUWRFeXFkOGI3SVVZWTRnZDFEdnJsWlNML2hEM1RVMUExaEtYUXZZWU9ZYWJTbE5Fc0tKQ0FnTQpCSmRpb21uUUlNdk84dlIxOFF5RkFjVUdKYVYzUXRHOWM5S2Q3Mlo2WlI4SjVURkVlM2hYVExheFRkazV0MExYCnR0QTNza2lPblpabjVpamplUGhiNjlhdGg0bkR2UFpQV01BRWo0Z0JzZVJ1Z0UwdUFKVUxSVnBaRS9PZkl5azMKNzU5aXljRCt4S3hkY01kQk9TNnRQYVhEeGdLcE9VL1VDNU1WNU9DbWQxNS9Wd3hQUXRxMjFPaEdWUTdNN2tiagppeXovdzE4PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg=="
+            },
+        ] -> null
+      - created_at                    = "2026-10-05T08:51:12Z" -> null
+      - deletion_protection           = false -> null
+      - enabled_cluster_log_types     = [
+          - "api",
+          - "audit",
+          - "authenticator",
+        ] -> null
+      - endpoint                      = "https://A061F6949C61C5CF09F68F2330DCACE1.yl4.ap-southeast-2.eks.amazonaws.com" -> null
+      - id                            = "rajasurya-final-devops" -> null
+      - identity                      = [
+          - {
+              - oidc = [
+                  - {
+                      - issuer = "https://oidc.eks.ap-southeast-2.amazonaws.com/id/A061F6949C61C5CF09F68F2330DCACE1"
+                    },
+                ]
+            },
+        ] -> null
+      - name                          = "rajasurya-final-devops" -> null
+      - platform_version              = "eks.14" -> null
+      - region                        = "ap-southeast-2" -> null
+      - role_arn                      = "arn:aws:iam::089540175430:role/rajasurya-final-eks-cluster" -> null
+      - status                        = "ACTIVE" -> null
+      - tags                          = {} -> null
+      - tags_all                      = {} -> null
+      - version                       = "1.36" -> null
+
+      - access_config {
+          - authentication_mode                         = "CONFIG_MAP" -> null
+          - bootstrap_cluster_creator_admin_permissions = true -> null
+        }
+
+      - compute_config {
+          - enabled       = false -> null
+          - node_pools    = [] -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - control_plane_scaling_config {
+          - tier = "standard" -> null
+        }
+
+      - kube_api_server_config {
+          - event_ttl = "60m" -> null
+
+          - service_node_port_range {
+              - max_port = 32767 -> null
+              - min_port = 30000 -> null
+            }
+        }
+
+      - kube_controller_manager_config {
+          - horizontal_pod_autoscaler_controller_config {
+              - horizontal_pod_autoscaler_sync_period = "15s" -> null
+            }
+          - pod_gc_controller_config {
+              - terminated_pod_gc_threshold = 12500 -> null
+            }
+        }
+
+      - kube_scheduler_config {
+          - node_resources_fit {
+              - scoring_strategy {
+                  - type = "LeastAllocated" -> null
+
+                  - resource {
+                      - name   = "cpu" -> null
+                      - weight = 1 -> null
+                    }
+                  - resource {
+                      - name   = "memory" -> null
+                      - weight = 1 -> null
+                    }
+                }
+            }
+        }
+
+      - kubernetes_network_config {
+          - ip_family         = "ipv4" -> null
+          - service_ipv4_cidr = "172.20.0.0/16" -> null
+            # (1 unchanged attribute hidden)
+
+          - elastic_load_balancing {
+              - enabled = false -> null
+            }
+        }
+
+      - storage_config {
+          - block_storage {
+              - enabled = false -> null
+            }
+        }
+
+      - upgrade_policy {
+          - support_type = "EXTENDED" -> null
+        }
+
+      - vpc_config {
+          - cluster_security_group_id = "sg-027ff816bd95a6af2" -> null
+          - control_plane_egress_mode = "AWS_MANAGED" -> null
+          - endpoint_private_access   = true -> null
+          - endpoint_public_access    = true -> null
+          - public_access_cidrs       = [
+              - "103.197.113.59/32",
+            ] -> null
+          - security_group_ids        = [] -> null
+          - subnet_ids                = [
+              - "subnet-0a003dcfb1d6234e0",
+              - "subnet-0d9e385ec0ffa74df",
+            ] -> null
+          - vpc_id                    = "vpc-01f95e9237ca7dae1" -> null
+        }
+    }
+
+  # aws_eks_node_group.main will be destroyed
+  - resource "aws_eks_node_group" "main" {
+      - ami_type               = "AL2023_x86_64_STANDARD" -> null
+      - arn                    = "arn:aws:eks:ap-southeast-2:089540175430:nodegroup/rajasurya-final-devops/homework-workers-free/60d085b4-6bc7-0b97-e0c0-f4687ef18d4b" -> null
+      - capacity_type          = "ON_DEMAND" -> null
+      - cluster_name           = "rajasurya-final-devops" -> null
+      - disk_size              = 0 -> null
+      - id                     = "rajasurya-final-devops:homework-workers-free" -> null
+      - instance_types         = [
+          - "c7i-flex.large",
+        ] -> null
+      - labels                 = {} -> null
+      - node_group_name        = "homework-workers-free" -> null
+      - node_role_arn          = "arn:aws:iam::089540175430:role/rajasurya-final-eks-node" -> null
+      - region                 = "ap-southeast-2" -> null
+      - release_version        = "1.36.4-20260930" -> null
+      - resources              = [
+          - {
+              - autoscaling_groups              = [
+                  - {
+                      - name = "eks-homework-workers-free-60d085b4-6bc7-0b97-e0c0-f4687ef18d4b"
+                    },
+                ]
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - status                 = "ACTIVE" -> null
+      - subnet_ids             = [
+          - "subnet-0a003dcfb1d6234e0",
+          - "subnet-0d9e385ec0ffa74df",
+        ] -> null
+      - tags                   = {} -> null
+      - tags_all               = {} -> null
+      - version                = "1.36" -> null
+        # (1 unchanged attribute hidden)
+
+      - launch_template {
+          - id      = "lt-05ba07372261d1312" -> null
+          - name    = "rajasurya-final-worker-35b22406326264b4b108cc7b6d" -> null
+          - version = "2" -> null
+        }
+
+      - scaling_config {
+          - desired_size = 1 -> null
+          - max_size     = 2 -> null
+          - min_size     = 1 -> null
+        }
+
+      - update_config {
+          - max_unavailable            = 1 -> null
+          - max_unavailable_percentage = 0 -> null
+            # (1 unchanged attribute hidden)
+        }
+    }
+
+  # aws_eks_pod_identity_association.ebs will be destroyed
+  - resource "aws_eks_pod_identity_association" "ebs" {
+      - association_arn      = "arn:aws:eks:ap-southeast-2:089540175430:podidentityassociation/rajasurya-final-devops/a-mh3tje0hchl1a8roo" -> null
+      - association_id       = "a-mh3tje0hchl1a8roo" -> null
+      - cluster_name         = "rajasurya-final-devops" -> null
+      - disable_session_tags = false -> null
+      - id                   = "a-mh3tje0hchl1a8roo" -> null
+      - namespace            = "kube-system" -> null
+      - region               = "ap-southeast-2" -> null
+      - role_arn             = "arn:aws:iam::089540175430:role/rajasurya-final-ebs-csi" -> null
+      - service_account      = "ebs-csi-controller-sa" -> null
+      - tags_all             = {} -> null
+    }
+
+  # aws_iam_role.cluster will be destroyed
+  - resource "aws_iam_role" "cluster" {
+      - arn                   = "arn:aws:iam::089540175430:role/rajasurya-final-eks-cluster" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "eks.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-10-05T08:50:52Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "rajasurya-final-eks-cluster" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "rajasurya-final-eks-cluster" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {} -> null
+      - unique_id             = "AROARJWICUZDDUT5JJC7V" -> null
+        # (3 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.ebs will be destroyed
+  - resource "aws_iam_role" "ebs" {
+      - arn                   = "arn:aws:iam::089540175430:role/rajasurya-final-ebs-csi" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = [
+                          - "sts:AssumeRole",
+                          - "sts:TagSession",
+                        ]
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "pods.eks.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-10-05T08:50:52Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "rajasurya-final-ebs-csi" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "rajasurya-final-ebs-csi" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {} -> null
+      - unique_id             = "AROARJWICUZDI6C67OUD7" -> null
+        # (3 unchanged attributes hidden)
+    }
+
+  # aws_iam_role.node will be destroyed
+  - resource "aws_iam_role" "node" {
+      - arn                   = "arn:aws:iam::089540175430:role/rajasurya-final-eks-node" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2026-10-05T08:50:51Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "rajasurya-final-eks-node" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
+          - "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+          - "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "rajasurya-final-eks-node" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {} -> null
+      - unique_id             = "AROARJWICUZDGDB2M2KMH" -> null
+        # (3 unchanged attributes hidden)
+    }
+
+  # aws_iam_role_policy_attachment.cluster will be destroyed
+  - resource "aws_iam_role_policy_attachment" "cluster" {
+      - id         = "rajasurya-final-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy" -> null
+      - role       = "rajasurya-final-eks-cluster" -> null
+    }
+
+  # aws_iam_role_policy_attachment.ebs will be destroyed
+  - resource "aws_iam_role_policy_attachment" "ebs" {
+      - id         = "rajasurya-final-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy" -> null
+      - role       = "rajasurya-final-ebs-csi" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node["AmazonEC2ContainerRegistryReadOnly"] will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node" {
+      - id         = "rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly" -> null
+      - role       = "rajasurya-final-eks-node" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node["AmazonEKSWorkerNodePolicy"] will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node" {
+      - id         = "rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy" -> null
+      - role       = "rajasurya-final-eks-node" -> null
+    }
+
+  # aws_iam_role_policy_attachment.node["AmazonEKS_CNI_Policy"] will be destroyed
+  - resource "aws_iam_role_policy_attachment" "node" {
+      - id         = "rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy" -> null
+      - role       = "rajasurya-final-eks-node" -> null
+    }
+
+  # aws_launch_template.node will be destroyed
+  - resource "aws_launch_template" "node" {
+      - arn                                  = "arn:aws:ec2:ap-southeast-2:089540175430:launch-template/lt-05ba07372261d1312" -> null
+      - default_version                      = 1 -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - id                                   = "lt-05ba07372261d1312" -> null
+      - latest_version                       = 2 -> null
+      - name                                 = "rajasurya-final-worker-35b22406326264b4b108cc7b6d" -> null
+      - name_prefix                          = "rajasurya-final-worker-" -> null
+      - region                               = "ap-southeast-2" -> null
+      - security_group_names                 = [] -> null
+      - tags                                 = {} -> null
+      - tags_all                             = {} -> null
+      - vpc_security_group_ids               = [] -> null
+        # (9 unchanged attributes hidden)
+
+      - block_device_mappings {
+          - device_name  = "/dev/xvda" -> null
+            # (2 unchanged attributes hidden)
+
+          - ebs {
+              - delete_on_termination      = "true" -> null
+              - encrypted                  = "true" -> null
+              - iops                       = 0 -> null
+              - throughput                 = 0 -> null
+              - volume_initialization_rate = 0 -> null
+              - volume_size                = 20 -> null
+              - volume_type                = "gp3" -> null
+                # (2 unchanged attributes hidden)
+            }
+        }
+
+      - metadata_options {
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+            # (3 unchanged attributes hidden)
+        }
+    }
+
+  # module.cloud.aws_instance.web will be destroyed
+  - resource "aws_instance" "web" {
+      - ami                                  = "ami-0720cb7af233b0529" -> null
+      - arn                                  = "arn:aws:ec2:ap-southeast-2:089540175430:instance/i-029fb2fc75faa02df" -> null
+      - associate_public_ip_address          = true -> null
+      - availability_zone                    = "ap-southeast-2a" -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - force_destroy                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - id                                   = "i-029fb2fc75faa02df" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-00aee44dba056b6e2" -> null
+      - private_dns                          = "ip-10-24-0-107.ap-southeast-2.compute.internal" -> null
+      - private_ip                           = "10.24.0.107" -> null
+      - public_dns                           = "ec2-3-106-200-186.ap-southeast-2.compute.amazonaws.com" -> null
+      - public_ip                            = "3.106.200.186" -> null
+      - region                               = "ap-southeast-2" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-0a003dcfb1d6234e0" -> null
+      - tags                                 = {
+          - "Name" = "rajasurya-final-devops-web"
+        } -> null
+      - tags_all                             = {
+          - "Enrollment" = "24BCS10086"
+          - "Name"       = "rajasurya-final-devops-web"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data                            = <<-EOT
+            #!/bin/bash
+            dnf install -y nginx
+            echo '<h1>Rajasurya DevOps Terraform web server</h1>' > /usr/share/nginx/html/index.html
+            systemctl enable --now nginx
+        EOT -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-028c9037eba80af67",
+        ] -> null
+        # (9 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count            = 1 -> null
+          - threads_per_core      = 2 -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - primary_network_interface {
+          - delete_on_termination = true -> null
+          - network_interface_id  = "eni-00aee44dba056b6e2" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = true -> null
+          - iops                  = 3000 -> null
+          - kms_key_id            = "arn:aws:kms:ap-southeast-2:089540175430:key/17dfabf3-dfde-4f1b-96bd-840083151354" -> null
+          - tags                  = {} -> null
+          - tags_all              = {
+              - "Enrollment" = "24BCS10086"
+              - "Owner"      = "Rajasurya"
+              - "Purpose"    = "DevOps homework"
+            } -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-072e730adad6eac2a" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+        }
+    }
+
+  # module.cloud.aws_internet_gateway.main will be destroyed
+  - resource "aws_internet_gateway" "main" {
+      - arn      = "arn:aws:ec2:ap-southeast-2:089540175430:internet-gateway/igw-03024f21ada5ee6db" -> null
+      - id       = "igw-03024f21ada5ee6db" -> null
+      - owner_id = "089540175430" -> null
+      - region   = "ap-southeast-2" -> null
+      - tags     = {} -> null
+      - tags_all = {
+          - "Enrollment" = "24BCS10086"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+      - vpc_id   = "vpc-01f95e9237ca7dae1" -> null
+    }
+
+  # module.cloud.aws_route_table.public will be destroyed
+  - resource "aws_route_table" "public" {
+      - arn              = "arn:aws:ec2:ap-southeast-2:089540175430:route-table/rtb-0b68880791a93a328" -> null
+      - id               = "rtb-0b68880791a93a328" -> null
+      - owner_id         = "089540175430" -> null
+      - propagating_vgws = [] -> null
+      - region           = "ap-southeast-2" -> null
+      - route            = [
+          - {
+              - cidr_block                 = "0.0.0.0/0"
+              - gateway_id                 = "igw-03024f21ada5ee6db"
+                # (12 unchanged attributes hidden)
+            },
+        ] -> null
+      - tags             = {} -> null
+      - tags_all         = {
+          - "Enrollment" = "24BCS10086"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+      - vpc_id           = "vpc-01f95e9237ca7dae1" -> null
+    }
+
+  # module.cloud.aws_route_table_association.public[0] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-03ce8a9b6897c6fd2" -> null
+      - region         = "ap-southeast-2" -> null
+      - route_table_id = "rtb-0b68880791a93a328" -> null
+      - subnet_id      = "subnet-0a003dcfb1d6234e0" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.cloud.aws_route_table_association.public[1] will be destroyed
+  - resource "aws_route_table_association" "public" {
+      - id             = "rtbassoc-04647510f2a76d67b" -> null
+      - region         = "ap-southeast-2" -> null
+      - route_table_id = "rtb-0b68880791a93a328" -> null
+      - subnet_id      = "subnet-0d9e385ec0ffa74df" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # module.cloud.aws_s3_bucket.artifacts will be destroyed
+  - resource "aws_s3_bucket" "artifacts" {
+      - arn                         = "arn:aws:s3:::rajasurya-24bcs10086-final-20261005" -> null
+      - bucket                      = "rajasurya-24bcs10086-final-20261005" -> null
+      - bucket_domain_name          = "rajasurya-24bcs10086-final-20261005.s3.amazonaws.com" -> null
+      - bucket_namespace            = "global" -> null
+      - bucket_region               = "ap-southeast-2" -> null
+      - bucket_regional_domain_name = "rajasurya-24bcs10086-final-20261005.s3.ap-southeast-2.amazonaws.com" -> null
+      - force_destroy               = false -> null
+      - hosted_zone_id              = "Z1WCIGYICN2BYD" -> null
+      - id                          = "rajasurya-24bcs10086-final-20261005" -> null
+      - object_lock_enabled         = false -> null
+      - region                      = "ap-southeast-2" -> null
+      - request_payer               = "BucketOwner" -> null
+      - tags                        = {} -> null
+      - tags_all                    = {
+          - "Enrollment" = "24BCS10086"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+        # (3 unchanged attributes hidden)
+
+      - grant {
+          - id          = "94bf8f91cdc6f94ee823e04f0b0dafa100cd758e77fea62c16d343ca0c030e48" -> null
+          - permissions = [
+              - "FULL_CONTROL",
+            ] -> null
+          - type        = "CanonicalUser" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - server_side_encryption_configuration {
+          - rule {
+              - bucket_key_enabled = false -> null
+
+              - apply_server_side_encryption_by_default {
+                  - sse_algorithm     = "AES256" -> null
+                    # (1 unchanged attribute hidden)
+                }
+            }
+        }
+
+      - versioning {
+          - enabled    = false -> null
+          - mfa_delete = false -> null
+        }
+    }
+
+  # module.cloud.aws_s3_bucket_public_access_block.artifacts will be destroyed
+  - resource "aws_s3_bucket_public_access_block" "artifacts" {
+      - block_public_acls       = true -> null
+      - block_public_policy     = true -> null
+      - bucket                  = "rajasurya-24bcs10086-final-20261005" -> null
+      - id                      = "rajasurya-24bcs10086-final-20261005" -> null
+      - ignore_public_acls      = true -> null
+      - region                  = "ap-southeast-2" -> null
+      - restrict_public_buckets = true -> null
+    }
+
+  # module.cloud.aws_s3_bucket_server_side_encryption_configuration.artifacts will be destroyed
+  - resource "aws_s3_bucket_server_side_encryption_configuration" "artifacts" {
+      - bucket                = "rajasurya-24bcs10086-final-20261005" -> null
+      - id                    = "rajasurya-24bcs10086-final-20261005" -> null
+      - region                = "ap-southeast-2" -> null
+        # (1 unchanged attribute hidden)
+
+      - rule {
+          - blocked_encryption_types = [
+              - "SSE-C",
+            ] -> null
+          - bucket_key_enabled       = false -> null
+
+          - apply_server_side_encryption_by_default {
+              - sse_algorithm     = "AES256" -> null
+                # (1 unchanged attribute hidden)
+            }
+        }
+    }
+
+  # module.cloud.aws_security_group.web will be destroyed
+  - resource "aws_security_group" "web" {
+      - arn                    = "arn:aws:ec2:ap-southeast-2:089540175430:security-group/sg-028c9037eba80af67" -> null
+      - description            = "Managed by Terraform" -> null
+      - egress                 = [
+          - {
+              - cidr_blocks      = [
+                  - "0.0.0.0/0",
+                ]
+              - from_port        = 0
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "-1"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 0
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - id                     = "sg-028c9037eba80af67" -> null
+      - ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "103.197.113.59/32",
+                ]
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ] -> null
+      - name                   = "rajasurya-final-devops-web-17747293dd333d23e8f9c04db9" -> null
+      - name_prefix            = "rajasurya-final-devops-web-" -> null
+      - owner_id               = "089540175430" -> null
+      - region                 = "ap-southeast-2" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {} -> null
+      - tags_all               = {
+          - "Enrollment" = "24BCS10086"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+      - vpc_id                 = "vpc-01f95e9237ca7dae1" -> null
+    }
+
+  # module.cloud.aws_subnet.public[0] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:ap-southeast-2:089540175430:subnet/subnet-0a003dcfb1d6234e0" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "ap-southeast-2a" -> null
+      - availability_zone_id                           = "apse2-az1" -> null
+      - cidr_block                                     = "10.24.0.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-0a003dcfb1d6234e0" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "089540175430" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "ap-southeast-2" -> null
+      - tags                                           = {
+          - "Name" = "rajasurya-final-devops-public-0"
+        } -> null
+      - tags_all                                       = {
+          - "Enrollment" = "24BCS10086"
+          - "Name"       = "rajasurya-final-devops-public-0"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+      - vpc_id                                         = "vpc-01f95e9237ca7dae1" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.cloud.aws_subnet.public[1] will be destroyed
+  - resource "aws_subnet" "public" {
+      - arn                                            = "arn:aws:ec2:ap-southeast-2:089540175430:subnet/subnet-0d9e385ec0ffa74df" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "ap-southeast-2b" -> null
+      - availability_zone_id                           = "apse2-az3" -> null
+      - cidr_block                                     = "10.24.1.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-0d9e385ec0ffa74df" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = true -> null
+      - owner_id                                       = "089540175430" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "ap-southeast-2" -> null
+      - tags                                           = {
+          - "Name" = "rajasurya-final-devops-public-1"
+        } -> null
+      - tags_all                                       = {
+          - "Enrollment" = "24BCS10086"
+          - "Name"       = "rajasurya-final-devops-public-1"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+      - vpc_id                                         = "vpc-01f95e9237ca7dae1" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # module.cloud.aws_vpc.main will be destroyed
+  - resource "aws_vpc" "main" {
+      - arn                                  = "arn:aws:ec2:ap-southeast-2:089540175430:vpc/vpc-01f95e9237ca7dae1" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.24.0.0/16" -> null
+      - default_network_acl_id               = "acl-011f40a8b8d8e7267" -> null
+      - default_route_table_id               = "rtb-06825a73c78dcb326" -> null
+      - default_security_group_id            = "sg-049e87d092ad3e7e7" -> null
+      - dhcp_options_id                      = "dopt-004b3f3c888d2b41d" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-01f95e9237ca7dae1" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-06825a73c78dcb326" -> null
+      - owner_id                             = "089540175430" -> null
+      - region                               = "ap-southeast-2" -> null
+      - tags                                 = {
+          - "Name" = "rajasurya-final-devops-vpc"
+        } -> null
+      - tags_all                             = {
+          - "Enrollment" = "24BCS10086"
+          - "Name"       = "rajasurya-final-devops-vpc"
+          - "Owner"      = "Rajasurya"
+          - "Purpose"    = "DevOps homework"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 28 to destroy.
+
+Changes to Outputs:
+  - cloud            = {
+      - bucket_name = "rajasurya-24bcs10086-final-20261005"
+      - instance_id = "i-029fb2fc75faa02df"
+      - subnet_ids  = [
+          - "subnet-0a003dcfb1d6234e0",
+          - "subnet-0d9e385ec0ffa74df",
+        ]
+      - vpc_id      = "vpc-01f95e9237ca7dae1"
+      - web_url     = "http://3.106.200.186"
+    } -> null
+  - cluster_endpoint = "https://A061F6949C61C5CF09F68F2330DCACE1.yl4.ap-southeast-2.eks.amazonaws.com" -> null
+  - cluster_name     = "rajasurya-final-devops" -> null
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to: homework-cleanup.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "homework-cleanup.tfplan"

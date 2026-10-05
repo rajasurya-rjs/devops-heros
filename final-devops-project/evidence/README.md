@@ -9,6 +9,14 @@ The local `compose.txt`, `monitoring-gitops.txt` and troubleshooting logs come f
 commands run on the Mac against Docker Desktop or the named minikube Linux VM.
 Terraform validation and mock-provider tests create no real cloud resources.
 
+The `aws-*` files record the subsequent real deployment in the isolated `devops-homework`
+AWS project, selected Region `ap-southeast-2`. Terraform ran on the Mac; AWS resources
+and the EKS control plane run in AWS. `aws-infrastructure-verification.json` and the
+instance-type/launch-failure reports retain actual AWS MCP API results and `api_calls`.
+The earlier missing-credentials plan is historical evidence, not the current deployment status.
+The first worker launch was rejected by the Free plan; its real failure and interrupted
+apply log are preserved rather than presented as successful provisioning.
+
 The initial local vulnerability database download and Docker registry metadata requests
 stalled. Local attempts are preserved; the image was built and scanned successfully on
 GitHub Actions. The tested arm64 artifact was downloaded and loaded locally for deployment.

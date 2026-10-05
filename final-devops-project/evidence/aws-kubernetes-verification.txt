@@ -1,0 +1,69 @@
++ export KUBECONFIG=/tmp/devops-audit-20261005/aws-kubeconfig.json
++ KUBECONFIG=/tmp/devops-audit-20261005/aws-kubeconfig.json
++ kubectl config current-context
+aws-homework
++ kubectl get nodes -o wide
+NAME                                            STATUS   ROLES    AGE   VERSION               INTERNAL-IP   EXTERNAL-IP      OS-IMAGE                        KERNEL-VERSION                            CONTAINER-RUNTIME
+ip-10-24-0-11.ap-southeast-2.compute.internal   Ready    <none>   11m   v1.36.4-eks-3b4a6ca   10.24.0.11    32.236.188.208   Amazon Linux 2023.12.20260928   6.18.51-120.162.amzn2023.x86_64 (amd64)   containerd://2.2.7+unknown
++ helm list -A
+NAME       	NAMESPACE     	REVISION	UPDATED                             	STATUS  	CHART              	APP VERSION
+aws-ingress	ingress-nginx 	1       	2026-10-05 15:08:17.675707 +0530 IST	deployed	nginx-ingress-2.7.3	5.6.3      
+ops-notes  	final-homework	1       	2026-10-05 15:08:50.670983 +0530 IST	deployed	ops-notes-0.1.0    	v1         
++ kubectl get deployments,pods,svc,pvc,hpa,ingress -n final-homework
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana      1/1     1            1           6m18s
+deployment.apps/ops-notes    2/2     2            2           6m50s
+deployment.apps/prometheus   1/1     1            1           6m21s
+
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/grafana-6f7b597dd9-n4d4s      1/1     Running   0          6m19s
+pod/ops-notes-6b844dd54b-gwhhq    1/1     Running   0          4m16s
+pod/ops-notes-6b844dd54b-pjr48    1/1     Running   0          4m16s
+pod/prometheus-6468567cd5-rfts5   1/1     Running   0          6m22s
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   172.20.39.92    <none>        3000/TCP   6m18s
+service/ops-notes    ClusterIP   172.20.85.6     <none>        8080/TCP   6m51s
+service/prometheus   ClusterIP   172.20.88.135   <none>        9090/TCP   6m21s
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/ops-notes-data   Bound    pvc-9fe4c413-dc6b-4b80-a37f-183b00ca15ce   1Gi        RWO            homework-gp3   <unset>                 6m53s
+
+NAME                                            REFERENCE              TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/ops-notes   Deployment/ops-notes   cpu: 5%/50%   2         5         2          6m52s
+
+NAME                                  CLASS   HOSTS                ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/ops-notes   nginx   ops.homework.local             80      6m52s
++ kubectl get deployment/ops-notes -n final-homework -o 'jsonpath={.spec.template.spec.containers[0].image}{"\n"}{.spec.template.spec.containers[0].startupProbe}{"\n"}{.spec.template.spec.containers[0].readinessProbe}{"\n"}{.spec.template.spec.containers[0].livenessProbe}{"\n"}'
+ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93
+{"failureThreshold":30,"httpGet":{"path":"/health","port":8080,"scheme":"HTTP"},"periodSeconds":2,"successThreshold":1,"timeoutSeconds":1}
+{"failureThreshold":3,"httpGet":{"path":"/ready","port":8080,"scheme":"HTTP"},"periodSeconds":3,"successThreshold":1,"timeoutSeconds":3}
+{"failureThreshold":3,"httpGet":{"path":"/health","port":8080,"scheme":"HTTP"},"periodSeconds":10,"successThreshold":1,"timeoutSeconds":3}
++ kubectl top pods -n final-homework
+NAME                          CPU(cores)   MEMORY(bytes)   
+grafana-6f7b597dd9-n4d4s      7m           421Mi           
+ops-notes-6b844dd54b-gwhhq    1m           19Mi            
+ops-notes-6b844dd54b-pjr48    1m           19Mi            
+prometheus-6468567cd5-rfts5   3m           26Mi            
++ kubectl logs deployment/ops-notes -n final-homework --tail=10
+Found 2 pods, using pod/ops-notes-6b844dd54b-gwhhq
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
++ flux get all -n hw-gitops
+NAME                  	REVISION          	SUSPENDED	READY	MESSAGE                                           
+gitrepository/homework	main@sha1:c0da73ba	False    	True 	stored artifact for revision 'main@sha1:c0da73ba'	
+
+NAME               	REVISION          	SUSPENDED	READY	MESSAGE                              
+kustomization/notes	main@sha1:c0da73ba	False    	True 	Applied revision: main@sha1:c0da73ba	
+
++ curl --fail --silent --show-error http://127.0.0.1:28081/api/config
+{"title": "Operations Notes managed by Flux", "version": "gitops-v2", "secret_injected": false}+ printf '\n'
+

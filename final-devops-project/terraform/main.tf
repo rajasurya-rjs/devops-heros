@@ -10,4 +10,5 @@ module "cloud" {
   name        = "rajasurya-final-devops"
   bucket_name = var.bucket_name
   web_cidr    = var.web_cidr
+  ami_id      = var.web_ami_id
 }

@@ -1,0 +1,16 @@
+{
+  "source": "Actual Terraform plan JSON before AMI pin; plan was not applied",
+  "resource": "module.cloud.aws_instance.web",
+  "actions": [
+    "delete",
+    "create"
+  ],
+  "replace_paths": [
+    [
+      "ami"
+    ]
+  ],
+  "existing_ami": "ami-0720cb7af233b0529",
+  "new_lookup_ami": "ami-072602730be089ec7",
+  "existing_instance": "i-029fb2fc75faa02df"
+}
