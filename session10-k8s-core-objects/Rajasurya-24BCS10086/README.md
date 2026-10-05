@@ -17,9 +17,8 @@
 | Runtime | containerd 2.3.4 |
 | Nodes | 1 (`minikube`, role `control-plane`, untainted so it also runs workloads) |
 
-Every code block below is a real transcript from this cluster, and every
-screenshot is a render of that same transcript. Where a manifest could not run
-on arm64 I have said so explicitly rather than papering over it.
+The commands and screenshots below cover each exercise on this cluster.
+Architecture-related errors and fixes are noted alongside the affected manifests.
 
 ### Contents
 

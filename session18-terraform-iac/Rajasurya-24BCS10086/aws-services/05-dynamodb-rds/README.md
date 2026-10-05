@@ -15,7 +15,7 @@ RDS manages relational database infrastructure while applications use SQL schema
 
 A DB instance runs a selected engine and compute/storage configuration. Place it in an appropriate DB subnet group, restrict Security Groups, encrypt storage and require secure connections. Automated backups and snapshots support recovery. Multi-AZ provides availability; read replicas serve supported read-scaling use cases and are not interchangeable with standby failover instances.
 
-Use RDS for transactional applications with relational constraints and joins; use DynamoDB when keyed access patterns and managed scaling suit the data model. The local final project uses SQLite on a PVC for a single-node lab; it does not claim an RDS or DynamoDB deployment.
+Use RDS for transactional applications with relational constraints and joins; use DynamoDB when keyed access patterns and managed scaling suit the data model. The final project uses SQLite on a PVC for its single-node lab deployment.
 
 [Official AWS documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 

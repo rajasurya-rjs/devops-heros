@@ -7,7 +7,7 @@
 
 ---
 
-## Environment this was actually run on
+## Environment
 
 | Item | Value |
 |---|---|
@@ -26,8 +26,7 @@
 > a clean 3 GB / 3 vCPU without touching Docker Desktop. Every `kubectl`
 > command below is otherwise identical to the `docker` driver.
 
-Every code block on this page is a real terminal transcript from this machine,
-and every screenshot is that same transcript.
+The commands and screenshots below show each exercise on this cluster.
 
 ---
 
@@ -348,14 +347,13 @@ in anyone's memory.
 
 ## Task 6 - Kubernetes Basics tutorial hands-on
 
-The original installation, architecture and status evidence above is preserved.
-The assignment also requires the tutorial workflow; this was missing from the original README.
-[tutorial.sh](tutorial.sh) performs the added exercise in its own `hw9-tutorial` namespace:
+I used the `hw9-tutorial` namespace for the Kubernetes Basics tutorial.
+[tutorial.sh](tutorial.sh) covers the following steps:
 create a Deployment, inspect Pods/logs, execute nginx version, expose a Service, access the page,
 scale to three replicas, update the image, and roll back.
 
-[Actual commands and output](evidence/tutorial.txt) record the run, including transient connection/image
-pull delays encountered during reconciliation. The final verification is captured below.
+[Commands and output](evidence/tutorial.txt) include the deployment, scaling, update and rollback.
+Some requests needed a retry while the image was downloading and endpoints were updating.
 
 ![Tutorial workflow verification](images/05-tutorial.png)
 

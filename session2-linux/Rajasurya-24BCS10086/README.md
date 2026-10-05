@@ -3,12 +3,11 @@
 **Name:** Rajasurya J
 **Enrollment Number:** 24BCS10086
 
-## Environment note (please read first)
+## Environment
 
 My laptop is a MacBook Air (macOS 26.6, Apple Silicon). macOS is Unix but it is
 **not** Linux - there is no `useradd`, no `adduser`, no `journalctl` and no `ip`
-command. Rather than fake that output, I built a real **Ubuntu 22.04 container
-with systemd actually running** and did the whole Linux homework inside it.
+command. I used an **Ubuntu 22.04 container with systemd** for the Linux commands.
 
 The Dockerfile for that practice box is [`Dockerfile`](Dockerfile).
 
@@ -24,8 +23,7 @@ docker run -d --name linux-hw \
 docker exec -it linux-hw bash
 ```
 
-Every screenshot below is a real terminal session inside that container - the
-prompt is `root@linux-hw`. The code blocks are the same sessions as text.
+The Linux commands below run inside the container, with the prompt `root@linux-hw`.
 
 ---
 
@@ -363,7 +361,7 @@ it would run without prompts for the homework, then set the password separately
 with `chpasswd`.
 
 Then I actually **logged in as the new user** with `su - devopsuser` - it landed
-in `/home/devopsuser`, ran `whoami` and wrote a file. The account genuinely works.
+in `/home/devopsuser`, ran `whoami` and wrote a file. The account works.
 
 Finally I removed the throwaway `useradd` account and left only `devopsuser`.
 The two `userdel` warnings are expected and are exactly the point of this task -
@@ -724,4 +722,4 @@ Things worth pointing out in that output:
 - `journalctl -u <service>` is the first thing to run when a service will not
   start, and everything on a systemd box lands in one queryable journal.
 - macOS is not a substitute for Linux for this kind of work. Building a container
-  with systemd took five minutes and gave me a genuine environment to practise in.
+  with systemd took five minutes and gave me a environment to practise in.

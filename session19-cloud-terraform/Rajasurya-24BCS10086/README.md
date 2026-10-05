@@ -4,106 +4,108 @@
 
 **Enrollment number:** 24BCS10086
 
-## Objective and actual status
+## Objective
 
-The original VPC/EC2/S3 Terraform project was preserved and deployed to AWS in `ap-southeast-2`.
-The reviewed plan added twelve homework resources. The nginx endpoint returned the configured page;
-EC2 system/instance checks passed, encrypted EBS and IMDSv2 were verified, and HTTP was restricted to
-the operator's public IPv4/32. The real destroy lifecycle and post-cleanup inventory are documented below.
+I used Terraform to deploy a VPC, EC2 web server and private S3 bucket in `ap-southeast-2`.
+The nginx endpoint returned HTTP 200 with the configured page. EC2 system and instance
+checks passed, and I checked encrypted EBS storage, IMDSv2 and restricted HTTP ingress.
+After testing, I destroyed the twelve resources.
 
 ## Architecture
 
 ```text
-Terraform → VPC → two public subnets → route table / Internet Gateway → restricted Security Group → EC2
+Terraform → VPC → two public subnets → route table / Internet Gateway → Security Group → EC2
          └─ private encrypted S3 bucket
 ```
 
 ## Environment
 
-Terraform 1.16.4 runs on the macOS arm64 host. The initialized AWS provider is 6.67.0,
-recorded in the project's `.terraform.lock.hcl`. AWS CLI 2.36.41 uses the browser-authenticated `devops-homework` profile.
-AWS resources ran in the selected Region `ap-southeast-2`; Terraform commands ran on the macOS host. The `.terraform/` cache and all state/plan files are ignored by Git.
+- Host: macOS arm64
+- Terraform: 1.16.4; AWS provider: 6.67.0
+- AWS CLI: 2.36.41; profile: `devops-homework`
+- Selected Region: `ap-southeast-2`
 
-## Files
+Terraform commands run on the Mac; the resources run in AWS. State, saved plans,
+authentication caches and `.terraform/` stay outside Git.
 
-[cloud-project/](cloud-project/) contains providers, resources, typed variables, outputs, example values and tests.
-Resource references express dependencies so networking is available before compute.
-No credentials appear in HCL, tfvars or evidence.
+## Configuration
 
-## Commands actually executed
+[cloud-project/](cloud-project/) contains the provider configuration, resources, typed variables,
+outputs and configuration tests.
 
-```bash
-cd cloud-project
-terraform init -input=false
-terraform fmt
-terraform validate
-terraform test
-AWS_EC2_METADATA_DISABLED=true terraform plan -input=false -var=bucket_name=rajasurya-24bcs10086-hw19-20261005
-```
+The configuration creates two public subnets in different availability zones, an Internet
+Gateway, a public route table and associations, an HTTP Security Group, an Amazon Linux
+EC2 instance and private encrypted S3 storage. The instance uses an AMI data source,
+encrypted EBS, IMDSv2 and an nginx user-data script. Its `t3.micro` CPU credit mode is Standard.
 
-These earlier STS and plan attempts failed before browser authentication. Their original evidence is
-preserved as execution history; the successful AWS run below supersedes that blocker.
+HTTP is restricted to `web_cidr`. Replace the documentation address in
+`terraform.tfvars.example` with the intended client IPv4/32 and choose a unique bucket name.
+No SSH ingress is needed. The final project reuses this configuration as a local module
+with different resource names and a separate Terraform state.
 
-[Initialization and validation output](evidence/validation.txt), [mock tests](evidence/mock-tests.txt),
-[AWS identity attempt](evidence/aws-blocker.txt), and [real plan attempt](evidence/real-plan-attempt.txt)
-contain actual outputs. The mock tests assert configuration properties using a mocked provider without
-contacting AWS. Their generated identifiers are not real AWS resource identifiers.
+## Setup and deployment
 
-## Verified AWS workflow
-
-The project was verified to be on an ACTIVE FREE plan with available credits before provisioning.
-No paid-plan upgrade, advanced-feature activation or paid commitment was requested. Resources can consume
-AWS credits; [AWS's Free plan policy](https://aws.amazon.com/free/free-tier-faqs/) explains its billing behavior.
-Authentication caches, state and plan files remain outside Git.
+I checked that the project was on an ACTIVE FREE plan with remaining credits before
+provisioning. Usage consumes the project's credits under the [AWS Free plan](https://aws.amazon.com/free/free-tier-faqs/).
 
 ```bash
 export AWS_PROFILE=devops-homework AWS_REGION=ap-southeast-2
+aws freetier get-account-plan-state --region ap-southeast-2 --profile devops-homework
 cd cloud-project
 terraform init -input=false
 terraform fmt -check
 terraform validate
+terraform test
 terraform plan -input=false -var-file=/tmp/devops-audit-20261005/hw19-vars.json -out=homework.tfplan
 terraform apply -input=false homework.tfplan
 terraform show
 terraform output
 terraform state list
+```
+
+The local variable file supplied `region=ap-southeast-2`,
+`bucket_name=rajasurya-24bcs10086-hw19-20261005` and my public IPv4/32 for `web_cidr`.
+For another run, copy `terraform.tfvars.example` to `terraform.tfvars` and set those values.
+
+[Validation](evidence/validation.txt) and [configuration tests](evidence/mock-tests.txt)
+show the setup checks. `terraform test` uses a mock provider to check configuration assertions.
+
+## Verification
+
+The plan and apply created twelve resources. The web server returned the configured
+nginx page with HTTP 200. EC2 system and instance checks passed; the root EBS volume was
+encrypted and IMDSv2 required tokens. The Security Group allowed HTTP only from my IPv4/32.
+
+- [Terraform plan](evidence/aws-plan.txt)
+- [Apply output](evidence/aws-apply.txt)
+- [Resource details](evidence/aws-show.txt)
+- [Terraform outputs](evidence/aws-outputs.json)
+- [State resource list](evidence/aws-state-resources.txt)
+- [AWS resource checks](evidence/aws-resource-verification.json)
+- [HTTP response](evidence/aws-http.txt)
+
+## Cleanup
+
+```bash
 terraform destroy -auto-approve -input=false -var-file=/tmp/devops-audit-20261005/hw19-vars.json
 terraform state list
 ```
 
-The external, non-secret var file supplied `region=ap-southeast-2`, a unique bucket name and the operator's
-actual IPv4/32. The root instance uses Standard CPU credits to avoid unlimited-mode surplus credit usage.
+Terraform destroyed all twelve resources.
+The [final state list](evidence/aws-state-after-destroy.txt) was empty, and
+[the AWS inventory check](evidence/aws-cleanup-verification.json) confirmed removal.
+[Destroy output](evidence/aws-destroy.txt)
 
-[Actual plan](evidence/aws-plan.txt), [apply](evidence/aws-apply.txt), [show](evidence/aws-show.txt),
-[outputs](evidence/aws-outputs.json), [state resources](evidence/aws-state-resources.txt),
-[AWS MCP resource checks](evidence/aws-resource-verification.json) and [destroy](evidence/aws-destroy.txt)
-record genuine execution. The MCP JSON includes the successful API-call audit trail; terminal captures
-read those recorded API responses and show actual Terraform/HTTP commands.
+## Troubleshooting
 
-## Evidence
+The first plan attempt could not find AWS credentials. After browser authentication with
+`devops-homework`, planning and deployment succeeded.
+[Identity check](evidence/aws-blocker.txt) · [Plan error](evidence/real-plan-attempt.txt)
 
-![Validation and missing AWS credentials](images/01-terraform-validation.png)
+![Terraform validation and credential setup](images/01-terraform-validation.png)
 
-The original screenshot is retained as earlier offline-validation and authentication-failure evidence.
+## Screenshots
 
-## Infrastructure design
-
-The cloud project defines one VPC, two public subnets in different availability zones, an Internet Gateway,
-a public route table and associations, a Security Group, an Amazon Linux EC2 instance and private S3 storage.
-The instance uses an AMI data source, encrypted EBS, IMDSv2 and an nginx user-data script.
-HTTP is restricted to `web_cidr`; the example uses a documentation-only address and must be replaced
-with the intended client IPv4/32. No SSH ingress or private key is committed.
-
-`terraform.tfvars.example` is safe to copy locally. The original configuration is reused by the final
-project through a local module reference. This project and the final project are executed independently with different names and state files.
-
-## Genuine AWS screenshots
-
-![Real cloud apply and Terraform state](images/02-aws-cloud-apply.png)
-![Recorded EC2/S3 checks and actual HTTP response](images/03-aws-cloud-verification.png)
-![Real cloud destroy and empty state](images/04-aws-cloud-destroy.png)
-
-## Verified cleanup
-
-[Post-destroy Terraform state](evidence/aws-state-after-destroy.txt) is empty.
-[Actual AWS inventory check](evidence/aws-cleanup-verification.json) confirms the session resources were removed.
+![Cloud apply and Terraform state](images/02-aws-cloud-apply.png)
+![EC2, S3 and HTTP checks](images/03-aws-cloud-verification.png)
+![Cloud destroy and empty state](images/04-aws-cloud-destroy.png)

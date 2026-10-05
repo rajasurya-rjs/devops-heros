@@ -6,11 +6,11 @@
 
 ## Task 1: Monitoring demo
 
-The original [Operations Notes application](../../final-devops-project/application/app.py) exposes
+My [Operations Notes application](../../final-devops-project/application/app.py) exposes
 `/health`, `/ready` and `/metrics`. [Monitoring manifests](../../final-devops-project/monitoring/stack.yaml)
 deploy Prometheus and Grafana with provisioned data source and dashboard.
 
-| Signal | Actual measurement |
+| Signal | Measurement |
 |---|---|
 | Metrics | HTTP responses/errors, process CPU seconds, peak resident memory and uptime. |
 | Logs | JSON request/status messages in `kubectl logs`. |
@@ -29,15 +29,15 @@ Metrics summarize behavior numerically over time; logs record individual events 
 traces connect the spans of a request across services. Correlating these signals helps explain failures
 instead of only reporting that a health check failed. Prometheus/Grafana are common metrics tools,
 Loki or Elasticsearch can centralize logs, and OpenTelemetry with Jaeger/Tempo can instrument traces.
-This demo implements metrics and logs. Traces are documented conceptually; distributed tracing is not
-claimed for this single-service application.
+I implemented metrics and logs for this application. Distributed tracing would be useful when a request
+passes through several services; this demo has one service.
 
 In Kubernetes, combine application signals with Pod conditions, Events, resource usage, Service endpoints
 and controller status. A healthy process may still be unreachable because of selectors, DNS or readiness.
 
 ## Task 3: GitOps demo
 
-[Flux configuration](../../final-devops-project/gitops/source.yaml) watches **this user's repository** on
+[Flux configuration](../../final-devops-project/gitops/source.yaml) watches **my repository** on
 `main`. A GitRepository fetches the desired revision; a Kustomization applies
 `final-devops-project/gitops/app` every 30 seconds. The dedicated `gitops-homework` namespace keeps this
 separate from the Helm-managed application.
@@ -70,7 +70,7 @@ flux get kustomizations -n hw-gitops
 Run from the repository root. See the final-project README for the current minikube profile and ports.
 Both scripts assume kubectl is pointing at that homework cluster.
 
-## Evidence
+## Output and screenshots
 
 - [Prometheus targets](../../final-devops-project/evidence/prometheus-targets.json)
 - [Prometheus alerts](../../final-devops-project/evidence/prometheus-alerts.json)
@@ -80,8 +80,8 @@ Both scripts assume kubectl is pointing at that homework cluster.
 ![Grafana metrics](../../final-devops-project/images/04-grafana.png)
 ![GitOps reconciliation](../../final-devops-project/images/07-gitops.png)
 
-The screenshots are genuine browser or live-terminal captures. Final runtime verification is recorded in
-the linked evidence, including the applied Git revision and correction of a deliberate replica-count drift.
+The logs include the applied Git revision and the replica count returning to two after I changed it to one
+with `kubectl scale`. Flux restored the value from Git.
 
 [Prometheus documentation](https://prometheus.io/docs/introduction/overview/)
 [Flux reconciliation documentation](https://fluxcd.io/flux/components/kustomize/kustomizations/)

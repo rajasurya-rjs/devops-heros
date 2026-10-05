@@ -4,8 +4,7 @@
 **Enrollment Number:** 24BCS10086
 
 All four tasks were run on Docker Engine 29.2.1 (Docker Desktop, macOS 26.6).
-Every screenshot below is a real terminal session and every code block is that
-same session as text.
+The code blocks and screenshots show the commands and output for each exercise.
 
 ---
 
@@ -521,7 +520,7 @@ The `ip addr` output is the strongest proof: a container on the host network see
 **every interface on the host**, including `docker0` and all the `br-*` bridges -
 one of which is the gateway side of my `frontend-net` from Task 1. A bridge
 container only ever sees `lo` and its own `eth0`. That is only possible if this
-container is genuinely inside the host's network namespace.
+container is inside the host's network namespace.
 
 ### Honest note about my machine
 
@@ -1017,7 +1016,7 @@ And `wget http://web` really serves nginx through the overlay.
 ### Honest limitation
 
 I only have one laptop, so both replicas landed on the same node
-(`docker-desktop`) and I **cannot** genuinely demonstrate multi-host networking -
+(`docker-desktop`) and I **cannot** demonstrate multi-host networking -
 that needs two or more machines. Everything above is a real overlay network with
 a real swarm and real service DNS, but on a single host. In a real two-host
 swarm, `10.0.1.3` might be on host 1 and `10.0.1.4` on host 2, and
@@ -1105,7 +1104,7 @@ I put my machine back the way I found it - `Swarm: inactive`.
 - **User-defined networks give you DNS by container name**; the default `bridge`
   network does not. That alone is a reason to always create a network.
 - **Isolation is real and cheap.** Splitting into three networks meant the
-  frontend genuinely could not reach the database - name did not resolve, 100%
+  frontend could not reach the database - name did not resolve, 100%
   packet loss to the IP. That is a security boundary for one
   `docker network create`.
 - **A container can hold several networks**, and each one adds an interface

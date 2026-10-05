@@ -20,7 +20,7 @@
 | CoreDNS ClusterIP | `10.96.0.10` |
 | LoadBalancer controller | MetalLB v0.9.6 (`minikube addons enable metallb`), pool `192.168.64.80-90` |
 
-Every code block is a real transcript from this cluster. The `vfkit` driver
+The commands below use this cluster. The `vfkit` driver
 matters for this session specifically — see [Task 12](#task-12--minikube-driver-port-binding--tunnel-gotcha),
 because it is the reason NodePort works here without a tunnel.
 
@@ -166,7 +166,7 @@ Three things this output proves:
    three pod IPs on port **80** (the `targetPort`), and that list was built by
    the EndpointSlice controller running the Service's selector against the pods.
    Kill a pod and the list updates by itself.
-3. **`port` and `targetPort` are genuinely independent.** Clients dial `8080`;
+3. **`port` and `targetPort` are independent.** Clients dial `8080`;
    nginx never hears about 8080 and serves on `80`.
 
 `ClusterIP` is the default type and the right answer for almost everything —
@@ -706,7 +706,7 @@ an **external** lookup like `api.github.com` (2 dots):
 ```
 
 That is **4 wasted round-trips to CoreDNS for every external DNS lookup.** At
-scale this is a genuine production issue — it is a well-known cause of CoreDNS
+scale this is a production issue — it is a well-known cause of CoreDNS
 CPU saturation and of "random" 5-second latency spikes (the classic
 `ndots`-plus-conntrack-race pathology).
 
@@ -906,7 +906,7 @@ Pointing at something OUTSIDE the cluster instead?
 ```
 
 The short version: **`ClusterIP` by default, `Ingress` for HTTP ingress,
-`LoadBalancer` only for non-HTTP traffic that genuinely needs its own address,
+`LoadBalancer` only for non-HTTP traffic that needs its own address,
 and `NodePort` mostly for local development.**
 
 ---
@@ -1035,7 +1035,7 @@ cluster — and it bypasses the NodePort entirely.
 - [fqdn/README.md](fqdn/README.md) — namespace DNS and Pod-to-Service communication.
 - [coredns/README.md](coredns/README.md) — query resolution, Corefile and troubleshooting.
 
-These pages reference the existing hands-on evidence above.
+These pages explain the DNS commands used in Task 8.
 
 ## Task 2 - Deployment, ReplicaSet and Service comparison
 

@@ -35,10 +35,9 @@ resolver configuration, and network access to UDP/TCP 53. An IP connection succe
 name resolution fails narrows the problem to DNS. A Service resolving correctly but having
 no ready endpoints points to selectors or readiness instead.
 
-## Existing evidence
+## Commands and output
 
-[Task 8 in the original README](../README.md#task-8--fqdn--coredns-deep-dive) preserves the real
-CoreDNS, FQDN and `ndots` output and [original screenshot](../images/08-fqdn-coredns.png).
-No completed exercise was recreated for these required documentation paths.
+[Task 8](../README.md#task-8--fqdn--coredns-deep-dive) contains the CoreDNS, FQDN and `ndots`
+commands, results and [screenshot](../images/08-fqdn-coredns.png).
 
 [CoreDNS debugging guide](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/)

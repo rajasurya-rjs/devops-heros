@@ -20,7 +20,7 @@ The hostPath refers to the minikube VM filesystem, not a folder directly on macO
 The mini project mounts the claim at `/data`, writes the enrollment number, deletes a Pod and reads
 it from its replacement. The data survives because the PVC/PV are independent of the Pod.
 
-[Commands, actual output and screenshots](../README.md) document these executions.
+[Commands, output and screenshots](../README.md) document these executions.
 
 hostPath grants access to node files and is usually inappropriate for portable application data.
 A production StorageClass commonly uses a CSI provisioner; minikube's local provisioner is a lab implementation.

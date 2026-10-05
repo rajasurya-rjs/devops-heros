@@ -8,13 +8,13 @@
 
 Commands run on the macOS 26.7.1 Apple Silicon host using kubectl 1.37.0.
 Kubernetes runs in the existing minikube 1.39.0 vfkit Linux VM with containerd 2.3.4.
-The `hw13`, `hw14` and `hw15` namespaces isolate the new work from previous labs.
+I used the `hw14` namespace for this session.
 
 ## Task 1: Commands
 
-[verify.sh](verify.sh) executed `get`, `describe`, `logs`, `exec`, `events`, `explain`, `top`,
-and `get -o wide`. [Full commands and outputs](evidence/verification.txt) preserve the original failures,
-investigation commands and verified fixes.
+I used [verify.sh](verify.sh) to run `get`, `describe`, `logs`, `exec`, `events`, `explain`, `top`,
+and `get -o wide`. The [command log](evidence/verification.txt) includes each error, the investigation
+and the check after applying the fix.
 
 `get` provides a summary; `describe` adds configuration, conditions and Events. `logs` reads application
 output, while `logs --previous` retrieves the previous terminated container's output. `exec` runs a command
@@ -23,7 +23,7 @@ help; `top` reports sampled CPU/memory; `-o wide` adds IP and node placement.
 
 ## Task 2: Deliberate failures and fixes
 
-| Problem | Actual symptom | Investigation and root cause | Fix and verification |
+| Problem | Symptom | Investigation and root cause | Fix and verification |
 |---|---|---|---|
 | CrashLoopBackOff | Container prints `intentional-exit-42` and exits 42. | `logs --previous`, `describe`; command exits immediately. | Replace the isolated Pod with a sleeping process; Ready verified. |
 | ErrImagePull / ImagePullBackOff | Nonexistent nginx tag cannot be found. | Pod Events show `not found`, ErrImagePull and subsequent pull backoff. | `kubectl set image pod/image app=nginx:alpine`; Ready verified. |
@@ -55,8 +55,7 @@ that convergence; the original failed attempt remains in the evidence.
 ![Historical warnings and repaired Pods](images/01-troubleshooting.png)
 ![DNS and network fixes](images/02-dns-network.png)
 
-The images capture real commands in a live ttyd terminal on this Mac. Historical Events refer to the
-intentionally broken resources; the final Pod list shows the repaired state.
+The warning Events show the broken configurations. The final Pod list shows the state after the fixes.
 
 ## Result
 

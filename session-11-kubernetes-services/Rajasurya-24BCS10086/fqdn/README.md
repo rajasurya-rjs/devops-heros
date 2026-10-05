@@ -21,9 +21,9 @@ the Service dataplane then forwards the connection to a ready backend Pod.
 For a headless Service, DNS returns backend Pod addresses instead of a virtual IP.
 StatefulSet Pod names can be addressed as `<pod>.<headless-service>.<namespace>.svc.cluster.local`.
 
-## Existing execution evidence
+## Commands and output
 
-The original commands, actual DNS responses, resolver configuration and screenshot are preserved in
+The DNS responses, resolver configuration and screenshot are in
 [Task 8 - FQDN and CoreDNS](../README.md#task-8--fqdn--coredns-deep-dive).
 The comparison of Deployment and StatefulSet identities is in [Task 9](../README.md#task-9--pod-identity-deployment-vs-statefulset).
 

@@ -17,7 +17,7 @@
 | Node IP (`minikube ip`) | `192.168.64.2` |
 | Ingress controller | `ingress-nginx` via `minikube addons enable ingress` |
 
-Every code block below is a real transcript from this cluster.
+The code blocks below show the commands and output from this cluster.
 
 ### Contents
 
@@ -203,7 +203,7 @@ So what does a Secret actually buy you over a ConfigMap?
 | Mounted as a volume | on disk | in a **`tmpfs`** — never written to the node's disk |
 | Sent to a node | — | only to nodes that actually run a pod needing it |
 
-The genuine security boundary is **RBAC**: you grant `get secrets` to far fewer
+The security boundary is **RBAC**: you grant `get secrets` to far fewer
 subjects than `get configmaps`. For real protection at rest you must either turn
 on `EncryptionConfiguration` on the API server, or keep secrets out of `etcd`
 entirely using an external store (Vault, AWS/GCP Secrets Manager, Sealed
@@ -436,7 +436,7 @@ An **Ingress** object is just routing *rules* — inert YAML. It does nothing
 until an **Ingress controller** (here `ingress-nginx`, a Deployment running in
 the `ingress-nginx` namespace) is watching for those objects and reconfiguring
 itself. Apply an Ingress with no controller installed and you get a permanently
-empty `ADDRESS` field and no errors — a genuinely confusing failure mode.
+empty `ADDRESS` field and no errors — a confusing failure mode.
 `ingressClassName: nginx` is what binds this object to that controller.
 
 The rules being applied:
