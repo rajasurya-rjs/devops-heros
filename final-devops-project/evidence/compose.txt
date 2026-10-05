@@ -1,0 +1,10 @@
+ Network devops-homework_default Creating 
+ Network devops-homework_default Created 
+ Volume devops-homework_notes-data Creating 
+ Volume devops-homework_notes-data Created 
+ Container devops-homework-notes-1 Creating 
+ Container devops-homework-notes-1 Created 
+ Container devops-homework-notes-1 Starting 
+ Container devops-homework-notes-1 Started 
+NAME                      IMAGE                                                                                         COMMAND           SERVICE   CREATED                  STATUS                                     PORTS
+devops-homework-notes-1   ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64   "python app.py"   notes     Less than a second ago   Up Less than a second (health: starting)   127.0.0.1:18080->8080/tcp

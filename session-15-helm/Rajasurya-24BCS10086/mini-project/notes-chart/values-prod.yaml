@@ -1,0 +1,5 @@
+replicaCount: 3
+app:
+  name: Rajasurya Operations Notes
+  environment: production
+  version: v2

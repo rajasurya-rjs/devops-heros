@@ -1,0 +1,6 @@
+region = "ap-south-1"
+name = "rajasurya-devops-hw19"
+bucket_name = "rajasurya-24bcs10086-hw19-20261005"
+instance_type = "t3.micro"
+# Replace the documentation address with your public IPv4/32.
+web_cidr = "192.0.2.1/32"

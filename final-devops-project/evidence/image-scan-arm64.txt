@@ -1,0 +1,19 @@
+2026-10-05T06:25:13Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-05T06:25:14Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+2026-10-05T06:25:14Z	WARN	Recommend using Trivy to generate SBOMs
+2026-10-05T06:25:14Z	INFO	Detected OS	family="alpine" version="3.24.2"
+2026-10-05T06:25:14Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=29
+2026-10-05T06:25:14Z	INFO	Number of language-specific files	num=0
+
+Report Summary
+
+┌──────────────────────────────────────────────────────────────────────────────────┬────────┬─────────────────┐
+│                                      Target                                      │  Type  │ Vulnerabilities │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ced- │ alpine │        0        │
+│ a87c93-arm64 (alpine 3.24.2)                                                     │        │                 │
+└──────────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+

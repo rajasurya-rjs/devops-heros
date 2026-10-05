@@ -1,0 +1,23 @@
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/ops-notes-7897cc748-gpz9f   1/1     Running   0          6s
+pod/ops-notes-7897cc748-mznd4   1/1     Running   0          6s
+
+NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/ops-notes   ClusterIP   10.96.130.216   <none>        8080/TCP   6s
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/ops-notes-data   Bound    pvc-3c50e37f-504d-4dd5-b735-387fc7b97cbc   256Mi      RWO            standard       <unset>                 6s
+NAME     	NAMESPACE     	REVISION	UPDATED                                	STATUS  	CHART          	APP VERSION
+ops-notes	final-homework	1       	2026-10-05 06:26:32.410921255 +0000 UTC	deployed	ops-notes-0.1.0	v1         
+{"status": "ok", "version": "v1"}{"id": 1, "text": "Verified by GitHub Actions"}[{"id": 1, "text": "Verified by GitHub Actions"}]# HELP ops_requests_total HTTP responses served.
+# TYPE ops_requests_total counter
+ops_requests_total 6
+# HELP ops_errors_total HTTP error responses.
+# TYPE ops_errors_total counter
+ops_errors_total 0
+# TYPE ops_uptime_seconds gauge
+ops_uptime_seconds 3.375
+# TYPE ops_cpu_seconds_total counter
+ops_cpu_seconds_total 0.107891
+# TYPE ops_memory_maxrss gauge
+ops_memory_maxrss 19556

@@ -1012,7 +1012,7 @@ cluster — and it bypasses the NodePort entirely.
 | 1 | Port architecture | 4 ports mapped across 3 objects; packet path traced |
 | 2 | ClusterIP | Virtual IP + 3 derived endpoints; reached by name, FQDN and IP |
 | 3 | NodePort | `80:30080/TCP`; reached at `192.168.64.2:30080` |
-| 4 | LoadBalancer | `<pending>` without a cloud controller; `minikube tunnel` filled it in |
+| 4 | LoadBalancer | `<pending>` with the MetalLB controller scaled to zero; MetalLB assigned the IP after it was started |
 | 5 | ExternalName | No ClusterIP, no endpoints — a pure CoreDNS CNAME |
 | 6 | Headless | 3 A records instead of 1 VIP; per-pod DNS names resolve |
 | 7 | No selector | Hand-written Endpoints routed traffic off-cluster; `<none>` drill triaged |
@@ -1029,3 +1029,32 @@ cluster — and it bypasses the NodePort entirely.
 | Session | 11 — Kubernetes Networking & Services |
 | File | `session-11-kubernetes-services/Rajasurya-24BCS10086/README.md` |
 | Screenshots | `session-11-kubernetes-services/Rajasurya-24BCS10086/images/` |
+
+## Required documentation paths
+
+- [fqdn/README.md](fqdn/README.md) — namespace DNS and Pod-to-Service communication.
+- [coredns/README.md](coredns/README.md) — query resolution, Corefile and troubleshooting.
+
+These pages reference the existing hands-on evidence above.
+
+## Task 2 - Deployment, ReplicaSet and Service comparison
+
+| Responsibility | Deployment | ReplicaSet | Service |
+|---|---|---|---|
+| Purpose | Manage a desired application version and rollout. | Maintain the desired count of matching Pods. | Give clients stable addressing and route to selected backends. |
+| Pod management | Creates/manages ReplicaSets; they create Pods. | Creates replacement Pods after failure/deletion. | Creates no Pods. |
+| Scaling | Adjust Deployment replicas; controller updates its ReplicaSets. | Can adjust replicas directly for a standalone ReplicaSet. | Backend selection follows labels/readiness, not a replica count. |
+| Rolling updates | Creates a new ReplicaSet and scales versions according to strategy. | No deployment revision or rolling-update workflow by itself. | Keeps routing to ready selected Pods during a rollout. |
+
+A Deployment owns ReplicaSets; each ReplicaSet owns the Pods for a particular template version.
+Use the Deployment to update and scale a managed application rather than manually editing its child
+ReplicaSets. A standalone ReplicaSet handles count and self-healing without Deployment rollout history.
+
+A ReplicaSet's Pod count does not provide stable networking. Pod addresses can change when a Pod is
+replaced, so a Service provides a stable virtual IP/DNS name. The Service selector matches Pod labels;
+the EndpointSlice controller publishes ready backend addresses, and the Service dataplane forwards traffic
+to a backend's target port. Clients can talk to the Service without knowing which replica handles a request.
+The existing ClusterIP connectivity evidence and identity-deletion exercise above demonstrate that boundary.
+
+Deployment versus DaemonSet versus StatefulSet is documented in the existing Task 10 matrix above,
+including use cases, identity, scaling, networking, storage and examples.

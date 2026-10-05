@@ -6,7 +6,7 @@
 **Assignment:** [DevOps Homework doc](https://docs.google.com/document/d/1cjXFYf2Thm8cBEN-0C48B-v02cj3jGLd47lcO18prHE/edit)
 
 Each section lives in its own session folder under `Rajasurya-24BCS10086/`, with
-a README and an `images/` folder of terminal screenshots.
+a README and genuine screenshots. The final integrated project lives in `final-devops-project/`.
 
 | # | Section | Folder |
 |---|---|---|
@@ -17,8 +17,21 @@ a README and an `images/` folder of terminal screenshots.
 | 5 | Docker Fundamentals (Hello World apps) | [session6-docker](session6-docker/Rajasurya-24BCS10086/README.md) |
 | 6 | Dockerfiles & Images (multi-stage) | [session7-dockerfiles-images](session7-dockerfiles-images/Rajasurya-24BCS10086/README.md) |
 | 7 | Docker Networking & Volumes | [session8-docker-networking-volume](session8-docker-networking-volume/Rajasurya-24BCS10086/README.md) |
+| 8 | Session 9: Kubernetes Fundamentals | [README](session9-k8s/Rajasurya-24BCS10086/README.md) |
+| 9 | Session 10: Kubernetes Pods, ReplicaSets & Deployments | [README](session10-k8s-core-objects/Rajasurya-24BCS10086/README.md) |
+| 10 | Session 11: Kubernetes Networking & Services | [README](session-11-kubernetes-services/Rajasurya-24BCS10086/README.md) |
+| 11 | Session 12: Kubernetes Ingress, ConfigMaps & Secrets | [README](session-12-ingress-configmaps-secrets/Rajasurya-24BCS10086/README.md) |
+| 12 | Session 13: Kubernetes Storage, HPA & Probes | [README](session-13-storage-hpa-probes/Rajasurya-24BCS10086/README.md) |
+| 13 | Session 14: Kubernetes Troubleshooting | [README](session-14-kubernetes-troubleshooting/Rajasurya-24BCS10086/README.md) |
+| 14 | Session 15: Helm | [README](session-15-helm/Rajasurya-24BCS10086/README.md) |
+| 15 | Session 16: CI/CD & GitHub Actions | [README](session-16-github-actions/Rajasurya-24BCS10086/README.md) |
+| 16 | Session 17: Complete CI/CD & DevSecOps | [README](session-17-devsecops/Rajasurya-24BCS10086/README.md) |
+| 17 | Session 18: Terraform & Infrastructure as Code | [README](session18-terraform-iac/Rajasurya-24BCS10086/README.md) |
+| 18 | Session 19: Cloud & Terraform in Action | [README](session19-cloud-terraform/Rajasurya-24BCS10086/README.md) |
+| 19 | Session 20: Monitoring, Observability & GitOps | [README](session20-monitoring-observability-gitops/Rajasurya-24BCS10086/README.md) |
+| 20 | Session 21: Final DevOps Project & Troubleshooting | [README](final-devops-project/README.md) |
 
-## My setup
+## My original setup (earlier sessions)
 
 - **Laptop:** MacBook Air (Apple Silicon), macOS 26.6
 - **Docker:** 29.2.1 (Docker Desktop) · **Node:** v22.18.0 · **Python:** 3.13.5
@@ -114,3 +127,24 @@ replayed through a terminal emulator to capture them, which is why the shell
 prompt, the ANSI colours from `ls`/`git`/`docker`, and the exit codes are all
 intact. The same session appears as text in the code block directly above each
 image, so the two can be compared line for line.
+
+
+## Completion pass
+
+The original implementations and 105 screenshots were inspected and preserved. Missing Session 9 tutorial
+work and Session 11 documentation were added without replacing the previous tasks. Sessions 13–21 now
+have original implementations, documentation and genuine local/CI evidence. Sessions 16, 17, 20 and 21
+share the explicitly linked final application and pipeline.
+
+The current host is macOS 26.7.1 arm64. Sessions 9/13/14/15 ran in the preserved `minikube` vfkit Linux VM;
+the final project uses the separate 4096 MB `devops-completion` profile. Docker uses Docker Desktop's Linux VM.
+GitHub Actions runs on remote Ubuntu runners with a disposable kind cluster. Added terminal screenshots
+capture live ttyd command execution; browser captures show the actual application, Actions and monitoring pages.
+
+The successful remote workflow builds/scans/pushes both architectures and deploys to Kubernetes.
+The final application, PVC persistence, monitoring, GitOps drift correction and troubleshooting recovery
+were verified. AWS credentials were unavailable: real plan/apply/resource verification/destroy and cloud
+screenshots for Sessions 18/19/21 remain outstanding. Mock Terraform tests are explicitly labelled offline.
+
+[Exact submission fields and README URLs](SUBMISSION.md) list all 20 fields in form order.
+The Google Form has not been submitted.

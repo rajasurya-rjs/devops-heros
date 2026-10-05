@@ -1,0 +1,46 @@
++ flux get all -n hw-gitops
+NAME                  	REVISION          	SUSPENDED	READY	MESSAGE                                           
+gitrepository/homework	main@sha1:f352cbcc	False    	True 	stored artifact for revision 'main@sha1:f352cbcc'	
+
+NAME               	REVISION          	SUSPENDED	READY	MESSAGE                              
+kustomization/notes	main@sha1:f352cbcc	False    	True 	Applied revision: main@sha1:f352cbcc	
+
++ kubectl get deployment -n gitops-homework
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+gitops-notes   2/2     2            2           4m34s
++ kubectl scale deployment/gitops-notes -n gitops-homework --replicas=1
+deployment.apps/gitops-notes scaled
++ kubectl get deployment/gitops-notes -n gitops-homework
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+gitops-notes   1/1     1            1           4m34s
++ for attempt in '{1..30}'
+++ kubectl get deployment/gitops-notes -n gitops-homework -o 'jsonpath={.spec.replicas}'
++ count=1
++ '[' 1 = 2 ']'
++ sleep 3
++ for attempt in '{1..30}'
+++ kubectl get deployment/gitops-notes -n gitops-homework -o 'jsonpath={.spec.replicas}'
++ count=1
++ '[' 1 = 2 ']'
++ sleep 3
++ for attempt in '{1..30}'
+++ kubectl get deployment/gitops-notes -n gitops-homework -o 'jsonpath={.spec.replicas}'
++ count=2
++ '[' 2 = 2 ']'
++ echo 'Flux restored the Git replica count to 2'
+Flux restored the Git replica count to 2
++ break
++ test 2 = 2
++ kubectl rollout status deployment/gitops-notes -n gitops-homework --timeout=90s
+Waiting for deployment "gitops-notes" rollout to finish: 1 of 2 updated replicas are available...
+deployment "gitops-notes" successfully rolled out
++ flux get all -n hw-gitops
+NAME                  	REVISION          	SUSPENDED	READY	MESSAGE                                           
+gitrepository/homework	main@sha1:f352cbcc	False    	True 	stored artifact for revision 'main@sha1:f352cbcc'	
+
+NAME               	REVISION          	SUSPENDED	READY  	MESSAGE                    
+kustomization/notes	main@sha1:f352cbcc	False    	Unknown	Reconciliation in progress	
+
++ kubectl get deployment -n gitops-homework
+NAME           READY   UP-TO-DATE   AVAILABLE   AGE
+gitops-notes   2/2     2            2           4m41s

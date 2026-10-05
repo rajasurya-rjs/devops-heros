@@ -1,0 +1,706 @@
++ kubectl apply -f mini-project/app.yaml
+namespace/hw14 created
+deployment.apps/troubleshooting-app created
+service/troubleshooting-service created
+pod/client created
++ kubectl rollout status deployment/troubleshooting-app -n hw14 --timeout=120s
+Waiting for deployment "troubleshooting-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "troubleshooting-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "troubleshooting-app" successfully rolled out
++ kubectl wait --for=condition=Ready pod/client -n hw14 --timeout=90s
+pod/client condition met
++ kubectl get pods -n hw14 -o wide
+NAME                                   READY   STATUS    RESTARTS   AGE   IP             NODE       NOMINATED NODE   READINESS GATES
+client                                 1/1     Running   0          4s    10.244.0.199   minikube   <none>           <none>
+troubleshooting-app-676cc85647-bl9ws   1/1     Running   0          4s    10.244.0.198   minikube   <none>           <none>
+troubleshooting-app-676cc85647-n9dp4   1/1     Running   0          4s    10.244.0.197   minikube   <none>           <none>
++ kubectl describe deployment troubleshooting-app -n hw14
+Name:                   troubleshooting-app
+Namespace:              hw14
+CreationTimestamp:      Mon, 05 Oct 2026 11:28:00 +0530
+Labels:                 <none>
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=troubleshooting-app
+Replicas:               2 desired | 2 updated | 2 total | 2 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=troubleshooting-app
+  Containers:
+   nginx:
+    Image:      nginx:alpine
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:         10m
+      memory:      16Mi
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   troubleshooting-app-676cc85647 (2/2 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  4s    deployment-controller  Scaled up replica set troubleshooting-app-676cc85647 from 0 to 2
++ kubectl logs -n hw14 deployment/troubleshooting-app --tail=8
+Found 2 pods, using pod/troubleshooting-app-676cc85647-bl9ws
+2026/10/05 05:58:04 [notice] 1#1: nginx/1.31.6
+2026/10/05 05:58:04 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+2026/10/05 05:58:04 [notice] 1#1: OS: Linux 6.6.152
+2026/10/05 05:58:04 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/10/05 05:58:04 [notice] 1#1: start worker processes
+2026/10/05 05:58:04 [notice] 1#1: start worker process 29
+2026/10/05 05:58:04 [notice] 1#1: start worker process 30
+2026/10/05 05:58:04 [notice] 1#1: start worker process 31
++ kubectl exec -n hw14 client -- wget -qO- http://troubleshooting-service
++ head -6
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
++ kubectl events -n hw14
+LAST SEEN   TYPE     REASON              OBJECT                                      MESSAGE
+5s          Normal   Scheduled           Pod/troubleshooting-app-676cc85647-n9dp4    Successfully assigned hw14/troubleshooting-app-676cc85647-n9dp4 to minikube
+5s          Normal   ScalingReplicaSet   Deployment/troubleshooting-app              Scaled up replica set troubleshooting-app-676cc85647 from 0 to 2
+5s          Normal   SuccessfulCreate    ReplicaSet/troubleshooting-app-676cc85647   Created pod: troubleshooting-app-676cc85647-bl9ws
+5s          Normal   SuccessfulCreate    ReplicaSet/troubleshooting-app-676cc85647   Created pod: troubleshooting-app-676cc85647-n9dp4
+5s          Normal   Scheduled           Pod/troubleshooting-app-676cc85647-bl9ws    Successfully assigned hw14/troubleshooting-app-676cc85647-bl9ws to minikube
+5s          Normal   Scheduled           Pod/client                                  Successfully assigned hw14/client to minikube
+4s          Normal   Pulled              Pod/troubleshooting-app-676cc85647-n9dp4    Container image "nginx:alpine" already present on machine and can be accessed by the pod
+3s          Normal   Created             Pod/troubleshooting-app-676cc85647-bl9ws    Container created
+3s          Normal   Pulled              Pod/troubleshooting-app-676cc85647-bl9ws    Container image "nginx:alpine" already present on machine and can be accessed by the pod
+3s          Normal   Created             Pod/troubleshooting-app-676cc85647-n9dp4    Container created
+3s          Normal   Created             Pod/client                                  Container created
+3s          Normal   Pulled              Pod/client                                  Container image "busybox:1.36" already present on machine and can be accessed by the pod
+2s          Normal   Started             Pod/troubleshooting-app-676cc85647-bl9ws    Container started
+2s          Normal   Started             Pod/troubleshooting-app-676cc85647-n9dp4    Container started
+2s          Normal   Started             Pod/client                                  Container started
++ kubectl explain pod.spec.containers.resources
+KIND:       Pod
+VERSION:    v1
+
+FIELD: resources <ResourceRequirements>
+
+
+DESCRIPTION:
+    Compute Resources required by this container. Cannot be updated. More info:
+    https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    ResourceRequirements describes the compute resource requirements.
+    
+FIELDS:
+  claims	<[]ResourceClaim>
+    Claims lists the names of resources, defined in spec.resourceClaims, that
+    are used by this container.
+    
+    This field depends on the DynamicResourceAllocation feature gate.
+    
+    This field is immutable. It can only be set for containers.
+
+  limits	<map[string]Quantity>
+    Limits describes the maximum amount of compute resources allowed. More info:
+    https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  requests	<map[string]Quantity>
+    Requests describes the minimum amount of compute resources required. If
+    Requests is omitted for a container, it defaults to Limits if that is
+    explicitly specified, otherwise to an implementation-defined value. Requests
+    cannot exceed Limits. More info:
+    https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+
++ kubectl top pods -n hw14
+error: metrics not available yet
++ true
++ kubectl apply -f scenarios/crash-broken.yaml
+pod/crash created
+++ seq 1 18
++ for i in '$(seq 1 18)'
+++ kubectl get pod crash -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ContainerCreating
++ '[' ContainerCreating = CrashLoopBackOff ']'
++ sleep 3
++ for i in '$(seq 1 18)'
+++ kubectl get pod crash -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=
++ '[' '' = CrashLoopBackOff ']'
++ sleep 3
++ for i in '$(seq 1 18)'
+++ kubectl get pod crash -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=
++ '[' '' = CrashLoopBackOff ']'
++ sleep 3
++ for i in '$(seq 1 18)'
+++ kubectl get pod crash -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=
++ '[' '' = CrashLoopBackOff ']'
++ sleep 3
++ for i in '$(seq 1 18)'
+++ kubectl get pod crash -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=
++ '[' '' = CrashLoopBackOff ']'
++ sleep 3
++ for i in '$(seq 1 18)'
+++ kubectl get pod crash -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=CrashLoopBackOff
++ '[' CrashLoopBackOff = CrashLoopBackOff ']'
++ break
++ kubectl get pod crash -n hw14
+NAME    READY   STATUS             RESTARTS      AGE
+crash   0/1     CrashLoopBackOff   1 (15s ago)   17s
++ kubectl logs crash -n hw14 --previous
+intentional-exit-42
++ kubectl describe pod crash -n hw14
+Name:             crash
+Namespace:        hw14
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.64.2
+Start Time:       Mon, 05 Oct 2026 11:28:05 +0530
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.200
+IPs:
+  IP:  10.244.0.200
+Containers:
+  app:
+    Container ID:  containerd://64821279f5901bad1ef68df207d3b0c01d3c6e1ca0c72c1a0a61fb5eaf83cc6d
+    Image:         busybox:1.36
+    Image ID:      docker.io/library/busybox@sha256:73aaf090f3d85aa34ee199857f03fa3a95c8ede2ffd4cc2cdb5b94e566b11662
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo intentional-exit-42; exit 42
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    42
+      Started:      Mon, 05 Oct 2026 11:28:07 +0530
+      Finished:     Mon, 05 Oct 2026 11:28:07 +0530
+    Ready:          False
+    Restart Count:  1
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qjvzg (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-qjvzg:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  18s                default-scheduler  Successfully assigned hw14/crash to minikube
+  Normal   Started    16s (x2 over 17s)  kubelet            spec.containers{app}: Container started
+  Warning  BackOff    16s                kubelet            spec.containers{app}: Back-off restarting failed container app in pod crash_hw14(25649a65-52d8-44f2-9779-74ae10512947)
+  Normal   Pulled     3s (x3 over 17s)   kubelet            spec.containers{app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal   Created    2s (x3 over 17s)   kubelet            spec.containers{app}: Container created
++ kubectl delete pod crash -n hw14
+pod "crash" deleted from hw14 namespace
++ kubectl apply -f scenarios/crash-fixed.yaml
+pod/crash created
++ kubectl wait --for=condition=Ready pod/crash -n hw14 --timeout=90s
+pod/crash condition met
++ kubectl apply -f scenarios/image-broken.yaml
+pod/image created
+++ seq 1 30
++ for i in '$(seq 1 30)'
++ kubectl get pod image -n hw14
+NAME    READY   STATUS              RESTARTS   AGE
+image   0/1     ContainerCreating   0          0s
+++ kubectl get pod image -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ContainerCreating
++ '[' ContainerCreating = ImagePullBackOff ']'
++ sleep 3
++ for i in '$(seq 1 30)'
++ kubectl get pod image -n hw14
+NAME    READY   STATUS         RESTARTS   AGE
+image   0/1     ErrImagePull   0          3s
+++ kubectl get pod image -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ErrImagePull
++ '[' ErrImagePull = ImagePullBackOff ']'
++ sleep 3
++ for i in '$(seq 1 30)'
++ kubectl get pod image -n hw14
+NAME    READY   STATUS         RESTARTS   AGE
+image   0/1     ErrImagePull   0          7s
+++ kubectl get pod image -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ErrImagePull
++ '[' ErrImagePull = ImagePullBackOff ']'
++ sleep 3
++ for i in '$(seq 1 30)'
++ kubectl get pod image -n hw14
+NAME    READY   STATUS         RESTARTS   AGE
+image   0/1     ErrImagePull   0          10s
+++ kubectl get pod image -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ErrImagePull
++ '[' ErrImagePull = ImagePullBackOff ']'
++ sleep 3
++ for i in '$(seq 1 30)'
++ kubectl get pod image -n hw14
+NAME    READY   STATUS         RESTARTS   AGE
+image   0/1     ErrImagePull   0          13s
+++ kubectl get pod image -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ErrImagePull
++ '[' ErrImagePull = ImagePullBackOff ']'
++ sleep 3
++ for i in '$(seq 1 30)'
++ kubectl get pod image -n hw14
+NAME    READY   STATUS             RESTARTS   AGE
+image   0/1     ImagePullBackOff   0          17s
+++ kubectl get pod image -n hw14 -o 'jsonpath={.status.containerStatuses[0].state.waiting.reason}'
++ reason=ImagePullBackOff
++ '[' ImagePullBackOff = ImagePullBackOff ']'
++ break
++ kubectl describe pod image -n hw14
+Name:             image
+Namespace:        hw14
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.64.2
+Start Time:       Mon, 05 Oct 2026 11:28:30 +0530
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.204
+IPs:
+  IP:  10.244.0.204
+Containers:
+  app:
+    Container ID:   
+    Image:          nginx:this-tag-does-not-exist-24bcs10086
+    Image ID:       
+    Port:           <none>
+    Host Port:      <none>
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-8vzv6 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-8vzv6:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  17s               default-scheduler  Successfully assigned hw14/image to minikube
+  Normal   BackOff    15s               kubelet            spec.containers{app}: Back-off pulling image "nginx:this-tag-does-not-exist-24bcs10086"
+  Warning  Failed     15s               kubelet            spec.containers{app}: Error: ImagePullBackOff
+  Normal   Pulling    2s (x2 over 16s)  kubelet            spec.containers{app}: Pulling image "nginx:this-tag-does-not-exist-24bcs10086"
+  Warning  Failed     0s (x2 over 15s)  kubelet            spec.containers{app}: Failed to pull image "nginx:this-tag-does-not-exist-24bcs10086": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-does-not-exist-24bcs10086": failed to resolve reference "docker.io/library/nginx:this-tag-does-not-exist-24bcs10086": docker.io/library/nginx:this-tag-does-not-exist-24bcs10086: not found
+  Warning  Failed     0s (x2 over 15s)  kubelet            spec.containers{app}: Error: ErrImagePull
++ kubectl set image pod/image app=nginx:alpine -n hw14
+pod/image image updated
++ kubectl wait --for=condition=Ready pod/image -n hw14 --timeout=90s
+pod/image condition met
++ kubectl apply -f scenarios/pending-broken.yaml
+pod/pending created
++ sleep 3
++ kubectl get pod pending -n hw14
+NAME      READY   STATUS    RESTARTS   AGE
+pending   0/1     Pending   0          3s
++ kubectl describe pod pending -n hw14
+Name:             pending
+Namespace:        hw14
+Priority:         0
+Service Account:  default
+Node:             <none>
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Containers:
+  app:
+    Image:      busybox:1.36
+    Port:       <none>
+    Host Port:  <none>
+    Command:
+      sleep
+      3600
+    Requests:
+      cpu:        1k
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-6pp79 (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  kube-api-access-6pp79:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age   From               Message
+  ----     ------            ----  ----               -------
+  Warning  FailedScheduling  3s    default-scheduler  0/1 nodes are available: 1 Insufficient cpu. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
++ kubectl delete pod pending -n hw14
+pod "pending" deleted from hw14 namespace
++ kubectl apply -f scenarios/pending-fixed.yaml
+pod/pending created
++ kubectl wait --for=condition=Ready pod/pending -n hw14 --timeout=90s
+pod/pending condition met
++ kubectl apply -f scenarios/mount-broken.yaml
+pod/mount created
++ sleep 5
++ kubectl get pod mount -n hw14
+NAME    READY   STATUS              RESTARTS   AGE
+mount   0/1     ContainerCreating   0          5s
++ kubectl describe pod mount -n hw14
+Name:             mount
+Namespace:        hw14
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.64.2
+Start Time:       Mon, 05 Oct 2026 11:28:53 +0530
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Containers:
+  app:
+    Container ID:  
+    Image:         busybox:1.36
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sleep
+      3600
+    State:          Waiting
+      Reason:       ContainerCreating
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /config from config (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-thbmm (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      missing-volume-config
+    Optional:  false
+  kube-api-access-thbmm:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason       Age              From               Message
+  ----     ------       ----             ----               -------
+  Normal   Scheduled    6s               default-scheduler  Successfully assigned hw14/mount to minikube
+  Warning  FailedMount  2s (x4 over 6s)  kubelet            MountVolume.SetUp failed for volume "config" : configmap "missing-volume-config" not found
++ kubectl create configmap missing-volume-config -n hw14 --from-literal=mode=homework
+configmap/missing-volume-config created
++ kubectl wait --for=condition=Ready pod/mount -n hw14 --timeout=120s
+pod/mount condition met
++ kubectl exec mount -n hw14 -- cat /config/mode
+homework+ kubectl apply -f scenarios/config-broken.yaml
+pod/config created
++ sleep 5
++ kubectl get pod config -n hw14
+NAME     READY   STATUS                       RESTARTS   AGE
+config   0/1     CreateContainerConfigError   0          5s
++ kubectl describe pod config -n hw14
+Name:             config
+Namespace:        hw14
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.64.2
+Start Time:       Mon, 05 Oct 2026 11:29:05 +0530
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.207
+IPs:
+  IP:  10.244.0.207
+Containers:
+  app:
+    Container ID:  
+    Image:         busybox:1.36
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sleep
+      3600
+    State:          Waiting
+      Reason:       CreateContainerConfigError
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'missing-config-secret'>  Optional: false
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-fdgfh (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-fdgfh:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age              From               Message
+  ----     ------     ----             ----               -------
+  Normal   Scheduled  5s               default-scheduler  Successfully assigned hw14/config to minikube
+  Normal   Pulled     3s (x2 over 4s)  kubelet            spec.containers{app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Warning  Failed     3s (x2 over 4s)  kubelet            spec.containers{app}: Error: secret "missing-config-secret" not found
++ kubectl create secret generic missing-config-secret -n hw14 --from-literal=token=classroom-placeholder
+secret/missing-config-secret created
++ kubectl wait --for=condition=Ready pod/config -n hw14 --timeout=90s
+pod/config condition met
++ kubectl exec config -n hw14 -- sh -c 'test -n "$APP_TOKEN" && echo Secret-injection-verified-without-printing-value'
+Secret-injection-verified-without-printing-value
++ kubectl patch service troubleshooting-service -n hw14 -p '{"spec":{"selector":{"app":"wrong-app"}}}'
+service/troubleshooting-service patched
++ kubectl get endpointslices -n hw14 -l kubernetes.io/service-name=troubleshooting-service
+NAME                            ADDRESSTYPE   PORTS     ENDPOINTS   AGE
+troubleshooting-service-kpg9x   IPv4          <unset>   <unset>     84s
++ kubectl describe service troubleshooting-service -n hw14
+Name:                     troubleshooting-service
+Namespace:                hw14
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=wrong-app
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.95.226
+IPs:                      10.96.95.226
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+Endpoints:                
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl get pods -n hw14 --show-labels
+NAME                                   READY   STATUS    RESTARTS   AGE   LABELS
+client                                 1/1     Running   0          85s   <none>
+config                                 1/1     Running   0          20s   <none>
+crash                                  1/1     Running   0          56s   <none>
+image                                  1/1     Running   0          55s   <none>
+mount                                  1/1     Running   0          32s   <none>
+pending                                1/1     Running   0          33s   <none>
+troubleshooting-app-676cc85647-bl9ws   1/1     Running   0          85s   app=troubleshooting-app,pod-template-hash=676cc85647
+troubleshooting-app-676cc85647-n9dp4   1/1     Running   0          85s   app=troubleshooting-app,pod-template-hash=676cc85647
++ kubectl exec client -n hw14 -- timeout 3 wget -qO- http://troubleshooting-service
+command terminated with exit code 143
++ true
++ kubectl patch service troubleshooting-service -n hw14 -p '{"spec":{"selector":{"app":"troubleshooting-app"}}}'
+service/troubleshooting-service patched
++ kubectl exec client -n hw14 -- wget -qO- http://troubleshooting-service
++ head -6
+wget: can't connect to remote host (10.96.95.226): Connection timed out
+command terminated with exit code 1
++ cd /Users/rajasurya/Downloads/devops-heros/session-14-kubernetes-troubleshooting/Rajasurya-24BCS10086
++ retry_http http://troubleshooting-service
++ head -6
+++ seq 1 15
++ for attempt in '$(seq 1 15)'
++ kubectl exec client -n hw14 -- wget -T 3 -qO- http://troubleshooting-service
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
++ return 0
++ kubectl patch service troubleshooting-service -n hw14 -p '{"spec":{"ports":[{"port":80,"targetPort":81}]}}'
+service/troubleshooting-service patched
++ kubectl exec client -n hw14 -- timeout 3 wget -qO- http://troubleshooting-service
+wget: can't connect to remote host (10.96.95.226): Connection refused
+command terminated with exit code 1
++ true
++ kubectl describe service troubleshooting-service -n hw14
+Name:                     troubleshooting-service
+Namespace:                hw14
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=troubleshooting-app
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.95.226
+IPs:                      10.96.95.226
+Port:                     <unset>  80/TCP
+TargetPort:               81/TCP
+Endpoints:                10.244.0.198:81,10.244.0.197:81
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl patch service troubleshooting-service -n hw14 -p '{"spec":{"ports":[{"port":80,"targetPort":80}]}}'
+service/troubleshooting-service patched
++ retry_http http://troubleshooting-service
++ head -6
+++ seq 1 15
++ for attempt in '$(seq 1 15)'
++ kubectl exec client -n hw14 -- wget -T 3 -qO- http://troubleshooting-service
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
++ return 0
++ kubectl apply -f scenarios/dns-broken.yaml
+pod/dns created
++ kubectl wait --for=condition=Ready pod/dns -n hw14 --timeout=90s
+pod/dns condition met
++ kubectl exec dns -n hw14 -- cat /etc/resolv.conf
+nameserver 192.0.2.1
++ kubectl exec dns -n hw14 -- timeout 5 nslookup troubleshooting-service.hw14.svc.cluster.local
+command terminated with exit code 143
++ true
++ kubectl delete pod dns -n hw14
+pod "dns" deleted from hw14 namespace
++ kubectl apply -f scenarios/dns-fixed.yaml
+pod/dns created
++ kubectl wait --for=condition=Ready pod/dns -n hw14 --timeout=90s
+pod/dns condition met
++ kubectl exec dns -n hw14 -- nslookup troubleshooting-service.hw14.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+Name:	troubleshooting-service.hw14.svc.cluster.local
+Address: 10.96.95.226
+
+
++ kubectl apply -f mini-project/network-broken.yaml
+deployment.apps/loopback created
+service/loopback created
++ kubectl rollout status deployment/loopback -n hw14 --timeout=120s
+Waiting for deployment "loopback" rollout to finish: 0 of 1 updated replicas are available...
+deployment "loopback" successfully rolled out
++ kubectl exec -n hw14 deployment/loopback -- python -c 'import urllib.request; print(urllib.request.urlopen('\''http://127.0.0.1:8080'\'').status)'
+200
++ kubectl exec client -n hw14 -- timeout 3 wget -qO- http://loopback:8080
+wget: can't connect to remote host (10.106.72.245): Connection refused
+command terminated with exit code 1
++ true
++ kubectl patch deployment loopback -n hw14 --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/command/5","value":"0.0.0.0"}]'
+deployment.apps/loopback patched
++ kubectl rollout status deployment/loopback -n hw14 --timeout=120s
+Waiting for deployment "loopback" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "loopback" rollout to finish: 1 old replicas are pending termination...
+deployment "loopback" successfully rolled out
++ head -6
++ retry_http http://loopback:8080
+++ seq 1 15
++ for attempt in '$(seq 1 15)'
++ kubectl exec client -n hw14 -- wget -T 3 -qO- http://loopback:8080
+wget: can't connect to remote host (10.106.72.245): Connection refused
+command terminated with exit code 1
++ sleep 2
++ for attempt in '$(seq 1 15)'
++ kubectl exec client -n hw14 -- wget -T 3 -qO- http://loopback:8080
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Operations Notes</title><style>body{font:17px system-ui;margin:5vh auto;max-width:850px;background:#f5f7fa;color:#17324d;padding:24px}header{border-bottom:2px solid #d4dee9;padding-bottom:20px}h1{margin:0}small{color:#4d6782}form{display:flex;gap:10px;margin:25px 0}input{flex:1;padding:14px;border:1px solid #bdcddd;border-radius:6px;font:inherit}button{background:#245c9c;color:white;border:0;border-radius:6px;padding:10px 18px;cursor:pointer}li{background:white;margin:10px 0;padding:18px;border:1px solid #dce4ed;border-radius:6px;display:flex;justify-content:space-between;gap:12px}ul{padding:0;list-style:none}#state{margin-top:18px;color:#286345}</style>
+<header><small>DEVOPS LAB · RAJASURYA J · 24BCS10086</small><h1>Operations Notes</h1><p>Track deployment checks and incident fixes.</p><small id="config"></small></header>
+<form id="form"><input id="note" maxlength="500" required placeholder="Add a deployment or troubleshooting note"><button>Add note</button></form><ul id="notes"></ul><p id="state" role="status"></p>
+<script>
+async function api(path,method='GET',body){const response=await fetch(path,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});if(!response.ok)throw new Error('HTTP '+response.status);return response.json()}
++ return 0
++ kubectl get pods,svc -n hw14
+NAME                                       READY   STATUS        RESTARTS   AGE
+pod/client                                 1/1     Running       0          7m47s
+pod/config                                 1/1     Running       0          6m42s
+pod/crash                                  1/1     Running       0          7m18s
+pod/dns                                    1/1     Running       0          6s
+pod/image                                  1/1     Running       0          7m17s
+pod/loopback-676d79fb5d-ftf5g              1/1     Terminating   0          5s
+pod/loopback-7c8f7649d7-vqccd              1/1     Running       0          3s
+pod/mount                                  1/1     Running       0          6m54s
+pod/pending                                1/1     Running       0          6m55s
+pod/troubleshooting-app-676cc85647-bl9ws   1/1     Running       0          7m47s
+pod/troubleshooting-app-676cc85647-n9dp4   1/1     Running       0          7m47s
+
+NAME                              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/loopback                  ClusterIP   10.106.72.245   <none>        8080/TCP   5s
+service/troubleshooting-service   ClusterIP   10.96.95.226    <none>        80/TCP     7m47s
++ kubectl events -n hw14 --types=Warning
+LAST SEEN               TYPE      REASON             OBJECT        MESSAGE
+7m40s                   Warning   BackOff            Pod/crash     Back-off restarting failed container app in pod crash_hw14(25649a65-52d8-44f2-9779-74ae10512947)
+7m15s                   Warning   Failed             Pod/image     Error: ImagePullBackOff
+7m (x2 over 7m15s)      Warning   Failed             Pod/image     Failed to pull image "nginx:this-tag-does-not-exist-24bcs10086": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-does-not-exist-24bcs10086": failed to resolve reference "docker.io/library/nginx:this-tag-does-not-exist-24bcs10086": docker.io/library/nginx:this-tag-does-not-exist-24bcs10086: not found
+7m (x2 over 7m15s)      Warning   Failed             Pod/image     Error: ErrImagePull
+6m59s                   Warning   FailedScheduling   Pod/pending   0/1 nodes are available: 1 Insufficient cpu. preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+6m50s (x4 over 6m54s)   Warning   FailedMount        Pod/mount     MountVolume.SetUp failed for volume "config" : configmap "missing-volume-config" not found
+6m40s (x2 over 6m41s)   Warning   Failed             Pod/config    Error: secret "missing-config-secret" not found

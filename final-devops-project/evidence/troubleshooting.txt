@@ -1,0 +1,580 @@
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ kubectl patch svc ops-notes -n final-homework --type=merge -p '{"spec":{"selector":{"app":"deliberately-wrong"}}}'
+service/ops-notes patched
++ sleep 3
++ kubectl get endpointslice -n final-homework -l kubernetes.io/service-name=ops-notes -o wide
+NAME              ADDRESSTYPE   PORTS     ENDPOINTS   AGE
+ops-notes-9lfpn   IPv4          <unset>   <unset>     10m
++ failed=false
++ for attempt in '{1..20}'
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ sleep 2
++ for attempt in '{1..20}'
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+curl: (22) The requested URL returned error: 503
++ failed=true
++ break
++ true
++ kubectl describe svc ops-notes -n final-homework
+Name:                     ops-notes
+Namespace:                final-homework
+Labels:                   app.kubernetes.io/managed-by=Helm
+Annotations:              meta.helm.sh/release-name: ops-notes
+                          meta.helm.sh/release-namespace: final-homework
+Selector:                 app=deliberately-wrong
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.99.68.164
+IPs:                      10.99.68.164
+Port:                     http  8080/TCP
+TargetPort:               8080/TCP
+Endpoints:                
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl patch svc ops-notes -n final-homework --type=merge -p '{"spec":{"selector":{"app":"ops-notes"}}}'
+service/ops-notes patched
++ for attempt in '{1..12}'
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+curl: (22) The requested URL returned error: 503
++ sleep 2
++ for attempt in '{1..12}'
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+curl: (22) The requested URL returned error: 503
++ sleep 2
++ for attempt in '{1..12}'
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ break
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ kubectl set image deployment/ops-notes app=nginx:homework-nonexistent-image -n final-homework
+deployment.apps/ops-notes image updated
++ for attempt in '{1..30}'
+++ kubectl get pods -n final-homework -l app=ops-notes -o 'jsonpath={range .items[*]}{.status.containerStatuses[*].state.waiting.reason}{" "}{end}'
++ reason='  ContainerCreating '
++ [[   ContainerCreating  == *ImagePullBackOff* ]]
++ [[   ContainerCreating  == *ErrImagePull* ]]
++ sleep 2
++ for attempt in '{1..30}'
+++ kubectl get pods -n final-homework -l app=ops-notes -o 'jsonpath={range .items[*]}{.status.containerStatuses[*].state.waiting.reason}{" "}{end}'
++ reason='  ContainerCreating '
++ [[   ContainerCreating  == *ImagePullBackOff* ]]
++ [[   ContainerCreating  == *ErrImagePull* ]]
++ sleep 2
++ for attempt in '{1..30}'
+++ kubectl get pods -n final-homework -l app=ops-notes -o 'jsonpath={range .items[*]}{.status.containerStatuses[*].state.waiting.reason}{" "}{end}'
++ reason='  ErrImagePull '
++ [[   ErrImagePull  == *ImagePullBackOff* ]]
++ [[   ErrImagePull  == *ErrImagePull* ]]
++ break
++ [[   ErrImagePull  == *ImagePullBackOff* ]]
++ [[   ErrImagePull  == *ErrImagePull* ]]
++ kubectl get pods -n final-homework -l app=ops-notes
+NAME                         READY   STATUS         RESTARTS   AGE
+ops-notes-5db758c867-pjfmf   1/1     Running        0          10m
+ops-notes-5db758c867-s44c8   1/1     Running        0          10m
+ops-notes-78c7c5f95-mr9kd    0/1     ErrImagePull   0          4s
++ kubectl describe pods -n final-homework -l app=ops-notes
+Name:             ops-notes-5db758c867-pjfmf
+Namespace:        final-homework
+Priority:         0
+Service Account:  default
+Node:             devops-completion/192.168.64.3
+Start Time:       Mon, 05 Oct 2026 12:01:27 +0530
+Labels:           app=ops-notes
+                  pod-template-hash=5db758c867
+Annotations:      checksum/config: 8e533b59abadfe5574871fdd8786106222911bf0db1ba88016b27287d3415ecc
+Status:           Running
+IP:               10.244.0.4
+IPs:
+  IP:           10.244.0.4
+Controlled By:  ReplicaSet/ops-notes-5db758c867
+Containers:
+  app:
+    Container ID:   containerd://cb3535e58df091bafcb198ff20140579d91e13ee94904bdc64202d7d5cf8aae2
+    Image:          ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64
+    Image ID:       sha256:975ebb4439feea426ae9ef09f56fb62160c013a25519e4bb554ef158e9bcd49c
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 05 Oct 2026 12:01:27 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  96Mi
+    Requests:
+      cpu:      20m
+      memory:   32Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=3s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/ready delay=0s timeout=3s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment Variables from:
+      ops-notes-config  ConfigMap  Optional: false
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'app-credentials'>  Optional: false
+    Mounts:
+      /data from data (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hbbvv (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  ops-notes-data
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-hbbvv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             ops-notes-5db758c867-s44c8
+Namespace:        final-homework
+Priority:         0
+Service Account:  default
+Node:             devops-completion/192.168.64.3
+Start Time:       Mon, 05 Oct 2026 12:01:26 +0530
+Labels:           app=ops-notes
+                  pod-template-hash=5db758c867
+Annotations:      checksum/config: 8e533b59abadfe5574871fdd8786106222911bf0db1ba88016b27287d3415ecc
+Status:           Running
+IP:               10.244.0.3
+IPs:
+  IP:           10.244.0.3
+Controlled By:  ReplicaSet/ops-notes-5db758c867
+Containers:
+  app:
+    Container ID:   containerd://e8758e6159494e699ffd1d4440cde154d18a80fafe3f3aa407fc6e3396323cc7
+    Image:          ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64
+    Image ID:       sha256:975ebb4439feea426ae9ef09f56fb62160c013a25519e4bb554ef158e9bcd49c
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 05 Oct 2026 12:01:27 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  96Mi
+    Requests:
+      cpu:      20m
+      memory:   32Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=3s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/ready delay=0s timeout=3s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment Variables from:
+      ops-notes-config  ConfigMap  Optional: false
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'app-credentials'>  Optional: false
+    Mounts:
+      /data from data (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5q2g5 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  ops-notes-data
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-5q2g5:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             ops-notes-78c7c5f95-mr9kd
+Namespace:        final-homework
+Priority:         0
+Service Account:  default
+Node:             devops-completion/192.168.64.3
+Start Time:       Mon, 05 Oct 2026 12:12:06 +0530
+Labels:           app=ops-notes
+                  pod-template-hash=78c7c5f95
+Annotations:      checksum/config: 8e533b59abadfe5574871fdd8786106222911bf0db1ba88016b27287d3415ecc
+Status:           Pending
+IP:               10.244.0.19
+IPs:
+  IP:           10.244.0.19
+Controlled By:  ReplicaSet/ops-notes-78c7c5f95
+Containers:
+  app:
+    Container ID:   
+    Image:          nginx:homework-nonexistent-image
+    Image ID:       
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  96Mi
+    Requests:
+      cpu:      20m
+      memory:   32Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=3s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/ready delay=0s timeout=3s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment Variables from:
+      ops-notes-config  ConfigMap  Optional: false
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'app-credentials'>  Optional: false
+    Mounts:
+      /data from data (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-d5gcz (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  ops-notes-data
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-d5gcz:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
++ kubectl set image deployment/ops-notes app=ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64 -n final-homework
+deployment.apps/ops-notes image updated
++ kubectl rollout status deployment/ops-notes -n final-homework --timeout=90s
+Waiting for deployment "ops-notes" rollout to finish: 1 old replicas are pending termination...
+deployment "ops-notes" successfully rolled out
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ kubectl patch deployment ops-notes -n final-homework --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/deliberately-missing"}]'
+deployment.apps/ops-notes patched
++ sleep 20
++ kubectl get pods -n final-homework -l app=ops-notes
+NAME                         READY   STATUS    RESTARTS   AGE
+ops-notes-5db758c867-pjfmf   1/1     Running   0          11m
+ops-notes-5db758c867-s44c8   1/1     Running   0          11m
+ops-notes-5fffbd7fc5-8z24d   0/1     Running   0          20s
++ kubectl describe pods -n final-homework -l app=ops-notes
+Name:             ops-notes-5db758c867-pjfmf
+Namespace:        final-homework
+Priority:         0
+Service Account:  default
+Node:             devops-completion/192.168.64.3
+Start Time:       Mon, 05 Oct 2026 12:01:27 +0530
+Labels:           app=ops-notes
+                  pod-template-hash=5db758c867
+Annotations:      checksum/config: 8e533b59abadfe5574871fdd8786106222911bf0db1ba88016b27287d3415ecc
+Status:           Running
+IP:               10.244.0.4
+IPs:
+  IP:           10.244.0.4
+Controlled By:  ReplicaSet/ops-notes-5db758c867
+Containers:
+  app:
+    Container ID:   containerd://cb3535e58df091bafcb198ff20140579d91e13ee94904bdc64202d7d5cf8aae2
+    Image:          ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64
+    Image ID:       sha256:975ebb4439feea426ae9ef09f56fb62160c013a25519e4bb554ef158e9bcd49c
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 05 Oct 2026 12:01:27 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  96Mi
+    Requests:
+      cpu:      20m
+      memory:   32Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=3s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/ready delay=0s timeout=3s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment Variables from:
+      ops-notes-config  ConfigMap  Optional: false
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'app-credentials'>  Optional: false
+    Mounts:
+      /data from data (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hbbvv (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  ops-notes-data
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-hbbvv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             ops-notes-5db758c867-s44c8
+Namespace:        final-homework
+Priority:         0
+Service Account:  default
+Node:             devops-completion/192.168.64.3
+Start Time:       Mon, 05 Oct 2026 12:01:26 +0530
+Labels:           app=ops-notes
+                  pod-template-hash=5db758c867
+Annotations:      checksum/config: 8e533b59abadfe5574871fdd8786106222911bf0db1ba88016b27287d3415ecc
+Status:           Running
+IP:               10.244.0.3
+IPs:
+  IP:           10.244.0.3
+Controlled By:  ReplicaSet/ops-notes-5db758c867
+Containers:
+  app:
+    Container ID:   containerd://e8758e6159494e699ffd1d4440cde154d18a80fafe3f3aa407fc6e3396323cc7
+    Image:          ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64
+    Image ID:       sha256:975ebb4439feea426ae9ef09f56fb62160c013a25519e4bb554ef158e9bcd49c
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 05 Oct 2026 12:01:27 +0530
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  96Mi
+    Requests:
+      cpu:      20m
+      memory:   32Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=3s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/ready delay=0s timeout=3s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment Variables from:
+      ops-notes-config  ConfigMap  Optional: false
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'app-credentials'>  Optional: false
+    Mounts:
+      /data from data (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-5q2g5 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  ops-notes-data
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-5q2g5:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             ops-notes-5fffbd7fc5-8z24d
+Namespace:        final-homework
+Priority:         0
+Service Account:  default
+Node:             devops-completion/192.168.64.3
+Start Time:       Mon, 05 Oct 2026 12:12:11 +0530
+Labels:           app=ops-notes
+                  pod-template-hash=5fffbd7fc5
+Annotations:      checksum/config: 8e533b59abadfe5574871fdd8786106222911bf0db1ba88016b27287d3415ecc
+Status:           Running
+IP:               10.244.0.20
+IPs:
+  IP:           10.244.0.20
+Controlled By:  ReplicaSet/ops-notes-5fffbd7fc5
+Containers:
+  app:
+    Container ID:   containerd://d0f1618b7f54e501cf92448b5afc702e3c5367e7a89b46b7596153da2221802e
+    Image:          ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64
+    Image ID:       sha256:975ebb4439feea426ae9ef09f56fb62160c013a25519e4bb554ef158e9bcd49c
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 05 Oct 2026 12:12:11 +0530
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     300m
+      memory:  96Mi
+    Requests:
+      cpu:      20m
+      memory:   32Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=3s period=10s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/deliberately-missing delay=0s timeout=3s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment Variables from:
+      ops-notes-config  ConfigMap  Optional: false
+    Environment:
+      APP_TOKEN:  <set to the key 'token' in secret 'app-credentials'>  Optional: false
+    Mounts:
+      /data from data (rw)
+      /tmp from tmp (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tdlth (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  ops-notes-data
+    ReadOnly:   false
+  tmp:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+  kube-api-access-tdlth:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
++ kubectl logs -n final-homework -l app=ops-notes --tail=8 --prefix
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-s44c8/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5fffbd7fc5-8z24d/app] {"component": "http", "message": "\"GET /deliberately-missing HTTP/1.1\" 404 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+[pod/ops-notes-5db758c867-pjfmf/app] {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
++ kubectl patch deployment ops-notes -n final-homework --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/ready"}]'
+deployment.apps/ops-notes patched
++ kubectl rollout status deployment/ops-notes -n final-homework --timeout=90s
+Waiting for deployment "ops-notes" rollout to finish: 1 old replicas are pending termination...
+deployment "ops-notes" successfully rolled out
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ kubectl get deployment,pods,svc,pvc,hpa,ingress -n final-homework
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana      1/1     1            1           11m
+deployment.apps/ops-notes    2/2     2            2           11m
+deployment.apps/prometheus   1/1     1            1           11m
+
+NAME                             READY   STATUS        RESTARTS   AGE
+pod/grafana-5788785664-j45bq     1/1     Running       0          2m51s
+pod/ops-notes-5db758c867-pjfmf   1/1     Running       0          11m
+pod/ops-notes-5db758c867-s44c8   1/1     Running       0          11m
+pod/ops-notes-5fffbd7fc5-8z24d   0/1     Terminating   0          20s
+pod/prometheus-fccfcdb8f-7t7bp   1/1     Running       0          11m
+
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   10.103.157.9     <none>        3000/TCP   11m
+service/ops-notes    ClusterIP   10.99.68.164     <none>        8080/TCP   11m
+service/prometheus   ClusterIP   10.103.177.144   <none>        9090/TCP   11m
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/ops-notes-data   Bound    pvc-9bddb337-1066-4e6e-b2ce-35d5116bb5b2   256Mi      RWO            standard       <unset>                 11m
+
+NAME                                            REFERENCE              TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/ops-notes   Deployment/ops-notes   cpu: 10%/50%   2         5         2          11m
+
+NAME                                  CLASS   HOSTS                ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/ops-notes   nginx   ops.homework.local   192.168.64.3   80      11m
++ restore
++ kubectl patch svc ops-notes -n final-homework --type=merge -p '{"spec":{"selector":{"app":"ops-notes"}}}'
+service/ops-notes patched (no change)
++ kubectl set image deployment/ops-notes app=ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64 -n final-homework
++ kubectl patch deployment ops-notes -n final-homework --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/ready"}]'
+deployment.apps/ops-notes patched (no change)

@@ -1,0 +1,67 @@
+test_crud (test_api.APITests.test_crud) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+{"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"PUT /api/notes/1 HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 404 -"}
+ok
+test_empty_note_rejected (test_api.APITests.test_empty_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+ok
+test_health (test_api.APITests.test_health) ... {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+ok
+test_home_page (test_api.APITests.test_home_page) ... {"component": "http", "message": "\"GET / HTTP/1.1\" 200 -"}
+ok
+test_long_note_rejected (test_api.APITests.test_long_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+ok
+test_metrics (test_api.APITests.test_metrics) ... {"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+ok
+test_sql_is_data (test_api.APITests.test_sql_is_data) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+{"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+ok
+test_unknown_route (test_api.APITests.test_unknown_route) ... {"component": "http", "message": "\"GET /does-not-exist HTTP/1.1\" 404 -"}
+ok
+test_update_missing (test_api.APITests.test_update_missing) ... {"component": "http", "message": "\"PUT /api/notes/99999 HTTP/1.1\" 404 -"}
+ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.788s
+
+OK
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: None
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	running on Python 3.13.5
+[tester]	WARNING	nosec encountered (B104), but no failed test on file application/app.py:136
+[tester]	WARNING	nosec encountered (B104), but no failed test on file application/app.py:136
+Run started:2026-10-05 06:02:55.339718+00:00
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 121
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 1
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
+No known vulnerabilities found
+11:33AM INF scanned ~39913 bytes (39.91 KB) in 23.1ms
+11:33AM INF no leaks found
+2026-10-05T11:33:29+05:30	INFO	[vulndb] Need to update DB
+2026-10-05T11:33:29+05:30	INFO	[vulndb] Downloading vulnerability DB...
+2026-10-05T11:33:29+05:30	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-10-05T11:42:28+05:30	INFO	Received signal, attempting graceful shutdown...
+2026-10-05T11:42:28+05:30	INFO	Press Ctrl+C again to force exit
+final-devops-project/security/scan.sh: line 8: 42266 Killed: 9               trivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 "${1:-ops-notes:local}"

@@ -1,0 +1,42 @@
++ kubectl top pods -n final-homework
+NAME                         CPU(cores)   MEMORY(bytes)   
+grafana-5788785664-j45bq     19m          378Mi           
+ops-notes-5db758c867-pjfmf   3m           19Mi            
+ops-notes-5db758c867-s44c8   3m           19Mi            
+prometheus-fccfcdb8f-7t7bp   5m           42Mi            
++ kubectl logs -n final-homework deployment/ops-notes --tail=8
+Found 3 pods, using pod/ops-notes-5db758c867-pjfmf
+{"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /api/config HTTP/1.1\" 200 -"}
++ curl -fsS http://127.0.0.1:13000/api/health
+{
+  "database": "ok",
+  "version": "13.2.3",
+  "commit": "90ffed056f0884267356c12a0eeb72a022af53f1"
+}+ curl -fsS 'http://127.0.0.1:19090/api/v1/query?query=up%7Bjob%3D%22operations-notes%22%7D'
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"up","instance":"ops-notes:8080","job":"operations-notes"},"value":[1791182705.286,"1"]}]}}+ curl -fsS http://127.0.0.1:19090/api/v1/alerts
+{"status":"success","data":{"alerts":[{"labels":{"alertname":"TargetUnavailable","instance":"127.0.0.1:19999","job":"deliberate-unavailable-target","severity":"warning"},"annotations":{"summary":"A configured scrape target is unavailable"},"state":"firing","activeAt":"2026-10-05T06:32:16.455244941Z","value":"0e+00"}]}}+ flux get all -n hw-gitops
+NAME                  	REVISION          	SUSPENDED	READY	MESSAGE                                           
+gitrepository/homework	main@sha1:d83b4708	False    	True 	stored artifact for revision 'main@sha1:d83b4708'	
+
+NAME               	REVISION          	SUSPENDED	READY	MESSAGE                              
+kustomization/notes	main@sha1:d83b4708	False    	True 	Applied revision: main@sha1:d83b4708	
+
++ kubectl get deployment,pods,svc -n gitops-homework
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/gitops-notes   2/2     2            2           9m45s
+
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/gitops-notes-854d6c4d4f-4bpkg   1/1     Running   0          4m6s
+pod/gitops-notes-854d6c4d4f-mjdrp   1/1     Running   0          3m54s
+
+NAME                   TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/gitops-notes   ClusterIP   10.105.168.83   <none>        8080/TCP   9m45s
++ kubectl exec -n gitops-homework deployment/gitops-notes -- python -c 'import urllib.request; print(urllib.request.urlopen("http://127.0.0.1:8080/api/config").read().decode())'
+{"title": "Operations Notes managed by Flux", "version": "gitops-v2", "secret_injected": false}

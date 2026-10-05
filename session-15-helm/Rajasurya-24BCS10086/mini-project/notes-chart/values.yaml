@@ -1,0 +1,9 @@
+replicaCount: 1
+image: nginx:alpine
+app:
+  name: Rajasurya Operations Notes
+  environment: development
+  version: v1
+service:
+  port: 80
+  nodePort: 30095

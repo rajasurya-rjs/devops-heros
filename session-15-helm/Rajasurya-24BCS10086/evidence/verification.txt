@@ -1,0 +1,171 @@
++ helm version --short
+v3.22.0+g144ca65
++ helm lint mini-project/notes-chart
+==> Linting mini-project/notes-chart
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
++ helm template notes mini-project/notes-chart
++ helm repo add bitnami https://charts.bitnami.com/bitnami
+"bitnami" already exists with the same configuration, skipping
++ helm repo update bitnami
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "bitnami" chart repository
+Update Complete. ⎈Happy Helming!⎈
++ helm repo list
+NAME   	URL                               
+bitnami	https://charts.bitnami.com/bitnami
++ helm search repo bitnami/nginx
++ awk 'NR<=5'
+NAME                            	CHART VERSION	APP VERSION	DESCRIPTION                                       
+bitnami/nginx                   	25.2.1       	1.31.6     	NGINX Open Source is a web server that can be a...
+bitnami/nginx-ingress-controller	12.0.7       	1.13.1     	NGINX Ingress Controller is an Ingress controll...
+bitnami/nginx-intel             	2.1.15       	0.4.9      	DEPRECATED NGINX Open Source for Intel is a lig...
++ helm install notes mini-project/notes-chart -n hw15 --create-namespace --wait --timeout 120s
+NAME: notes
+LAST DEPLOYED: Mon Oct  5 11:29:29 2026
+NAMESPACE: hw15
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
++ helm list -n hw15
+NAME 	NAMESPACE	REVISION	UPDATED                           	STATUS  	CHART            	APP VERSION
+notes	hw15     	1       	2026-10-05 11:29:29.0028 +0530 IST	deployed	notes-chart-0.1.0	v1         
++ helm status notes -n hw15
+NAME: notes
+LAST DEPLOYED: Mon Oct  5 11:29:29 2026
+NAMESPACE: hw15
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
++ helm get values notes -n hw15
+USER-SUPPLIED VALUES:
+null
++ curl --fail http://192.168.64.2:30095
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    97  100    97    0     0   2577      0 --:--:-- --:--:-- --:--:--  2621
+<!doctype html><h1>Rajasurya Operations Notes</h1>
+<p>Environment: development | Version: v1</p>
++ helm upgrade notes mini-project/notes-chart -n hw15 -f mini-project/notes-chart/values-prod.yaml --wait --timeout 120s
+Release "notes" has been upgraded. Happy Helming!
+NAME: notes
+LAST DEPLOYED: Mon Oct  5 11:29:45 2026
+NAMESPACE: hw15
+STATUS: deployed
+REVISION: 2
+TEST SUITE: None
++ curl --fail http://192.168.64.2:30095
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    96  100    96    0     0  10335      0 --:--:-- --:--:-- --:--:-- 10666
+<!doctype html><h1>Rajasurya Operations Notes</h1>
+<p>Environment: production | Version: v2</p>
++ helm upgrade notes mini-project/notes-chart -n hw15 -f mini-project/notes-chart/values-prod.yaml --set app.version=v3 --wait --timeout 120s
+Release "notes" has been upgraded. Happy Helming!
+NAME: notes
+LAST DEPLOYED: Mon Oct  5 11:30:19 2026
+NAMESPACE: hw15
+STATUS: deployed
+REVISION: 3
+TEST SUITE: None
++ curl --fail http://192.168.64.2:30095
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    96  100    96    0     0  16080      0 --:--:-- --:--:-- --:--:-- 19200
+<!doctype html><h1>Rajasurya Operations Notes</h1>
+<p>Environment: production | Version: v3</p>
++ helm history notes -n hw15
+REVISION	UPDATED                 	STATUS    	CHART            	APP VERSION	DESCRIPTION     
+1       	Mon Oct  5 11:29:29 2026	superseded	notes-chart-0.1.0	v1         	Install complete
+2       	Mon Oct  5 11:29:45 2026	superseded	notes-chart-0.1.0	v1         	Upgrade complete
+3       	Mon Oct  5 11:30:19 2026	deployed  	notes-chart-0.1.0	v1         	Upgrade complete
++ helm rollback notes 1 -n hw15 --wait --timeout 120s
+Rollback was a success! Happy Helming!
++ curl --fail http://192.168.64.2:30095
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0
+curl: (28) Failed to connect to 192.168.64.2 port 30095 after 7833 ms: Couldn't connect to server
++ cd /Users/rajasurya/Downloads/devops-heros/session-15-helm/Rajasurya-24BCS10086
++ curl --fail --retry 10 --retry-all-errors --retry-delay 1 --max-time 5 http://192.168.64.2:30095
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100    97  100    97    0     0    763      0 --:--:-- --:--:-- --:--:--   769
+<!doctype html><h1>Rajasurya Operations Notes</h1>
+<p>Environment: development | Version: v1</p>
++ helm history notes -n hw15
+REVISION	UPDATED                 	STATUS    	CHART            	APP VERSION	DESCRIPTION     
+1       	Mon Oct  5 11:29:29 2026	superseded	notes-chart-0.1.0	v1         	Install complete
+2       	Mon Oct  5 11:29:45 2026	superseded	notes-chart-0.1.0	v1         	Upgrade complete
+3       	Mon Oct  5 11:30:19 2026	superseded	notes-chart-0.1.0	v1         	Upgrade complete
+4       	Mon Oct  5 11:30:48 2026	deployed  	notes-chart-0.1.0	v1         	Rollback to 1   
++ awk 'NR<=45'
++ helm get manifest notes -n hw15
+---
+# Source: notes-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notes-config
+data:
+  APP_NAME: "Rajasurya Operations Notes"
+  ENVIRONMENT: "development"
+  index.html: |
+    <!doctype html><h1>Rajasurya Operations Notes</h1>
+    <p>Environment: development | Version: v1</p>
+---
+# Source: notes-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes
+spec:
+  type: NodePort
+  selector: {app: notes}
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30095
+---
+# Source: notes-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: notes}
+  template:
+    metadata:
+      labels: {app: notes}
+      annotations:
+        checksum/config: 8bbbbf4fbf0eb2f6e1c2cbf44cd35633ba2ac0a9bf718b66c22b3d8a5483e4ba
+    spec:
+      containers:
+        - name: notes
+          image: nginx:alpine
+          ports: [{containerPort: 80}]
++ kubectl get pods,svc,cm -n hw15
+NAME                        READY   STATUS    RESTARTS   AGE
+pod/notes-b9787467d-wrpv9   1/1     Running   0          3m52s
+
+NAME            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/notes   NodePort   10.104.192.12   <none>        80:30095/TCP   5m11s
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      5m11s
+configmap/notes-config       3      5m11s
++ helm install disposable mini-project/notes-chart -n hw15 --set service.nodePort=30096 --wait --timeout 120s
+NAME: disposable
+LAST DEPLOYED: Mon Oct  5 11:34:41 2026
+NAMESPACE: hw15
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
++ helm uninstall disposable -n hw15
+release "disposable" uninstalled
++ helm list -n hw15
+NAME 	NAMESPACE	REVISION	UPDATED                             	STATUS  	CHART            	APP VERSION
+notes	hw15     	4       	2026-10-05 11:30:48.282985 +0530 IST	deployed	notes-chart-0.1.0	v1         

@@ -1,0 +1,2 @@
+$ helm create mini-project/notes-chart
+Creating /Users/rajasurya/Downloads/devops-heros/session-15-helm/Rajasurya-24BCS10086/mini-project/notes-chart

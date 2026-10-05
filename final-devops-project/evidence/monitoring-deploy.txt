@@ -1,0 +1,13 @@
+configmap/grafana-dashboard unchanged
+configmap/prometheus-config unchanged
+deployment.apps/prometheus unchanged
+service/prometheus unchanged
+configmap/grafana-provisioning unchanged
+deployment.apps/grafana configured
+service/grafana unchanged
+deployment "prometheus" successfully rolled out
+Waiting for deployment "grafana" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "grafana" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "grafana" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "grafana" rollout to finish: 1 old replicas are pending termination...
+deployment "grafana" successfully rolled out

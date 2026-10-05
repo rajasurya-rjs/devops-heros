@@ -1,0 +1,19 @@
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ kubectl patch svc ops-notes -n final-homework --type=merge -p '{"spec":{"selector":{"app":"deliberately-wrong"}}}'
+service/ops-notes patched
++ sleep 3
++ kubectl get endpointslice -n final-homework -l kubernetes.io/service-name=ops-notes -o wide
+NAME              ADDRESSTYPE   PORTS     ENDPOINTS   AGE
+ops-notes-9lfpn   IPv4          <unset>   <unset>     9m45s
++ health
++ curl --max-time 8 -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ echo 'Unexpected success with incorrect selector'
+Unexpected success with incorrect selector
++ exit 1
++ restore
++ kubectl patch svc ops-notes -n final-homework --type=merge -p '{"spec":{"selector":{"app":"ops-notes"}}}'
+service/ops-notes patched
++ kubectl set image deployment/ops-notes app=ghcr.io/rajasurya-rjs/devops-heros/ops-notes:e1b3f65fc09b6226b28141fc6748c03ceda87c93-arm64 -n final-homework
++ kubectl patch deployment ops-notes -n final-homework --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/ready"}]'
+deployment.apps/ops-notes patched (no change)

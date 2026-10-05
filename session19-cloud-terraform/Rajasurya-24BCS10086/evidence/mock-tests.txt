@@ -1,0 +1,6 @@
+tests/cloud.tftest.hcl... [37min progress[0m
+[0m  run "network_and_compute_plan"... [32mpass[0m[0m
+tests/cloud.tftest.hcl... [37mtearing down[0m
+[0mtests/cloud.tftest.hcl... [32mpass[0m[0m
+
+[32mSuccess![0m[0m 1 passed, 0 failed.

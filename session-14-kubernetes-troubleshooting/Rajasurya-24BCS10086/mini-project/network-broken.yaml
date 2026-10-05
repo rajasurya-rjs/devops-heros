@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: loopback, namespace: hw14}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: loopback}
+  template:
+    metadata:
+      labels: {app: loopback}
+    spec:
+      containers:
+        - name: app
+          image: ops-notes:local
+          command: [python, -m, http.server, "8080", --bind, "127.0.0.1"]
+          ports: [{containerPort: 8080}]
+---
+apiVersion: v1
+kind: Service
+metadata: {name: loopback, namespace: hw14}
+spec:
+  selector: {app: loopback}
+  ports: [{port: 8080, targetPort: 8080}]

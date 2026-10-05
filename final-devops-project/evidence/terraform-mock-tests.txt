@@ -1,0 +1,6 @@
+tests/cloud.tftest.hcl... in progress
+  run "cluster_configuration"... pass
+tests/cloud.tftest.hcl... tearing down
+tests/cloud.tftest.hcl... pass
+
+Success! 1 passed, 0 failed.

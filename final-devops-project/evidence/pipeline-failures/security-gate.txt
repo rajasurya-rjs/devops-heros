@@ -1,0 +1,68 @@
+build-push	Container security gate	﻿2026-10-05T06:13:34.3152878Z ##[group]Run set -o pipefail
+build-push	Container security gate	2026-10-05T06:13:34.3153208Z [36;1mset -o pipefail[0m
+build-push	Container security gate	2026-10-05T06:13:34.3153454Z [36;1mmkdir -p reports[0m
+build-push	Container security gate	2026-10-05T06:13:34.3154318Z [36;1mtrivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 'ghcr.io/rajasurya-rjs/devops-heros/ops-notes:178e93a5cb820717557fb181985e519509cfc71d' 2>&1 | tee reports/image-scan.txt[0m
+build-push	Container security gate	2026-10-05T06:13:34.3217962Z shell: /usr/bin/bash -e {0}
+build-push	Container security gate	2026-10-05T06:13:34.3218326Z ##[endgroup]
+build-push	Container security gate	2026-10-05T06:13:34.4145867Z 2026-10-05T06:13:34Z	INFO	[vulndb] Need to update DB
+build-push	Container security gate	2026-10-05T06:13:34.4146802Z 2026-10-05T06:13:34Z	INFO	[vulndb] Downloading vulnerability DB...
+build-push	Container security gate	2026-10-05T06:13:34.4147913Z 2026-10-05T06:13:34Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+build-push	Container security gate	2026-10-05T06:13:39.0630542Z 41.97 MiB / 121.10 MiB [-------------------->_______________________________________] 34.65% ? p/s ?94.66 MiB / 121.10 MiB [---------------------------------------------->_____________] 78.17% ? p/s ?121.10 MiB / 121.10 MiB [--------------------------------------------------------->] 100.00% ? p/s ?121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 131.83 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 131.83 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 131.83 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 123.32 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 123.32 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 123.32 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 115.36 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 115.36 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 115.36 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 107.92 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 107.92 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 107.92 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 100.96 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 100.96 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [------------------------------------------->] 100.00% 100.96 MiB p/s ETA 0s121.10 MiB / 121.10 MiB [-----------------------------------------------] 100.00% 34.65 MiB p/s 3.7s2026-10-05T06:13:39Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+build-push	Container security gate	2026-10-05T06:13:39.0645232Z 2026-10-05T06:13:39Z	INFO	[vuln] Vulnerability scanning is enabled
+build-push	Container security gate	2026-10-05T06:13:42.8901056Z 2026-10-05T06:13:42Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+build-push	Container security gate	2026-10-05T06:13:42.8902109Z 2026-10-05T06:13:42Z	WARN	Recommend using Trivy to generate SBOMs
+build-push	Container security gate	2026-10-05T06:13:42.9047632Z 2026-10-05T06:13:42Z	INFO	Detected OS	family="alpine" version="3.24.2"
+build-push	Container security gate	2026-10-05T06:13:42.9048766Z 2026-10-05T06:13:42Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=29
+build-push	Container security gate	2026-10-05T06:13:42.9063346Z 2026-10-05T06:13:42Z	INFO	Number of language-specific files	num=1
+build-push	Container security gate	2026-10-05T06:13:42.9064137Z 2026-10-05T06:13:42Z	INFO	[python-pkg] Detecting vulnerabilities...
+build-push	Container security gate	2026-10-05T06:13:42.9172662Z 
+build-push	Container security gate	2026-10-05T06:13:42.9172847Z Report Summary
+build-push	Container security gate	2026-10-05T06:13:42.9173100Z 
+build-push	Container security gate	2026-10-05T06:13:42.9174011Z ┌──────────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┐
+build-push	Container security gate	2026-10-05T06:13:42.9174813Z │                                      Target                                      │    Type    │ Vulnerabilities │
+build-push	Container security gate	2026-10-05T06:13:42.9175865Z ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9177020Z │ ghcr.io/rajasurya-rjs/devops-heros/ops-notes:178e93a5cb820717557fb181985e519509- │   alpine   │        0        │
+build-push	Container security gate	2026-10-05T06:13:42.9177780Z │ cfc71d (alpine 3.24.2)                                                           │            │                 │
+build-push	Container security gate	2026-10-05T06:13:42.9178460Z ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9179069Z │ Python                                                                           │ python-pkg │        4        │
+build-push	Container security gate	2026-10-05T06:13:42.9179711Z ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9180479Z │ usr/local/lib/python3.13/site-packages/pip-26.2.1.dist-info/METADATA             │ python-pkg │        0        │
+build-push	Container security gate	2026-10-05T06:13:42.9181355Z └──────────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┘
+build-push	Container security gate	2026-10-05T06:13:42.9181794Z Legend:
+build-push	Container security gate	2026-10-05T06:13:42.9181977Z - '-': Not scanned
+build-push	Container security gate	2026-10-05T06:13:42.9182214Z - '0': Clean (no security findings detected)
+build-push	Container security gate	2026-10-05T06:13:42.9182416Z 
+build-push	Container security gate	2026-10-05T06:13:42.9182421Z 
+build-push	Container security gate	2026-10-05T06:13:42.9182516Z For OSS Maintainers: VEX Notice
+build-push	Container security gate	2026-10-05T06:13:42.9182761Z --------------------------------
+build-push	Container security gate	2026-10-05T06:13:42.9183556Z If you're an OSS maintainer and Trivy has detected vulnerabilities in your project that you believe are not actually exploitable, consider issuing a VEX (Vulnerability Exploitability eXchange) statement.
+build-push	Container security gate	2026-10-05T06:13:42.9184774Z VEX allows you to communicate the actual status of vulnerabilities in your project, improving security transparency and reducing false positives for your users.
+build-push	Container security gate	2026-10-05T06:13:42.9186248Z Learn more and start using VEX: https://trivy.dev/docs/v0.75/guide/supply-chain/vex/repo#publishing-vex-documents
+build-push	Container security gate	2026-10-05T06:13:42.9187305Z 
+build-push	Container security gate	2026-10-05T06:13:42.9187664Z To disable this notice, set the TRIVY_DISABLE_VEX_NOTICE environment variable.
+build-push	Container security gate	2026-10-05T06:13:42.9188045Z 
+build-push	Container security gate	2026-10-05T06:13:42.9188050Z 
+build-push	Container security gate	2026-10-05T06:13:42.9188139Z Python (python-pkg)
+build-push	Container security gate	2026-10-05T06:13:42.9188376Z ===================
+build-push	Container security gate	2026-10-05T06:13:42.9188588Z Total: 4 (HIGH: 4, CRITICAL: 0)
+build-push	Container security gate	2026-10-05T06:13:42.9188740Z 
+build-push	Container security gate	2026-10-05T06:13:42.9189298Z ┌────────────┬─────────────────────┬──────────┬────────┬───────────────────┬───────────────┬────────────────────────────────────────────────────────────┐
+build-push	Container security gate	2026-10-05T06:13:42.9190771Z │  Library   │    Vulnerability    │ Severity │ Status │ Installed Version │ Fixed Version │                           Title                            │
+build-push	Container security gate	2026-10-05T06:13:42.9192362Z ├────────────┼─────────────────────┼──────────┼────────┼───────────────────┼───────────────┼────────────────────────────────────────────────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9193432Z │ msgpack    │ GHSA-6v7p-g79w-8964 │ HIGH     │ fixed  │ 1.1.2             │ 1.2.1         │ MessagePack for Python: Out-of-bounds read / crash on      │
+build-push	Container security gate	2026-10-05T06:13:42.9194490Z │            │                     │          │        │                   │               │ Unpacker reuse after a...                                  │
+build-push	Container security gate	2026-10-05T06:13:42.9195244Z │            │                     │          │        │                   │               │ https://github.com/advisories/GHSA-6v7p-g79w-8964          │
+build-push	Container security gate	2026-10-05T06:13:42.9196881Z ├────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼────────────────────────────────────────────────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9197890Z │ setuptools │ CVE-2025-47273      │          │        │ 70.3.0            │ 78.1.1        │ setuptools: Path Traversal Vulnerability in setuptools     │
+build-push	Container security gate	2026-10-05T06:13:42.9198719Z │            │                     │          │        │                   │               │ PackageIndex                                               │
+build-push	Container security gate	2026-10-05T06:13:42.9199670Z │            │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2025-47273                 │
+build-push	Container security gate	2026-10-05T06:13:42.9200611Z ├────────────┼─────────────────────┤          │        ├───────────────────┼───────────────┼────────────────────────────────────────────────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9201550Z │ urllib3    │ CVE-2026-97687      │          │        │ 2.7.0             │ 2.8.0         │ urllib3: urllib3: Traffic interception via HTTPS proxy TLS │
+build-push	Container security gate	2026-10-05T06:13:42.9202338Z │            │                     │          │        │                   │               │ configuration override                                     │
+build-push	Container security gate	2026-10-05T06:13:42.9203060Z │            │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-97687                 │
+build-push	Container security gate	2026-10-05T06:13:42.9203853Z │            ├─────────────────────┤          │        │                   │               ├────────────────────────────────────────────────────────────┤
+build-push	Container security gate	2026-10-05T06:13:42.9204664Z │            │ CVE-2026-97689      │          │        │                   │               │ urllib3: urllib3: Denial of Service via unbounded memory   │
+build-push	Container security gate	2026-10-05T06:13:42.9205720Z │            │                     │          │        │                   │               │ allocation in chunk parser...                              │
+build-push	Container security gate	2026-10-05T06:13:42.9206476Z │            │                     │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2026-97689                 │
+build-push	Container security gate	2026-10-05T06:13:42.9207394Z └────────────┴─────────────────────┴──────────┴────────┴───────────────────┴───────────────┴────────────────────────────────────────────────────────────┘
+build-push	Container security gate	2026-10-05T06:13:42.9219439Z ##[error]Process completed with exit code 1.

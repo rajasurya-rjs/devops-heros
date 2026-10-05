@@ -1,0 +1,1 @@
+{"status":"success","data":{"alerts":[{"labels":{"alertname":"TargetUnavailable","instance":"127.0.0.1:19999","job":"deliberate-unavailable-target","severity":"warning"},"annotations":{"summary":"A configured scrape target is unavailable"},"state":"firing","activeAt":"2026-10-05T06:32:16.455244941Z","value":"0e+00"}]}}

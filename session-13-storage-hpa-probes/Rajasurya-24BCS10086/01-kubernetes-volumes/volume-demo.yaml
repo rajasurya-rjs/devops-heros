@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volume-demo
+  namespace: hw13
+spec:
+  containers:
+    - name: demo
+      image: busybox:1.36
+      command: [sh, -c, 'echo Rajasurya-24BCS10086 > /scratch/student.txt; sleep 3600']
+      volumeMounts:
+        - {name: scratch, mountPath: /scratch}
+        - {name: host, mountPath: /host-demo}
+  volumes:
+    - name: scratch
+      emptyDir: {}
+    - name: host
+      hostPath:
+        path: /tmp/devops-hw13
+        type: DirectoryOrCreate

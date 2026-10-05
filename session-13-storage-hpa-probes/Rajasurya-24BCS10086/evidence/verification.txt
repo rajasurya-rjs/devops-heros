@@ -1,0 +1,366 @@
++ kubectl apply -f mini-project/app.yaml
+namespace/hw13 created
+persistentvolumeclaim/web-data created
+deployment.apps/web-app created
+service/web-service created
++ kubectl rollout status deployment/web-app -n hw13 --timeout=180s
+Waiting for deployment "web-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "web-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "web-app" successfully rolled out
++ kubectl apply -f hpa.yml
+horizontalpodautoscaler.autoscaling/web-app created
++ kubectl apply -f 01-kubernetes-volumes/volume-demo.yaml
+pod/volume-demo created
++ kubectl wait --for=condition=Ready pod/volume-demo -n hw13 --timeout=120s
+pod/volume-demo condition met
++ kubectl exec -n hw13 volume-demo -- cat /scratch/student.txt
+Rajasurya-24BCS10086
++ kubectl exec -n hw13 volume-demo -- sh -c 'echo host-volume-demo > /host-demo/proof.txt; cat /host-demo/proof.txt'
+host-volume-demo
++ kubectl get sc,pv,pvc -n hw13
+NAME                                             PROVISIONER                RECLAIMPOLICY   VOLUMEBINDINGMODE   ALLOWVOLUMEEXPANSION   AGE
+storageclass.storage.k8s.io/standard (default)   k8s.io/minikube-hostpath   Delete          Immediate           false                  17d
+
+NAME                                                        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                           STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+persistentvolume/pvc-593ec368-9a74-4ecb-a6d4-8c017c0616f3   256Mi      RWO            Delete           Bound       final-homework/ops-notes-data   standard       <unset>                          37s
+persistentvolume/pvc-b91de773-8f41-408e-96c7-fee2b40b4378   500Mi      RWO            Delete           Bound       default/student-pvc             standard       <unset>                          15d
+persistentvolume/pvc-fbc08431-6f6d-4a1a-bf96-28835e399a03   256Mi      RWO            Delete           Bound       hw13/web-data                   standard       <unset>                          18s
+persistentvolume/student-pv                                 1Gi        RWO            Retain           Available                                                  <unset>                          15d
+
+NAME                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/web-data   Bound    pvc-fbc08431-6f6d-4a1a-bf96-28835e399a03   256Mi      RWO            standard       <unset>                 19s
+++ kubectl get pods -n hw13 -l app=web-app -o 'jsonpath={.items[0].metadata.name}'
++ old_pod=web-app-8659dd85cf-4q2mk
++ kubectl exec -n hw13 web-app-8659dd85cf-4q2mk -- sh -c 'echo Rajasurya-24BCS10086 > /data/student.txt'
++ kubectl delete pod -n hw13 web-app-8659dd85cf-4q2mk
+pod "web-app-8659dd85cf-4q2mk" deleted from hw13 namespace
++ kubectl rollout status deployment/web-app -n hw13 --timeout=120s
+Waiting for deployment "web-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "web-app" successfully rolled out
+++ kubectl get pods -n hw13 -l app=web-app -o 'jsonpath={.items[0].metadata.name}'
++ new_pod=web-app-8659dd85cf-58nj2
++ kubectl exec -n hw13 web-app-8659dd85cf-58nj2 -- cat /data/student.txt
+Rajasurya-24BCS10086
++ kubectl get pods -n hw13 -o wide
+NAME                       READY   STATUS    RESTARTS   AGE   IP             NODE       NOMINATED NODE   READINESS GATES
+volume-demo                1/1     Running   0          17s   10.244.0.194   minikube   <none>           <none>
+web-app-8659dd85cf-58nj2   1/1     Running   0          31s   10.244.0.192   minikube   <none>           <none>
+web-app-8659dd85cf-jv7g8   1/1     Running   0          10s   10.244.0.195   minikube   <none>           <none>
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          18s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-8659dd85cf-58nj2   18m          4Mi             
++ kubectl apply -f load-generator.yaml
+pod/load-generator created
+++ seq 1 24
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          19s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-8659dd85cf-58nj2   18m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          31s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-8659dd85cf-58nj2   18m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          46s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-8659dd85cf-58nj2   18m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          57s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+web-app-8659dd85cf-58nj2   18m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          67s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             174m         2Mi             
+volume-demo                3m           2Mi             
+web-app-8659dd85cf-58nj2   11m          5Mi             
+web-app-8659dd85cf-jv7g8   20m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: <unknown>/50%   2         5         2          77s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             174m         2Mi             
+volume-demo                3m           2Mi             
+web-app-8659dd85cf-58nj2   11m          5Mi             
+web-app-8659dd85cf-jv7g8   20m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 110%/50%   2         5         2          87s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             174m         2Mi             
+volume-demo                3m           2Mi             
+web-app-8659dd85cf-58nj2   11m          5Mi             
+web-app-8659dd85cf-jv7g8   20m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 110%/50%   2         5         2          98s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             174m         2Mi             
+volume-demo                3m           2Mi             
+web-app-8659dd85cf-58nj2   11m          5Mi             
+web-app-8659dd85cf-jv7g8   20m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 110%/50%   2         5         2          108s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             174m         2Mi             
+volume-demo                3m           2Mi             
+web-app-8659dd85cf-58nj2   11m          5Mi             
+web-app-8659dd85cf-jv7g8   20m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 110%/50%   2         5         2          119s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             174m         2Mi             
+volume-demo                3m           2Mi             
+web-app-8659dd85cf-58nj2   11m          5Mi             
+web-app-8659dd85cf-jv7g8   20m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 110%/50%   2         5         2          2m9s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             193m         5Mi             
+volume-demo                0m           2Mi             
+web-app-8659dd85cf-58nj2   9m           5Mi             
+web-app-8659dd85cf-jv7g8   10m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -gt 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 95%/50%   2         5         2          2m19s
++ kubectl top pods -n hw13
+NAME                       CPU(cores)   MEMORY(bytes)   
+load-generator             193m         5Mi             
+volume-demo                0m           2Mi             
+web-app-8659dd85cf-58nj2   9m           5Mi             
+web-app-8659dd85cf-jv7g8   10m          4Mi             
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -gt 2 ']'
++ break
++ kubectl get pods -n hw13
+NAME                       READY   STATUS              RESTARTS   AGE
+load-generator             1/1     Running             0          2m2s
+volume-demo                1/1     Running             0          2m19s
+web-app-8659dd85cf-2fh75   0/1     ContainerCreating   0          1s
+web-app-8659dd85cf-55n6l   0/1     ContainerCreating   0          1s
+web-app-8659dd85cf-58nj2   1/1     Running             0          2m33s
+web-app-8659dd85cf-jv7g8   1/1     Running             0          2m12s
++ kubectl describe hpa web-app -n hw13
+Name:                                                  web-app
+Namespace:                                             hw13
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Mon, 05 Oct 2026 11:25:54 +0530
+Reference:                                             Deployment/web-app
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  95% (9m) / 50%
+Min replicas:                                          2
+Max replicas:                                          5
+Behavior:
+  Scale Up:
+    Stabilization Window: 0 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods     Value: 4    Period: 15 seconds
+      - Type: Percent  Value: 100  Period: 15 seconds
+  Scale Down:
+    Stabilization Window: 30 seconds
+    Select Policy: Max
+    Policies:
+      - Type: Percent  Value: 100  Period: 15 seconds
+Deployment pods:       2 current / 4 desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    SucceededRescale    the HPA controller was able to update the target scale to 4
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+  ScaledToZero    False   NotScaledToZero     the HPA controller did not scale the workload to zero
+Events:
+  Type     Reason                        Age                 From                       Message
+  ----     ------                        ----                ----                       -------
+  Warning  FailedGetResourceMetric       2m18s               horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  2m18s               horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedGetResourceMetric       75s (x4 over 2m3s)  horizontal-pod-autoscaler  failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Warning  FailedComputeMetricsReplicas  75s (x4 over 2m3s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Normal   SuccessfulRescale             0s                  horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
++ '[' 4 -gt 2 ']'
++ kubectl delete pod load-generator -n hw13
+pod "load-generator" deleted from hw13 namespace
+++ seq 1 24
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 95%/50%   2         5         4          2m51s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 95%/50%   2         5         4          3m1s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 95%/50%   2         5         4          3m12s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 70%/50%   2         5         4          3m22s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 70%/50%   2         5         4          3m33s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 70%/50%   2         5         4          3m45s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 70%/50%   2         5         4          3m56s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 70%/50%   2         5         4          4m7s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 70%/50%   2         5         4          4m17s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 25%/50%   2         5         4          4m27s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ '[' 4 -eq 2 ']'
++ sleep 10
++ for attempt in '$(seq 1 24)'
++ kubectl get hpa -n hw13
+NAME      REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+web-app   Deployment/web-app   cpu: 25%/50%   2         5         4          4m38s
+++ kubectl get deployment web-app -n hw13 -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ '[' 2 -eq 2 ']'
++ break
++ '[' 2 -eq 2 ']'
++ kubectl get pods,hpa,pvc -n hw13
+NAME                           READY   STATUS      RESTARTS   AGE
+pod/volume-demo                1/1     Running     0          4m37s
+pod/web-app-8659dd85cf-2fh75   0/1     Completed   0          2m19s
+pod/web-app-8659dd85cf-55n6l   0/1     Completed   0          2m19s
+pod/web-app-8659dd85cf-58nj2   1/1     Running     0          4m51s
+pod/web-app-8659dd85cf-jv7g8   1/1     Running     0          4m30s
+
+NAME                                          REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app   Deployment/web-app   cpu: 25%/50%   2         5         4          4m38s
+
+NAME                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/web-data   Bound    pvc-fbc08431-6f6d-4a1a-bf96-28835e399a03   256Mi      RWO            standard       <unset>                 4m52s

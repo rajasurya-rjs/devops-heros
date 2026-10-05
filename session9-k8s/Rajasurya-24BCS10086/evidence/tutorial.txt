@@ -1,0 +1,82 @@
++ kubectl create namespace hw9-tutorial
+namespace/hw9-tutorial created
++ kubectl create deployment tutorial --image=nginx:alpine -n hw9-tutorial
+deployment.apps/tutorial created
++ kubectl rollout status deployment/tutorial -n hw9-tutorial --timeout=120s
+Waiting for deployment "tutorial" rollout to finish: 0 of 1 updated replicas are available...
+deployment "tutorial" successfully rolled out
++ kubectl get deployments,pods -n hw9-tutorial
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/tutorial   1/1     1            1           4s
+
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/tutorial-648d85bf5c-6dp24   1/1     Running   0          4s
++ kubectl logs -n hw9-tutorial deployment/tutorial --tail=5
+2026/10/05 05:59:39 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/10/05 05:59:39 [notice] 1#1: start worker processes
+2026/10/05 05:59:39 [notice] 1#1: start worker process 30
+2026/10/05 05:59:39 [notice] 1#1: start worker process 31
+2026/10/05 05:59:39 [notice] 1#1: start worker process 32
++ kubectl exec -n hw9-tutorial deployment/tutorial -- nginx -v
+nginx version: nginx/1.31.6
++ kubectl expose deployment tutorial -n hw9-tutorial --port=80 --type=NodePort
+service/tutorial exposed
+++ kubectl get svc tutorial -n hw9-tutorial -o 'jsonpath={.spec.ports[0].nodePort}'
++ port=31511
++ curl --fail http://192.168.64.2:31511
++ head -6
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (7) Failed to connect to 192.168.64.2 port 31511 after 119 ms: Couldn't connect to server
+++ kubectl get svc tutorial -n hw9-tutorial -o 'jsonpath={.spec.ports[0].nodePort}'
++ port=31511
++ head -6
++ curl --fail --retry 15 --retry-all-errors --retry-delay 1 --max-time 4 http://192.168.64.2:31511
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0   896    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0100   896  100   896    0     0    841      0  0:00:01  0:00:01 --:--:--   842
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
++ kubectl scale deployment/tutorial -n hw9-tutorial --replicas=3
+deployment.apps/tutorial scaled
++ kubectl rollout status deployment/tutorial -n hw9-tutorial --timeout=90s
+Waiting for deployment "tutorial" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "tutorial" rollout to finish: 1 out of 3 new replicas have been updated...
+Waiting for deployment "tutorial" rollout to finish: 1 of 3 updated replicas are available...
+Waiting for deployment "tutorial" rollout to finish: 2 of 3 updated replicas are available...
+deployment "tutorial" successfully rolled out
++ kubectl get pods -n hw9-tutorial
+NAME                        READY   STATUS    RESTARTS   AGE
+tutorial-648d85bf5c-6dp24   1/1     Running   0          11m
+tutorial-648d85bf5c-mhhtr   1/1     Running   0          58s
+tutorial-648d85bf5c-zhphp   1/1     Running   0          61s
++ kubectl set image deployment/tutorial nginx=nginx:1.27-alpine -n hw9-tutorial
+deployment.apps/tutorial image updated
++ kubectl rollout status deployment/tutorial -n hw9-tutorial --timeout=120s
+Waiting for deployment "tutorial" rollout to finish: 0 out of 3 new replicas have been updated...
+Waiting for deployment "tutorial" rollout to finish: 1 out of 3 new replicas have been updated...
+error: timed out waiting for the condition
++ kubectl rollout status deployment/tutorial -n hw9-tutorial --timeout=120s
+deployment "tutorial" successfully rolled out
++ kubectl rollout history deployment/tutorial -n hw9-tutorial
+deployment.apps/tutorial 
+REVISION  CHANGE-CAUSE
+2         <none>
+3         <none>
+
++ kubectl get replicasets -n hw9-tutorial -o 'custom-columns=NAME:.metadata.name,IMAGE:.spec.template.spec.containers[0].image,DESIRED:.spec.replicas'
+NAME                  IMAGE               DESIRED
+tutorial-648d85bf5c   nginx:alpine        3
+tutorial-74c4684d9d   nginx:1.27-alpine   0
++ kubectl get pods -n hw9-tutorial
+NAME                        READY   STATUS    RESTARTS   AGE
+tutorial-648d85bf5c-m7zzr   1/1     Running   0          105s
+tutorial-648d85bf5c-wr9w9   1/1     Running   0          2m12s
+tutorial-648d85bf5c-xtgkh   1/1     Running   0          2m17s
++ kubectl get deployment tutorial -n hw9-tutorial -o 'jsonpath={.spec.template.spec.containers[0].image}{"\n"}'
+nginx:alpine

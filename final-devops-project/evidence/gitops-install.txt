@@ -1,0 +1,46 @@
+► checking prerequisites
+✔ Kubernetes 1.37.0 >=1.33.0-0
+✔ prerequisites checks passed
+✚ generating manifests
+✔ manifests build completed
+► installing components in hw-gitops namespace
+CustomResourceDefinition/buckets.source.toolkit.fluxcd.io created
+CustomResourceDefinition/externalartifacts.source.toolkit.fluxcd.io created
+CustomResourceDefinition/gitrepositories.source.toolkit.fluxcd.io created
+CustomResourceDefinition/helmcharts.source.toolkit.fluxcd.io created
+CustomResourceDefinition/helmrepositories.source.toolkit.fluxcd.io created
+CustomResourceDefinition/kustomizations.kustomize.toolkit.fluxcd.io created
+CustomResourceDefinition/ocirepositories.source.toolkit.fluxcd.io created
+Namespace/hw-gitops created
+ClusterRole/crd-controller-hw-gitops created
+ClusterRole/flux-edit-hw-gitops created
+ClusterRole/flux-view-hw-gitops created
+ClusterRoleBinding/cluster-reconciler-hw-gitops created
+ClusterRoleBinding/crd-controller-hw-gitops created
+ResourceQuota/hw-gitops/critical-pods-hw-gitops created
+ServiceAccount/hw-gitops/kustomize-controller created
+ServiceAccount/hw-gitops/source-controller created
+Service/hw-gitops/source-controller created
+Deployment/hw-gitops/kustomize-controller created
+Deployment/hw-gitops/source-controller created
+NetworkPolicy/hw-gitops/allow-egress created
+NetworkPolicy/hw-gitops/allow-scraping created
+NetworkPolicy/hw-gitops/allow-webhooks created
+◎ verifying installation
+✔ kustomize-controller: deployment ready
+✔ source-controller: deployment ready
+✔ install finished
+gitrepository.source.toolkit.fluxcd.io/homework created
+kustomization.kustomize.toolkit.fluxcd.io/notes created
+► annotating GitRepository homework in hw-gitops namespace
+✔ GitRepository annotated
+◎ waiting for GitRepository reconciliation
+✔ fetched revision main@sha1:f352cbcc7f20d20fe4dae8d016783dacfa8aad29
+► annotating GitRepository homework in hw-gitops namespace
+✔ GitRepository annotated
+◎ waiting for GitRepository reconciliation
+✔ fetched revision main@sha1:f352cbcc7f20d20fe4dae8d016783dacfa8aad29
+► annotating Kustomization notes in hw-gitops namespace
+✔ Kustomization annotated
+◎ waiting for Kustomization reconciliation
+✔ applied revision main@sha1:f352cbcc7f20d20fe4dae8d016783dacfa8aad29

@@ -1,0 +1,68 @@
++ kubectl config current-context
+devops-completion
++ minikube -p devops-completion ip
+192.168.64.3
++ kubectl get nodes
+NAME                STATUS   ROLES           AGE   VERSION
+devops-completion   Ready    control-plane   14m   v1.37.0
++ kubectl get deployment,pods,svc,pvc,hpa,ingress -n final-homework
+NAME                         READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/grafana      1/1     1            1           13m
+deployment.apps/ops-notes    2/2     2            2           13m
+deployment.apps/prometheus   1/1     1            1           13m
+
+NAME                             READY   STATUS    RESTARTS   AGE
+pod/grafana-5788785664-j45bq     1/1     Running   0          5m24s
+pod/ops-notes-5db758c867-pjfmf   1/1     Running   0          13m
+pod/ops-notes-5db758c867-s44c8   1/1     Running   0          13m
+pod/prometheus-fccfcdb8f-7t7bp   1/1     Running   0          13m
+
+NAME                 TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   10.103.157.9     <none>        3000/TCP   13m
+service/ops-notes    ClusterIP   10.99.68.164     <none>        8080/TCP   13m
+service/prometheus   ClusterIP   10.103.177.144   <none>        9090/TCP   13m
+
+NAME                                   STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/ops-notes-data   Bound    pvc-9bddb337-1066-4e6e-b2ce-35d5116bb5b2   256Mi      RWO            standard       <unset>                 13m
+
+NAME                                            REFERENCE              TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/ops-notes   Deployment/ops-notes   cpu: 15%/50%   2         5         2          13m
+
+NAME                                  CLASS   HOSTS                ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/ops-notes   nginx   ops.homework.local   192.168.64.3   80      13m
++ curl -fsS -H 'Host: ops.homework.local' http://192.168.64.3/health
+{"status": "ok", "version": "v1"}+ curl -fsS -H 'Host: ops.homework.local' http://192.168.64.3/ready
+{"status": "ok", "version": "v1"}+ curl -fsS -H 'Host: ops.homework.local' http://192.168.64.3/api/config
+{"title": "Operations Notes", "version": "v1", "secret_injected": true}+ curl -fsS -H 'Host: ops.homework.local' -H 'Content-Type: application/json' -d '{"text":"Persistent Kubernetes deployment checklist"}' http://192.168.64.3/api/notes
+{"id": 1, "text": "Persistent Kubernetes deployment checklist"}+ curl -fsS -H 'Host: ops.homework.local' http://192.168.64.3/api/notes
+[{"id": 1, "text": "Persistent Kubernetes deployment checklist"}]++ kubectl get pods -n final-homework -l app=ops-notes -o 'jsonpath={.items[0].metadata.name}'
++ pod=ops-notes-5db758c867-pjfmf
++ kubectl delete pod ops-notes-5db758c867-pjfmf -n final-homework
+pod "ops-notes-5db758c867-pjfmf" deleted from final-homework namespace
++ kubectl rollout status deployment/ops-notes -n final-homework --timeout=90s
+deployment "ops-notes" successfully rolled out
++ curl -fsS -H 'Host: ops.homework.local' http://192.168.64.3/api/notes
++ tee /tmp/devops-audit-20261005/persisted-notes.json
+[{"id": 1, "text": "Persistent Kubernetes deployment checklist"}]+ python3 -c 'import json; data=json.load(open("/tmp/devops-audit-20261005/persisted-notes.json")); assert any(n["text"] == "Persistent Kubernetes deployment checklist" for n in data); print("PVC persistence after Pod replacement verified")'
+PVC persistence after Pod replacement verified
++ curl -fsS -H 'Host: ops.homework.local' http://192.168.64.3/metrics
+# HELP ops_requests_total HTTP responses served.
+# TYPE ops_requests_total counter
+ops_requests_total 17
+# HELP ops_errors_total HTTP error responses.
+# TYPE ops_errors_total counter
+ops_errors_total 0
+# TYPE ops_uptime_seconds gauge
+ops_uptime_seconds 30.448
+# TYPE ops_cpu_seconds_total counter
+ops_cpu_seconds_total 0.109142
+# TYPE ops_memory_maxrss gauge
+ops_memory_maxrss 20836
++ kubectl get pods -n final-homework
+NAME                         READY   STATUS    RESTARTS   AGE
+grafana-5788785664-j45bq     1/1     Running   0          5m55s
+ops-notes-5db758c867-s2nnq   1/1     Running   0          31s
+ops-notes-5db758c867-s44c8   1/1     Running   0          14m
+prometheus-fccfcdb8f-7t7bp   1/1     Running   0          14m
++ kubectl exec -n final-homework deployment/ops-notes -- id
+uid=10001(app) gid=10001(app) groups=10001(app)

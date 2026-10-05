@@ -345,3 +345,19 @@ in anyone's memory.
 - <https://kubernetes.io/docs/concepts/architecture/>
 - <https://kubernetes.io/docs/tutorials/kubernetes-basics/>
 - <https://minikube.sigs.k8s.io/docs/start/>
+
+## Task 6 - Kubernetes Basics tutorial hands-on
+
+The original installation, architecture and status evidence above is preserved.
+The assignment also requires the tutorial workflow; this was missing from the original README.
+[tutorial.sh](tutorial.sh) performs the added exercise in its own `hw9-tutorial` namespace:
+create a Deployment, inspect Pods/logs, execute nginx version, expose a Service, access the page,
+scale to three replicas, update the image, and roll back.
+
+[Actual commands and output](evidence/tutorial.txt) record the run, including transient connection/image
+pull delays encountered during reconciliation. The final verification is captured below.
+
+![Tutorial workflow verification](images/05-tutorial.png)
+
+The commands run on macOS through kubectl; the application runs in the minikube Linux VM.
+The nginx example follows the tutorial concepts on an arm64-compatible image.

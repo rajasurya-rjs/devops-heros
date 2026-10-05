@@ -1,0 +1,25 @@
++ flux reconcile source git homework -n hw-gitops
+► annotating GitRepository homework in hw-gitops namespace
+✔ GitRepository annotated
+◎ waiting for GitRepository reconciliation
+✔ fetched revision main@sha1:d83b4708461835084eaf0ae1d721abaa4aa08dbf
++ flux reconcile kustomization notes --with-source -n hw-gitops
+► annotating GitRepository homework in hw-gitops namespace
+✔ GitRepository annotated
+◎ waiting for GitRepository reconciliation
+✔ fetched revision main@sha1:d83b4708461835084eaf0ae1d721abaa4aa08dbf
+► annotating Kustomization notes in hw-gitops namespace
+✔ Kustomization annotated
+◎ waiting for Kustomization reconciliation
+✔ applied revision main@sha1:d83b4708461835084eaf0ae1d721abaa4aa08dbf
++ kubectl rollout status deployment/gitops-notes -n gitops-homework --timeout=90s
+deployment "gitops-notes" successfully rolled out
++ kubectl exec -n gitops-homework deployment/gitops-notes -- python -c 'import urllib.request; print(urllib.request.urlopen("http://127.0.0.1:8080/api/config").read().decode())'
+{"title": "Operations Notes managed by Flux", "version": "gitops-v2", "secret_injected": false}
++ flux get all -n hw-gitops
+NAME                  	REVISION          	SUSPENDED	READY	MESSAGE                                           
+gitrepository/homework	main@sha1:d83b4708	False    	True 	stored artifact for revision 'main@sha1:d83b4708'	
+
+NAME               	REVISION          	SUSPENDED	READY	MESSAGE                              
+kustomization/notes	main@sha1:d83b4708	False    	True 	Applied revision: main@sha1:d83b4708	
+

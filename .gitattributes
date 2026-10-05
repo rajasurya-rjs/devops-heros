@@ -1,0 +1,5 @@
+# Preserve authentic terminal/runner output, including its original spacing.
+**/evidence/*.txt whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
+**/evidence/*.log whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
+**/evidence/**/*.txt whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
+**/evidence/**/*.log whitespace=-blank-at-eol,-blank-at-eof,-space-before-tab
