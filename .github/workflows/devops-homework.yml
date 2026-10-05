@@ -82,6 +82,27 @@ jobs:
         run: |
           printf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
           docker push '${{ steps.image.outputs.name }}'
+      - uses: docker/setup-qemu-action@v3
+        if: github.event_name != 'pull_request'
+      - uses: docker/setup-buildx-action@v3
+        if: github.event_name != 'pull_request'
+      - name: Build and scan arm64 image
+        if: github.event_name != 'pull_request'
+        run: |
+          set -o pipefail
+          docker buildx build --platform linux/arm64 --load -t '${{ steps.image.outputs.name }}-arm64' -f final-devops-project/docker/Dockerfile final-devops-project
+          trivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 '${{ steps.image.outputs.name }}-arm64' 2>&1 | tee reports/image-scan-arm64.txt
+          docker push '${{ steps.image.outputs.name }}-arm64'
+          docker tag '${{ steps.image.outputs.name }}' '${{ steps.image.outputs.name }}-amd64'
+          docker push '${{ steps.image.outputs.name }}-amd64'
+          docker buildx imagetools create -t '${{ steps.image.outputs.name }}' '${{ steps.image.outputs.name }}-amd64' '${{ steps.image.outputs.name }}-arm64'
+          docker save '${{ steps.image.outputs.name }}-arm64' -o /tmp/ops-notes-arm64.tar
+      - uses: actions/upload-artifact@v4
+        if: github.event_name != 'pull_request'
+        with:
+          name: container-image-arm64
+          path: /tmp/ops-notes-arm64.tar
+          retention-days: 3
       - name: Save image for deployment job
         run: docker save '${{ steps.image.outputs.name }}' -o /tmp/ops-notes.tar
       - uses: actions/upload-artifact@v4
