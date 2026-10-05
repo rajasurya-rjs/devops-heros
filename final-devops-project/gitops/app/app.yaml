@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata: {name: gitops-homework}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: gitops-config, namespace: gitops-homework}
+data:
+  APP_TITLE: Operations Notes managed by Flux
+  APP_VERSION: gitops-v1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: gitops-notes, namespace: gitops-homework}
+spec:
+  replicas: 2
+  selector:
+    matchLabels: {app: gitops-notes}
+  template:
+    metadata:
+      labels: {app: gitops-notes}
+    spec:
+      containers:
+        - name: app
+          image: ops-notes:local
+          env:
+            - {name: DB_PATH, value: /tmp/gitops-notes.db}
+          envFrom:
+            - configMapRef: {name: gitops-config}
+          ports: [{containerPort: 8080}]
+          readinessProbe:
+            httpGet: {path: /health, port: 8080}
+          resources:
+            requests: {cpu: 10m, memory: 16Mi}
+            limits: {cpu: 100m, memory: 64Mi}
+---
+apiVersion: v1
+kind: Service
+metadata: {name: gitops-notes, namespace: gitops-homework}
+spec:
+  selector: {app: gitops-notes}
+  ports: [{port: 8080, targetPort: 8080}]

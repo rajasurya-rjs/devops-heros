@@ -1,0 +1,23 @@
+replicaCount: 2
+image:
+  repository: ops-notes
+  tag: local
+  pullPolicy: IfNotPresent
+app:
+  title: Operations Notes
+  version: v1
+service:
+  port: 8080
+storage:
+  size: 256Mi
+  className: standard
+existingSecret: app-credentials
+ingress:
+  enabled: true
+  className: nginx
+  host: ops.homework.local
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  averageUtilization: 50

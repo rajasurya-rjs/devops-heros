@@ -1,0 +1,6 @@
+**/__pycache__
+**/.terraform
+**/*.tfstate*
+**/evidence
+**/images
+.git

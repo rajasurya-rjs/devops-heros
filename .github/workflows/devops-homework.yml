@@ -1,0 +1,148 @@
+name: DevOps Homework CI CD and Security
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'final-devops-project/**'
+      - '.github/workflows/devops-homework.yml'
+  pull_request:
+    paths:
+      - 'final-devops-project/**'
+      - '.github/workflows/devops-homework.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: homework-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  test-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Unit and API tests
+        run: |
+          set -o pipefail
+          mkdir -p reports
+          python -m unittest discover -s final-devops-project/application/tests -v 2>&1 | tee reports/tests.txt
+      - name: Install security tools
+        run: pip install bandit pip-audit
+      - name: SAST gate
+        run: |
+          set -o pipefail
+          bandit -r final-devops-project/application -x final-devops-project/application/tests 2>&1 | tee reports/sast.txt
+      - name: SCA gate
+        run: |
+          set -o pipefail
+          pip-audit -r final-devops-project/application/requirements.txt 2>&1 | tee reports/sca.txt
+      - name: Install Gitleaks
+        run: |
+          gh release download --repo gitleaks/gitleaks --pattern '*linux_x64.tar.gz' --dir /tmp/gitleaks
+          tar -xzf /tmp/gitleaks/*linux_x64.tar.gz -C /tmp/gitleaks
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Secret scanning gate
+        run: |
+          set -o pipefail
+          /tmp/gitleaks/gitleaks dir final-devops-project --redact --no-banner 2>&1 | tee reports/secrets.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-security-reports
+          path: reports/
+  build-push:
+    needs: test-security
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.image.outputs.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Immutable image name
+        id: image
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}/ops-notes:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+      - name: Build image
+        run: docker build -t '${{ steps.image.outputs.name }}' -f final-devops-project/docker/Dockerfile final-devops-project
+      - name: Install Trivy
+        uses: aquasecurity/setup-trivy@v0.2.5
+      - name: Container security gate
+        run: |
+          set -o pipefail
+          mkdir -p reports
+          trivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 '${{ steps.image.outputs.name }}' 2>&1 | tee reports/image-scan.txt
+      - name: Publish tested image to GHCR
+        if: github.event_name != 'pull_request'
+        env:
+          REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker push '${{ steps.image.outputs.name }}'
+      - name: Save image for deployment job
+        run: docker save '${{ steps.image.outputs.name }}' -o /tmp/ops-notes.tar
+      - uses: actions/upload-artifact@v4
+        with:
+          name: container-image
+          path: /tmp/ops-notes.tar
+          retention-days: 3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: image-security-report
+          path: reports/
+  deploy-kubernetes:
+    needs: build-push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: container-image
+          path: /tmp
+      - name: Create isolated CI Kubernetes cluster
+        uses: helm/kind-action@v1.12.0
+        with:
+          cluster_name: homework-ci
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.22.0
+      - name: Load tested image
+        run: |
+          docker load -i /tmp/ops-notes.tar
+          kind load docker-image '${{ needs.build-push.outputs.image }}' --name homework-ci
+      - name: Deploy Helm chart
+        env:
+          IMAGE: ${{ needs.build-push.outputs.image }}
+        run: |
+          kubectl create namespace final-homework
+          secret_file=$(mktemp)
+          trap 'rm -f "$secret_file"' EXIT
+          openssl rand -hex 24 > "$secret_file"
+          kubectl create secret generic app-credentials -n final-homework --from-file=token="$secret_file"
+          helm upgrade --install ops-notes final-devops-project/helm/ops-notes -n final-homework \
+            --set image.repository="${IMAGE%:*}" --set image.tag="${IMAGE##*:}" \
+            --set ingress.enabled=false --set hpa.enabled=false --wait --timeout 180s
+      - name: Verify deployment and API
+        run: |
+          set -o pipefail
+          mkdir -p reports
+          kubectl get pods,svc,pvc -n final-homework | tee reports/deployment.txt
+          helm list -n final-homework | tee -a reports/deployment.txt
+          kubectl port-forward -n final-homework svc/ops-notes 18080:8080 >/tmp/port-forward.log 2>&1 &
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18080/health; then break; fi
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:18080/health | tee -a reports/deployment.txt
+          curl -fsS -X POST -H 'Content-Type: application/json' -d '{"text":"Verified by GitHub Actions"}' http://127.0.0.1:18080/api/notes | tee -a reports/deployment.txt
+          curl -fsS http://127.0.0.1:18080/api/notes | tee -a reports/deployment.txt
+          curl -fsS http://127.0.0.1:18080/metrics | tee -a reports/deployment.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kubernetes-deployment-report
+          path: reports/

@@ -1,1 +1,17 @@
 .DS_Store
+
+# Local environments, credentials, generated state and build output
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log

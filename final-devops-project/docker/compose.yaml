@@ -1,0 +1,17 @@
+services:
+  notes:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports: ["127.0.0.1:18080:8080"]
+    environment:
+      APP_TITLE: Operations Notes
+      APP_VERSION: v1
+    volumes: ["notes-data:/data"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+volumes:
+  notes-data:
