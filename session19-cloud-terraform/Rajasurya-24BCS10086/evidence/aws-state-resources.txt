@@ -1,0 +1,13 @@
+data.aws_ami.linux
+aws_instance.web
+aws_internet_gateway.main
+aws_route_table.public
+aws_route_table_association.public[0]
+aws_route_table_association.public[1]
+aws_s3_bucket.artifacts
+aws_s3_bucket_public_access_block.artifacts
+aws_s3_bucket_server_side_encryption_configuration.artifacts
+aws_security_group.web
+aws_subnet.public[0]
+aws_subnet.public[1]
+aws_vpc.main

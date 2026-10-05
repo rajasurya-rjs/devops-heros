@@ -1,0 +1,10 @@
+aws_s3_bucket_public_access_block.homework: Destroying... [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket_versioning.homework: Destroying... [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket_server_side_encryption_configuration.homework: Destroying... [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket_versioning.homework: Destruction complete after 1s
+aws_s3_bucket_server_side_encryption_configuration.homework: Destruction complete after 2s
+aws_s3_bucket_public_access_block.homework: Destruction complete after 2s
+aws_s3_bucket.homework: Destroying... [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket.homework: Destruction complete after 2s
+
+Apply complete! Resources: 0 added, 0 changed, 4 destroyed.

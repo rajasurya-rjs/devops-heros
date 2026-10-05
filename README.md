@@ -28,12 +28,12 @@ My notes and homework for the DevOps course.
 | Session 15: Helm | [README](session-15-helm/Rajasurya-24BCS10086/README.md) | COMPLETE |
 | Session 16: CI/CD & GitHub Actions | [README](session-16-github-actions/Rajasurya-24BCS10086/README.md) | COMPLETE |
 | Session 17: Complete CI/CD & DevSecOps | [README](session-17-devsecops/Rajasurya-24BCS10086/README.md) | COMPLETE |
-| Session 18: Terraform & Infrastructure as Code | [README](session18-terraform-iac/Rajasurya-24BCS10086/README.md) | PARTIAL |
-| Session 19: Cloud & Terraform in Action | [README](session19-cloud-terraform/Rajasurya-24BCS10086/README.md) | PARTIAL |
+| Session 18: Terraform & Infrastructure as Code | [README](session18-terraform-iac/Rajasurya-24BCS10086/README.md) | COMPLETE |
+| Session 19: Cloud & Terraform in Action | [README](session19-cloud-terraform/Rajasurya-24BCS10086/README.md) | COMPLETE |
 | Session 20: Monitoring, Observability & GitOps | [README](session20-monitoring-observability-gitops/Rajasurya-24BCS10086/README.md) | COMPLETE |
 | Session 21: Final DevOps Project & Troubleshooting | [README](final-devops-project/README.md) | PARTIAL |
 
-[Submission fields and direct URLs](SUBMISSION.md). Sessions 18, 19 and 21 remain partial because real AWS credentials were unavailable; no cloud execution is claimed. The submission form has not been submitted.
+[Submission fields and direct URLs](SUBMISSION.md). Sessions 18 and 19 have verified AWS deployment and cleanup evidence. Session 21 remains partial while its final EKS deployment is being verified. The submission form has not been submitted.
 
 ## Class notes by session
 - [session1 - DevOps engineer roadmap](session1-devops-engineer-roadmap/)

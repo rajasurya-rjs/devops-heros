@@ -1,0 +1,75 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "GetBucketLocation": {
+      "LocationConstraint": "ap-southeast-2"
+    },
+    "GetBucketVersioning": {
+      "Status": "Enabled"
+    },
+    "GetBucketEncryption": {
+      "ServerSideEncryptionConfiguration": {
+        "Rules": [
+          {
+            "ApplyServerSideEncryptionByDefault": {
+              "SSEAlgorithm": "AES256"
+            },
+            "BucketKeyEnabled": false,
+            "BlockedEncryptionTypes": {
+              "EncryptionType": [
+                "SSE-C"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "GetPublicAccessBlock": {
+      "PublicAccessBlockConfiguration": {
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+      }
+    },
+    "ListObjectsV2": {
+      "Prefix": ""
+    },
+    "ListObjectVersions": {
+      "Prefix": ""
+    }
+  },
+  "api_calls": [
+    {
+      "service": "s3",
+      "operation": "GetBucketLocation",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "GetBucketVersioning",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "GetBucketEncryption",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "GetPublicAccessBlock",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "ListObjectsV2",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "ListObjectVersions",
+      "status": "success"
+    }
+  ]
+}

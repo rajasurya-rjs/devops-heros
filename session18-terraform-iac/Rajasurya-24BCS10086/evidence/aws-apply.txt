@@ -1,0 +1,15 @@
+aws_s3_bucket.homework: Creating...
+aws_s3_bucket.homework: Creation complete after 8s [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket_versioning.homework: Creating...
+aws_s3_bucket_server_side_encryption_configuration.homework: Creating...
+aws_s3_bucket_public_access_block.homework: Creating...
+aws_s3_bucket_public_access_block.homework: Creation complete after 2s [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket_server_side_encryption_configuration.homework: Creation complete after 2s [id=rajasurya-24bcs10086-hw18-20261005]
+aws_s3_bucket_versioning.homework: Creation complete after 3s [id=rajasurya-24bcs10086-hw18-20261005]
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+bucket_arn = "arn:aws:s3:::rajasurya-24bcs10086-hw18-20261005"
+bucket_name = "rajasurya-24bcs10086-hw18-20261005"

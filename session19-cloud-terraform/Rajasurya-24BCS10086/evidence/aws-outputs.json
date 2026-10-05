@@ -1,0 +1,36 @@
+{
+  "bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "rajasurya-24bcs10086-hw19-20261005"
+  },
+  "instance_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "i-017807d33c0bafaba"
+  },
+  "subnet_ids": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string",
+        "string"
+      ]
+    ],
+    "value": [
+      "subnet-002cb79826d3f358b",
+      "subnet-0fe33c91e4bd38dc4"
+    ]
+  },
+  "vpc_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "vpc-0b5be93b475278b74"
+  },
+  "web_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "http://3.107.91.149"
+  }
+}

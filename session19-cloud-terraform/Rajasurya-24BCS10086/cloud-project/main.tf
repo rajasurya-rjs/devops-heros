@@ -65,6 +65,9 @@ resource "aws_instance" "web" {
     echo '<h1>Rajasurya DevOps Terraform web server</h1>' > /usr/share/nginx/html/index.html
     systemctl enable --now nginx
   SCRIPT
+  credit_specification {
+    cpu_credits = "standard"
+  }
   metadata_options {
     http_tokens = "required"
   }

@@ -1,0 +1,4 @@
+aws_s3_bucket.homework
+aws_s3_bucket_public_access_block.homework
+aws_s3_bucket_server_side_encryption_configuration.homework
+aws_s3_bucket_versioning.homework

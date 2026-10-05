@@ -1,0 +1,40 @@
+aws_vpc.main: Creating...
+aws_s3_bucket.artifacts: Creating...
+aws_vpc.main: Creation complete after 7s [id=vpc-0b5be93b475278b74]
+aws_internet_gateway.main: Creating...
+aws_subnet.public[1]: Creating...
+aws_security_group.web: Creating...
+aws_subnet.public[0]: Creating...
+aws_s3_bucket.artifacts: Creation complete after 8s [id=rajasurya-24bcs10086-hw19-20261005]
+aws_s3_bucket_public_access_block.artifacts: Creating...
+aws_s3_bucket_server_side_encryption_configuration.artifacts: Creating...
+aws_internet_gateway.main: Creation complete after 2s [id=igw-03d132ef4863385f4]
+aws_route_table.public: Creating...
+aws_s3_bucket_public_access_block.artifacts: Creation complete after 1s [id=rajasurya-24bcs10086-hw19-20261005]
+aws_s3_bucket_server_side_encryption_configuration.artifacts: Creation complete after 1s [id=rajasurya-24bcs10086-hw19-20261005]
+aws_route_table.public: Creation complete after 3s [id=rtb-0a885b6f02cbedb80]
+aws_security_group.web: Creation complete after 6s [id=sg-0377dbe02e9714bc5]
+aws_subnet.public[0]: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Still creating... [00m10s elapsed]
+aws_subnet.public[1]: Creation complete after 13s [id=subnet-0fe33c91e4bd38dc4]
+aws_subnet.public[0]: Creation complete after 14s [id=subnet-002cb79826d3f358b]
+aws_route_table_association.public[1]: Creating...
+aws_route_table_association.public[0]: Creating...
+aws_route_table_association.public[0]: Creation complete after 1s [id=rtbassoc-0a1bcb50380848306]
+aws_route_table_association.public[1]: Creation complete after 1s [id=rtbassoc-068f886c0bd4eedc2]
+aws_instance.web: Creating...
+aws_instance.web: Still creating... [00m10s elapsed]
+aws_instance.web: Creation complete after 18s [id=i-017807d33c0bafaba]
+
+Apply complete! Resources: 12 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+bucket_name = "rajasurya-24bcs10086-hw19-20261005"
+instance_id = "i-017807d33c0bafaba"
+subnet_ids = [
+  "subnet-002cb79826d3f358b",
+  "subnet-0fe33c91e4bd38dc4",
+]
+vpc_id = "vpc-0b5be93b475278b74"
+web_url = "http://3.107.91.149"

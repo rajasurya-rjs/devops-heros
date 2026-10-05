@@ -6,11 +6,10 @@
 
 ## Objective and actual status
 
-The Terraform project is authored, initialized, formatted and validated. Its mock-provider tests pass.
-Real AWS provisioning is **BLOCKED**: `aws sts get-caller-identity` reports no credentials, and the real
-`terraform plan` reports `No valid credential sources found`. No AWS resources were created.
-This is a partial assignment: AWS apply, deployed-resource screenshots, outputs from deployed resources,
-and destroy verification remain outstanding. Mock tests do not count as an AWS deployment.
+The original VPC/EC2/S3 Terraform project was preserved and deployed to AWS in `ap-southeast-2`.
+The reviewed plan added twelve homework resources. The nginx endpoint returned the configured page;
+EC2 system/instance checks passed, encrypted EBS and IMDSv2 were verified, and HTTP was restricted to
+the operator's public IPv4/32. The real destroy lifecycle and post-cleanup inventory are documented below.
 
 ## Architecture
 
@@ -22,8 +21,8 @@ Terraform → VPC → two public subnets → route table / Internet Gateway → 
 ## Environment
 
 Terraform 1.16.4 runs on the macOS arm64 host. The initialized AWS provider is 6.67.0,
-recorded in the project's `.terraform.lock.hcl`. AWS CLI 2.36.41 is installed, but no profile or ambient
-credentials were available. The `.terraform/` cache and all state/plan files are ignored by Git.
+recorded in the project's `.terraform.lock.hcl`. AWS CLI 2.36.41 uses the browser-authenticated `devops-homework` profile.
+AWS resources ran in the selected Region `ap-southeast-2`; Terraform commands ran on the macOS host. The `.terraform/` cache and all state/plan files are ignored by Git.
 
 ## Files
 
@@ -42,43 +41,50 @@ terraform test
 AWS_EC2_METADATA_DISABLED=true terraform plan -input=false -var=bucket_name=rajasurya-24bcs10086-hw19-20261005
 ```
 
-The STS and plan attempts failed because credentials are absent; the plan was not applied.
+These earlier STS and plan attempts failed before browser authentication. Their original evidence is
+preserved as execution history; the successful AWS run below supersedes that blocker.
 
 [Initialization and validation output](evidence/validation.txt), [mock tests](evidence/mock-tests.txt),
 [AWS identity attempt](evidence/aws-blocker.txt), and [real plan attempt](evidence/real-plan-attempt.txt)
 contain actual outputs. The mock tests assert configuration properties using a mocked provider without
 contacting AWS. Their generated identifiers are not real AWS resource identifiers.
 
-## Required AWS workflow to finish
+## Verified AWS workflow
 
-Authenticate locally using an authorized AWS profile or session. Verify `aws sts get-caller-identity`.
-Choose the intended region, a globally unique bucket name, and the client CIDR where applicable.
-Then run the following in this project's folder. These are remaining commands, not claimed execution evidence:
+The project was verified to be on an ACTIVE FREE plan with available credits before provisioning.
+No paid-plan upgrade, advanced-feature activation or paid commitment was requested. Resources can consume
+AWS credits; [AWS's Free plan policy](https://aws.amazon.com/free/free-tier-faqs/) explains its billing behavior.
+Authentication caches, state and plan files remain outside Git.
 
 ```bash
-terraform init
+export AWS_PROFILE=devops-homework AWS_REGION=ap-southeast-2
+cd cloud-project
+terraform init -input=false
 terraform fmt -check
 terraform validate
-terraform plan -out=homework.tfplan
-terraform apply homework.tfplan
+terraform plan -input=false -var-file=/tmp/devops-audit-20261005/hw19-vars.json -out=homework.tfplan
+terraform apply -input=false homework.tfplan
 terraform show
 terraform output
 terraform state list
-terraform plan -destroy
-terraform destroy
+terraform destroy -auto-approve -input=false -var-file=/tmp/devops-audit-20261005/hw19-vars.json
 terraform state list
 ```
 
-Inspect the plan before apply. Capture the real creation/output and destruction output in this README.
-State can contain sensitive data and is kept out of Git. An appropriate protected remote state backend
-can provide shared state and locking; this small project currently uses local state.
+The external, non-secret var file supplied `region=ap-southeast-2`, a unique bucket name and the operator's
+actual IPv4/32. The root instance uses Standard CPU credits to avoid unlimited-mode surplus credit usage.
+
+[Actual plan](evidence/aws-plan.txt), [apply](evidence/aws-apply.txt), [show](evidence/aws-show.txt),
+[outputs](evidence/aws-outputs.json), [state resources](evidence/aws-state-resources.txt),
+[AWS MCP resource checks](evidence/aws-resource-verification.json) and [destroy](evidence/aws-destroy.txt)
+record genuine execution. The MCP JSON includes the successful API-call audit trail; terminal captures
+read those recorded API responses and show actual Terraform/HTTP commands.
 
 ## Evidence
 
 ![Validation and missing AWS credentials](images/01-terraform-validation.png)
 
-The screenshot captures a real terminal running validation and displaying the recorded real credential failure.
-It does not show or claim a successful cloud deployment.
+The original screenshot is retained as earlier offline-validation and authentication-failure evidence.
 
 ## Infrastructure design
 
@@ -89,4 +95,15 @@ HTTP is restricted to `web_cidr`; the example uses a documentation-only address 
 with the intended client IPv4/32. No SSH ingress or private key is committed.
 
 `terraform.tfvars.example` is safe to copy locally. The original configuration is reused by the final
-project through a local module reference. Neither project has been applied to AWS.
+project through a local module reference. This project and the final project are executed independently with different names and state files.
+
+## Genuine AWS screenshots
+
+![Real cloud apply and Terraform state](images/02-aws-cloud-apply.png)
+![Recorded EC2/S3 checks and actual HTTP response](images/03-aws-cloud-verification.png)
+![Real cloud destroy and empty state](images/04-aws-cloud-destroy.png)
+
+## Verified cleanup
+
+[Post-destroy Terraform state](evidence/aws-state-after-destroy.txt) is empty.
+[Actual AWS inventory check](evidence/aws-cleanup-verification.json) confirms the session resources were removed.

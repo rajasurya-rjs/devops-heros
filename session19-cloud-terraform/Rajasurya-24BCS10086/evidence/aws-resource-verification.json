@@ -1,0 +1,434 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "instance": {
+      "id": "i-017807d33c0bafaba",
+      "type": "t3.micro",
+      "state": {
+        "Code": 16,
+        "Name": "running"
+      },
+      "public_ip": "3.107.91.149",
+      "vpc": "vpc-0b5be93b475278b74",
+      "metadata": {
+        "State": "applied",
+        "HttpTokens": "required",
+        "HttpPutResponseHopLimit": 2,
+        "HttpEndpoint": "enabled",
+        "HttpProtocolIpv6": "disabled",
+        "InstanceMetadataTags": "disabled"
+      }
+    },
+    "checks": {
+      "DescribeSubnets": {
+        "Subnets": [
+          {
+            "AvailabilityZoneId": "apse2-az3",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "089540175430",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+              {
+                "Key": "Name",
+                "Value": "rajasurya-devops-hw19-public-1"
+              },
+              {
+                "Key": "Owner",
+                "Value": "Rajasurya"
+              },
+              {
+                "Key": "Enrollment",
+                "Value": "24BCS10086"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "DevOps homework"
+              }
+            ],
+            "SubnetArn": "arn:aws:ec2:ap-southeast-2:089540175430:subnet/subnet-0fe33c91e4bd38dc4",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+              "HostnameType": "ip-name",
+              "EnableResourceNameDnsARecord": false,
+              "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+              "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-0fe33c91e4bd38dc4",
+            "State": "available",
+            "VpcId": "vpc-0b5be93b475278b74",
+            "CidrBlock": "10.24.1.0/24",
+            "AvailableIpAddressCount": 251,
+            "AvailabilityZone": "ap-southeast-2b",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": true
+          },
+          {
+            "AvailabilityZoneId": "apse2-az1",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "089540175430",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+              {
+                "Key": "Owner",
+                "Value": "Rajasurya"
+              },
+              {
+                "Key": "Enrollment",
+                "Value": "24BCS10086"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "DevOps homework"
+              },
+              {
+                "Key": "Name",
+                "Value": "rajasurya-devops-hw19-public-0"
+              }
+            ],
+            "SubnetArn": "arn:aws:ec2:ap-southeast-2:089540175430:subnet/subnet-002cb79826d3f358b",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+              "HostnameType": "ip-name",
+              "EnableResourceNameDnsARecord": false,
+              "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+              "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-002cb79826d3f358b",
+            "State": "available",
+            "VpcId": "vpc-0b5be93b475278b74",
+            "CidrBlock": "10.24.0.0/24",
+            "AvailableIpAddressCount": 250,
+            "AvailabilityZone": "ap-southeast-2a",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": true
+          }
+        ]
+      },
+      "DescribeSecurityGroups": {
+        "SecurityGroups": [
+          {
+            "GroupId": "sg-0377dbe02e9714bc5",
+            "IpPermissionsEgress": [
+              {
+                "IpProtocol": "-1",
+                "UserIdGroupPairs": [],
+                "IpRanges": [
+                  {
+                    "CidrIp": "0.0.0.0/0"
+                  }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": []
+              }
+            ],
+            "Tags": [
+              {
+                "Key": "Enrollment",
+                "Value": "24BCS10086"
+              },
+              {
+                "Key": "Purpose",
+                "Value": "DevOps homework"
+              },
+              {
+                "Key": "Owner",
+                "Value": "Rajasurya"
+              }
+            ],
+            "VpcId": "vpc-0b5be93b475278b74",
+            "SecurityGroupArn": "arn:aws:ec2:ap-southeast-2:089540175430:security-group/sg-0377dbe02e9714bc5",
+            "OwnerId": "089540175430",
+            "GroupName": "rajasurya-devops-hw19-web-a4c48ff5d71a0c9a6f8b439965",
+            "Description": "Managed by Terraform",
+            "IpPermissions": [
+              {
+                "IpProtocol": "tcp",
+                "FromPort": 80,
+                "ToPort": 80,
+                "UserIdGroupPairs": [],
+                "IpRanges": [
+                  {
+                    "CidrIp": "103.197.113.59/32"
+                  }
+                ],
+                "Ipv6Ranges": [],
+                "PrefixListIds": []
+              }
+            ]
+          }
+        ]
+      },
+      "DescribeRouteTables": {
+        "RouteTables": [
+          {
+            "Associations": [
+              {
+                "Main": true,
+                "RouteTableAssociationId": "rtbassoc-054f05e2cb774cd3a",
+                "RouteTableId": "rtb-05808666cb63bc39a",
+                "AssociationState": {
+                  "State": "associated"
+                }
+              }
+            ],
+            "PropagatingVgws": [],
+            "RouteTableId": "rtb-05808666cb63bc39a",
+            "Routes": [
+              {
+                "DestinationCidrBlock": "10.24.0.0/16",
+                "GatewayId": "local",
+                "Origin": "CreateRouteTable",
+                "State": "active"
+              }
+            ],
+            "Tags": [],
+            "VpcId": "vpc-0b5be93b475278b74",
+            "OwnerId": "089540175430"
+          },
+          {
+            "Associations": [
+              {
+                "Main": false,
+                "RouteTableAssociationId": "rtbassoc-0a1bcb50380848306",
+                "RouteTableId": "rtb-0a885b6f02cbedb80",
+                "SubnetId": "subnet-002cb79826d3f358b",
+                "AssociationState": {
+                  "State": "associated"
+                }
+              },
+              {
+                "Main": false,
+                "RouteTableAssociationId": "rtbassoc-068f886c0bd4eedc2",
+                "RouteTableId": "rtb-0a885b6f02cbedb80",
+                "SubnetId": "subnet-0fe33c91e4bd38dc4",
+                "AssociationState": {
+                  "State": "associated"
+                }
+              }
+            ],
+            "PropagatingVgws": [],
+            "RouteTableId": "rtb-0a885b6f02cbedb80",
+            "Routes": [
+              {
+                "DestinationCidrBlock": "10.24.0.0/16",
+                "GatewayId": "local",
+                "Origin": "CreateRouteTable",
+                "State": "active"
+              },
+              {
+                "DestinationCidrBlock": "0.0.0.0/0",
+                "GatewayId": "igw-03d132ef4863385f4",
+                "Origin": "CreateRoute",
+                "State": "active"
+              }
+            ],
+            "Tags": [
+              {
+                "Key": "Purpose",
+                "Value": "DevOps homework"
+              },
+              {
+                "Key": "Enrollment",
+                "Value": "24BCS10086"
+              },
+              {
+                "Key": "Owner",
+                "Value": "Rajasurya"
+              }
+            ],
+            "VpcId": "vpc-0b5be93b475278b74",
+            "OwnerId": "089540175430"
+          }
+        ]
+      },
+      "DescribeVolumes": {
+        "Volumes": [
+          {
+            "AvailabilityZoneId": "apse2-az1",
+            "Iops": 3000,
+            "Tags": [
+              {
+                "Key": "Purpose",
+                "Value": "DevOps homework"
+              },
+              {
+                "Key": "Owner",
+                "Value": "Rajasurya"
+              },
+              {
+                "Key": "Enrollment",
+                "Value": "24BCS10086"
+              }
+            ],
+            "VolumeType": "gp3",
+            "MultiAttachEnabled": false,
+            "Throughput": 125,
+            "Operator": {
+              "Managed": false,
+              "HiddenByDefault": false
+            },
+            "VolumeArn": "arn:aws:ec2:ap-southeast-2:089540175430:volume/vol-095db025bc901ec51",
+            "OwnerId": "089540175430",
+            "VolumeId": "vol-095db025bc901ec51",
+            "Size": 8,
+            "SnapshotId": "snap-0063e85853fbf51d8",
+            "AvailabilityZone": "ap-southeast-2a",
+            "State": "in-use",
+            "CreateTime": "2026-10-05T08:48:28.842000+00:00",
+            "Attachments": [
+              {
+                "DeleteOnTermination": true,
+                "EbsCardIndex": 0,
+                "VolumeId": "vol-095db025bc901ec51",
+                "InstanceId": "i-017807d33c0bafaba",
+                "Device": "/dev/xvda",
+                "State": "attached",
+                "AttachTime": "2026-10-05T08:48:28+00:00"
+              }
+            ],
+            "Encrypted": true,
+            "KmsKeyId": "arn:aws:kms:ap-southeast-2:089540175430:key/17dfabf3-dfde-4f1b-96bd-840083151354"
+          }
+        ]
+      },
+      "DescribeInstanceStatus": {
+        "InstanceStatuses": [
+          {
+            "AvailabilityZone": "ap-southeast-2a",
+            "AvailabilityZoneId": "apse2-az1",
+            "Operator": {
+              "Managed": false,
+              "HiddenByDefault": false
+            },
+            "InstanceId": "i-017807d33c0bafaba",
+            "InstanceState": {
+              "Code": 16,
+              "Name": "running"
+            },
+            "InstanceStatus": {
+              "Details": [
+                {
+                  "Name": "reachability",
+                  "Status": "passed"
+                }
+              ],
+              "Status": "ok"
+            },
+            "SystemStatus": {
+              "Details": [
+                {
+                  "Name": "reachability",
+                  "Status": "passed"
+                }
+              ],
+              "Status": "ok"
+            },
+            "AttachedEbsStatus": {
+              "Details": [
+                {
+                  "Name": "reachability",
+                  "Status": "passed"
+                }
+              ],
+              "Status": "ok"
+            }
+          }
+        ]
+      },
+      "GetPublicAccessBlock": {
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "IgnorePublicAcls": true,
+          "BlockPublicPolicy": true,
+          "RestrictPublicBuckets": true
+        }
+      },
+      "GetBucketEncryption": {
+        "ServerSideEncryptionConfiguration": {
+          "Rules": [
+            {
+              "ApplyServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              },
+              "BucketKeyEnabled": false,
+              "BlockedEncryptionTypes": {
+                "EncryptionType": [
+                  "SSE-C"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "api_calls": [
+    {
+      "service": "ec2",
+      "operation": "DescribeInstances",
+      "status": "success",
+      "n_items": {
+        "Reservations": 1
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeSubnets",
+      "status": "success",
+      "n_items": {
+        "Subnets": 2
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeSecurityGroups",
+      "status": "success",
+      "n_items": {
+        "SecurityGroups": 1
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeRouteTables",
+      "status": "success",
+      "n_items": {
+        "RouteTables": 2
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeVolumes",
+      "status": "success",
+      "n_items": {
+        "Volumes": 1
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeInstanceStatus",
+      "status": "success",
+      "n_items": {
+        "InstanceStatuses": 1
+      }
+    },
+    {
+      "service": "s3",
+      "operation": "GetPublicAccessBlock",
+      "status": "success"
+    },
+    {
+      "service": "s3",
+      "operation": "GetBucketEncryption",
+      "status": "success"
+    }
+  ]
+}

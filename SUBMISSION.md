@@ -6,9 +6,9 @@
 
 These are the 20 README fields in the order observed in the provided
 [Google Form](https://docs.google.com/forms/d/e/1FAIpQLScgSyxBswmgjHpTgygami8srGj5_EJ_7Cz5y1-DYVgF7GJY4w/viewform).
-The form has not been submitted. Copy each URL into its matching field. Sessions 18, 19 and 21 are
-**PARTIAL** because actual AWS provisioning and cloud execution screenshots remain blocked by missing credentials.
-Their READMEs document the blocker; they must not be represented as complete AWS deployments.
+The form has not been submitted. Copy each URL into its matching field. Sessions 18 and 19 have
+verified AWS deployment, API/HTTP checks, genuine screenshots and cleanup. Session 21 remains **PARTIAL**
+while its final EKS worker, application deployment and cloud evidence are being completed.
 
 | Order | Submission field | Status | Direct README URL |
 |---|---|---|---|
@@ -28,8 +28,8 @@ Their READMEs document the blocker; they must not be represented as complete AWS
 | 14 | Session 15: Helm | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session-15-helm/Rajasurya-24BCS10086/README.md) |
 | 15 | Session 16: CI/CD & GitHub Actions | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session-16-github-actions/Rajasurya-24BCS10086/README.md) |
 | 16 | Session 17: Complete CI/CD & DevSecOps | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session-17-devsecops/Rajasurya-24BCS10086/README.md) |
-| 17 | Session 18: Terraform & Infrastructure as Code | PARTIAL | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session18-terraform-iac/Rajasurya-24BCS10086/README.md) |
-| 18 | Session 19: Cloud & Terraform in Action | PARTIAL | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session19-cloud-terraform/Rajasurya-24BCS10086/README.md) |
+| 17 | Session 18: Terraform & Infrastructure as Code | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session18-terraform-iac/Rajasurya-24BCS10086/README.md) |
+| 18 | Session 19: Cloud & Terraform in Action | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session19-cloud-terraform/Rajasurya-24BCS10086/README.md) |
 | 19 | Session 20: Monitoring, Observability & GitOps | COMPLETE | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/session20-monitoring-observability-gitops/Rajasurya-24BCS10086/README.md) |
 | 20 | Session 21: Final DevOps Project & Troubleshooting | PARTIAL | [README](https://github.com/rajasurya-rjs/devops-heros/blob/main/final-devops-project/README.md) |
 
@@ -59,7 +59,6 @@ Their READMEs document the blocker; they must not be represented as complete AWS
 
 ## Outstanding cloud work
 
-Authenticate an authorized AWS account, then execute and verify the real plan/apply/output/resource checks
-and destroy lifecycle in the Session 18 S3 project, Session 19 VPC/EC2/S3 project and final EKS infrastructure.
-Capture genuine deployed-resource and lifecycle screenshots. Offline validation and mocked tests already pass.
-All other available local/CI work and its genuine evidence are retained in the linked READMEs.
+Finish verifying the final EKS worker, application deployment and genuine cloud evidence for Session 21.
+Sessions 18 and 19 completed their actual plan/apply/output/resource checks and destroy lifecycles in
+`ap-southeast-2`, using the isolated `devops-homework` profile on an ACTIVE FREE plan.

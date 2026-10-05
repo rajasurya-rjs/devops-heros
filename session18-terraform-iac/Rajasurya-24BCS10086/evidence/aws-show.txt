@@ -1,0 +1,98 @@
+# aws_s3_bucket.homework:
+resource "aws_s3_bucket" "homework" {
+    acceleration_status         = null
+    arn                         = "arn:aws:s3:::rajasurya-24bcs10086-hw18-20261005"
+    bucket                      = "rajasurya-24bcs10086-hw18-20261005"
+    bucket_domain_name          = "rajasurya-24bcs10086-hw18-20261005.s3.amazonaws.com"
+    bucket_namespace            = "global"
+    bucket_prefix               = null
+    bucket_region               = "ap-southeast-2"
+    bucket_regional_domain_name = "rajasurya-24bcs10086-hw18-20261005.s3.ap-southeast-2.amazonaws.com"
+    force_destroy               = false
+    hosted_zone_id              = "Z1WCIGYICN2BYD"
+    id                          = "rajasurya-24bcs10086-hw18-20261005"
+    object_lock_enabled         = false
+    policy                      = null
+    region                      = "ap-southeast-2"
+    request_payer               = "BucketOwner"
+    tags_all                    = {
+        "Enrollment" = "24BCS10086"
+        "Owner"      = "Rajasurya"
+        "Purpose"    = "DevOps homework"
+    }
+
+    grant {
+        id          = "94bf8f91cdc6f94ee823e04f0b0dafa100cd758e77fea62c16d343ca0c030e48"
+        permissions = [
+            "FULL_CONTROL",
+        ]
+        type        = "CanonicalUser"
+        uri         = null
+    }
+
+    server_side_encryption_configuration {
+        rule {
+            bucket_key_enabled = false
+
+            apply_server_side_encryption_by_default {
+                kms_master_key_id = null
+                sse_algorithm     = "AES256"
+            }
+        }
+    }
+
+    versioning {
+        enabled    = false
+        mfa_delete = false
+    }
+}
+
+# aws_s3_bucket_public_access_block.homework:
+resource "aws_s3_bucket_public_access_block" "homework" {
+    block_public_acls       = true
+    block_public_policy     = true
+    bucket                  = "rajasurya-24bcs10086-hw18-20261005"
+    id                      = "rajasurya-24bcs10086-hw18-20261005"
+    ignore_public_acls      = true
+    region                  = "ap-southeast-2"
+    restrict_public_buckets = true
+}
+
+# aws_s3_bucket_server_side_encryption_configuration.homework:
+resource "aws_s3_bucket_server_side_encryption_configuration" "homework" {
+    bucket                = "rajasurya-24bcs10086-hw18-20261005"
+    expected_bucket_owner = null
+    id                    = "rajasurya-24bcs10086-hw18-20261005"
+    region                = "ap-southeast-2"
+
+    rule {
+        blocked_encryption_types = [
+            "SSE-C",
+        ]
+        bucket_key_enabled       = false
+
+        apply_server_side_encryption_by_default {
+            kms_master_key_id = null
+            sse_algorithm     = "AES256"
+        }
+    }
+}
+
+# aws_s3_bucket_versioning.homework:
+resource "aws_s3_bucket_versioning" "homework" {
+    bucket                = "rajasurya-24bcs10086-hw18-20261005"
+    expected_bucket_owner = null
+    id                    = "rajasurya-24bcs10086-hw18-20261005"
+    region                = "ap-southeast-2"
+
+    versioning_configuration {
+        mfa_delete = "Disabled"
+        status     = "Enabled"
+    }
+}
+
+
+Outputs:
+
+bucket_arn = "arn:aws:s3:::rajasurya-24bcs10086-hw18-20261005"
+bucket_name = "rajasurya-24bcs10086-hw18-20261005"

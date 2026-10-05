@@ -1,0 +1,50 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "vpcs": [],
+    "instances": [
+      {
+        "id": "i-017807d33c0bafaba",
+        "state": {
+          "Code": 48,
+          "Name": "terminated"
+        }
+      }
+    ],
+    "buckets": [
+      {
+        "Name": "rajasurya-24bcs10086-final-20261005",
+        "CreationDate": "2026-10-05T08:50:59+00:00",
+        "BucketArn": "arn:aws:s3:::rajasurya-24bcs10086-final-20261005"
+      }
+    ],
+    "session19_cleanup_verified": true
+  },
+  "api_calls": [
+    {
+      "service": "ec2",
+      "operation": "DescribeVpcs",
+      "status": "success",
+      "n_items": {
+        "Vpcs": 0
+      }
+    },
+    {
+      "service": "ec2",
+      "operation": "DescribeInstances",
+      "status": "success",
+      "n_items": {
+        "Reservations": 1
+      }
+    },
+    {
+      "service": "s3",
+      "operation": "ListBuckets",
+      "status": "success",
+      "n_items": {
+        "Buckets": 1
+      }
+    }
+  ]
+}

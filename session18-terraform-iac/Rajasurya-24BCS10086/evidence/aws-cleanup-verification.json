@@ -1,0 +1,29 @@
+{
+  "status": "success",
+  "stdout": "",
+  "return_value": {
+    "buckets": [
+      {
+        "Name": "rajasurya-24bcs10086-final-20261005",
+        "CreationDate": "2026-10-05T08:50:59+00:00",
+        "BucketArn": "arn:aws:s3:::rajasurya-24bcs10086-final-20261005"
+      },
+      {
+        "Name": "rajasurya-24bcs10086-hw19-20261005",
+        "CreationDate": "2026-10-05T08:48:12+00:00",
+        "BucketArn": "arn:aws:s3:::rajasurya-24bcs10086-hw19-20261005"
+      }
+    ],
+    "session18_bucket_absent": true
+  },
+  "api_calls": [
+    {
+      "service": "s3",
+      "operation": "ListBuckets",
+      "status": "success",
+      "n_items": {
+        "Buckets": 2
+      }
+    }
+  ]
+}
