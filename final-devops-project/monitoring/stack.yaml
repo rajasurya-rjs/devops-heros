@@ -101,8 +101,17 @@ spec:
             - {name: GF_AUTH_ANONYMOUS_ORG_ROLE, value: Viewer}
             - {name: GF_AUTH_DISABLE_LOGIN_FORM, value: "true"}
           resources:
-            requests: {cpu: 20m, memory: 64Mi}
-            limits: {cpu: 200m, memory: 192Mi}
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 512Mi}
+          readinessProbe:
+            httpGet: {path: /api/health, port: 3000}
+            timeoutSeconds: 3
+            periodSeconds: 5
+          startupProbe:
+            httpGet: {path: /api/health, port: 3000}
+            timeoutSeconds: 3
+            periodSeconds: 5
+            failureThreshold: 60
           volumeMounts:
             - {name: provisioning, mountPath: /etc/grafana/provisioning/datasources/datasource.yaml, subPath: datasource.yaml}
             - {name: provisioning, mountPath: /etc/grafana/provisioning/dashboards/dashboard.yaml, subPath: dashboard.yaml}

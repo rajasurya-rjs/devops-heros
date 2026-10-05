@@ -7,7 +7,7 @@ kind: ConfigMap
 metadata: {name: gitops-config, namespace: gitops-homework}
 data:
   APP_TITLE: Operations Notes managed by Flux
-  APP_VERSION: gitops-v1
+  APP_VERSION: gitops-v2
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -19,6 +19,7 @@ spec:
   template:
     metadata:
       labels: {app: gitops-notes}
+      annotations: {homework/config-version: gitops-v2}
     spec:
       containers:
         - name: app
