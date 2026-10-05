@@ -1,6 +1,6 @@
 # Session 17 - Complete CI/CD and DevSecOps
 
-**Name:** Rajasurya J  
+**Name:** Rajasurya J
 **Enrollment number:** 24BCS10086
 
 ## Demo project

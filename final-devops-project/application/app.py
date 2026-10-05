@@ -16,7 +16,6 @@ LOCK = threading.Lock()
 
 def connect():
     db = sqlite3.connect(DB_PATH, timeout=15)
-    db.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
     return db
 
 class Handler(BaseHTTPRequestHandler):
@@ -34,7 +33,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlparse(self.path).path
-        if path in ("/health", "/ready"):
+        if path == "/health":
+            self.respond(200, {"status": "ok", "version": os.getenv("APP_VERSION", "v1")})
+        elif path == "/ready":
             try:
                 with connect() as db:
                     db.execute("SELECT 1").fetchone()
@@ -130,8 +131,8 @@ ops_memory_maxrss {usage.ru_maxrss}
 
 if __name__ == "__main__":
     Path(DB_PATH).parent.mkdir(parents=True, exist_ok=True)
-    with connect():
-        pass
+    with connect() as db:
+        db.execute("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, text TEXT NOT NULL)")
     # Container port must accept traffic from the Service and probes.
     server = ThreadingHTTPServer(("0.0.0.0", int(os.getenv("PORT", "8080"))), Handler)  # nosec B104
     print("Operations Notes listening on port 8080", flush=True)

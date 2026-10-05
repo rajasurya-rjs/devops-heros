@@ -50,9 +50,11 @@ spec:
           readinessProbe:
             httpGet: {path: /ready, port: 8080}
             periodSeconds: 3
+            timeoutSeconds: 3
           livenessProbe:
             httpGet: {path: /health, port: 8080}
             periodSeconds: 10
+            timeoutSeconds: 3
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true

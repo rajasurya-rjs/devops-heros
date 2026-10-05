@@ -1,6 +1,6 @@
 # Session 16 - CI/CD and GitHub Actions
 
-**Name:** Rajasurya J  
+**Name:** Rajasurya J
 **Enrollment number:** 24BCS10086
 
 ## Demo project

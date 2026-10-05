@@ -1,6 +1,6 @@
 # Final DevOps Project - Operations Notes
 
-**Name:** Rajasurya J  
+**Name:** Rajasurya J
 **Enrollment number:** 24BCS10086
 
 ## Project overview
