@@ -1,5 +1,6 @@
-# Workflow location
+# Workflows
 
-GitHub only discovers workflows in the repository root. The executable workflow is
-[.github/workflows/devops-homework.yml](../../../.github/workflows/devops-homework.yml).
-This project folder links to it so the final-project layout remains clear.
+GitHub executes workflows from the repository root:
+
+- [Three-tier project pipeline](../../../.github/workflows/three-tier-project.yml): frontend/backend builds, PostgreSQL tests, image scans and Helm deployment.
+- [Earlier homework pipeline](../../../.github/workflows/devops-homework.yml): the SQLite application and earlier CI exercises.

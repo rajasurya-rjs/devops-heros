@@ -29,8 +29,8 @@ Kubernetes. The workflow defines dependent jobs with `needs`; individual steps s
 `push` to `main` and manual dispatch trigger execution. Pull requests run validation without publishing.
 
 Nine tests cover CRUD, health, metrics, invalid inputs, SQL injection handling and missing routes.
-Bandit scans the application source. pip-audit scans runtime requirements: the application has no third-party
-runtime packages, so there are no Python runtime dependencies to audit. Gitleaks scans project files with
+Bandit scans the application source. The original SQLite pipeline used the standard library. The three-tier extension adds
+Psycopg for PostgreSQL, with its dependencies checked by pip-audit. Gitleaks scans project files with
 redaction. Trivy scans image OS and package vulnerabilities and blocks fixable HIGH/CRITICAL findings;
 `--ignore-unfixed` excludes findings without an available fix.
 
@@ -72,3 +72,11 @@ setup-trivy action tag. The HIGH/CRITICAL threshold stayed the same.
 
 ![GitHub Actions run](../../final-devops-project/images/02-ci-success.png)
 ![Security and deployment report](../../final-devops-project/images/05-security-gate.png)
+
+## Three-tier project pipeline
+
+The [three-tier workflow](../../.github/workflows/three-tier-project.yml) adds separate frontend/backend
+images and PostgreSQL. [Its successful run](https://github.com/rajasurya-rjs/devops-heros/actions/runs/37312195057)
+passed 13 backend tests with each database, security scans, both Trivy image gates, registry
+publishing and Helm deployment to kind. The earlier nine-test pipeline results above belong
+to the SQLite homework deployment.

@@ -1,0 +1,2 @@
+Database container restarted.
+Stored notes unchanged: [{"id": 2, "text": "Rajasurya: frontend, backend and PostgreSQL are connected."}, {"id": 4, "text": "Rajasurya: frontend, backend and PostgreSQL are connected."}]

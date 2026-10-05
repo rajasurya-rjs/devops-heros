@@ -1,0 +1,39 @@
+GET / -> HTTP 200
+Operations Notes frontend loaded
+GET /health -> HTTP 200
+{"status": "ok", "version": "three-tier"}
+GET /ready -> HTTP 200
+{"status": "ok", "version": "three-tier"}
+GET /api/config -> HTTP 200
+{"title": "Operations Notes", "version": "three-tier", "secret_injected": true, "database": "PostgreSQL"}
+GET /api/notes -> HTTP 200
+[]
+POST /api/notes -> HTTP 201
+{"id": 1, "text": "Release check from the three-tier API"}
+GET /api/notes -> HTTP 200
+[{"id": 1, "text": "Release check from the three-tier API"}]
+PUT /api/notes/1 -> HTTP 200
+{"id": 1, "text": "API update checked"}
+DELETE /api/notes/1 -> HTTP 200
+{"deleted": true}
+GET /api/notes -> HTTP 200
+[]
+GET /metrics -> HTTP 200
+# HELP ops_requests_total HTTP responses served.
+# TYPE ops_requests_total counter
+ops_requests_total 10
+# HELP ops_errors_total HTTP error responses.
+# TYPE ops_errors_total counter
+ops_errors_total 0
+# TYPE ops_uptime_seconds gauge
+ops_uptime_seconds 20.542
+# TYPE ops_cpu_seconds_total counter
+ops_cpu_seconds_total 0.482290
+# TYPE ops_memory_maxrss gauge
+ops_memory_maxrss 36732
+
+GET /burn -> HTTP 200
+{"work": 575599}
+POST /api/notes -> HTTP 201
+{"id": 2, "text": "Rajasurya: frontend, backend and PostgreSQL are connected."}
+All API endpoints passed through the frontend; database: PostgreSQL

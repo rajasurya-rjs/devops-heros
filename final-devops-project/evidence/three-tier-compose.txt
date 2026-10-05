@@ -1,0 +1,4 @@
+NAME                           IMAGE                      COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+devops-three-tier-backend-1    ops-notes-backend:local    "python app.py"          backend    4 minutes ago   Up 4 minutes (healthy)   8080/tcp
+devops-three-tier-database-1   postgres:17-alpine         "docker-entrypoint.s…"   database   4 minutes ago   Up 4 minutes (healthy)   5432/tcp
+devops-three-tier-frontend-1   ops-notes-frontend:local   "/docker-entrypoint.…"   frontend   4 minutes ago   Up 3 minutes (healthy)   127.0.0.1:18082->8080/tcp

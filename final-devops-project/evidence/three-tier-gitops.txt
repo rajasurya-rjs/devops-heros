@@ -1,0 +1,5 @@
+NAME      	REVISION          	SUSPENDED	READY	MESSAGE                              
+notes     	main@sha1:cd4a3de4	False    	True 	Applied revision: main@sha1:cd4a3de4	
+three-tier	main@sha1:cd4a3de4	False    	True 	Applied revision: main@sha1:cd4a3de4	
+NAME 	REVISION          	SUSPENDED	READY	MESSAGE                                                                                                                  
+notes	1.0.0+cd4a3de49005	False    	True 	Helm upgrade succeeded for release project-three-tier/notes.v3 with chart operations-notes-three-tier@1.0.0+cd4a3de49005	

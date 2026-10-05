@@ -1,0 +1,1335 @@
+test-security	Set up job	﻿2026-10-05T12:49:23.1526685Z Current runner version: '2.337.0'
+test-security	Set up job	2026-10-05T12:49:23.1566701Z ##[group]Runner Image Provisioner
+test-security	Set up job	2026-10-05T12:49:23.1568041Z Hosted Compute Agent
+test-security	Set up job	2026-10-05T12:49:23.1569158Z Version: 20260901.588
+test-security	Set up job	2026-10-05T12:49:23.1570208Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+test-security	Set up job	2026-10-05T12:49:23.1572094Z Build Date: 2026-09-01T19:56:44Z
+test-security	Set up job	2026-10-05T12:49:23.1573401Z Worker ID: {c0e51b09-3559-41a6-8bc6-5df736421e80}
+test-security	Set up job	2026-10-05T12:49:23.1574987Z Azure Region: eastus2
+test-security	Set up job	2026-10-05T12:49:23.1576239Z ##[endgroup]
+test-security	Set up job	2026-10-05T12:49:23.1578723Z ##[group]Operating System
+test-security	Set up job	2026-10-05T12:49:23.1580090Z Ubuntu
+test-security	Set up job	2026-10-05T12:49:23.1581037Z 24.04.5
+test-security	Set up job	2026-10-05T12:49:23.1582136Z LTS
+test-security	Set up job	2026-10-05T12:49:23.1583055Z ##[endgroup]
+test-security	Set up job	2026-10-05T12:49:23.1583950Z ##[group]Runner Image
+test-security	Set up job	2026-10-05T12:49:23.1585429Z Image: ubuntu-24.04
+test-security	Set up job	2026-10-05T12:49:23.1586395Z Version: 20260927.320.1
+test-security	Set up job	2026-10-05T12:49:23.1588424Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+test-security	Set up job	2026-10-05T12:49:23.1591642Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+test-security	Set up job	2026-10-05T12:49:23.1593537Z ##[endgroup]
+test-security	Set up job	2026-10-05T12:49:23.1595949Z ##[group]GITHUB_TOKEN Permissions
+test-security	Set up job	2026-10-05T12:49:23.1598967Z Contents: read
+test-security	Set up job	2026-10-05T12:49:23.1600072Z Metadata: read
+test-security	Set up job	2026-10-05T12:49:23.1601126Z ##[endgroup]
+test-security	Set up job	2026-10-05T12:49:23.1604623Z Secret source: Actions
+test-security	Set up job	2026-10-05T12:49:23.1606333Z Cache mode: write
+test-security	Set up job	2026-10-05T12:49:23.1607980Z Prepare workflow directory
+test-security	Set up job	2026-10-05T12:49:23.2253137Z Prepare all required actions
+test-security	Set up job	2026-10-05T12:49:23.2328208Z Getting action download info
+test-security	Set up job	2026-10-05T12:49:23.4611228Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+test-security	Set up job	2026-10-05T12:49:23.5592151Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+test-security	Set up job	2026-10-05T12:49:23.6423075Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+test-security	Set up job	2026-10-05T12:49:23.8583677Z Complete job name: test-security
+test-security	Initialize containers	﻿2026-10-05T12:49:23.9111329Z ##[group]Checking docker version
+test-security	Initialize containers	2026-10-05T12:49:23.9125029Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+test-security	Initialize containers	2026-10-05T12:49:23.9939658Z '1.48'
+test-security	Initialize containers	2026-10-05T12:49:23.9950810Z Docker daemon API version: '1.48'
+test-security	Initialize containers	2026-10-05T12:49:23.9951646Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+test-security	Initialize containers	2026-10-05T12:49:24.0174596Z '1.48'
+test-security	Initialize containers	2026-10-05T12:49:24.0188800Z Docker client API version: '1.48'
+test-security	Initialize containers	2026-10-05T12:49:24.0195270Z ##[endgroup]
+test-security	Initialize containers	2026-10-05T12:49:24.0198256Z ##[group]Clean up resources from previous jobs
+test-security	Initialize containers	2026-10-05T12:49:24.0204671Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=35d57f"
+test-security	Initialize containers	2026-10-05T12:49:24.0351203Z ##[command]/usr/bin/docker network prune --force --filter "label=35d57f"
+test-security	Initialize containers	2026-10-05T12:49:24.0486653Z ##[endgroup]
+test-security	Initialize containers	2026-10-05T12:49:24.0487235Z ##[group]Create local container network
+test-security	Initialize containers	2026-10-05T12:49:24.0497491Z ##[command]/usr/bin/docker network create --label 35d57f github_network_77ae5e2effd34cd6b55b845b2e19b76c
+test-security	Initialize containers	2026-10-05T12:49:24.0991561Z af305adf06f38e846d1dfee56da0e5d96812938d41eca69f628a9319f3277587
+test-security	Initialize containers	2026-10-05T12:49:24.1012697Z ##[endgroup]
+test-security	Initialize containers	2026-10-05T12:49:24.1048523Z ##[group]Starting postgres service container
+test-security	Initialize containers	2026-10-05T12:49:24.1077788Z ##[command]/usr/bin/docker pull postgres:17-alpine
+test-security	Initialize containers	2026-10-05T12:49:24.4154690Z 17-alpine: Pulling from library/postgres
+test-security	Initialize containers	2026-10-05T12:49:24.5009116Z e2de96513ba9: Already exists
+test-security	Initialize containers	2026-10-05T12:49:24.5031064Z 4ece9a32c307: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5035086Z 43f9814c9a3b: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5036928Z 3333950675b2: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5038747Z f3b07e8a357c: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5039758Z eb805f20f060: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5041088Z 7ccdb0dcae74: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5042117Z 93a3470d5852: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5042901Z b0a0d9d2abf2: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5043685Z a8a481ae6efc: Pulling fs layer
+test-security	Initialize containers	2026-10-05T12:49:24.5045383Z 7ccdb0dcae74: Waiting
+test-security	Initialize containers	2026-10-05T12:49:24.5046074Z 93a3470d5852: Waiting
+test-security	Initialize containers	2026-10-05T12:49:24.5046787Z b0a0d9d2abf2: Waiting
+test-security	Initialize containers	2026-10-05T12:49:24.5047519Z a8a481ae6efc: Waiting
+test-security	Initialize containers	2026-10-05T12:49:24.5048342Z f3b07e8a357c: Waiting
+test-security	Initialize containers	2026-10-05T12:49:24.5049080Z eb805f20f060: Waiting
+test-security	Initialize containers	2026-10-05T12:49:24.5527699Z 4ece9a32c307: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.5531683Z 4ece9a32c307: Download complete
+test-security	Initialize containers	2026-10-05T12:49:24.5538675Z 3333950675b2: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.5540403Z 3333950675b2: Download complete
+test-security	Initialize containers	2026-10-05T12:49:24.5809392Z 4ece9a32c307: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:24.5847699Z 43f9814c9a3b: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.6053922Z eb805f20f060: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.6056693Z eb805f20f060: Download complete
+test-security	Initialize containers	2026-10-05T12:49:24.6176018Z 43f9814c9a3b: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:24.6289099Z 3333950675b2: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:24.6383020Z 7ccdb0dcae74: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.6384895Z 7ccdb0dcae74: Download complete
+test-security	Initialize containers	2026-10-05T12:49:24.6572806Z 93a3470d5852: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.6575359Z 93a3470d5852: Download complete
+test-security	Initialize containers	2026-10-05T12:49:24.6921212Z b0a0d9d2abf2: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.6923201Z b0a0d9d2abf2: Download complete
+test-security	Initialize containers	2026-10-05T12:49:24.7049930Z a8a481ae6efc: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:24.7052677Z a8a481ae6efc: Download complete
+test-security	Initialize containers	2026-10-05T12:49:25.1337146Z f3b07e8a357c: Verifying Checksum
+test-security	Initialize containers	2026-10-05T12:49:25.1337656Z f3b07e8a357c: Download complete
+test-security	Initialize containers	2026-10-05T12:49:27.6146883Z f3b07e8a357c: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:27.6267525Z eb805f20f060: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:27.6381444Z 7ccdb0dcae74: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:27.6475453Z 93a3470d5852: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:27.6578925Z b0a0d9d2abf2: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:27.6663787Z a8a481ae6efc: Pull complete
+test-security	Initialize containers	2026-10-05T12:49:27.6702633Z Digest: sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+test-security	Initialize containers	2026-10-05T12:49:27.6714059Z Status: Downloaded newer image for postgres:17-alpine
+test-security	Initialize containers	2026-10-05T12:49:27.6722661Z docker.io/library/postgres:17-alpine
+test-security	Initialize containers	2026-10-05T12:49:27.6782432Z ##[command]/usr/bin/docker create --name 09e7f74d902947559e07840a36ddeedf_postgres17alpine_0aa328 --label 35d57f --network github_network_77ae5e2effd34cd6b55b845b2e19b76c --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U notes -d notes" --health-interval 5s --health-timeout 3s --health-retries 10 -e "POSTGRES_USER=notes" -e "POSTGRES_DB=notes" -e "POSTGRES_PASSWORD=ci-test-only" -e GITHUB_ACTIONS=true -e CI=true postgres:17-alpine
+test-security	Initialize containers	2026-10-05T12:49:27.7038324Z beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:27.7058233Z ##[command]/usr/bin/docker start beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:27.9247096Z beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:27.9296701Z ##[command]/usr/bin/docker ps --all --filter id=beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+test-security	Initialize containers	2026-10-05T12:49:27.9438403Z beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1 Up Less than a second (health: starting)
+test-security	Initialize containers	2026-10-05T12:49:27.9458319Z ##[command]/usr/bin/docker port beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:27.9598997Z 5432/tcp -> 0.0.0.0:5432
+test-security	Initialize containers	2026-10-05T12:49:27.9599358Z 5432/tcp -> [::]:5432
+test-security	Initialize containers	2026-10-05T12:49:27.9646625Z ##[endgroup]
+test-security	Initialize containers	2026-10-05T12:49:27.9655091Z ##[group]Waiting for all services to be ready
+test-security	Initialize containers	2026-10-05T12:49:27.9668548Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:27.9815777Z starting
+test-security	Initialize containers	2026-10-05T12:49:27.9838205Z postgres service is starting, waiting 2 seconds before checking again.
+test-security	Initialize containers	2026-10-05T12:49:29.9832623Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:29.9962062Z starting
+test-security	Initialize containers	2026-10-05T12:49:29.9973786Z postgres service is starting, waiting 4 seconds before checking again.
+test-security	Initialize containers	2026-10-05T12:49:34.2101597Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Initialize containers	2026-10-05T12:49:34.2240639Z healthy
+test-security	Initialize containers	2026-10-05T12:49:34.2249134Z postgres service is healthy.
+test-security	Initialize containers	2026-10-05T12:49:34.2250123Z ##[endgroup]
+test-security	Run actions/checkout@v4	﻿2026-10-05T12:49:34.2615379Z ##[group]Run actions/checkout@v4
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2616015Z with:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2616251Z   repository: rajasurya-rjs/devops-heros
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2618604Z   token: ***
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2618819Z   ssh-strict: true
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2619016Z   ssh-user: git
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2619220Z   persist-credentials: true
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2619449Z   clean: true
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2619650Z   sparse-checkout-cone-mode: true
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2619898Z   fetch-depth: 1
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2620101Z   fetch-tags: false
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2620304Z   show-progress: true
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2620505Z   lfs: false
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2620684Z   submodules: false
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2620883Z   set-safe-directory: true
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2621130Z   allow-unsafe-pr-checkout: false
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.2621579Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3653627Z Syncing repository: rajasurya-rjs/devops-heros
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3655915Z ##[group]Getting Git version info
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3656584Z Working directory is '/home/runner/work/devops-heros/devops-heros'
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3657573Z [command]/usr/bin/git version
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3771701Z git version 2.55.0
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3794485Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3810758Z Temporarily overriding HOME='/home/runner/work/_temp/c57d2e29-c3fe-42e4-9b45-527f8235ba51' before making global git config changes
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3812171Z Adding repository directory to the temporary git global config as a safe directory
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3817810Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3869334Z Deleting the contents of '/home/runner/work/devops-heros/devops-heros'
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3874652Z ##[group]Initializing the repository
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.3879402Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4003721Z hint: Using 'master' as the name for the initial branch. This default branch name
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4004769Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4005706Z hint: to use in all of your new repositories, which will suppress this warning,
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4007742Z hint: call:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4008067Z hint:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4008584Z hint: 	git config --global init.defaultBranch <name>
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4009135Z hint:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4009484Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4010030Z hint: 'development'. The just-created branch can be renamed via this command:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4010409Z hint:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4010603Z hint: 	git branch -m <name>
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4010824Z hint:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4011161Z hint: Disable this message with "git config set advice.defaultBranchName false"
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4011713Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/.git/
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4036684Z [command]/usr/bin/git remote add origin https://github.com/rajasurya-rjs/devops-heros
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4077098Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4077773Z ##[group]Disabling automatic garbage collection
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4082616Z [command]/usr/bin/git config --local gc.auto 0
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4116446Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4117323Z ##[group]Setting up auth
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4125477Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4161302Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4521799Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4559437Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4785197Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.4821819Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.5044854Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.5085214Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.5085917Z ##[group]Fetching the repository
+test-security	Run actions/checkout@v4	2026-10-05T12:49:34.5095288Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cd4a3de490059037d7ed7b438a6368327212c4c1:refs/remotes/origin/main
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9649069Z From https://github.com/rajasurya-rjs/devops-heros
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9650148Z  * [new ref]         cd4a3de490059037d7ed7b438a6368327212c4c1 -> origin/main
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9654857Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9655622Z ##[group]Determining the checkout info
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9658525Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9664353Z [command]/usr/bin/git sparse-checkout disable
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9722799Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9750362Z ##[group]Checking out the ref
+test-security	Run actions/checkout@v4	2026-10-05T12:49:35.9775584Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+test-security	Run actions/checkout@v4	2026-10-05T12:49:36.2062760Z Switched to a new branch 'main'
+test-security	Run actions/checkout@v4	2026-10-05T12:49:36.2067304Z branch 'main' set up to track 'origin/main'.
+test-security	Run actions/checkout@v4	2026-10-05T12:49:36.2084121Z ##[endgroup]
+test-security	Run actions/checkout@v4	2026-10-05T12:49:36.2131061Z [command]/usr/bin/git log -1 --format=%H
+test-security	Run actions/checkout@v4	2026-10-05T12:49:36.2158276Z cd4a3de490059037d7ed7b438a6368327212c4c1
+test-security	Run actions/setup-python@v5	﻿2026-10-05T12:49:36.2408960Z ##[group]Run actions/setup-python@v5
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2409272Z with:
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2409467Z   python-version: 3.13
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2409689Z   check-latest: false
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2411903Z   token: ***
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2412116Z   update-environment: true
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2412357Z   allow-prereleases: false
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2412580Z   freethreaded: false
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.2412789Z ##[endgroup]
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.3754812Z ##[group]Installed versions
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.3859033Z (node:2685) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.3860584Z (Use `node --trace-deprecation ...` to show where the warning was created)
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.3861366Z Successfully set up CPython (3.13.15)
+test-security	Run actions/setup-python@v5	2026-10-05T12:49:36.3865039Z ##[endgroup]
+test-security	Install application and security dependencies	﻿2026-10-05T12:49:36.4020582Z ##[group]Run pip install -r final-devops-project/application/requirements.txt bandit pip-audit
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4021815Z [36;1mpip install -r final-devops-project/application/requirements.txt bandit pip-audit[0m
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4295418Z shell: /usr/bin/bash -e {0}
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4295739Z env:
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4296015Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4296504Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4296936Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4297319Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4297698Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4298079Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+test-security	Install application and security dependencies	2026-10-05T12:49:36.4298398Z ##[endgroup]
+test-security	Install application and security dependencies	2026-10-05T12:49:38.3296327Z Collecting bandit
+test-security	Install application and security dependencies	2026-10-05T12:49:38.3934160Z   Downloading bandit-1.9.4-py3-none-any.whl.metadata (7.1 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.4205274Z Collecting pip-audit
+test-security	Install application and security dependencies	2026-10-05T12:49:38.4275316Z   Downloading pip_audit-2.10.1-py3-none-any.whl.metadata (28 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.4562673Z Collecting psycopg==3.3.6 (from psycopg[binary]==3.3.6->-r final-devops-project/application/requirements.txt (line 1))
+test-security	Install application and security dependencies	2026-10-05T12:49:38.4634743Z   Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.6308083Z Collecting psycopg-binary==3.3.6 (from psycopg[binary]==3.3.6->-r final-devops-project/application/requirements.txt (line 1))
+test-security	Install application and security dependencies	2026-10-05T12:49:38.6373595Z   Downloading psycopg_binary-3.3.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.6758102Z Collecting PyYAML>=5.3.1 (from bandit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.6831485Z   Downloading pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.7043097Z Collecting stevedore>=1.20.0 (from bandit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.7112050Z   Downloading stevedore-5.9.1-py3-none-any.whl.metadata (2.3 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.7461370Z Collecting rich (from bandit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.7534080Z   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.7704104Z Collecting CacheControl>=0.13.0 (from CacheControl[filecache]>=0.13.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.7773974Z   Downloading cachecontrol-0.14.4-py3-none-any.whl.metadata (3.1 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8123769Z Collecting cyclonedx-python-lib<12,>=5 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8193484Z   Downloading cyclonedx_python_lib-11.12.0-py3-none-any.whl.metadata (6.9 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8384640Z Collecting packaging>=23.0.0 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8458807Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8614959Z Collecting pip-api>=0.0.28 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8687120Z   Downloading pip_api-0.0.35-py3-none-any.whl.metadata (17 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8840488Z Collecting pip-requirements-parser>=32.0.0 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.8913883Z   Downloading pip_requirements_parser-32.0.1-py3-none-any.whl.metadata (9.3 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.9169079Z Collecting requests>=2.31.0 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.9249138Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.9517130Z Collecting tomli>=2.2.1 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.9588063Z   Downloading tomli-2.4.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.9719005Z Collecting tomli-w>=1.2.0 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:38.9786998Z   Downloading tomli_w-1.2.0-py3-none-any.whl.metadata (5.7 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0008056Z Collecting platformdirs>=4.2.0 (from pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0081255Z   Downloading platformdirs-4.12.3-py3-none-any.whl.metadata (5.5 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0276371Z Collecting license-expression<31,>=30 (from cyclonedx-python-lib<12,>=5->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0349542Z   Downloading license_expression-30.4.4-py3-none-any.whl.metadata (11 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0547472Z Collecting packageurl-python<2,>=0.11 (from cyclonedx-python-lib<12,>=5->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0615663Z   Downloading packageurl_python-0.17.6-py3-none-any.whl.metadata (5.1 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0799537Z Collecting py-serializable<3.0.0,>=2.1.0 (from cyclonedx-python-lib<12,>=5->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.0868610Z   Downloading py_serializable-2.1.0-py3-none-any.whl.metadata (4.3 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.1025157Z Collecting sortedcontainers<3.0.0,>=2.4.0 (from cyclonedx-python-lib<12,>=5->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.1094530Z   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.1257163Z Collecting boolean.py>=4.0 (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.1324705Z   Downloading boolean_py-5.0-py3-none-any.whl.metadata (2.3 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.1486963Z Collecting defusedxml<0.8.0,>=0.7.1 (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.1554545Z   Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.2396067Z Collecting msgpack<2.0.0,>=0.5.2 (from CacheControl>=0.13.0->CacheControl[filecache]>=0.13.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.2470421Z   Downloading msgpack-1.2.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.2736463Z Collecting filelock>=3.8.0 (from CacheControl[filecache]>=0.13.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.2812089Z   Downloading filelock-4.0.11-py3-none-any.whl.metadata (2.0 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.2853671Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.13.15/x64/lib/python3.13/site-packages (from pip-api>=0.0.28->pip-audit) (26.2.1)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.3096151Z Collecting pyparsing (from pip-requirements-parser>=32.0.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.3166914Z   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.4476463Z Collecting charset_normalizer<4,>=2 (from requests>=2.31.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.4548103Z   Downloading charset_normalizer-3.5.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.4758281Z Collecting idna<4,>=2.5 (from requests>=2.31.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.4828764Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5057608Z Collecting urllib3<3,>=1.26 (from requests>=2.31.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5129438Z   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5330963Z Collecting certifi>=2023.5.7 (from requests>=2.31.0->pip-audit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5402353Z   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5583880Z Collecting markdown-it-py>=2.2.0 (from rich->bandit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5655183Z   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.5896770Z Collecting pygments<3.0.0,>=2.13.0 (from rich->bandit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.6008807Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.6147511Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich->bandit)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.6219343Z   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.6402686Z Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.6598283Z Downloading psycopg_binary-3.3.6-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.2 MB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7138380Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 109.1 MB/s  0:00:00
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7211446Z Downloading bandit-1.9.4-py3-none-any.whl (134 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7301593Z Downloading pip_audit-2.10.1-py3-none-any.whl (62 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7390831Z Downloading cyclonedx_python_lib-11.12.0-py3-none-any.whl (529 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7439706Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 529.5/529.5 kB 107.8 MB/s  0:00:00
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7510691Z Downloading license_expression-30.4.4-py3-none-any.whl (120 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7599558Z Downloading packageurl_python-0.17.6-py3-none-any.whl (36 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7686680Z Downloading py_serializable-2.1.0-py3-none-any.whl (23 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7771671Z Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7856506Z Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.7940929Z Downloading boolean_py-5.0-py3-none-any.whl (26 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8038100Z Downloading cachecontrol-0.14.4-py3-none-any.whl (22 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8135779Z Downloading msgpack-1.2.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (466 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8237268Z Downloading filelock-4.0.11-py3-none-any.whl (111 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8328837Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8416343Z Downloading pip_api-0.0.35-py3-none-any.whl (123 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8506500Z Downloading pip_requirements_parser-32.0.1-py3-none-any.whl (35 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8597136Z Downloading platformdirs-4.12.3-py3-none-any.whl (32 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8687091Z Downloading pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (801 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8755242Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 801.6/801.6 kB 186.8 MB/s  0:00:00
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8826223Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.8919618Z Downloading charset_normalizer-3.5.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (254 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9012900Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9103710Z Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9194345Z Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9287610Z Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9385849Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9458915Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 206.0 MB/s  0:00:00
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9529061Z Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9615477Z Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9702284Z Downloading stevedore-5.9.1-py3-none-any.whl (54 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9792520Z Downloading tomli-2.4.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (251 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:39.9964712Z Downloading tomli_w-1.2.0-py3-none-any.whl (6.7 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:40.0052490Z Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+test-security	Install application and security dependencies	2026-10-05T12:49:40.2576083Z Installing collected packages: sortedcontainers, boolean.py, urllib3, tomli-w, tomli, stevedore, PyYAML, pyparsing, pygments, psycopg-binary, psycopg, platformdirs, pip-api, packaging, packageurl-python, msgpack, mdurl, license-expression, idna, filelock, defusedxml, charset_normalizer, certifi, requests, py-serializable, pip-requirements-parser, markdown-it-py, rich, cyclonedx-python-lib, CacheControl, bandit, pip-audit
+test-security	Install application and security dependencies	2026-10-05T12:49:42.6111209Z 
+test-security	Install application and security dependencies	2026-10-05T12:49:42.6148529Z Successfully installed CacheControl-0.14.4 PyYAML-6.0.3 bandit-1.9.4 boolean.py-5.0 certifi-2026.7.22 charset_normalizer-3.5.2 cyclonedx-python-lib-11.12.0 defusedxml-0.7.1 filelock-4.0.11 idna-3.20 license-expression-30.4.4 markdown-it-py-4.2.0 mdurl-0.1.2 msgpack-1.2.3 packageurl-python-0.17.6 packaging-26.3 pip-api-0.0.35 pip-audit-2.10.1 pip-requirements-parser-32.0.1 platformdirs-4.12.3 psycopg-3.3.6 psycopg-binary-3.3.6 py-serializable-2.1.0 pygments-2.21.0 pyparsing-3.3.3 requests-2.34.2 rich-15.0.0 sortedcontainers-2.4.0 stevedore-5.9.1 tomli-2.4.1 tomli-w-1.2.0 urllib3-2.8.0
+test-security	Backend tests with SQLite and PostgreSQL	﻿2026-10-05T12:49:42.7011799Z ##[group]Run set -o pipefail
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7012145Z [36;1mset -o pipefail[0m
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7012386Z [36;1mmkdir -p reports[0m
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7012897Z [36;1mpython -m unittest discover -s final-devops-project/application/tests -v 2>&1 | tee reports/sqlite-tests.txt[0m
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7013955Z [36;1mPGHOST=127.0.0.1 PGUSER=notes PGDATABASE=notes PGPASSWORD=ci-test-only python -m unittest discover -s final-devops-project/application/tests -v 2>&1 | tee reports/postgres-tests.txt[0m
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7079453Z shell: /usr/bin/bash -e {0}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7079711Z env:
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7079981Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7080432Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7080863Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7081244Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7081624Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7082048Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:42.7082375Z ##[endgroup]
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0168936Z test_config (test_api.APITests.test_config) ... {"component": "http", "message": "\"GET /api/config HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0171037Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0192884Z test_crud (test_api.APITests.test_crud) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0204743Z {"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0226268Z {"component": "http", "message": "\"PUT /api/notes/1 HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0239100Z {"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0259606Z {"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0272596Z {"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 404 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0276697Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0283963Z test_empty_note_rejected (test_api.APITests.test_empty_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0291777Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0295047Z test_health (test_api.APITests.test_health) ... {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0299245Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0307168Z test_home_page (test_api.APITests.test_home_page) ... {"component": "http", "message": "\"GET / HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0312882Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0316736Z test_invalid_delete_id (test_api.APITests.test_invalid_delete_id) ... {"component": "http", "message": "\"DELETE /api/notes/invalid HTTP/1.1\" 400 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0324539Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0327757Z test_long_note_rejected (test_api.APITests.test_long_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0331343Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0337792Z test_metrics (test_api.APITests.test_metrics) ... {"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0340926Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0348859Z test_ready (test_api.APITests.test_ready) ... {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0354871Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0368777Z test_sql_is_data (test_api.APITests.test_sql_is_data) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0378868Z {"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0383854Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0387315Z test_unknown_route (test_api.APITests.test_unknown_route) ... {"component": "http", "message": "\"GET /does-not-exist HTTP/1.1\" 404 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0391797Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0399441Z test_update_missing (test_api.APITests.test_update_missing) ... {"component": "http", "message": "\"PUT /api/notes/99999 HTTP/1.1\" 404 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0403726Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0909485Z test_work_endpoint (test_api.APITests.test_work_endpoint) ... {"component": "http", "message": "\"GET /burn HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.0935251Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.5470015Z 
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.5470692Z ----------------------------------------------------------------------
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.5471308Z Ran 13 tests in 0.554s
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.5471541Z 
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:43.5471648Z OK
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1235929Z test_config (test_api.APITests.test_config) ... {"component": "http", "message": "\"GET /api/config HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1239442Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1325083Z test_crud (test_api.APITests.test_crud) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1417901Z {"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1514508Z {"component": "http", "message": "\"PUT /api/notes/1 HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1603166Z {"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1689759Z {"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1785910Z {"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 404 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1790930Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1797609Z test_empty_note_rejected (test_api.APITests.test_empty_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1806204Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1812797Z test_health (test_api.APITests.test_health) ... {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1815347Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1821279Z test_home_page (test_api.APITests.test_home_page) ... {"component": "http", "message": "\"GET / HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1825029Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1830097Z test_invalid_delete_id (test_api.APITests.test_invalid_delete_id) ... {"component": "http", "message": "\"DELETE /api/notes/invalid HTTP/1.1\" 400 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1833819Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1840120Z test_long_note_rejected (test_api.APITests.test_long_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1843669Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1849636Z test_metrics (test_api.APITests.test_metrics) ... {"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1852278Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1924563Z test_ready (test_api.APITests.test_ready) ... {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.1927502Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2014131Z test_sql_is_data (test_api.APITests.test_sql_is_data) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2103129Z {"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2106046Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2112181Z test_unknown_route (test_api.APITests.test_unknown_route) ... {"component": "http", "message": "\"GET /does-not-exist HTTP/1.1\" 404 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2114867Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2197542Z test_update_missing (test_api.APITests.test_update_missing) ... {"component": "http", "message": "\"PUT /api/notes/99999 HTTP/1.1\" 404 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2201014Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2708049Z test_work_endpoint (test_api.APITests.test_work_endpoint) ... {"component": "http", "message": "\"GET /burn HTTP/1.1\" 200 -"}
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.2710046Z ok
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.7267732Z 
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.7268533Z ----------------------------------------------------------------------
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.7269305Z Ran 13 tests in 0.640s
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.7269510Z 
+test-security	Backend tests with SQLite and PostgreSQL	2026-10-05T12:49:44.7269632Z OK
+test-security	SAST and SCA gates	﻿2026-10-05T12:49:44.7569151Z ##[group]Run set -o pipefail
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7569480Z [36;1mset -o pipefail[0m
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7570020Z [36;1mbandit -r final-devops-project/application -x final-devops-project/application/tests 2>&1 | tee reports/sast.txt[0m
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7570806Z [36;1mpip-audit -r final-devops-project/application/requirements.txt 2>&1 | tee reports/sca.txt[0m
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7634845Z shell: /usr/bin/bash -e {0}
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7635114Z env:
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7635395Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7635888Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7636357Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7636756Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7637157Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7637560Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+test-security	SAST and SCA gates	2026-10-05T12:49:44.7637949Z ##[endgroup]
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9668719Z [main]	INFO	profile include tests: None
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9669335Z [main]	INFO	profile exclude tests: None
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9670064Z [main]	INFO	cli include tests: None
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9670675Z [main]	INFO	cli exclude tests: None
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9671810Z [main]	INFO	running on Python 3.13.15
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9898146Z [tester]	WARNING	nosec encountered (B104), but no failed test on file final-devops-project/application/app.py:179
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9899598Z [tester]	WARNING	nosec encountered (B104), but no failed test on file final-devops-project/application/app.py:179
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9909440Z Run started:2026-10-05 12:49:44.990779+00:00
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9909794Z 
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9909920Z Test results:
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9910233Z 	No issues identified.
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9910448Z 
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9910574Z Code scanned:
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9910879Z 	Total lines of code: 157
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9911230Z 	Total lines skipped (#nosec): 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9911888Z 	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 1
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9912424Z 
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9912542Z Run metrics:
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9912837Z 	Total issues (by severity):
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9913178Z 		Undefined: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9913462Z 		Low: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9913721Z 		Medium: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9913975Z 		High: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9914463Z 	Total issues (by confidence):
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9914816Z 		Undefined: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9915101Z 		Low: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9915347Z 		Medium: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9915602Z 		High: 0
+test-security	SAST and SCA gates	2026-10-05T12:49:44.9915863Z Files skipped (0):
+test-security	SAST and SCA gates	2026-10-05T12:49:49.9955059Z No known vulnerabilities found
+test-security	Secret scanning gate	﻿2026-10-05T12:49:50.0427489Z ##[group]Run set -o pipefail
+test-security	Secret scanning gate	2026-10-05T12:49:50.0427830Z [36;1mset -o pipefail[0m
+test-security	Secret scanning gate	2026-10-05T12:49:50.0428294Z [36;1mgh release download --repo gitleaks/gitleaks --pattern '*linux_x64.tar.gz' --dir /tmp/gitleaks[0m
+test-security	Secret scanning gate	2026-10-05T12:49:50.0428869Z [36;1mtar -xzf /tmp/gitleaks/*linux_x64.tar.gz -C /tmp/gitleaks[0m
+test-security	Secret scanning gate	2026-10-05T12:49:50.0429451Z [36;1m/tmp/gitleaks/gitleaks dir final-devops-project --redact --no-banner 2>&1 | tee reports/secrets.txt[0m
+test-security	Secret scanning gate	2026-10-05T12:49:50.0493360Z shell: /usr/bin/bash -e {0}
+test-security	Secret scanning gate	2026-10-05T12:49:50.0493626Z env:
+test-security	Secret scanning gate	2026-10-05T12:49:50.0493905Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Secret scanning gate	2026-10-05T12:49:50.0494985Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+test-security	Secret scanning gate	2026-10-05T12:49:50.0495658Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Secret scanning gate	2026-10-05T12:49:50.0496251Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Secret scanning gate	2026-10-05T12:49:50.0496839Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Secret scanning gate	2026-10-05T12:49:50.0497475Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+test-security	Secret scanning gate	2026-10-05T12:49:50.0501624Z   GH_TOKEN: ***
+test-security	Secret scanning gate	2026-10-05T12:49:50.0501853Z ##[endgroup]
+test-security	Secret scanning gate	2026-10-05T12:49:51.3906587Z [90m12:49PM[0m [32mINF[0m [1mscanned ~598853 bytes (598.85 KB) in 99.1ms[0m
+test-security	Secret scanning gate	2026-10-05T12:49:51.3908000Z [90m12:49PM[0m [32mINF[0m [1mno leaks found[0m
+test-security	Run actions/upload-artifact@v4	﻿2026-10-05T12:49:51.3987856Z ##[group]Run actions/upload-artifact@v4
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3988175Z with:
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3988387Z   name: three-tier-test-security
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3988632Z   path: reports/
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3988837Z   if-no-files-found: warn
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3989064Z   compression-level: 6
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3989283Z   overwrite: false
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3989493Z   include-hidden-files: false
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3989748Z env:
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3989991Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3990420Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib/pkgconfig
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3990841Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3991234Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3991615Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.15/x64
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3991996Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.15/x64/lib
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.3992316Z ##[endgroup]
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.5617303Z (node:2938) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.5618128Z (Use `node --trace-deprecation ...` to show where the warning was created)
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.5705373Z With the provided path, there will be 5 files uploaded
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.5707163Z Artifact name is valid!
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.5708385Z Root directory input is valid!
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.7851252Z Beginning upload of artifact content to blob storage
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.8102029Z (node:2938) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.8492622Z Uploaded bytes 1941
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.8615124Z Finished uploading artifact content to blob storage!
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.8616244Z SHA256 digest of uploaded artifact zip is 14ef45981f1948d16687ab9c86ccbcb79cced559d87af2e59bccef26ae723d51
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:51.8618081Z Finalizing artifact upload
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:52.0835740Z Artifact three-tier-test-security.zip successfully finalized. Artifact ID 11346337192
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:52.0837509Z Artifact three-tier-test-security has been successfully uploaded! Final size is 1941 bytes. Artifact ID is 11346337192
+test-security	Run actions/upload-artifact@v4	2026-10-05T12:49:52.0843541Z Artifact download URL: https://github.com/rajasurya-rjs/devops-heros/actions/runs/37312195057/artifacts/11346337192
+test-security	Post Run actions/setup-python@v5	﻿2026-10-05T12:49:52.1003044Z Post job cleanup.
+test-security	Post Run actions/setup-python@v5	2026-10-05T12:49:52.2169852Z (node:2951) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+test-security	Post Run actions/setup-python@v5	2026-10-05T12:49:52.2170828Z (Use `node --trace-deprecation ...` to show where the warning was created)
+test-security	Post Run actions/checkout@v4	﻿2026-10-05T12:49:52.2362926Z Post job cleanup.
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3374925Z [command]/usr/bin/git version
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3428486Z git version 2.55.0
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3483942Z Temporarily overriding HOME='/home/runner/work/_temp/dfce3f13-6526-4618-8db3-37d1ddef67dc' before making global git config changes
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3485801Z Adding repository directory to the temporary git global config as a safe directory
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3491944Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3554938Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3625571Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3912497Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3952361Z http.https://github.com/.extraheader
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.3965455Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.4006783Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.4262795Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test-security	Post Run actions/checkout@v4	2026-10-05T12:49:52.4301974Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test-security	Stop containers	﻿2026-10-05T12:49:52.4659442Z Print service container logs: 09e7f74d902947559e07840a36ddeedf_postgres17alpine_0aa328
+test-security	Stop containers	2026-10-05T12:49:52.4663805Z ##[command]/usr/bin/docker logs --details beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Stop containers	2026-10-05T12:49:52.4790338Z  The files belonging to this database system will be owned by user "postgres".
+test-security	Stop containers	2026-10-05T12:49:52.4791849Z  sh: locale: not found
+test-security	Stop containers	2026-10-05T12:49:52.4792473Z  2026-10-05 12:49:28.402 UTC [34] WARNING:  no usable system locales were found
+test-security	Stop containers	2026-10-05T12:49:52.4793137Z  This user must also own the server process.
+test-security	Stop containers	2026-10-05T12:49:52.4793428Z  
+test-security	Stop containers	2026-10-05T12:49:52.4793814Z  The database cluster will be initialized with locale "en_US.utf8".
+test-security	Stop containers	2026-10-05T12:49:52.4794686Z  The default database encoding has accordingly been set to "UTF8".
+test-security	Stop containers	2026-10-05T12:49:52.4795147Z  The default text search configuration will be set to "english".
+test-security	Stop containers	2026-10-05T12:49:52.4795508Z  
+test-security	Stop containers	2026-10-05T12:49:52.4795981Z  Data page checksums are disabled.
+test-security	Stop containers	2026-10-05T12:49:52.4796245Z  
+test-security	Stop containers	2026-10-05T12:49:52.4796602Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+test-security	Stop containers	2026-10-05T12:49:52.4797008Z  creating subdirectories ... ok
+test-security	Stop containers	2026-10-05T12:49:52.4797340Z  selecting dynamic shared memory implementation ... posix
+test-security	Stop containers	2026-10-05T12:49:52.4797702Z  selecting default "max_connections" ... 100
+test-security	Stop containers	2026-10-05T12:49:52.4798013Z  selecting default "shared_buffers" ... 128MB
+test-security	Stop containers	2026-10-05T12:49:52.4798317Z  selecting default time zone ... UTC
+test-security	Stop containers	2026-10-05T12:49:52.4798586Z  creating configuration files ... ok
+test-security	Stop containers	2026-10-05T12:49:52.4798984Z  running bootstrap script ... ok
+test-security	Stop containers	2026-10-05T12:49:52.4799296Z  performing post-bootstrap initialization ... ok
+test-security	Stop containers	2026-10-05T12:49:52.4799621Z  syncing data to disk ... ok
+test-security	Stop containers	2026-10-05T12:49:52.4800364Z  initdb: warning: enabling "trust" authentication for local connections
+test-security	Stop containers	2026-10-05T12:49:52.4800776Z  
+test-security	Stop containers	2026-10-05T12:49:52.4801630Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+test-security	Stop containers	2026-10-05T12:49:52.4802243Z  
+test-security	Stop containers	2026-10-05T12:49:52.4803016Z  2026-10-05 12:49:29.225 UTC [1] LOG:  starting PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+test-security	Stop containers	2026-10-05T12:49:52.4803640Z  Success. You can now start the database server using:
+test-security	Stop containers	2026-10-05T12:49:52.4804532Z  2026-10-05 12:49:29.225 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+test-security	Stop containers	2026-10-05T12:49:52.4804923Z  
+test-security	Stop containers	2026-10-05T12:49:52.4805487Z  2026-10-05 12:49:29.225 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+test-security	Stop containers	2026-10-05T12:49:52.4805961Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+test-security	Stop containers	2026-10-05T12:49:52.4806729Z  2026-10-05 12:49:29.226 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+test-security	Stop containers	2026-10-05T12:49:52.4807175Z  
+test-security	Stop containers	2026-10-05T12:49:52.4807770Z  2026-10-05 12:49:29.229 UTC [56] LOG:  database system was shut down at 2026-10-05 12:49:29 UTC
+test-security	Stop containers	2026-10-05T12:49:52.4808582Z  waiting for server to start....2026-10-05 12:49:28.955 UTC [40] LOG:  starting PostgreSQL 17.11 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+test-security	Stop containers	2026-10-05T12:49:52.4809409Z  2026-10-05 12:49:28.956 UTC [40] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+test-security	Stop containers	2026-10-05T12:49:52.4810166Z  2026-10-05 12:49:29.233 UTC [1] LOG:  database system is ready to accept connections
+test-security	Stop containers	2026-10-05T12:49:52.4810702Z  2026-10-05 12:49:28.958 UTC [43] LOG:  database system was shut down at 2026-10-05 12:49:28 UTC
+test-security	Stop containers	2026-10-05T12:49:52.4811279Z  2026-10-05 12:49:28.963 UTC [40] LOG:  database system is ready to accept connections
+test-security	Stop containers	2026-10-05T12:49:52.4811699Z   done
+test-security	Stop containers	2026-10-05T12:49:52.4811902Z  server started
+test-security	Stop containers	2026-10-05T12:49:52.4812151Z  CREATE DATABASE
+test-security	Stop containers	2026-10-05T12:49:52.4812396Z  
+test-security	Stop containers	2026-10-05T12:49:52.4812581Z  
+test-security	Stop containers	2026-10-05T12:49:52.4812946Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+test-security	Stop containers	2026-10-05T12:49:52.4813386Z  
+test-security	Stop containers	2026-10-05T12:49:52.4813762Z  waiting for server to shut down....2026-10-05 12:49:29.103 UTC [40] LOG:  received fast shutdown request
+test-security	Stop containers	2026-10-05T12:49:52.4815980Z  2026-10-05 12:49:29.103 UTC [40] LOG:  aborting any active transactions
+test-security	Stop containers	2026-10-05T12:49:52.4817014Z  2026-10-05 12:49:29.106 UTC [40] LOG:  background worker "logical replication launcher" (PID 46) exited with exit code 1
+test-security	Stop containers	2026-10-05T12:49:52.4817963Z  2026-10-05 12:49:29.107 UTC [41] LOG:  shutting down
+test-security	Stop containers	2026-10-05T12:49:52.4818641Z  2026-10-05 12:49:29.108 UTC [41] LOG:  checkpoint starting: shutdown immediate
+test-security	Stop containers	2026-10-05T12:49:52.4820547Z  2026-10-05 12:49:29.122 UTC [41] LOG:  checkpoint complete: wrote 926 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.012 s, sync=0.002 s, total=0.015 s; sync files=301, longest=0.001 s, average=0.001 s; distance=4266 kB, estimate=4266 kB; lsn=0/191E810, redo lsn=0/191E810
+test-security	Stop containers	2026-10-05T12:49:52.4822436Z  2026-10-05 12:49:29.130 UTC [40] LOG:  database system is shut down
+test-security	Stop containers	2026-10-05T12:49:52.4823010Z   done
+test-security	Stop containers	2026-10-05T12:49:52.4823604Z  server stopped
+test-security	Stop containers	2026-10-05T12:49:52.4823944Z  
+test-security	Stop containers	2026-10-05T12:49:52.4824575Z  PostgreSQL init process complete; ready for start up.
+test-security	Stop containers	2026-10-05T12:49:52.4825114Z  
+test-security	Stop containers	2026-10-05T12:49:52.4836032Z Stop and remove container: 09e7f74d902947559e07840a36ddeedf_postgres17alpine_0aa328
+test-security	Stop containers	2026-10-05T12:49:52.4840524Z ##[command]/usr/bin/docker rm --force beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Stop containers	2026-10-05T12:49:52.7139775Z beeaccad0185b8ab96376cdbd6c204bb6a6326d51471c8645956beee05b009d1
+test-security	Stop containers	2026-10-05T12:49:52.7169467Z Remove container network: github_network_77ae5e2effd34cd6b55b845b2e19b76c
+test-security	Stop containers	2026-10-05T12:49:52.7174816Z ##[command]/usr/bin/docker network rm github_network_77ae5e2effd34cd6b55b845b2e19b76c
+test-security	Stop containers	2026-10-05T12:49:52.8038630Z github_network_77ae5e2effd34cd6b55b845b2e19b76c
+test-security	Complete job	﻿2026-10-05T12:49:52.8110114Z Cleaning up orphan processes
+test-security	Complete job	2026-10-05T12:49:52.8449988Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+build-push-deploy	Set up job	﻿2026-10-05T12:49:56.4891332Z Current runner version: '2.337.0'
+build-push-deploy	Set up job	2026-10-05T12:49:56.4927103Z ##[group]Runner Image Provisioner
+build-push-deploy	Set up job	2026-10-05T12:49:56.4928973Z Hosted Compute Agent
+build-push-deploy	Set up job	2026-10-05T12:49:56.4930166Z Version: 20260901.588
+build-push-deploy	Set up job	2026-10-05T12:49:56.4931346Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+build-push-deploy	Set up job	2026-10-05T12:49:56.4932717Z Build Date: 2026-09-01T19:56:44Z
+build-push-deploy	Set up job	2026-10-05T12:49:56.4934451Z Worker ID: {2c936d1c-9bf0-4ba9-a529-01458e517601}
+build-push-deploy	Set up job	2026-10-05T12:49:56.4935769Z Azure Region: eastus
+build-push-deploy	Set up job	2026-10-05T12:49:56.4936945Z ##[endgroup]
+build-push-deploy	Set up job	2026-10-05T12:49:56.4939184Z ##[group]Operating System
+build-push-deploy	Set up job	2026-10-05T12:49:56.4940245Z Ubuntu
+build-push-deploy	Set up job	2026-10-05T12:49:56.4941350Z 24.04.5
+build-push-deploy	Set up job	2026-10-05T12:49:56.4942276Z LTS
+build-push-deploy	Set up job	2026-10-05T12:49:56.4943230Z ##[endgroup]
+build-push-deploy	Set up job	2026-10-05T12:49:56.4944497Z ##[group]Runner Image
+build-push-deploy	Set up job	2026-10-05T12:49:56.4945603Z Image: ubuntu-24.04
+build-push-deploy	Set up job	2026-10-05T12:49:56.4946658Z Version: 20260927.320.1
+build-push-deploy	Set up job	2026-10-05T12:49:56.4948550Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+build-push-deploy	Set up job	2026-10-05T12:49:56.4951741Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+build-push-deploy	Set up job	2026-10-05T12:49:56.4954009Z ##[endgroup]
+build-push-deploy	Set up job	2026-10-05T12:49:56.4956289Z ##[group]GITHUB_TOKEN Permissions
+build-push-deploy	Set up job	2026-10-05T12:49:56.4959666Z Contents: read
+build-push-deploy	Set up job	2026-10-05T12:49:56.4960746Z Metadata: read
+build-push-deploy	Set up job	2026-10-05T12:49:56.4961691Z Packages: write
+build-push-deploy	Set up job	2026-10-05T12:49:56.4962742Z ##[endgroup]
+build-push-deploy	Set up job	2026-10-05T12:49:56.4965963Z Secret source: Actions
+build-push-deploy	Set up job	2026-10-05T12:49:56.4967643Z Cache mode: write
+build-push-deploy	Set up job	2026-10-05T12:49:56.4968739Z Prepare workflow directory
+build-push-deploy	Set up job	2026-10-05T12:49:56.5436098Z Prepare all required actions
+build-push-deploy	Set up job	2026-10-05T12:49:56.5506934Z Getting action download info
+build-push-deploy	Set up job	2026-10-05T12:49:56.7904116Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+build-push-deploy	Set up job	2026-10-05T12:49:56.8912086Z Download action repository 'aquasecurity/setup-trivy@v0.3.1' (SHA:81e514348e19b6112ce2a7e3ecbafe19c1e1f567)
+build-push-deploy	Set up job	2026-10-05T12:49:56.9936660Z Download action repository 'helm/kind-action@v1.12.0' (SHA:a1b0e391336a6ee6713a0583f8c6240d70863de3)
+build-push-deploy	Set up job	2026-10-05T12:49:57.0835916Z Download action repository 'azure/setup-helm@v4' (SHA:1a275c3b69536ee54be43f2070a358922e12c8d4)
+build-push-deploy	Set up job	2026-10-05T12:49:57.1941337Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+build-push-deploy	Set up job	2026-10-05T12:49:57.4139946Z Getting action download info
+build-push-deploy	Set up job	2026-10-05T12:49:57.4946841Z Download action repository 'actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb' (SHA:9255dc7a253b0ccc959486e2bca901246202afeb)
+build-push-deploy	Set up job	2026-10-05T12:49:57.6526479Z Download action repository 'actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8' (SHA:8e8c483db84b4bee98b60c0593521ed34d9990e8)
+build-push-deploy	Set up job	2026-10-05T12:49:57.7658730Z Complete job name: build-push-deploy
+build-push-deploy	Run actions/checkout@v4	﻿2026-10-05T12:49:57.8579906Z ##[group]Run actions/checkout@v4
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8580931Z with:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8581474Z   repository: rajasurya-rjs/devops-heros
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8586816Z   token: ***
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8587331Z   ssh-strict: true
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8587867Z   ssh-user: git
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8588408Z   persist-credentials: true
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8588978Z   clean: true
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8589503Z   sparse-checkout-cone-mode: true
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8590117Z   fetch-depth: 1
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8590637Z   fetch-tags: false
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8591147Z   show-progress: true
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8591677Z   lfs: false
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8592156Z   submodules: false
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8592684Z   set-safe-directory: true
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8593289Z   allow-unsafe-pr-checkout: false
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.8594416Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9678933Z Syncing repository: rajasurya-rjs/devops-heros
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9681934Z ##[group]Getting Git version info
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9683409Z Working directory is '/home/runner/work/devops-heros/devops-heros'
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9685739Z [command]/usr/bin/git version
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9686721Z git version 2.55.0
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9704423Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9721774Z Temporarily overriding HOME='/home/runner/work/_temp/c7a573ad-3e67-4e33-a79d-a71ed5b83d21' before making global git config changes
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9725316Z Adding repository directory to the temporary git global config as a safe directory
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9729328Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9779459Z Deleting the contents of '/home/runner/work/devops-heros/devops-heros'
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9790947Z ##[group]Initializing the repository
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9792742Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9898740Z hint: Using 'master' as the name for the initial branch. This default branch name
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9901359Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9903666Z hint: to use in all of your new repositories, which will suppress this warning,
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9905693Z hint: call:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9906874Z hint:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9907898Z hint: 	git config --global init.defaultBranch <name>
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9908855Z hint:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9909737Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9911220Z hint: 'development'. The just-created branch can be renamed via this command:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9912556Z hint:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9913205Z hint: 	git branch -m <name>
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9914341Z hint:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9915257Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9917182Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/.git/
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9920369Z [command]/usr/bin/git remote add origin https://github.com/rajasurya-rjs/devops-heros
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9966912Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9968835Z ##[group]Disabling automatic garbage collection
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:57.9970375Z [command]/usr/bin/git config --local gc.auto 0
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0003390Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0005137Z ##[group]Setting up auth
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0011813Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0045612Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0419643Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0459313Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0712283Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0755570Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.0988272Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.1029759Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.1039431Z ##[group]Fetching the repository
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:58.1041864Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cd4a3de490059037d7ed7b438a6368327212c4c1:refs/remotes/origin/main
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6034021Z From https://github.com/rajasurya-rjs/devops-heros
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6035202Z  * [new ref]         cd4a3de490059037d7ed7b438a6368327212c4c1 -> origin/main
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6038452Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6039320Z ##[group]Determining the checkout info
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6041484Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6048236Z [command]/usr/bin/git sparse-checkout disable
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6101708Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6138110Z ##[group]Checking out the ref
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.6142576Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.8541109Z Switched to a new branch 'main'
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.8544265Z branch 'main' set up to track 'origin/main'.
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.8562159Z ##[endgroup]
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.8611308Z [command]/usr/bin/git log -1 --format=%H
+build-push-deploy	Run actions/checkout@v4	2026-10-05T12:49:59.8640547Z cd4a3de490059037d7ed7b438a6368327212c4c1
+build-push-deploy	Build frontend and backend	﻿2026-10-05T12:49:59.8869407Z ##[group]Run prefix="ghcr.io/${GITHUB_REPOSITORY,,}"
+build-push-deploy	Build frontend and backend	2026-10-05T12:49:59.8870035Z [36;1mprefix="ghcr.io/${GITHUB_REPOSITORY,,}"[0m
+build-push-deploy	Build frontend and backend	2026-10-05T12:49:59.8870496Z [36;1mecho "IMAGE_PREFIX=$prefix" >> "$GITHUB_ENV"[0m
+build-push-deploy	Build frontend and backend	2026-10-05T12:49:59.8871318Z [36;1mdocker build -t "$prefix/ops-notes-backend:$GITHUB_SHA" -f final-devops-project/docker/backend.Dockerfile final-devops-project[0m
+build-push-deploy	Build frontend and backend	2026-10-05T12:49:59.8872469Z [36;1mdocker build -t "$prefix/ops-notes-frontend:$GITHUB_SHA" -f final-devops-project/docker/frontend.Dockerfile final-devops-project[0m
+build-push-deploy	Build frontend and backend	2026-10-05T12:49:59.9118479Z shell: /usr/bin/bash -e {0}
+build-push-deploy	Build frontend and backend	2026-10-05T12:49:59.9119070Z ##[endgroup]
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5953665Z #0 building with "default" instance using docker driver
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5955112Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5955663Z #1 [internal] load build definition from backend.Dockerfile
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5959282Z #1 transferring dockerfile: 515B 0.0s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5960348Z #1 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5960784Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5961489Z #2 [auth] library/python:pull token for registry-1.docker.io
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5962740Z #2 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5963166Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.5964069Z #3 [internal] load metadata for docker.io/library/python:3.13-alpine
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.7531882Z #3 DONE 0.4s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8793269Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8794544Z #4 [internal] load .dockerignore
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8795395Z #4 transferring context: 110B done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8796053Z #4 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8796350Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8796593Z #5 [internal] load build context
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8797331Z #5 transferring context: 10.27kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8797997Z #5 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8798273Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8799248Z #6 [1/5] FROM docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8801510Z #6 resolve docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8803224Z #6 extracting sha256:48f6a258842734fe23e0e4c69db9996cbaefd41c1cde2372b95449f9fc5601eb
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8804816Z #6 sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a 10.30kB / 10.30kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8806230Z #6 sha256:ba27df8b6499cc3756cff167690f3fcb5321faa1703b3a914df5f4fdadb32f05 1.74kB / 1.74kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8807400Z #6 sha256:050f6d1f4e5f89af62e03f6fcd1c06be2a401339b3694adc4c0a2850d9d8b1e7 5.29kB / 5.29kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8808496Z #6 sha256:48f6a258842734fe23e0e4c69db9996cbaefd41c1cde2372b95449f9fc5601eb 416.27kB / 416.27kB 0.0s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8809495Z #6 sha256:6f4c23997e2db272b9d27917c421c0322c90ce90f0b4eeecd39ce268bdb688d0 15.24MB / 15.24MB 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:02.8810485Z #6 sha256:82c48d7f22df9ea2f3393a3daf83a7abb5e933e5fb7f4d1b701dc8f71ebff248 247B / 247B 0.0s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.1002476Z #6 extracting sha256:48f6a258842734fe23e0e4c69db9996cbaefd41c1cde2372b95449f9fc5601eb 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.1292551Z #6 extracting sha256:6f4c23997e2db272b9d27917c421c0322c90ce90f0b4eeecd39ce268bdb688d0
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.7941280Z #6 extracting sha256:6f4c23997e2db272b9d27917c421c0322c90ce90f0b4eeecd39ce268bdb688d0 0.6s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.7944014Z #6 extracting sha256:82c48d7f22df9ea2f3393a3daf83a7abb5e933e5fb7f4d1b701dc8f71ebff248 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.7945869Z #6 DONE 1.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9680883Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9681313Z #7 [2/5] WORKDIR /app
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9681989Z #7 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9682345Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9682685Z #8 [3/5] COPY application/requirements.txt ./
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9684337Z #8 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9684777Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:03.9687503Z #9 [4/5] RUN pip install --no-cache-dir -r requirements.txt     && python -m pip uninstall -y pip setuptools wheel     && rm -rf /usr/local/lib/python3.13/ensurepip     && addgroup -g 10001 app && adduser -D -u 10001 -G app app
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.1625451Z #9 2.344 Collecting psycopg==3.3.6 (from psycopg[binary]==3.3.6->-r requirements.txt (line 1))
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.3482984Z #9 2.380   Downloading psycopg-3.3.6-py3-none-any.whl.metadata (4.4 kB)
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.3755738Z #9 2.557 Collecting psycopg-binary==3.3.6 (from psycopg[binary]==3.3.6->-r requirements.txt (line 1))
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.5523389Z #9 2.566   Downloading psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_x86_64.whl.metadata (2.7 kB)
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.5524755Z #9 2.573 Downloading psycopg-3.3.6-py3-none-any.whl (215 kB)
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.5525422Z #9 2.590 Downloading psycopg_binary-3.3.6-cp313-cp313-musllinux_1_2_x86_64.whl (4.3 MB)
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.5526532Z #9 2.619    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.3/4.3 MB 180.3 MB/s  0:00:00
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.5527112Z #9 2.734 Installing collected packages: psycopg-binary, psycopg
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:06.8814014Z #9 3.063 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.0340478Z #9 3.065 Successfully installed psycopg-3.3.6 psycopg-binary-3.3.6
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.0344684Z #9 3.065 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.2729166Z #9 3.455 Found existing installation: pip 26.2.1
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.3921530Z #9 3.507 Uninstalling pip-26.2.1:
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.3922243Z #9 3.518   Successfully uninstalled pip-26.2.1
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.3923061Z #9 3.574 WARNING: Skipping setuptools as it is not installed.
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.5090824Z #9 3.577 WARNING: Skipping wheel as it is not installed.
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.5097175Z #9 3.578 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.5104794Z #9 DONE 3.7s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.5105258Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.5106458Z #10 [5/5] COPY --chown=app:app application/app.py application/index.html ./
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.5114432Z #10 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.6645504Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.6646333Z #11 exporting to image
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:07.6647089Z #11 exporting layers
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.0102830Z #11 exporting layers 0.5s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.0298578Z #11 writing image sha256:c0678ec3b2b10cb6cd48fd7495fbffcb1a3ec360b498675c3a0d7a5e7e584fc3 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.0299949Z #11 naming to ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cd4a3de490059037d7ed7b438a6368327212c4c1 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.0301181Z #11 DONE 0.5s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3187849Z #0 building with "default" instance using docker driver
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3188355Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3188662Z #1 [internal] load build definition from frontend.Dockerfile
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3189332Z #1 transferring dockerfile: 280B done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3189790Z #1 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3189986Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3190261Z #2 [auth] library/nginx:pull token for registry-1.docker.io
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3190830Z #2 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3191026Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.3191331Z #3 [internal] load metadata for docker.io/library/nginx:1.30-alpine
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.4554519Z #3 DONE 0.3s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5650791Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5666202Z #4 [internal] load .dockerignore
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5666840Z #4 transferring context: 110B done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5667712Z #4 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5667933Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5668129Z #5 [internal] load build context
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5668821Z #5 transferring context: 765B done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5669327Z #5 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5669551Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5670276Z #6 [1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5672250Z #6 resolve docker.io/library/nginx:1.30-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.5673966Z #6 extracting sha256:e3320d02d5786716dcc40d9f6267baec5d3d2c46945082958050c3ac5ea23751 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6677859Z #6 sha256:b335b7ac3a400afa780d0d89e0b778ee19dc3e3df95bed4b274a763af2264fd7 1.40kB / 1.40kB 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6679397Z #6 sha256:b27cf3f7c39dd0da0aa52a285f0c0cce938ac61472babfea353b1daa83586c49 20.34MB / 20.34MB 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6680584Z #6 sha256:8f84ed99befc3891b8f329c5c202785278a2cfb7c25107d57fb2a134a3117433 2.49kB / 2.49kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6681851Z #6 sha256:43d9d8c1f8968f09df8c1aa6c136ecc617e62d64fe4c0b24c97de4eb210bd973 12.30kB / 12.30kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6683133Z #6 sha256:3d85d110b167fae23d8eb3a7060cd079682b682b04d295fc7bbdf454c9e722c8 626B / 626B 0.0s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6684943Z #6 sha256:22e5a8a110ec69c6af30325ccfe8bb0bfb94e5783117808061bae5115e1e3dcb 963B / 963B 0.0s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6686007Z #6 sha256:6b4dfb2e8f8a72d7ae1380b667f50faccdc19147869b2afa09aeddfdea59ce64 403B / 403B 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6687440Z #6 sha256:703c5424632fab32aa3327bebe6e5202ac53a93740062efb830f8188e580b9db 1.21kB / 1.21kB 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6688722Z #6 sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94 10.32kB / 10.32kB done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.6690076Z #6 sha256:e3320d02d5786716dcc40d9f6267baec5d3d2c46945082958050c3ac5ea23751 1.88MB / 1.88MB 0.0s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.8544464Z #6 extracting sha256:3d85d110b167fae23d8eb3a7060cd079682b682b04d295fc7bbdf454c9e722c8 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.8545956Z #6 extracting sha256:22e5a8a110ec69c6af30325ccfe8bb0bfb94e5783117808061bae5115e1e3dcb done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.8547435Z #6 extracting sha256:6b4dfb2e8f8a72d7ae1380b667f50faccdc19147869b2afa09aeddfdea59ce64 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.8548767Z #6 extracting sha256:703c5424632fab32aa3327bebe6e5202ac53a93740062efb830f8188e580b9db done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.8550082Z #6 extracting sha256:b335b7ac3a400afa780d0d89e0b778ee19dc3e3df95bed4b274a763af2264fd7 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:08.8551312Z #6 extracting sha256:b27cf3f7c39dd0da0aa52a285f0c0cce938ac61472babfea353b1daa83586c49 0.1s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:09.0824271Z #6 extracting sha256:b27cf3f7c39dd0da0aa52a285f0c0cce938ac61472babfea353b1daa83586c49 0.3s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:09.1842815Z #6 DONE 0.7s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:09.3348653Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:09.3349371Z #7 [2/4] RUN apk upgrade --no-cache libexpat pcre2
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:09.8503919Z #7 0.666 (1/2) Upgrading pcre2 (10.48-r0 -> 10.49-r0)
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0504400Z #7 0.675 (2/2) Upgrading libexpat (2.8.4-r0 -> 2.8.5-r0)
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0505563Z #7 0.681 OK: 59.1 MiB in 71 packages
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0506301Z #7 DONE 0.7s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0506647Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0507053Z #8 [3/4] COPY docker/frontend.conf /etc/nginx/nginx.conf
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0507990Z #8 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0508324Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0508842Z #9 [4/4] COPY application/index.html /usr/share/nginx/html/index.html
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0509939Z #9 DONE 0.0s
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0510262Z 
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0510527Z #10 exporting to image
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0511211Z #10 exporting layers 0.1s done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0696227Z #10 writing image sha256:a48244ab5f345825fcb0d6a6b41ee4573fc049d45c2a89b5c78a0239832b1733 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0698216Z #10 naming to ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cd4a3de490059037d7ed7b438a6368327212c4c1 done
+build-push-deploy	Build frontend and backend	2026-10-05T12:50:10.0764921Z #10 DONE 0.1s
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	﻿2026-10-05T12:50:10.0950123Z ##[group]Run aquasecurity/setup-trivy@v0.3.1
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0950693Z with:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0950907Z   version: latest
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0951130Z   cache: false
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0954434Z   token: ***
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0954706Z   github-server-url: https://github.com
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0955011Z env:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0955267Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.0955607Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1026090Z ##[start-action display=Binary dir;id=__aquasecurity_setup-trivy.binary-dir]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1052657Z ##[group]Run # `path` is passed via env to avoid script injection. As a result, shell
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1053339Z [36;1m# `path` is passed via env to avoid script injection. As a result, shell[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1054144Z [36;1m# variables (e.g. $HOME) and `~` inside it are NOT expanded. We validate it to:[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1054760Z [36;1m#   1. fail early with a clear message instead of silently creating a directory[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1055294Z [36;1m#      literally named `$HOME`;[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1055751Z [36;1m#   2. reject newlines, which could otherwise inject extra lines into the[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1056293Z [36;1m#      `$GITHUB_OUTPUT` file (and thus poison the `dir` output).[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1056701Z [36;1mcase "${INPUT_PATH}" in[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1056976Z [36;1m  *'$'* | *'~'*)[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1058080Z [36;1m    echo "::error::The 'path' input must be a literal path. Shell variables (e.g. \$HOME, \$USER) and '~' are not expanded. Use a GitHub expression that is resolved before the step runs, a relative path, or leave 'path' empty to use the default (\$HOME/.local/bin)." >&2[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1059228Z [36;1m    exit 1[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1059457Z [36;1m    ;;[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1059677Z [36;1m  *[$'\n\r']*)[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1060057Z [36;1m    echo "::error::The 'path' input must not contain newline characters." >&2[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1060497Z [36;1m    exit 1[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1060737Z [36;1m    ;;[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1060950Z [36;1mesac[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1061366Z [36;1m# Default path. Keep `$HOME/.local/bin` in sync with the `path` input description above.[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1062007Z [36;1mecho "dir=${INPUT_PATH:-$HOME/.local/bin}/trivy-bin" >> "$GITHUB_OUTPUT"[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1128935Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1129423Z env:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1129754Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1130190Z   INPUT_PATH: 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1130462Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1279283Z ##[end-action id=__aquasecurity_setup-trivy.binary-dir;outcome=success;conclusion=success;duration_ms=22]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1285624Z ##[start-action display=Check the version for caching;id=__aquasecurity_setup-trivy.__run]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1308470Z ##[end-action id=__aquasecurity_setup-trivy.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1310991Z ##[start-action display=Restore Trivy binary from cache;id=__aquasecurity_setup-trivy.cache]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1317698Z ##[end-action id=__aquasecurity_setup-trivy.cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1319892Z ##[start-action display=Checkout install script;id=__aquasecurity_setup-trivy.__actions_checkout]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1410736Z ##[group]Run actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1411139Z with:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1411348Z   repository: aquasecurity/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1411614Z   sparse-checkout: contrib
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1411857Z   path: trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1412059Z   fetch-depth: 1
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1412299Z   ref: 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1412637Z   github-server-url: https://github.com
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1415772Z   token: ***
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1415988Z   ssh-strict: true
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1416196Z   ssh-user: git
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1416410Z   persist-credentials: true
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1417035Z   clean: true
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1417291Z   sparse-checkout-cone-mode: true
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1417595Z   fetch-tags: false
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1417804Z   show-progress: true
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1418015Z   lfs: false
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1418215Z   submodules: false
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1418430Z   set-safe-directory: true
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1418658Z env:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1418902Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.1419214Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2342395Z Syncing repository: aquasecurity/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2349649Z ##[group]Getting Git version info
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2350411Z Working directory is '/home/runner/work/devops-heros/devops-heros/trivy'
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2392832Z [command]/usr/bin/git version
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2438124Z git version 2.55.0
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2459938Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2474633Z Temporarily overriding HOME='/home/runner/work/_temp/22aa059d-8777-4721-b2bc-3b6fc1e51a6c' before making global git config changes
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2476109Z Adding repository directory to the temporary git global config as a safe directory
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2479755Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2521128Z ##[group]Initializing the repository
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2527808Z [command]/usr/bin/git init /home/runner/work/devops-heros/devops-heros/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2575714Z hint: Using 'master' as the name for the initial branch. This default branch name
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2576881Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2578086Z hint: to use in all of your new repositories, which will suppress this warning,
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2578893Z hint: call:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2579343Z hint:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2579886Z hint: 	git config --global init.defaultBranch <name>
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2580530Z hint:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2581155Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2582203Z hint: 'development'. The just-created branch can be renamed via this command:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2582987Z hint:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2583438Z hint: 	git branch -m <name>
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2584204Z hint:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2584946Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2586141Z Initialized empty Git repository in /home/runner/work/devops-heros/devops-heros/trivy/.git/
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2589399Z [command]/usr/bin/git remote add origin https://github.com/aquasecurity/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2626875Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2627530Z ##[group]Disabling automatic garbage collection
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2631948Z [command]/usr/bin/git config --local gc.auto 0
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2666244Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2666942Z ##[group]Setting up auth
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2667690Z Removing SSH command configuration
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2674403Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2711874Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2966751Z Removing HTTP extra header
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.2973043Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3015747Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3299541Z Removing includeIf entries pointing to credentials config files
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3300643Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3334953Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3587003Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-1a8e5307-6164-441c-aaa9-34d0af0cdee7.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3634491Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/devops-heros/devops-heros/trivy/.git.path /home/runner/work/_temp/git-credentials-1a8e5307-6164-441c-aaa9-34d0af0cdee7.config
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3673068Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/devops-heros/devops-heros/trivy/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-1a8e5307-6164-441c-aaa9-34d0af0cdee7.config
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3711310Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/trivy/.git.path /github/runner_temp/git-credentials-1a8e5307-6164-441c-aaa9-34d0af0cdee7.config
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3748165Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/trivy/.git/worktrees/*.path /github/runner_temp/git-credentials-1a8e5307-6164-441c-aaa9-34d0af0cdee7.config
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3789620Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3790350Z ##[group]Fetching the repository
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.3799985Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6783213Z From https://github.com/aquasecurity/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6784789Z  * branch            75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a -> FETCH_HEAD
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6788027Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6788922Z ##[group]Determining the checkout info
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6791445Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6792140Z ##[group]Setting up sparse checkout
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6798997Z [command]/usr/bin/git sparse-checkout set contrib
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6845992Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6846723Z ##[group]Checking out the ref
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.6853373Z [command]/usr/bin/git checkout --progress --force 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9229636Z Note: switching to '75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a'.
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9230342Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9230806Z You are in 'detached HEAD' state. You can look around, make experimental
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9231816Z changes and commit them, and you can discard any commits you make in this
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9232798Z state without impacting any branches by switching back to a branch.
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9233454Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9234186Z If you want to create a new branch to retain commits you create, you may
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9235149Z do so (now or later) by using -c with the switch command. Example:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9235610Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9235799Z   git switch -c <new-branch-name>
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9236093Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9236275Z Or undo this operation with:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9236527Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9236694Z   git switch -
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9236916Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9237239Z Turn off this advice by setting config variable advice.detachedHead to false
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9237671Z 
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9237966Z HEAD is now at 75c4dc0 chore: add client option to install script (#9962)
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9241333Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9290079Z [command]/usr/bin/git log -1 --format=%H
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9319041Z 75c4dc0f45c5d7ffd05ae26df1e0c666787bdf2a
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9424553Z ##[end-action id=__aquasecurity_setup-trivy.__actions_checkout;outcome=success;conclusion=success;duration_ms=810]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9428996Z ##[start-action display=Install Trivy;id=__aquasecurity_setup-trivy.__run_2]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9450597Z ##[group]Run echo "installing Trivy binary"
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9451006Z [36;1mecho "installing Trivy binary"[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9451550Z [36;1mbash ./trivy/contrib/install.sh -b "${BINARY_DIR}" -c setup-trivy "${TRIVY_VERSION}"[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9452141Z [36;1mcp -r ./trivy/contrib "${BINARY_DIR}/contrib"[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9452804Z [36;1mrm -rf ./trivy[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9522389Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9522799Z env:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9523090Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9523503Z   BINARY_DIR: /home/runner/.local/bin/trivy-bin
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9524161Z   TRIVY_VERSION: latest
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9524422Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9609910Z installing Trivy binary
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:10.9765638Z aquasecurity/trivy info checking GitHub for tag 'latest'
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:11.0306385Z aquasecurity/trivy info found version: 0.75.0 for v0.75.0/Linux/64bit
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.4707996Z aquasecurity/trivy info installed /home/runner/.local/bin/trivy-bin/trivy
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5174559Z ##[end-action id=__aquasecurity_setup-trivy.__run_2;outcome=success;conclusion=success;duration_ms=1574]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5181870Z ##[start-action display=Add Trivy binary to $GITHUB_PATH;id=__aquasecurity_setup-trivy.__run_3]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5209322Z ##[group]Run echo "${BINARY_DIR}" >> "$GITHUB_PATH"
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5209967Z [36;1mecho "${BINARY_DIR}" >> "$GITHUB_PATH"[0m
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5284777Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5285169Z env:
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5285435Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5285819Z   BINARY_DIR: /home/runner/.local/bin/trivy-bin
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5286137Z ##[endgroup]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5386692Z ##[end-action id=__aquasecurity_setup-trivy.__run_3;outcome=success;conclusion=success;duration_ms=20]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5389250Z ##[start-action display=Save Trivy binary to cache;id=__aquasecurity_setup-trivy.__actions_cache]
+build-push-deploy	Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:50:12.5395041Z ##[end-action id=__aquasecurity_setup-trivy.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+build-push-deploy	Trivy gates for both application images	﻿2026-10-05T12:50:12.5428364Z ##[group]Run set -o pipefail
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5428738Z [36;1mset -o pipefail[0m
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5429006Z [36;1mmkdir -p reports[0m
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5429299Z [36;1mfor tier in backend frontend; do[0m
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5430118Z [36;1m  trivy image --scanners vuln --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1 "$IMAGE_PREFIX/ops-notes-$tier:$GITHUB_SHA" 2>&1 | tee "reports/trivy-$tier.txt"[0m
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5430917Z [36;1mdone[0m
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5492643Z shell: /usr/bin/bash -e {0}
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5492941Z env:
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5493228Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.5493612Z ##[endgroup]
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.6466124Z 2026-10-05T12:50:12Z	INFO	[vulndb] Need to update DB
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.6467018Z 2026-10-05T12:50:12Z	INFO	[vulndb] Downloading vulnerability DB...
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:12.6467997Z 2026-10-05T12:50:12Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:17.1955366Z 64.20 MiB / 120.92 MiB [------------------------------->____________________________] 53.09% ? p/s ?120.92 MiB / 120.92 MiB [--------------------------------------------------------->] 100.00% ? p/s ?120.92 MiB / 120.92 MiB [--------------------------------------------------------->] 100.00% ? p/s ?120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 94.63 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 94.63 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 94.63 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 88.53 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 88.53 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 88.53 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 82.82 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 82.82 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 82.82 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 77.47 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 77.47 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 77.47 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 72.47 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 72.47 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-------------------------------------------->] 100.00% 72.47 MiB p/s ETA 0s120.92 MiB / 120.92 MiB [-----------------------------------------------] 100.00% 35.02 MiB p/s 3.7s2026-10-05T12:50:17Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:17.1965489Z 2026-10-05T12:50:17Z	INFO	[vuln] Vulnerability scanning is enabled
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2701569Z 2026-10-05T12:50:21Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2725007Z 2026-10-05T12:50:21Z	WARN	Recommend using Trivy to generate SBOMs
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2864542Z 2026-10-05T12:50:21Z	INFO	Detected OS	family="alpine" version="3.24.2"
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2865769Z 2026-10-05T12:50:21Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=29
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2879611Z 2026-10-05T12:50:21Z	INFO	Number of language-specific files	num=1
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2880459Z 2026-10-05T12:50:21Z	INFO	[python-pkg] Detecting vulnerabilities...
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2973630Z 
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2974089Z Report Summary
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2974427Z 
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2975654Z ┌──────────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┐
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2976852Z │                                      Target                                      │    Type    │ Vulnerabilities │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2978467Z ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2979877Z │ ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cd4a3de490059037d7ed7b438a- │   alpine   │        0        │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2981270Z │ 6368327212c4c1 (alpine 3.24.2)                                                   │            │                 │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2982484Z ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2984102Z │ usr/local/lib/python3.13/site-packages/psycopg-3.3.6.dist-info/METADATA          │ python-pkg │        0        │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2987000Z ├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2989586Z │ usr/local/lib/python3.13/site-packages/psycopg_binary-3.3.6.dist-info/METADATA   │ python-pkg │        0        │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2992275Z └──────────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┘
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2993536Z Legend:
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2994273Z - '-': Not scanned
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2994777Z - '0': Clean (no security findings detected)
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.2995225Z 
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.3868309Z 2026-10-05T12:50:21Z	INFO	[vuln] Vulnerability scanning is enabled
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8140364Z 2026-10-05T12:50:21Z	INFO	Detected OS	family="alpine" version="3.24.2"
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8141180Z 2026-10-05T12:50:21Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=71
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8199868Z 2026-10-05T12:50:21Z	INFO	Number of language-specific files	num=0
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8201478Z 2026-10-05T12:50:21Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8273863Z 
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8274331Z Report Summary
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8274960Z 
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8276090Z ┌──────────────────────────────────────────────────────────────────────────────────┬────────┬─────────────────┐
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8277454Z │                                      Target                                      │  Type  │ Vulnerabilities │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8278850Z ├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8280503Z │ ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cd4a3de490059037d7ed7b438- │ alpine │        0        │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8282073Z │ a6368327212c4c1 (alpine 3.24.2)                                                  │        │                 │
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8283278Z └──────────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────┘
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8284106Z Legend:
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8284423Z - '-': Not scanned
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8285134Z - '0': Clean (no security findings detected)
+build-push-deploy	Trivy gates for both application images	2026-10-05T12:50:21.8285505Z 
+build-push-deploy	Push scanned images to GHCR	﻿2026-10-05T12:50:21.8350057Z ##[group]Run printf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8350994Z [36;1mprintf '%s' "$REGISTRY_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin[0m
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8351721Z [36;1mdocker push "$IMAGE_PREFIX/ops-notes-backend:$GITHUB_SHA"[0m
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8352303Z [36;1mdocker push "$IMAGE_PREFIX/ops-notes-frontend:$GITHUB_SHA"[0m
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8415031Z shell: /usr/bin/bash -e {0}
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8415418Z env:
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8415785Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8420491Z   REGISTRY_TOKEN: ***
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:21.8420846Z ##[endgroup]
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0164519Z 
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0164952Z Login Succeeded
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0166126Z WARNING! Your credentials are stored unencrypted in '/home/runner/.docker/config.json'.
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0167279Z Configure a credential helper to remove this warning. See
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0167997Z https://docs.docker.com/go/credential-store/
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0168447Z 
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0388629Z The push refers to repository [ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend]
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0619649Z c56453ff5bca: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0620235Z f755826939ac: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0620881Z ea84bc7a6cab: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0621275Z ad29df7d15a0: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0621649Z 09b41e0a8d45: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0622124Z 4b3c5e4553e1: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0622573Z ebc25a728871: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0622874Z 74d97c428c51: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0623169Z 4b3c5e4553e1: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0623465Z ebc25a728871: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:22.0630407Z 74d97c428c51: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:23.2030428Z 09b41e0a8d45: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:23.7079806Z c56453ff5bca: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:23.7427766Z ea84bc7a6cab: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:23.7441743Z ad29df7d15a0: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:24.1815365Z 74d97c428c51: Mounted from github/gh-aw-firewall/squid
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:24.5175196Z f755826939ac: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:24.7082404Z ebc25a728871: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:25.9717086Z 4b3c5e4553e1: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9225858Z cd4a3de490059037d7ed7b438a6368327212c4c1: digest: sha256:be5d71c37b7f4eefda966cfff899577d86952157f9b320dbb428c0571745ec1f size: 1989
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9426569Z The push refers to repository [ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend]
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9683078Z 6f5a6f04e95d: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9683910Z f1dc3033eacd: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9684791Z 375e582b1736: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9685742Z e46f4042ccf5: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9686264Z 0d250d8db7c2: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9686760Z 8fb5da5ad6fa: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9687157Z 267e83adf4c4: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9687534Z ec2b9a359ab9: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9687907Z ed752e851ebe: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9688284Z 2d3fbe0ca19d: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9688657Z 74d97c428c51: Preparing
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9689068Z ec2b9a359ab9: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9689438Z ed752e851ebe: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9689793Z 2d3fbe0ca19d: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9690149Z 8fb5da5ad6fa: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9690501Z 74d97c428c51: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:27.9690846Z 267e83adf4c4: Waiting
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:29.0688636Z 0d250d8db7c2: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:29.5749805Z 375e582b1736: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:29.5992032Z 6f5a6f04e95d: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:29.6020595Z f1dc3033eacd: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:30.0046716Z 8fb5da5ad6fa: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:30.4909476Z ed752e851ebe: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:30.4918119Z 267e83adf4c4: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:30.6768375Z ec2b9a359ab9: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:30.8872611Z 74d97c428c51: Mounted from rajasurya-rjs/devops-heros/ops-notes-backend
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:31.1045465Z 2d3fbe0ca19d: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:31.1968307Z e46f4042ccf5: Pushed
+build-push-deploy	Push scanned images to GHCR	2026-10-05T12:50:33.0881537Z cd4a3de490059037d7ed7b438a6368327212c4c1: digest: sha256:cc85fd630e469acfa0b000a1881b01cab266eb0d5dbe26ad4b1730c719c595b9 size: 2614
+build-push-deploy	Run helm/kind-action@v1.12.0	﻿2026-10-05T12:50:33.0978349Z ##[group]Run helm/kind-action@v1.12.0
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0978674Z with:
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0978899Z   cluster_name: three-tier-ci
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0979165Z   version: v0.26.0
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0979390Z   wait: 60s
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0979600Z   verbosity: 0
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0979827Z   kubectl_version: v1.31.4
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0980081Z   registry: false
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0980313Z   registry_image: registry:2
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0980584Z   registry_name: kind-registry
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0980851Z   registry_port: 5000
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0981095Z   registry_enable_delete: false
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0981364Z   ignore_failed_clean: false
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0981623Z env:
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0981872Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.0982205Z ##[endgroup]
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.1342974Z Installing kind...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.1357751Z /opt/hostedtoolcache/kind/v0.26.0/amd64/kind/bin ~/work/devops-heros/devops-heros
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.4867183Z kind-linux-amd64: OK
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.4907454Z ~/work/devops-heros/devops-heros
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.4908067Z Adding kind directory to PATH...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.4908568Z Installing kubectl...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.7827479Z Adding kubectl directory to PATH...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.7848654Z kind v0.26.0 go1.23.4 linux/amd64
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.8226477Z Client Version: v1.31.4
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.8234563Z Kustomize Version: v5.4.2
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:33.8241810Z Creating kind cluster...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:35.7503530Z Creating cluster "three-tier-ci" ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:35.7504731Z  • Ensuring node image (kindest/node:v1.32.0) 🖼  ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:44.5969147Z  ✓ Ensuring node image (kindest/node:v1.32.0) 🖼
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:44.5969937Z  • Preparing nodes 📦   ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:46.6444905Z  ✓ Preparing nodes 📦 
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:46.6727855Z  • Writing configuration 📜  ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:46.8597699Z  ✓ Writing configuration 📜
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:46.8598721Z  • Starting control-plane 🕹️  ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:56.3021684Z  ✓ Starting control-plane 🕹️
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:56.3022814Z  • Installing CNI 🔌  ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:56.6034756Z  ✓ Installing CNI 🔌
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:56.6035466Z  • Installing StorageClass 💾  ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:56.9438491Z  ✓ Installing StorageClass 💾
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:50:56.9727874Z  • Waiting ≤ 1m0s for control-plane = Ready ⏳  ...
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.8204489Z  ✓ Waiting ≤ 1m0s for control-plane = Ready ⏳
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.8205209Z  • Ready after 17s 💚
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.9537334Z Set kubectl context to "kind-three-tier-ci"
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.9538124Z You can now use your cluster with:
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.9539149Z 
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.9539421Z kubectl cluster-info --context kind-three-tier-ci
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.9539909Z 
+build-push-deploy	Run helm/kind-action@v1.12.0	2026-10-05T12:51:13.9540386Z Thanks for using kind! 😊
+build-push-deploy	Run azure/setup-helm@v4	﻿2026-10-05T12:51:13.9640189Z ##[group]Run azure/setup-helm@v4
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9640668Z with:
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9640977Z   version: v3.22.0
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9644376Z   token: ***
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9644647Z   downloadBaseURL: https://get.helm.sh
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9644974Z env:
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9645253Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:13.9645616Z ##[endgroup]
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:14.0408066Z ##[group]Installing v3.22.0
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:14.0428532Z Downloading 'v3.22.0' from 'https://get.helm.sh'
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:14.2737650Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/039b735c-49e8-4e5f-988b-212217d902c5 -f /home/runner/work/_temp/3e5fce6d-d5c2-4ceb-b6fb-82923a7ff472
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:14.8482778Z ##[endgroup]
+build-push-deploy	Run azure/setup-helm@v4	2026-10-05T12:51:14.8485148Z Helm tool version 'v3.22.0' has been cached at /opt/hostedtoolcache/helm/3.22.0/x64/linux-amd64/helm
+build-push-deploy	Deploy all three tiers using Helm	﻿2026-10-05T12:51:14.8686789Z ##[group]Run kind load docker-image "$IMAGE_PREFIX/ops-notes-backend:$GITHUB_SHA" "$IMAGE_PREFIX/ops-notes-frontend:$GITHUB_SHA" --name three-tier-ci
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8688673Z [36;1mkind load docker-image "$IMAGE_PREFIX/ops-notes-backend:$GITHUB_SHA" "$IMAGE_PREFIX/ops-notes-frontend:$GITHUB_SHA" --name three-tier-ci[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8689949Z [36;1mkubectl create namespace project-three-tier[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8690513Z [36;1mpassword_file=$(mktemp)[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8690958Z [36;1mtoken_file=$(mktemp)[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8691462Z [36;1mtrap 'rm -f "$password_file" "$token_file"' EXIT[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8692133Z [36;1mopenssl rand -hex 24 | tr -d '\n' > "$password_file"[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8692749Z [36;1mopenssl rand -hex 24 > "$token_file"[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8696097Z [36;1mkubectl create secret generic three-tier-credentials -n project-three-tier --from-file=*** --from-file=token="$token_file"[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8698122Z [36;1mhelm upgrade --install notes final-devops-project/helm/three-tier -n project-three-tier \[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8699553Z [36;1m  --set backend.repository="$IMAGE_PREFIX/ops-notes-backend" --set backend.tag="$GITHUB_SHA" \[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8700828Z [36;1m  --set frontend.repository="$IMAGE_PREFIX/ops-notes-frontend" --set frontend.tag="$GITHUB_SHA" \[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8701955Z [36;1m  --set ingress.enabled=false --set hpa.enabled=false --wait --timeout 300s[0m
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8809510Z shell: /usr/bin/bash -e {0}
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8809950Z env:
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8810365Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:14.8810934Z ##[endgroup]
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:15.2304792Z Image: "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cd4a3de490059037d7ed7b438a6368327212c4c1" with ID "sha256:c0678ec3b2b10cb6cd48fd7495fbffcb1a3ec360b498675c3a0d7a5e7e584fc3" not yet present on node "three-tier-ci-control-plane", loading...
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:15.4203076Z Image: "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cd4a3de490059037d7ed7b438a6368327212c4c1" with ID "sha256:a48244ab5f345825fcb0d6a6b41ee4573fc049d45c2a89b5c78a0239832b1733" not yet present on node "three-tier-ci-control-plane", loading...
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:18.6470629Z namespace/project-three-tier created
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:18.7109072Z secret/three-tier-credentials created
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:18.7534951Z Release "notes" does not exist. Installing it now.
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:40.9622608Z NAME: notes
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:40.9623560Z LAST DEPLOYED: Mon Oct  5 12:51:18 2026
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:40.9624729Z NAMESPACE: project-three-tier
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:40.9627195Z STATUS: deployed
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:40.9627582Z REVISION: 1
+build-push-deploy	Deploy all three tiers using Helm	2026-10-05T12:51:40.9627909Z TEST SUITE: None
+build-push-deploy	Verify frontend, API and PostgreSQL	﻿2026-10-05T12:51:40.9696028Z ##[group]Run set -o pipefail
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9696460Z [36;1mset -o pipefail[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9697017Z [36;1mkubectl get pods,svc,pvc -n project-three-tier | tee reports/kubernetes.txt[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9697879Z [36;1mkubectl port-forward -n project-three-tier svc/frontend 18082:8080 >/tmp/port-forward.log 2>&1 &[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9698554Z [36;1mfor attempt in $(seq 1 30); do[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9699016Z [36;1m  if curl -fsS http://127.0.0.1:18082/ready; then break; fi[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9699481Z [36;1m  sleep 1[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9699746Z [36;1mdone[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9700327Z [36;1mpython3 final-devops-project/kubernetes/verify-api.py http://127.0.0.1:18082 | tee reports/api.txt[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9701438Z [36;1mkubectl exec -n project-three-tier database-0 -- psql -U notes -d notes -c 'SELECT id, text FROM notes;' | tee reports/database.txt[0m
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9766338Z shell: /usr/bin/bash -e {0}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9766731Z env:
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9767158Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:40.9767656Z ##[endgroup]
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0470765Z NAME                            READY   STATUS    RESTARTS   AGE
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0471311Z pod/backend-7c6766fdf5-b696r    1/1     Running   0          23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0471957Z pod/backend-7c6766fdf5-hzghr    1/1     Running   0          23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0472449Z pod/database-0                  1/1     Running   0          23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0472924Z pod/frontend-666f55c89c-kmrgs   1/1     Running   0          23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0474159Z 
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0474415Z NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0475308Z service/backend    ClusterIP   10.96.144.113   <none>        8080/TCP   23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0476260Z service/database   ClusterIP   None            <none>        5432/TCP   23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0477150Z service/frontend   ClusterIP   10.96.58.223    <none>        8080/TCP   23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0477670Z 
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0478132Z NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0479228Z persistentvolumeclaim/postgres-data-database-0   Bound    pvc-d6c650be-90b0-477f-a418-f6c6df8641ac   256Mi      RWO            standard       <unset>                 23s
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:41.0678296Z curl: (7) Failed to connect to 127.0.0.1 port 18082 after 0 ms: Couldn't connect to server
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.3977055Z {"status": "ok", "version": "three-tier"}GET / -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.3977709Z Operations Notes frontend loaded
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.3978209Z GET /health -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.3978650Z {"status": "ok", "version": "three-tier"}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4000236Z GET /ready -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4001110Z {"status": "ok", "version": "three-tier"}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4001826Z GET /api/config -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4002582Z {"title": "Operations Notes", "version": "three-tier", "secret_injected": true, "database": "PostgreSQL"}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4003254Z GET /api/notes -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4003535Z []
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4004154Z POST /api/notes -> HTTP 201
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4004687Z {"id": 1, "text": "Release check from the three-tier API"}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4005078Z GET /api/notes -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4005410Z [{"id": 1, "text": "Release check from the three-tier API"}]
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4006126Z PUT /api/notes/1 -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4006430Z {"id": 1, "text": "API update checked"}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4006786Z DELETE /api/notes/1 -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4007079Z {"deleted": true}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4007331Z GET /api/notes -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4007589Z []
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4007809Z GET /metrics -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4008121Z # HELP ops_requests_total HTTP responses served.
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4008496Z # TYPE ops_requests_total counter
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4009014Z ops_requests_total 10
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4009303Z # HELP ops_errors_total HTTP error responses.
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4009661Z # TYPE ops_errors_total counter
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4009945Z ops_errors_total 0
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4010199Z # TYPE ops_uptime_seconds gauge
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4010494Z ops_uptime_seconds 20.542
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4010784Z # TYPE ops_cpu_seconds_total counter
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4011108Z ops_cpu_seconds_total 0.482290
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4011417Z # TYPE ops_memory_maxrss gauge
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4011702Z ops_memory_maxrss 36732
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4011863Z 
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4011968Z GET /burn -> HTTP 200
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4012220Z {"work": 575599}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4012465Z POST /api/notes -> HTTP 201
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4012887Z {"id": 2, "text": "Rajasurya: frontend, backend and PostgreSQL are connected."}
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.4013469Z All API endpoints passed through the frontend; database: PostgreSQL
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.5050695Z  id |                            text                            
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.5051832Z ----+------------------------------------------------------------
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.5052745Z   2 | Rajasurya: frontend, backend and PostgreSQL are connected.
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.5053497Z (1 row)
+build-push-deploy	Verify frontend, API and PostgreSQL	2026-10-05T12:51:42.5054093Z 
+build-push-deploy	Run actions/upload-artifact@v4	﻿2026-10-05T12:51:42.5218330Z ##[group]Run actions/upload-artifact@v4
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5218657Z with:
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5218875Z   name: three-tier-build-deploy
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5219155Z   path: reports/
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5219374Z   if-no-files-found: warn
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5219612Z   compression-level: 6
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5219840Z   overwrite: false
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5220062Z   include-hidden-files: false
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5220304Z env:
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5220541Z   IMAGE_PREFIX: ghcr.io/rajasurya-rjs/devops-heros
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.5220860Z ##[endgroup]
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.6948977Z (node:12991) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.6951221Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.7069489Z With the provided path, there will be 5 files uploaded
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.7070928Z Artifact name is valid!
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.7071698Z Root directory input is valid!
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.9146223Z Beginning upload of artifact content to blob storage
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.9411210Z (node:12991) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:42.9871993Z Uploaded bytes 2961
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:43.0048748Z Finished uploading artifact content to blob storage!
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:43.0050902Z SHA256 digest of uploaded artifact zip is d306bd10fd11431540ea178f11e9c6a32f69822b0590957b756eb2b9c33ebb2d
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:43.0052711Z Finalizing artifact upload
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:43.2217634Z Artifact three-tier-build-deploy.zip successfully finalized. Artifact ID 11346013879
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:43.2220012Z Artifact three-tier-build-deploy has been successfully uploaded! Final size is 2961 bytes. Artifact ID is 11346013879
+build-push-deploy	Run actions/upload-artifact@v4	2026-10-05T12:51:43.2225914Z Artifact download URL: https://github.com/rajasurya-rjs/devops-heros/actions/runs/37312195057/artifacts/11346013879
+build-push-deploy	Post Run helm/kind-action@v1.12.0	﻿2026-10-05T12:51:43.2412387Z Post job cleanup.
+build-push-deploy	Post Run helm/kind-action@v1.12.0	2026-10-05T12:51:43.2848035Z Error response from daemon: No such container: kind-registry
+build-push-deploy	Post Run helm/kind-action@v1.12.0	2026-10-05T12:51:43.3006837Z Deleting cluster "three-tier-ci" ...
+build-push-deploy	Post Run helm/kind-action@v1.12.0	2026-10-05T12:51:45.5340254Z Deleted nodes: ["three-tier-ci-control-plane"]
+build-push-deploy	Post Run aquasecurity/setup-trivy@v0.3.1	﻿2026-10-05T12:51:45.5528256Z Post job cleanup.
+build-push-deploy	Post Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:51:45.5532483Z ##[start-action display=Checkout install script;id=__a97eaa75-1b3b-461a-ab79-e367916ed4a8.__actions_checkout]
+build-push-deploy	Post Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:51:45.5584326Z Post job cleanup.
+build-push-deploy	Post Run aquasecurity/setup-trivy@v0.3.1	2026-10-05T12:51:45.6502122Z ##[end-action id=__a97eaa75-1b3b-461a-ab79-e367916ed4a8.__actions_checkout;outcome=success;conclusion=success;duration_ms=96]
+build-push-deploy	Post Run actions/checkout@v4	﻿2026-10-05T12:51:45.6688155Z Post job cleanup.
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7644740Z [command]/usr/bin/git version
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7694577Z git version 2.55.0
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7731394Z Temporarily overriding HOME='/home/runner/work/_temp/4a3132bb-d412-4a21-96e8-6160e4b51bf9' before making global git config changes
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7732939Z Adding repository directory to the temporary git global config as a safe directory
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7737882Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/devops-heros/devops-heros
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7777043Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.7815243Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.8069261Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.8098901Z http.https://github.com/.extraheader
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.8111611Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.8149736Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.8397851Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build-push-deploy	Post Run actions/checkout@v4	2026-10-05T12:51:45.8440029Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build-push-deploy	Complete job	﻿2026-10-05T12:51:45.8861998Z Cleaning up orphan processes
+build-push-deploy	Complete job	2026-10-05T12:51:45.9221796Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4, azure/setup-helm@v4, helm/kind-action@v1.12.0. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

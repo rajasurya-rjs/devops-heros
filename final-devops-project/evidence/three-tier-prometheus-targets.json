@@ -1,0 +1,91 @@
+{
+  "status": "success",
+  "data": {
+    "activeTargets": [
+      {
+        "discoveredLabels": {
+          "__address__": "127.0.0.1:19999",
+          "__always_scrape_classic_histograms__": "false",
+          "__convert_classic_histograms_to_nhcb__": "false",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_native_histograms__": "false",
+          "__scrape_timeout__": "5s",
+          "job": "deliberate-unavailable-target"
+        },
+        "labels": {
+          "instance": "127.0.0.1:19999",
+          "job": "deliberate-unavailable-target"
+        },
+        "scrapePool": "deliberate-unavailable-target",
+        "scrapeUrl": "http://127.0.0.1:19999/metrics",
+        "globalUrl": "http://prometheus-56f4d9fbcc-8b26s:19999/metrics",
+        "lastError": "Get \"http://127.0.0.1:19999/metrics\": dial tcp 127.0.0.1:19999: connect: connection refused",
+        "lastScrape": "2026-10-05T12:48:15.187760924Z",
+        "lastScrapeDuration": 0.003148002,
+        "health": "down",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "5s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "ops-notes:8080",
+          "__always_scrape_classic_histograms__": "false",
+          "__convert_classic_histograms_to_nhcb__": "false",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_native_histograms__": "false",
+          "__scrape_timeout__": "5s",
+          "job": "operations-notes"
+        },
+        "labels": {
+          "instance": "ops-notes:8080",
+          "job": "operations-notes"
+        },
+        "scrapePool": "operations-notes",
+        "scrapeUrl": "http://ops-notes:8080/metrics",
+        "globalUrl": "http://ops-notes:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-10-05T12:48:16.574636814Z",
+        "lastScrapeDuration": 0.017566335,
+        "health": "up",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "5s"
+      },
+      {
+        "discoveredLabels": {
+          "__address__": "backend.project-three-tier.svc.cluster.local:8080",
+          "__always_scrape_classic_histograms__": "false",
+          "__convert_classic_histograms_to_nhcb__": "false",
+          "__metrics_path__": "/metrics",
+          "__scheme__": "http",
+          "__scrape_interval__": "5s",
+          "__scrape_native_histograms__": "false",
+          "__scrape_timeout__": "5s",
+          "job": "operations-notes-three-tier"
+        },
+        "labels": {
+          "instance": "backend.project-three-tier.svc.cluster.local:8080",
+          "job": "operations-notes-three-tier"
+        },
+        "scrapePool": "operations-notes-three-tier",
+        "scrapeUrl": "http://backend.project-three-tier.svc.cluster.local:8080/metrics",
+        "globalUrl": "http://backend.project-three-tier.svc.cluster.local:8080/metrics",
+        "lastError": "",
+        "lastScrape": "2026-10-05T12:48:16.609797675Z",
+        "lastScrapeDuration": 0.004027937,
+        "health": "up",
+        "scrapeInterval": "5s",
+        "scrapeTimeout": "5s"
+      }
+    ],
+    "droppedTargets": [],
+    "droppedTargetCounts": {
+      "deliberate-unavailable-target": 0,
+      "operations-notes": 0,
+      "operations-notes-three-tier": 0
+    }
+  }
+}

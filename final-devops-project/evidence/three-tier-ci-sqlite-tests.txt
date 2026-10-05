@@ -1,0 +1,37 @@
+test_config (test_api.APITests.test_config) ... {"component": "http", "message": "\"GET /api/config HTTP/1.1\" 200 -"}
+ok
+test_crud (test_api.APITests.test_crud) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+{"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"PUT /api/notes/1 HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 200 -"}
+{"component": "http", "message": "\"DELETE /api/notes/1 HTTP/1.1\" 404 -"}
+ok
+test_empty_note_rejected (test_api.APITests.test_empty_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+ok
+test_health (test_api.APITests.test_health) ... {"component": "http", "message": "\"GET /health HTTP/1.1\" 200 -"}
+ok
+test_home_page (test_api.APITests.test_home_page) ... {"component": "http", "message": "\"GET / HTTP/1.1\" 200 -"}
+ok
+test_invalid_delete_id (test_api.APITests.test_invalid_delete_id) ... {"component": "http", "message": "\"DELETE /api/notes/invalid HTTP/1.1\" 400 -"}
+ok
+test_long_note_rejected (test_api.APITests.test_long_note_rejected) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 400 -"}
+ok
+test_metrics (test_api.APITests.test_metrics) ... {"component": "http", "message": "\"GET /metrics HTTP/1.1\" 200 -"}
+ok
+test_ready (test_api.APITests.test_ready) ... {"component": "http", "message": "\"GET /ready HTTP/1.1\" 200 -"}
+ok
+test_sql_is_data (test_api.APITests.test_sql_is_data) ... {"component": "http", "message": "\"POST /api/notes HTTP/1.1\" 201 -"}
+{"component": "http", "message": "\"GET /api/notes HTTP/1.1\" 200 -"}
+ok
+test_unknown_route (test_api.APITests.test_unknown_route) ... {"component": "http", "message": "\"GET /does-not-exist HTTP/1.1\" 404 -"}
+ok
+test_update_missing (test_api.APITests.test_update_missing) ... {"component": "http", "message": "\"PUT /api/notes/99999 HTTP/1.1\" 404 -"}
+ok
+test_work_endpoint (test_api.APITests.test_work_endpoint) ... {"component": "http", "message": "\"GET /burn HTTP/1.1\" 200 -"}
+ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.554s
+
+OK
