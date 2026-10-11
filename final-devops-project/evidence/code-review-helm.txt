@@ -1,0 +1,7 @@
+==> Linting final-devops-project/helm/three-tier
+[INFO] Chart.yaml: icon is recommended
+
+==> Linting final-devops-project/helm/observability
+[INFO] Chart.yaml: icon is recommended
+
+2 chart(s) linted, 0 chart(s) failed

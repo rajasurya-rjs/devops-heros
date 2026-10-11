@@ -1,0 +1,5 @@
+apiVersion: v2
+name: operations-notes-observability
+description: Prometheus and Grafana for the Operations Notes capstone
+type: application
+version: 1.0.0

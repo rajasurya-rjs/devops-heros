@@ -27,6 +27,8 @@ request('/health')
 request('/ready')
 config = request('/api/config')
 assert config['database'] == 'PostgreSQL', config
+if os.getenv('EXPECTED_VERSION'):
+    assert config['version'] == os.environ['EXPECTED_VERSION'], config
 request('/api/notes')
 note = request('/api/notes', 'POST', {'text': 'Release check from the three-tier API'}, 201)
 assert any(n['id'] == note['id'] for n in request('/api/notes'))

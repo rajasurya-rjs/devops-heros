@@ -5,7 +5,7 @@ kind: ConfigMap
 metadata: {name: backend-config}
 data:
   APP_TITLE: Operations Notes
-  APP_VERSION: three-tier
+  APP_VERSION: "fastapi-v2"
   PGHOST: database
   PGUSER: notes
   PGDATABASE: notes
@@ -59,8 +59,8 @@ spec:
               valueFrom:
                 secretKeyRef: {name: three-tier-credentials, key: token}
           resources:
-            requests: {cpu: 20m, memory: 32Mi}
-            limits: {cpu: 300m, memory: 128Mi}
+            requests: {cpu: 20m, memory: 64Mi}
+            limits: {cpu: 300m, memory: 256Mi}
           startupProbe:
             httpGet: {path: /ready, port: 8080}
             failureThreshold: 60
@@ -83,7 +83,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: {name: frontend}
 spec:
-  replicas: 1
+  replicas: 2
   selector: {matchLabels: {app: frontend}}
   template:
     metadata: {labels: {app: frontend}}
@@ -171,6 +171,10 @@ spec:
     - host: notes.project.local
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: {name: backend, port: {number: 8080}}
           - path: /
             pathType: Prefix
             backend:

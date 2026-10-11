@@ -2,6 +2,10 @@
 
 My notes and homework for the DevOps course.
 
+The [Session 21 Operations Notes capstone](final-devops-project/README.md) provides a responsive
+frontend, FastAPI API and PostgreSQL storage, with pytest, Alembic migrations, Docker,
+GitHub Actions, Helm, Ingress, HPA and Prometheus/Grafana.
+
 **Name:** Rajasurya J
 **Roll number:** 24BCS10086
 

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata: {name: frontend}
 spec:
-  replicas: 1
+  replicas: {{ .Values.frontend.replicas }}
   selector: {matchLabels: {app: frontend}}
   template:
     metadata: {labels: {app: frontend}}
@@ -42,6 +42,10 @@ spec:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service: {name: backend, port: {number: 8080}}
           - path: /
             pathType: Prefix
             backend:

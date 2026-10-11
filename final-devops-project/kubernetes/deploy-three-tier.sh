@@ -2,13 +2,11 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 context=$(kubectl config current-context)
-if [[ "$context" != devops-completion && "$context" != three-tier-ci ]]; then
+if [[ "$context" != devops-completion && "$context" != kind-three-tier-ci && "$context" != three-tier-ci ]]; then
   printf 'Select the local devops-completion cluster before deploying. Current context: %s\n' "$context" >&2
   exit 1
 fi
-if ! kubectl get namespace project-three-tier >/dev/null 2>&1; then
-  kubectl create namespace project-three-tier
-fi
+kubectl apply -f k8s/namespace.yaml
 if ! kubectl get secret three-tier-credentials -n project-three-tier >/dev/null 2>&1; then
   password_file=$(mktemp)
   token_file=$(mktemp)

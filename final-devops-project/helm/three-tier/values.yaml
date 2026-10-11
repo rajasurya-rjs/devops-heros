@@ -1,4 +1,5 @@
 frontend:
+  replicas: 2
   repository: ops-notes-frontend
   tag: local
 backend:
@@ -9,6 +10,7 @@ existingSecret: three-tier-credentials
 storageClass: standard
 storageSize: 256Mi
 replicas: 2
+appVersion: fastapi-v2
 ingress:
   enabled: true
   className: nginx

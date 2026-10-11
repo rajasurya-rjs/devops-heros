@@ -1,7 +1,7 @@
 services:
   frontend:
     image: ${FRONTEND_IMAGE:-ops-notes-frontend:local}
-    build: {context: .., dockerfile: docker/frontend.Dockerfile}
+    build: {context: .., dockerfile: frontend/Dockerfile}
     ports: ["127.0.0.1:18082:8080"]
     depends_on:
       backend: {condition: service_healthy}
@@ -16,11 +16,11 @@ services:
       retries: 10
   backend:
     image: ${BACKEND_IMAGE:-ops-notes-backend:local}
-    build: {context: .., dockerfile: docker/backend.Dockerfile}
+    build: {context: .., dockerfile: backend/Dockerfile}
     environment:
       DATABASE_URL: postgresql://notes:${DB_PASSWORD:?Set DB_PASSWORD in the local .env file}@database:5432/notes
       APP_TITLE: Operations Notes
-      APP_VERSION: three-tier
+      APP_VERSION: fastapi-v2
     depends_on:
       database: {condition: service_healthy}
     networks: [web, data]

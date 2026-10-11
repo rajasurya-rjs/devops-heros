@@ -1,0 +1,4 @@
+ Container ops-notes-capstone-database-1 Restarting 
+ Container ops-notes-capstone-database-1 Started 
+Database restart: readiness recovered; all saved rows unchanged
+Preserved note IDs: [2, 4]

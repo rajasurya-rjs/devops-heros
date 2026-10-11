@@ -15,3 +15,9 @@ node_modules/
 *.tfstate.*
 *.tfplan
 crash.log
+
+# Capstone build and pytest output
+dist/
+.pytest_cache/
+.coverage
+*.db

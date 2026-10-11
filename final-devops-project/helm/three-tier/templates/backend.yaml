@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata: {name: backend-config}
 data:
   APP_TITLE: Operations Notes
-  APP_VERSION: three-tier
+  APP_VERSION: {{ .Values.appVersion | quote }}
   PGHOST: database
   PGUSER: notes
   PGDATABASE: notes
@@ -34,8 +34,8 @@ spec:
               valueFrom:
                 secretKeyRef: {name: {{ .Values.existingSecret }}, key: token}
           resources:
-            requests: {cpu: 20m, memory: 32Mi}
-            limits: {cpu: 300m, memory: 128Mi}
+            requests: {cpu: 20m, memory: 64Mi}
+            limits: {cpu: 300m, memory: 256Mi}
           startupProbe:
             httpGet: {path: /ready, port: 8080}
             failureThreshold: 60

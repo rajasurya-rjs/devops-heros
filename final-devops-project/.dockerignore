@@ -1,6 +1,14 @@
+**/.venv
+**/node_modules
 **/__pycache__
-**/.terraform
+**/.pytest_cache
+**/dist
+**/.env
+**/.env.*
+evidence
+images
+presentation
+terraform
 **/*.tfstate*
-**/evidence
-**/images
+**/*.tfplan
 .git

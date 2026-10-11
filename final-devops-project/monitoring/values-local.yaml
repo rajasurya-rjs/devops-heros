@@ -1,0 +1,5 @@
+applicationNamespace: project-three-tier
+prometheus:
+  image: prom/prometheus:v3.15.0
+grafana:
+  image: grafana/grafana:13.2.3

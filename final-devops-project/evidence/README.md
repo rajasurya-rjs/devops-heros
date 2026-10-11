@@ -13,3 +13,10 @@ The local registry and vulnerability-database downloads stalled. The image was b
 scanned in Actions, then the arm64 artifact was downloaded and loaded for local deployment.
 The first AWS worker type was rejected by the Free plan; the node group was updated to an
 eligible type. See the main README for the fixes and subsequent results.
+
+## Code review on 11 October 2026
+
+`code-review-*` files contain fresh local checks of the FastAPI/Alembic/Vite revision,
+including SQLite/PostgreSQL pytest, Docker/API/persistence, security scans and static
+Helm/Kubernetes/Terraform checks. They are terminal logs, not screenshots.
+No new remote CI run or AWS deployment is represented by these files.
