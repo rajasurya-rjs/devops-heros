@@ -8,7 +8,7 @@ backend:
   repository: ops-notes-backend
   tag: 05d05bf70daba35eb6dba8c84aff90b552ed3364
 appVersion: 05d05bf70daba35eb6dba8c84aff90b552ed3364
-appTitle: Operations Notes
+appTitle: Operations Notes - GitOps verified
 existingSecret: three-tier-credentials
 storageClass: standard
 replicas: 2
