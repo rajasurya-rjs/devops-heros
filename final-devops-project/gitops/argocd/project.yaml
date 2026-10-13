@@ -4,7 +4,7 @@ metadata:
   name: capstone
   namespace: argocd
 spec:
-  description: Operations Notes homework application on the local recording cluster
+  description: Operations Notes homework application
   sourceRepos:
     - https://github.com/rajasurya-rjs/devops-heros.git
   destinations:
