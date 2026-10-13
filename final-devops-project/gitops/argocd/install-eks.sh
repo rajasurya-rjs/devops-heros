@@ -2,8 +2,14 @@
 set -euo pipefail
 cd "$(dirname "$0")/../.."
 kubeconfig_path=${1:?Supply the private homework EKS kubeconfig path.}
-python3 scripts/aws-guard.py
+python3 scripts/aws-guard.py --kubeconfig "$kubeconfig_path"
 kube=(kubectl --kubeconfig "$kubeconfig_path" --context devops-homework-eks)
+# Replace the previous monitoring runtime while retaining its manifests and evidence.
+if "${kube[@]}" get kustomization notes -n hw-gitops >/dev/null 2>&1; then
+  "${kube[@]}" patch kustomization notes -n hw-gitops --type=merge -p '{"spec":{"suspend":true}}'
+  "${kube[@]}" delete hpa ops-notes -n final-homework --ignore-not-found
+  "${kube[@]}" scale deployment/ops-notes deployment/grafana deployment/prometheus -n final-homework --replicas=0
+fi
 "${kube[@]}" get secret three-tier-credentials -n project-three-tier >/dev/null
 "${kube[@]}" create namespace argocd --dry-run=client -o yaml | "${kube[@]}" apply -f -
 "${kube[@]}" apply --server-side --force-conflicts -n argocd \

@@ -15,5 +15,8 @@ ingress:
   enabled: true
   className: nginx
   host: notes.aws.project.local
+  # Internal ingress has no cloud LoadBalancer status. Test its HTTP routes separately.
+  annotations:
+    argocd.argoproj.io/ignore-healthcheck: "true"
 hpa:
   enabled: false
