@@ -71,7 +71,7 @@ docker compose up --build
 Open **http://localhost:13000**. The frontend proxies `/api`, `/health`, `/ready`, `/metrics`,
 `/burn` and Swagger `/docs` to the backend. PostgreSQL is on an internal network and is not
 published to the host. The two application images run without root. The backend runs
-Alembic before starting Uvicorn. PostgreSQL replicas serialize migrations with an advisory
+Alembic before starting Uvicorn. Backend replicas serialize PostgreSQL migrations with an advisory
 lock, so concurrent backend startup does not race schema creation.
 
 ```bash
@@ -159,7 +159,7 @@ container image against its vulnerability database. Earlier frontend findings af
 scanner found no matching findings at the selected severities at scan time. It does not
 prove that all possible vulnerabilities are absent.
 
-[Successful current pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38406757852)
+[Successful current pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38416754688)
 includes 23 SQLite tests, 23 dedicated PostgreSQL tests, frontend build, source gates,
 both Docker/Trivy jobs, GHCR publication and the kind Helm deployment. Both image tags are full 40-character SHAs.
 Full-history secret scanning passes with seven exact reviewed exceptions for classroom

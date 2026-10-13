@@ -3,7 +3,7 @@
 All files here are actual command outputs or downloaded GitHub Actions artifacts.
 Screenshots under `images/` show actual isolated-browser pages or actual readonly ttyd
 terminal sessions. No execution or destroy completion is simulated.
-Historical evidence elsewhere remains preserved.
+Historical evidence elsewhere remains preserved. Initial Argo installation attempts include a real rollout timeout caused by worker Pod capacity; legacy workloads were paused and all required controllers subsequently became Ready. The final status and screenshots show the recovered runtime.
 
 ## Environment and source revisions
 
@@ -18,6 +18,7 @@ Historical evidence elsewhere remains preserved.
 - **Argo CD:** self-hosted v3.5.5, main branch. Actual EKS title rollout at configuration
   commit `5bd0dddb7d16254106879a208e9bfe21f3dc266a` was Synced/Healthy and returned the new
   title through Ingress. Before/after JSON is recorded. Image revision remained unchanged.
+- **Final source CI:** [run 38416754688](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38416754688), source `92d269a0ca4f0cba95d7c42503e4226defe177d5`, all jobs successful. Final EKS Argo status is recorded in `aws-final-argocd-status.json`.
 - **CI artifacts:** `ci-*` files downloaded from successful
   [run 38400868940](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38400868940),
   source `33af500857a55ffe0931a33203d8f55825211c63`. Later runs also pass; the README links
@@ -42,7 +43,7 @@ Historical evidence elsewhere remains preserved.
 | `images/current-metrics-terminal.png` | Actual curl through EKS Ingress returns Prometheus exposition |
 | `images/aws-current-argocd.png` | Actual EKS Argo app Synced/Healthy; Ingress load-balancer check separately excluded |
 | `images/aws-current-ingress-browser.png` | Real EKS Ingress hostname via controller forwarding, current immutable image SHA |
-| `images/aws-current-prometheus.png` | Actual EKS Prometheus Targets |
+| `images/aws-current-prometheus.png` | Actual EKS Prometheus Targets, all configured targets UP; optional unavailable-target exercise disabled |
 | `images/aws-current-grafana.png` | Actual EKS dashboard with populated app metric panels |
 | `images/current-argocd.png`, `current-ingress-browser.png`, `current-prometheus.png`, `current-grafana.png` | Separate local minikube verification |
 
