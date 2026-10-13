@@ -16,9 +16,15 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: project-three-tier
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: backend
+      jsonPointers: [/spec/replicas]
   syncPolicy:
     automated:
       selfHeal: true
       prune: false
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true

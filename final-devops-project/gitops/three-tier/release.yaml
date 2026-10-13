@@ -4,6 +4,7 @@ metadata:
   name: notes
   namespace: project-three-tier
 spec:
+  suspend: true
   interval: 1m
   releaseName: notes
   timeout: 5m
