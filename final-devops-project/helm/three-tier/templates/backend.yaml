@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata: {name: backend-config}
 data:
-  APP_TITLE: Operations Notes
+  APP_TITLE: {{ .Values.appTitle | quote }}
   APP_VERSION: {{ .Values.appVersion | quote }}
   PGHOST: database
   PGUSER: notes

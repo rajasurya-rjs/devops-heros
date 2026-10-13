@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: operations-notes
+  namespace: argocd
+spec:
+  project: capstone
+  source:
+    repoURL: https://github.com/rajasurya-rjs/devops-heros.git
+    targetRevision: main
+    path: final-devops-project/helm/three-tier
+    helm:
+      releaseName: notes
+      valueFiles:
+        - ../../gitops/argocd/values-local.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: project-three-tier
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: false
+    syncOptions:
+      - CreateNamespace=true

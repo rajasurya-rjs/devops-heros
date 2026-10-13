@@ -1,0 +1,20 @@
+# Native arm64 images built from the verified application revision and loaded into minikube.
+# Image revision and GitOps configuration revision are shown separately in the walkthrough.
+frontend:
+  replicas: 2
+  repository: ops-notes-frontend
+  tag: 05d05bf70daba35eb6dba8c84aff90b552ed3364
+backend:
+  repository: ops-notes-backend
+  tag: 05d05bf70daba35eb6dba8c84aff90b552ed3364
+appVersion: 05d05bf70daba35eb6dba8c84aff90b552ed3364
+appTitle: Operations Notes
+existingSecret: three-tier-credentials
+storageClass: standard
+replicas: 2
+ingress:
+  enabled: true
+  className: nginx
+  host: notes.project.local
+hpa:
+  enabled: true

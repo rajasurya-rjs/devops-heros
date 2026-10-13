@@ -11,6 +11,7 @@ storageClass: standard
 storageSize: 256Mi
 replicas: 2
 appVersion: fastapi-v2
+appTitle: Operations Notes
 ingress:
   enabled: true
   className: nginx

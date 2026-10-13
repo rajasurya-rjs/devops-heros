@@ -24,3 +24,6 @@ for name in filter(None, files):
     shutil.copyfile(source, target)
 PY
 "${GITLEAKS_BIN:-gitleaks}" dir "$review_snapshot" --redact --no-banner
+# Scan repository history too; the ignore file lists only reviewed classroom examples.
+"${GITLEAKS_BIN:-gitleaks}" git "$review_root" --log-opts='--all' \
+  --gitleaks-ignore-path "$review_root/.gitleaksignore" --redact --no-banner
