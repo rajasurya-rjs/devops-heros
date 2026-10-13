@@ -1,0 +1,20 @@
+{
+    "name": "rajasurya-final-devops",
+    "status": "ACTIVE",
+    "version": "1.36",
+    "network": {
+        "subnetIds": [
+            "subnet-0d9e385ec0ffa74df",
+            "subnet-0a003dcfb1d6234e0"
+        ],
+        "securityGroupIds": [],
+        "clusterSecurityGroupId": "sg-027ff816bd95a6af2",
+        "vpcId": "vpc-01f95e9237ca7dae1",
+        "endpointPublicAccess": true,
+        "endpointPrivateAccess": true,
+        "publicAccessCidrs": [
+            "103.197.113.59/32"
+        ],
+        "controlPlaneEgressMode": "AWS_MANAGED"
+    }
+}

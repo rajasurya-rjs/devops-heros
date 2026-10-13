@@ -26,9 +26,11 @@ data:
             action: keep
           - source_labels: [__meta_kubernetes_pod_name]
             target_label: pod
+      {{- if .Values.demonstrateUnavailableTarget }}
       - job_name: deliberate-unavailable-target
         static_configs:
           - targets: [127.0.0.1:19999]
+      {{- end }}
   alerts.yml: |
     groups:
       - name: homework
@@ -51,6 +53,8 @@ spec:
   template:
     metadata:
       labels: {app: prometheus}
+      annotations:
+        checksum/scrape-settings: {{ printf "%s/%v" .Values.applicationNamespace .Values.demonstrateUnavailableTarget | sha256sum | quote }}
     spec:
       serviceAccountName: capstone-prometheus
       containers:

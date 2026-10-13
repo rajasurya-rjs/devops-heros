@@ -1,0 +1,27 @@
+NAME                            READY   STATUS    RESTARTS        AGE
+pod/backend-5cc4698c7f-4pjzf    0/1     Running   2 (3m16s ago)   13m
+pod/backend-5cc4698c7f-7k829    1/1     Running   1 (3m16s ago)   13m
+pod/backend-5cc4698c7f-99jwm    1/1     Running   2 (3m17s ago)   13m
+pod/backend-5cc4698c7f-phhdf    0/1     Running   1 (3m14s ago)   13m
+pod/backend-5cc4698c7f-q4v45    0/1     Running   1 (3m16s ago)   13m
+pod/database-0                  1/1     Running   35 (17m ago)    8d
+pod/frontend-75c6c45575-9pl22   0/1     Running   0               16m
+pod/frontend-75c6c45575-b97wx   0/1     Running   0               16m
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    2/5     5            2           8d
+deployment.apps/frontend   0/2     2            0           8d
+
+NAME               TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.99.137.126    <none>        8080/TCP   8d
+service/database   ClusterIP   None             <none>        5432/TCP   8d
+service/frontend   ClusterIP   10.105.200.153   <none>        8080/TCP   8d
+
+NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data-database-0   Bound    pvc-a52c4df9-bbfc-4b91-9208-92b6e69dd49a   256Mi      RWO            standard       <unset>                 8d
+
+NAME                                          REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/backend   Deployment/backend   cpu: 107%/50%   2         5         5          8d
+
+NAME                                 CLASS   HOSTS                 ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/frontend   nginx   notes.project.local   192.168.64.3   80      8d

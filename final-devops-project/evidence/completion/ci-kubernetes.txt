@@ -1,0 +1,14 @@
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/backend-578978f4d7-m44h2    1/1     Running   0          24s
+pod/backend-578978f4d7-vbxqx    1/1     Running   0          24s
+pod/database-0                  1/1     Running   0          24s
+pod/frontend-56f6d4dc44-hhhdb   1/1     Running   0          24s
+pod/frontend-56f6d4dc44-jwlff   1/1     Running   0          24s
+
+NAME               TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   10.96.144.65   <none>        8080/TCP   24s
+service/database   ClusterIP   None           <none>        5432/TCP   24s
+service/frontend   ClusterIP   10.96.82.8     <none>        8080/TCP   24s
+
+NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data-database-0   Bound    pvc-bccae1f3-750b-4fc7-8707-741e44dd7248   256Mi      RWO            standard       <unset>                 24s

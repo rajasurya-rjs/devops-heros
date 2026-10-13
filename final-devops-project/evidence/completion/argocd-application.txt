@@ -1,0 +1,2 @@
+error validating "gitops/argocd/project.yaml": error validating data: failed to download openapi: Get "https://192.168.64.3:8443/openapi/v2?timeout=32s": net/http: TLS handshake timeout; if you choose to ignore these errors, turn validation off with --validate=false
+error validating "gitops/argocd/application.yaml": error validating data: failed to download openapi: Get "https://192.168.64.3:8443/openapi/v2?timeout=32s": net/http: TLS handshake timeout; if you choose to ignore these errors, turn validation off with --validate=false

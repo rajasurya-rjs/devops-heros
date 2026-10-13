@@ -1,0 +1,345 @@
+{
+    "apiVersion": "v1",
+    "items": [
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "notes",
+                    "meta.helm.sh/release-namespace": "project-three-tier"
+                },
+                "creationTimestamp": "2026-10-13T12:57:40Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm"
+                },
+                "name": "backend",
+                "namespace": "project-three-tier",
+                "resourceVersion": "683",
+                "uid": "73c1cad5-758d-481e-b824-f1d93ae8ea6b"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 2,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "backend"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "backend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "env": [
+                                    {
+                                        "name": "PGPASSWORD",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "password",
+                                                "name": "three-tier-credentials"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "APP_TOKEN",
+                                        "valueFrom": {
+                                            "secretKeyRef": {
+                                                "key": "token",
+                                                "name": "three-tier-credentials"
+                                            }
+                                        }
+                                    }
+                                ],
+                                "envFrom": [
+                                    {
+                                        "configMapRef": {
+                                            "name": "backend-config"
+                                        }
+                                    }
+                                ],
+                                "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:33af500857a55ffe0931a33203d8f55825211c63",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "backend",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/ready",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 3,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "300m",
+                                        "memory": "256Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "20m",
+                                        "memory": "64Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "startupProbe": {
+                                    "failureThreshold": 60,
+                                    "httpGet": {
+                                        "path": "/ready",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 3,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsGroup": 10001,
+                            "runAsNonRoot": true,
+                            "runAsUser": 10001
+                        },
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "emptyDir": {},
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 2,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2026-10-13T12:58:03Z",
+                        "lastUpdateTime": "2026-10-13T12:58:03Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2026-10-13T12:57:40Z",
+                        "lastUpdateTime": "2026-10-13T12:58:03Z",
+                        "message": "ReplicaSet \"backend-578978f4d7\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 2,
+                "replicas": 2,
+                "updatedReplicas": 2
+            }
+        },
+        {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "metadata": {
+                "annotations": {
+                    "deployment.kubernetes.io/revision": "1",
+                    "meta.helm.sh/release-name": "notes",
+                    "meta.helm.sh/release-namespace": "project-three-tier"
+                },
+                "creationTimestamp": "2026-10-13T12:57:40Z",
+                "generation": 1,
+                "labels": {
+                    "app.kubernetes.io/managed-by": "Helm"
+                },
+                "name": "frontend",
+                "namespace": "project-three-tier",
+                "resourceVersion": "695",
+                "uid": "6aa21e93-f135-45e5-b970-97e7b7e83897"
+            },
+            "spec": {
+                "progressDeadlineSeconds": 600,
+                "replicas": 2,
+                "revisionHistoryLimit": 10,
+                "selector": {
+                    "matchLabels": {
+                        "app": "frontend"
+                    }
+                },
+                "strategy": {
+                    "rollingUpdate": {
+                        "maxSurge": "25%",
+                        "maxUnavailable": "25%"
+                    },
+                    "type": "RollingUpdate"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "frontend"
+                        }
+                    },
+                    "spec": {
+                        "containers": [
+                            {
+                                "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:33af500857a55ffe0931a33203d8f55825211c63",
+                                "imagePullPolicy": "IfNotPresent",
+                                "livenessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 10,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "name": "frontend",
+                                "ports": [
+                                    {
+                                        "containerPort": 8080,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "readinessProbe": {
+                                    "failureThreshold": 3,
+                                    "httpGet": {
+                                        "path": "/health",
+                                        "port": 8080,
+                                        "scheme": "HTTP"
+                                    },
+                                    "periodSeconds": 3,
+                                    "successThreshold": 1,
+                                    "timeoutSeconds": 1
+                                },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "100m",
+                                        "memory": "64Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "10m",
+                                        "memory": "16Mi"
+                                    }
+                                },
+                                "securityContext": {
+                                    "allowPrivilegeEscalation": false,
+                                    "capabilities": {
+                                        "drop": [
+                                            "ALL"
+                                        ]
+                                    },
+                                    "readOnlyRootFilesystem": true
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "volumeMounts": [
+                                    {
+                                        "mountPath": "/tmp",
+                                        "name": "tmp"
+                                    }
+                                ]
+                            }
+                        ],
+                        "dnsPolicy": "ClusterFirst",
+                        "restartPolicy": "Always",
+                        "schedulerName": "default-scheduler",
+                        "securityContext": {
+                            "runAsGroup": 101,
+                            "runAsNonRoot": true,
+                            "runAsUser": 101
+                        },
+                        "terminationGracePeriodSeconds": 30,
+                        "volumes": [
+                            {
+                                "emptyDir": {},
+                                "name": "tmp"
+                            }
+                        ]
+                    }
+                }
+            },
+            "status": {
+                "availableReplicas": 2,
+                "conditions": [
+                    {
+                        "lastTransitionTime": "2026-10-13T12:58:03Z",
+                        "lastUpdateTime": "2026-10-13T12:58:03Z",
+                        "message": "Deployment has minimum availability.",
+                        "reason": "MinimumReplicasAvailable",
+                        "status": "True",
+                        "type": "Available"
+                    },
+                    {
+                        "lastTransitionTime": "2026-10-13T12:57:40Z",
+                        "lastUpdateTime": "2026-10-13T12:58:03Z",
+                        "message": "ReplicaSet \"frontend-56f6d4dc44\" has successfully progressed.",
+                        "reason": "NewReplicaSetAvailable",
+                        "status": "True",
+                        "type": "Progressing"
+                    }
+                ],
+                "observedGeneration": 1,
+                "readyReplicas": 2,
+                "replicas": 2,
+                "updatedReplicas": 2
+            }
+        }
+    ],
+    "kind": "List",
+    "metadata": {
+        "resourceVersion": ""
+    }
+}

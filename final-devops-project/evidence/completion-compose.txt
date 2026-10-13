@@ -1,0 +1,353 @@
+ Image postgres:17-alpine Pulling 
+ 2561c1a92c32 Pulling fs layer 
+ ba4c01c41a64 Pulling fs layer 
+ 334e16b2a68c Pulling fs layer 
+ 0c4d12928c8b Pulling fs layer 
+ 87e7bc91b13b Pulling fs layer 
+ 17bc19c5b6b3 Pulling fs layer 
+ b266f5de3807 Pulling fs layer 
+ 571d921d3454 Pulling fs layer 
+ 363a00f0fb05 Pulling fs layer 
+ 2561c1a92c32 Downloading [>                                                  ]  1.049MB/110MB
+ 2561c1a92c32 Downloading [>                                                  ]  2.097MB/110MB
+ 2561c1a92c32 Downloading [>                                                  ]  2.097MB/110MB
+ 2561c1a92c32 Downloading [=>                                                 ]  4.194MB/110MB
+ 0c4d12928c8b Download complete 
+ ba4c01c41a64 Download complete 
+ 0c4d12928c8b Extracting 1 s
+ 363a00f0fb05 Download complete 
+ 2561c1a92c32 Downloading [==>                                                ]  5.243MB/110MB
+ 17bc19c5b6b3 Download complete 
+ 87e7bc91b13b Download complete 
+ 571d921d3454 Download complete 
+ 0c4d12928c8b Pull complete 
+ 2561c1a92c32 Downloading [==>                                                ]  6.291MB/110MB
+ 2561c1a92c32 Downloading [==>                                                ]  6.291MB/110MB
+ 2561c1a92c32 Downloading [==>                                                ]  6.291MB/110MB
+ 334e16b2a68c Download complete 
+ 87e7bc91b13b Pull complete 
+ 334e16b2a68c Pull complete 
+ 2561c1a92c32 Downloading [===>                                               ]   7.34MB/110MB
+ e0461b3d34b8 Download complete 
+ 2561c1a92c32 Downloading [===>                                               ]  8.389MB/110MB
+ 2561c1a92c32 Downloading [====>                                              ]  9.437MB/110MB
+ 2561c1a92c32 Downloading [=====>                                             ]  11.53MB/110MB
+ 2561c1a92c32 Downloading [=====>                                             ]  11.53MB/110MB
+ 2561c1a92c32 Downloading [=====>                                             ]  12.58MB/110MB
+ 2561c1a92c32 Downloading [======>                                            ]  13.63MB/110MB
+ b266f5de3807 Download complete 
+ fa9ddeef3087 Download complete 
+ 2561c1a92c32 Downloading [======>                                            ]  13.63MB/110MB
+ 2561c1a92c32 Downloading [======>                                            ]  14.68MB/110MB
+ 2561c1a92c32 Downloading [=======>                                           ]  15.73MB/110MB
+ 2561c1a92c32 Downloading [=======>                                           ]  15.73MB/110MB
+ 2561c1a92c32 Downloading [=======>                                           ]  16.78MB/110MB
+ 2561c1a92c32 Downloading [========>                                          ]  17.83MB/110MB
+ 2561c1a92c32 Downloading [========>                                          ]  18.87MB/110MB
+ 2561c1a92c32 Downloading [========>                                          ]  18.91MB/110MB
+ 2561c1a92c32 Downloading [=========>                                         ]  19.92MB/110MB
+ 2561c1a92c32 Downloading [=========>                                         ]  20.97MB/110MB
+ 2561c1a92c32 Downloading [==========>                                        ]  22.02MB/110MB
+ 2561c1a92c32 Downloading [==========>                                        ]  23.07MB/110MB
+ 2561c1a92c32 Downloading [==========>                                        ]  24.12MB/110MB
+ 2561c1a92c32 Downloading [===========>                                       ]  25.17MB/110MB
+ 2561c1a92c32 Downloading [===========>                                       ]  26.21MB/110MB
+ 2561c1a92c32 Downloading [============>                                      ]  27.26MB/110MB
+ 2561c1a92c32 Downloading [============>                                      ]  28.31MB/110MB
+ 2561c1a92c32 Downloading [============>                                      ]  28.31MB/110MB
+ 2561c1a92c32 Downloading [=============>                                     ]  29.36MB/110MB
+ 2561c1a92c32 Downloading [=============>                                     ]  30.41MB/110MB
+ 2561c1a92c32 Downloading [==============>                                    ]  31.46MB/110MB
+ 2561c1a92c32 Downloading [==============>                                    ]  32.51MB/110MB
+ 2561c1a92c32 Downloading [===============>                                   ]   34.6MB/110MB
+ 2561c1a92c32 Downloading [================>                                  ]  35.65MB/110MB
+ 2561c1a92c32 Downloading [================>                                  ]  35.65MB/110MB
+ 2561c1a92c32 Downloading [================>                                  ]  35.65MB/110MB
+ 2561c1a92c32 Downloading [=================>                                 ]  37.75MB/110MB
+ 2561c1a92c32 Downloading [=================>                                 ]   38.8MB/110MB
+ 2561c1a92c32 Downloading [==================>                                ]  39.85MB/110MB
+ 2561c1a92c32 Downloading [==================>                                ]  40.89MB/110MB
+ 2561c1a92c32 Downloading [===================>                               ]  41.94MB/110MB
+ 2561c1a92c32 Downloading [===================>                               ]  42.99MB/110MB
+ 2561c1a92c32 Downloading [====================>                              ]  44.04MB/110MB
+ 2561c1a92c32 Downloading [====================>                              ]  45.09MB/110MB
+ 2561c1a92c32 Downloading [====================>                              ]  45.09MB/110MB
+ 2561c1a92c32 Downloading [====================>                              ]  46.14MB/110MB
+ 2561c1a92c32 Downloading [=====================>                             ]  47.19MB/110MB
+ 2561c1a92c32 Downloading [======================>                            ]  49.28MB/110MB
+ 2561c1a92c32 Downloading [======================>                            ]  49.28MB/110MB
+ 2561c1a92c32 Downloading [======================>                            ]  50.33MB/110MB
+ 2561c1a92c32 Downloading [=======================>                           ]  51.38MB/110MB
+ 2561c1a92c32 Downloading [=======================>                           ]  51.58MB/110MB
+ 2561c1a92c32 Downloading [========================>                          ]  52.88MB/110MB
+ 2561c1a92c32 Downloading [========================>                          ]  54.53MB/110MB
+ 2561c1a92c32 Downloading [==========================>                        ]  57.67MB/110MB
+ 2561c1a92c32 Downloading [==========================>                        ]  58.72MB/110MB
+ 2561c1a92c32 Downloading [==========================>                        ]  58.72MB/110MB
+ 2561c1a92c32 Downloading [===========================>                       ]  59.77MB/110MB
+ 2561c1a92c32 Downloading [===========================>                       ]  60.82MB/110MB
+ 2561c1a92c32 Downloading [============================>                      ]  61.87MB/110MB
+ 2561c1a92c32 Downloading [============================>                      ]  62.91MB/110MB
+ 2561c1a92c32 Downloading [============================>                      ]  62.91MB/110MB
+ 2561c1a92c32 Downloading [=============================>                     ]  63.96MB/110MB
+ 2561c1a92c32 Downloading [=============================>                     ]  65.01MB/110MB
+ 2561c1a92c32 Downloading [==============================>                    ]  66.06MB/110MB
+ 2561c1a92c32 Downloading [==============================>                    ]  67.11MB/110MB
+ 2561c1a92c32 Downloading [==============================>                    ]  68.16MB/110MB
+ 2561c1a92c32 Downloading [==============================>                    ]  68.16MB/110MB
+ 2561c1a92c32 Downloading [===============================>                   ]  69.21MB/110MB
+ 2561c1a92c32 Downloading [===============================>                   ]  70.25MB/110MB
+ 2561c1a92c32 Downloading [================================>                  ]   71.3MB/110MB
+ 2561c1a92c32 Downloading [================================>                  ]  72.35MB/110MB
+ 2561c1a92c32 Downloading [=================================>                 ]  74.45MB/110MB
+ 2561c1a92c32 Downloading [=================================>                 ]  74.45MB/110MB
+ 2561c1a92c32 Downloading [==================================>                ]   75.5MB/110MB
+ 2561c1a92c32 Downloading [==================================>                ]   75.5MB/110MB
+ 2561c1a92c32 Downloading [==================================>                ]  76.55MB/110MB
+ 2561c1a92c32 Downloading [===================================>               ]  77.59MB/110MB
+ 2561c1a92c32 Downloading [===================================>               ]  78.64MB/110MB
+ 2561c1a92c32 Downloading [====================================>              ]  79.69MB/110MB
+ 2561c1a92c32 Downloading [====================================>              ]  80.74MB/110MB
+ 2561c1a92c32 Downloading [====================================>              ]  80.74MB/110MB
+ 2561c1a92c32 Downloading [====================================>              ]  80.74MB/110MB
+ 2561c1a92c32 Downloading [=====================================>             ]  82.84MB/110MB
+ 2561c1a92c32 Downloading [======================================>            ]  83.89MB/110MB
+ 2561c1a92c32 Downloading [======================================>            ]  84.93MB/110MB
+ 2561c1a92c32 Downloading [=======================================>           ]  85.98MB/110MB
+ 2561c1a92c32 Downloading [=======================================>           ]  85.98MB/110MB
+ 2561c1a92c32 Downloading [========================================>          ]  88.08MB/110MB
+ 2561c1a92c32 Downloading [========================================>          ]  89.13MB/110MB
+ 2561c1a92c32 Downloading [========================================>          ]  89.13MB/110MB
+ 2561c1a92c32 Downloading [=========================================>         ]  90.18MB/110MB
+ 2561c1a92c32 Downloading [=========================================>         ]  91.23MB/110MB
+ 2561c1a92c32 Downloading [=========================================>         ]  91.23MB/110MB
+ 2561c1a92c32 Downloading [=========================================>         ]  91.23MB/110MB
+ 2561c1a92c32 Downloading [==========================================>        ]  93.32MB/110MB
+ 2561c1a92c32 Downloading [==========================================>        ]  93.32MB/110MB
+ 2561c1a92c32 Downloading [==========================================>        ]  94.37MB/110MB
+ 2561c1a92c32 Downloading [===========================================>       ]  95.42MB/110MB
+ 2561c1a92c32 Downloading [===========================================>       ]  95.42MB/110MB
+ 2561c1a92c32 Downloading [===========================================>       ]  96.47MB/110MB
+ 2561c1a92c32 Downloading [===========================================>       ]  96.47MB/110MB
+ 2561c1a92c32 Downloading [============================================>      ]  97.52MB/110MB
+ 2561c1a92c32 Downloading [============================================>      ]  98.57MB/110MB
+ 2561c1a92c32 Downloading [=============================================>     ]  100.7MB/110MB
+ 2561c1a92c32 Downloading [==============================================>    ]  101.7MB/110MB
+ 2561c1a92c32 Downloading [==============================================>    ]  102.8MB/110MB
+ 2561c1a92c32 Downloading [===============================================>   ]  103.8MB/110MB
+ 2561c1a92c32 Downloading [===============================================>   ]  104.9MB/110MB
+ 2561c1a92c32 Downloading [================================================>  ]  105.9MB/110MB
+ 2561c1a92c32 Downloading [================================================>  ]    107MB/110MB
+ 2561c1a92c32 Downloading [================================================>  ]    107MB/110MB
+ 2561c1a92c32 Downloading [=================================================> ]    108MB/110MB
+ 2561c1a92c32 Downloading [==================================================>]    110MB/110MB
+ 2561c1a92c32 Downloading [==================================================>]    110MB/110MB
+ 2561c1a92c32 Download complete 
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 1 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 2 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 3 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 4 s
+ 2561c1a92c32 Extracting 5 s
+ 2561c1a92c32 Extracting 5 s
+ 2561c1a92c32 Extracting 5 s
+ ba4c01c41a64 Extracting 1 s
+ 17bc19c5b6b3 Pull complete 
+ 571d921d3454 Pull complete 
+ b266f5de3807 Pull complete 
+ 2561c1a92c32 Pull complete 
+ ba4c01c41a64 Pull complete 
+ 363a00f0fb05 Pull complete 
+ Image postgres:17-alpine Pulled 
+ Image ops-notes-frontend:local Building 
+ Image ops-notes-backend:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.12kB done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 640B 0.0s done
+#2 DONE 0.0s
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 368B 0.0s done
+#3 DONE 0.0s
+
+#4 [backend internal] load metadata for docker.io/library/python:3.13-alpine
+#4 ...
+
+#5 [auth] library/python:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/node:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [auth] library/nginx:pull token for registry-1.docker.io
+#7 DONE 0.0s
+
+#8 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#8 DONE 1.7s
+
+#9 [frontend internal] load metadata for docker.io/library/nginx:1.30-alpine
+#9 DONE 1.8s
+
+#4 [backend internal] load metadata for docker.io/library/python:3.13-alpine
+#4 DONE 1.8s
+
+#10 [frontend internal] load .dockerignore
+#10 transferring context: 195B done
+#10 DONE 0.0s
+
+#11 [backend internal] load build context
+#11 transferring context: 611B done
+#11 DONE 0.0s
+
+#12 [backend 1/7] FROM docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a
+#12 resolve docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a 0.0s done
+#12 DONE 0.0s
+
+#13 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94
+#13 resolve docker.io/library/nginx:1.30-alpine@sha256:0985e772fb9f729e6fa0980da05fca5d9c468e870eed43071545afa9d2e27d94 0.0s done
+#13 DONE 0.0s
+
+#14 [frontend build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#14 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.0s done
+#14 DONE 0.0s
+
+#15 [backend 2/7] WORKDIR /app
+#15 CACHED
+
+#16 [backend 3/7] COPY backend/requirements.txt ./
+#16 CACHED
+
+#17 [backend 4/7] RUN pip install --no-cache-dir -r requirements.txt     && python -m pip uninstall -y pip setuptools wheel     && rm -rf /usr/local/lib/python3.13/ensurepip     && addgroup -g 10001 app && adduser -D -u 10001 -G app app
+#17 CACHED
+
+#18 [backend 5/7] COPY --chown=app:app backend/app ./app
+#18 CACHED
+
+#19 [backend 6/7] COPY --chown=app:app backend/alembic ./alembic
+#19 CACHED
+
+#20 [backend 7/7] COPY --chown=app:app backend/alembic.ini ./
+#20 CACHED
+
+#21 [frontend internal] load build context
+#21 transferring context: 334B done
+#21 DONE 0.0s
+
+#22 [frontend build 5/6] COPY frontend/ ./
+#22 CACHED
+
+#23 [frontend build 4/6] RUN npm ci
+#23 CACHED
+
+#24 [frontend stage-1 2/4] RUN apk upgrade --no-cache
+#24 CACHED
+
+#25 [frontend stage-1 3/4] COPY docker/frontend.conf /etc/nginx/nginx.conf
+#25 CACHED
+
+#26 [frontend build 2/6] WORKDIR /src
+#26 CACHED
+
+#27 [frontend build 6/6] RUN npm run build
+#27 CACHED
+
+#28 [frontend build 3/6] COPY frontend/package*.json ./
+#28 CACHED
+
+#29 [frontend stage-1 4/4] COPY --from=build /src/dist/ /usr/share/nginx/html/
+#29 CACHED
+
+#30 [frontend] exporting to image
+#30 exporting layers 0.0s done
+#30 exporting manifest sha256:59660e1062edc8baad66d9ff2934230e8a28b5bca68497bc64928b725dbba662 done
+#30 exporting config sha256:69d13f7c0d5e1152d16dbefb7c4fbe32e83b58d5967d96d5f29d3d1ed8f86fa7 done
+#30 exporting attestation manifest sha256:d5e9b33187ef98e4ea627ec96a6f2895c397bedd03e39e7bd8f72a8f2ea7da84
+#30 exporting attestation manifest sha256:d5e9b33187ef98e4ea627ec96a6f2895c397bedd03e39e7bd8f72a8f2ea7da84 0.0s done
+#30 exporting manifest list sha256:092041cbcfa32e1c99094b8752d3f365f75b2238bd56cfbff529fa4ec40bb6a9 0.0s done
+#30 naming to docker.io/library/ops-notes-frontend:local done
+#30 unpacking to docker.io/library/ops-notes-frontend:local
+#30 unpacking to docker.io/library/ops-notes-frontend:local 0.6s done
+#30 DONE 0.9s
+
+#31 [backend] exporting to image
+#31 exporting layers 0.0s done
+#31 exporting manifest sha256:1650da6c5209e4f35bbb5973e493c25f7061ef0fe8884000bf593fbb30895db4 0.0s done
+#31 exporting config sha256:bf0992637b18c583c908560bb2e2cd7bbec5f693d6d2f5ced0b4c8ebad868d2a done
+#31 exporting attestation manifest sha256:bd2aa4809c8d6a6df03bfed8a3dea7279bf90f59b5589fe712d2347451933f9e 0.0s done
+#31 exporting manifest list sha256:31ded527aa0fdcc8cb4ed91744b9e0c7d5630a3890e644b2c37cbee9cd49f0a7 0.0s done
+#31 naming to docker.io/library/ops-notes-backend:local done
+#31 unpacking to docker.io/library/ops-notes-backend:local
+#31 ...
+
+#32 [frontend] resolving provenance for metadata file
+#32 DONE 0.1s
+
+#31 [backend] exporting to image
+#31 unpacking to docker.io/library/ops-notes-backend:local 2.6s done
+#31 DONE 2.8s
+
+#33 [backend] resolving provenance for metadata file
+#33 DONE 0.0s
+ Image ops-notes-frontend:local Built 
+ Image ops-notes-backend:local Built 
+ Container ops-notes-capstone-database-1 Creating 
+ Container ops-notes-capstone-database-1 Created 
+ Container ops-notes-capstone-backend-1 Creating 
+ Container ops-notes-capstone-backend-1 Created 
+ Container ops-notes-capstone-frontend-1 Creating 
+ Container ops-notes-capstone-frontend-1 Created 
+ Container ops-notes-capstone-database-1 Starting 
+ Container ops-notes-capstone-database-1 Started 
+ Container ops-notes-capstone-database-1 Waiting 
+ Container ops-notes-capstone-database-1 Healthy 
+ Container ops-notes-capstone-backend-1 Starting 
+ Container ops-notes-capstone-backend-1 Started 
+ Container ops-notes-capstone-backend-1 Waiting 
+ Container ops-notes-capstone-backend-1 Healthy 
+ Container ops-notes-capstone-frontend-1 Starting 
+ Container ops-notes-capstone-frontend-1 Started 
+ Container ops-notes-capstone-backend-1 Waiting 
+ Container ops-notes-capstone-database-1 Waiting 
+ Container ops-notes-capstone-frontend-1 Waiting 
+ Container ops-notes-capstone-backend-1 Healthy 
+ Container ops-notes-capstone-database-1 Healthy 
+ Container ops-notes-capstone-frontend-1 Healthy 

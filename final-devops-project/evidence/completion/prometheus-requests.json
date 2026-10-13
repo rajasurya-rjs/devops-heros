@@ -1,0 +1,68 @@
+{
+  "status": "success",
+  "data": {
+    "resultType": "vector",
+    "result": [
+      {
+        "metric": {
+          "__name__": "ops_requests_total",
+          "instance": "10.244.0.160:8080",
+          "job": "operations-notes-three-tier",
+          "pod": "backend-5cc4698c7f-99jwm"
+        },
+        "value": [
+          1791897322.574,
+          "163"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ops_requests_total",
+          "instance": "10.244.0.158:8080",
+          "job": "operations-notes-three-tier",
+          "pod": "backend-5cc4698c7f-4pjzf"
+        },
+        "value": [
+          1791897322.574,
+          "159"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ops_requests_total",
+          "instance": "10.244.0.159:8080",
+          "job": "operations-notes-three-tier",
+          "pod": "backend-5cc4698c7f-phhdf"
+        },
+        "value": [
+          1791897322.574,
+          "236"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ops_requests_total",
+          "instance": "10.244.0.161:8080",
+          "job": "operations-notes-three-tier",
+          "pod": "backend-5cc4698c7f-q4v45"
+        },
+        "value": [
+          1791897322.574,
+          "174"
+        ]
+      },
+      {
+        "metric": {
+          "__name__": "ops_requests_total",
+          "instance": "10.244.0.162:8080",
+          "job": "operations-notes-three-tier",
+          "pod": "backend-5cc4698c7f-7k829"
+        },
+        "value": [
+          1791897322.574,
+          "169"
+        ]
+      }
+    ]
+  }
+}

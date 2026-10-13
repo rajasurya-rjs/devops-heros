@@ -1,0 +1,16 @@
+[
+    {
+        "id": "subnet-0d9e385ec0ffa74df",
+        "az": "ap-southeast-2b",
+        "cidr": "10.24.1.0/24",
+        "public": true,
+        "vpc": "vpc-01f95e9237ca7dae1"
+    },
+    {
+        "id": "subnet-0a003dcfb1d6234e0",
+        "az": "ap-southeast-2a",
+        "cidr": "10.24.0.0/24",
+        "public": true,
+        "vpc": "vpc-01f95e9237ca7dae1"
+    }
+]

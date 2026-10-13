@@ -6,6 +6,63 @@ The [Session 21 Operations Notes capstone](final-devops-project/README.md) provi
 frontend, FastAPI API and PostgreSQL storage, with pytest, Alembic migrations, Docker,
 GitHub Actions, Helm, Ingress, HPA and Prometheus/Grafana.
 
+## Final capstone: Operations Notes
+
+An original app for deployment checks and incident notes, with create/read/update/delete.
+Full source, deployment instructions and evidence are in
+[final-devops-project/README.md](final-devops-project/README.md).
+
+```mermaid
+flowchart LR
+  Browser --> Ingress[NGINX Ingress]
+  Ingress --> Frontend[Vite HTML/JavaScript]
+  Ingress --> Backend[FastAPI]
+  Backend --> DB[(PostgreSQL / Alembic)]
+  GitHub --> CI[pytest / build / Trivy]
+  CI --> GHCR[SHA-tagged images]
+  GitHub --> ArgoCD[Argo CD / Helm]
+  ArgoCD --> EKS[AWS EKS]
+  Backend --> Prometheus --> Grafana
+```
+
+**Tech stack:** Python, FastAPI, SQLAlchemy, Alembic, PostgreSQL, HTML/JavaScript, Vite,
+NGINX, pytest, Docker Compose, GitHub Actions, Trivy, GHCR, Terraform, AWS EKS,
+Kubernetes, Helm, Argo CD, Prometheus and Grafana.
+
+**Local setup:** from `final-devops-project`, run `./scripts/local-up.sh` once to generate
+an ignored private database password. Then `docker compose up --build` starts frontend,
+backend and PostgreSQL. Open **http://localhost:13000**; port 3000 is reserved for Histomics.
+
+**CI/CD:** `.github/workflows/three-tier-project.yml` runs on push to main. SQLite and
+PostgreSQL tests plus frontend/source gates precede both image builds. Trivy fails on
+HIGH/CRITICAL findings. Green images publish to GHCR with full Git SHA tags and are
+verified with Helm in kind. Argo CD reconciles committed EKS Helm values; image promotion
+uses an explicit tested SHA.
+
+**Infrastructure:** Terraform creates a VPC, two public subnets, EKS and a managed worker
+node group in **ap-southeast-2**. Only the `devops-homework` profile is used. Guard scripts
+verify the correct project, ACTIVE FREE plan and available credits before cloud changes.
+Credentials, state and private variables stay outside Git. Actual cleanup follows evaluation.
+
+**Kubernetes/Helm:** namespace/bootstrap manifests are in `final-devops-project/k8s/` and
+`kubernetes/`; the three-tier chart is in `helm/three-tier/`. Run the guarded
+`kubernetes/deploy-capstone-aws.sh` and `gitops/argocd/install-eks.sh` with the private
+homework kubeconfig. Both application Deployments run two replicas with ClusterIP Services.
+Ingress routes `/` to frontend and `/api` to backend. See the full README for local steps.
+
+**Observability:** `helm/observability/` and `monitoring/` install Prometheus and Grafana.
+The backend exposes `/metrics`; Prometheus discovers each backend Pod and Grafana
+provisions request-rate, errors, CPU and memory panels. `scripts/recording-up.sh` forwards
+the real EKS Ingress, Prometheus, Grafana and Argo CD to localhost for the walkthrough.
+
+**Presentation and limitations:** [12-slide PPT](final-devops-project/demo/presentation.pptx),
+[PDF](final-devops-project/demo/presentation.pdf),
+[recording guide](final-devops-project/demo/README.md) and
+[rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md). This private classroom app has
+no login/public TLS, and the single EKS worker does not provide node redundancy. The
+mandatory student video and actual Terraform destroy proof after recording/evaluation
+remain pending. The EKS Ingress uses localhost forwarding rather than a paid LoadBalancer.
+
 **Name:** Rajasurya J
 **Roll number:** 24BCS10086
 

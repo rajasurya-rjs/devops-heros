@@ -3,3 +3,6 @@ prometheus:
   image: prom/prometheus:v3.15.0
 grafana:
   image: grafana/grafana:13.2.3
+
+# Enable only for the optional alert troubleshooting exercise.
+demonstrateUnavailableTarget: false

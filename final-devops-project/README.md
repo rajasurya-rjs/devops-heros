@@ -27,6 +27,8 @@ flowchart LR
   GHCR --> Helm[Helm deployment to CI kind cluster]
   Helm --> Frontend
   Helm --> Backend
+  GitHub --> ArgoCD[Argo CD reconciles committed Helm values]
+  ArgoCD --> EKS[AWS EKS application]
   Backend --> Prometheus --> Grafana
 ```
 
@@ -48,8 +50,7 @@ flowchart LR
 
 The earlier Python HTTP-server implementation remains in `application/` for completed
 homework exercises. [README-previous.md](README-previous.md) preserves its original deployment
-instructions, screenshots, logs and historical cloud results. Those results do not prove
-that the newly updated FastAPI code has been deployed to AWS.
+instructions, screenshots, logs and historical cloud results. The current three-tier FastAPI application was also deployed and verified on EKS on 13 October 2026; see [current evidence](evidence/completion/README.md).
 
 ## Local Docker setup
 
@@ -64,10 +65,10 @@ then runs `docker compose up -d --build --wait`. No password is committed.
 After that first setup, the standard command also works:
 
 ```bash
-docker compose -p ops-notes-capstone up --build
+docker compose up --build
 ```
 
-Open **http://localhost:3000**. The frontend proxies `/api`, `/health`, `/ready`, `/metrics`,
+Open **http://localhost:13000**. The frontend proxies `/api`, `/health`, `/ready`, `/metrics`,
 `/burn` and Swagger `/docs` to the backend. PostgreSQL is on an internal network and is not
 published to the host. The two application images run without root. The backend runs
 Alembic before starting Uvicorn. PostgreSQL replicas serialize migrations with an advisory
@@ -75,7 +76,7 @@ lock, so concurrent backend startup does not race schema creation.
 
 ```bash
 docker compose -p ops-notes-capstone ps
-python3 kubernetes/verify-api.py http://127.0.0.1:3000
+python3 kubernetes/verify-api.py http://127.0.0.1:13000
 docker compose -p ops-notes-capstone exec database psql -U notes -d notes -c 'TABLE notes;'
 docker compose -p ops-notes-capstone exec database psql -U notes -d notes -c 'TABLE alembic_version;'
 ```
@@ -158,8 +159,12 @@ container image against its vulnerability database. Earlier frontend findings af
 scanner found no matching findings at the selected severities at scan time. It does not
 prove that all possible vulnerabilities are absent.
 
-[Earlier successful pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/37312195057)
-belongs to the previous implementation. A fresh run is still needed for this code revision.
+[Successful current pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38406757852)
+includes 23 SQLite tests, 23 dedicated PostgreSQL tests, frontend build, source gates,
+both Docker/Trivy jobs, GHCR publication and the kind Helm deployment. Both image tags are full 40-character SHAs.
+Full-history secret scanning passes with seven exact reviewed exceptions for classroom
+examples in Session 12; no broad ignore rules or history rewriting were used.
+See [secret review](security/secret-scan.md).
 
 ## Local Kubernetes and Helm
 
@@ -221,7 +226,7 @@ The local-only [three-tier drill](kubernetes/troubleshooting/verify-three-tier.s
 the live selector, image and readiness URL, then restores them with an exit trap. It
 observes missing Service endpoints, an image-pull failure and a 404 readiness failure.
 Run it only after the local Helm application is healthy, then repeat the API check.
-This new drill has been syntax checked; it has not been run against the stopped local cluster.
+Historical troubleshooting evidence is preserved in the previous README; this optional drill is outside the Session 21 grading requirements.
 
 ## Terraform and cloud evidence
 
@@ -237,19 +242,88 @@ terraform -chdir=terraform validate
 terraform -chdir=terraform test
 ```
 
-The mock-provider test validates configuration, not live infrastructure. At the user's
-request, this review makes no cloud changes. A destroy plan is not evidence of completed
-cleanup; the rubric requires an actual destroy completion after evaluation.
+The mock-provider test validates configuration. Genuine Terraform init, validation, original
+26-resource provisioning and the 13 October non-empty plan/application are recorded in
+[evidence](evidence/completion/README.md). The latest apply changed two access CIDRs in place,
+without adding resources. VPC `vpc-01f95e9237ca7dae1` has two public subnets, and EKS
+`rajasurya-final-devops` has the managed `homework-workers-free` node group.
+The homework project was verified as ACTIVE FREE with remaining credits before cloud changes.
+The scripts stop when that condition, project identity or kubeconfig cannot be verified.
 
-## Presentation and evidence
+Private Terraform inputs, state and kubeconfig stay outside Git. For another deployment,
+copy `terraform/terraform.tfvars.example` to an ignored private file; never commit AWS keys.
+The current private inputs and kubeconfig are under
+`~/.local/share/devops-homework/capstone/` on this machine.
 
-[Presentation checklist](presentation/video-script.md) covers the live commit/pipeline/
-deployment sequence and the required screenshots. The existing [slides](presentation/Operations-Notes.pptx)
-and [PDF](presentation/Operations-Notes.pdf) describe the earlier three-tier implementation.
-[Evidence index](evidence/README.md) explains historical evidence. New local checks use
-`code-review-*` filenames and do not replace older results.
+## EKS deployment and Argo CD
 
-A final presentation or recording must show the student explaining the app, committing a
-change, watching CI and inspecting the deployed SHA, registry images, Ingress, HPA,
-monitoring and recovery from a failure. Source code and a narration script cannot substitute
-for that demonstration.
+```bash
+./kubernetes/deploy-capstone-aws.sh "$HOME/.local/share/devops-homework/capstone/kubeconfig"
+./gitops/argocd/install-eks.sh "$HOME/.local/share/devops-homework/capstone/kubeconfig"
+./scripts/recording-up.sh
+python3 scripts/recording-browser.py
+```
+
+The EKS application uses two Ready frontend replicas and two Ready backend replicas,
+PostgreSQL with a 1 GiB EBS PVC, and GHCR images tagged
+`cdf8c14b34055fc15651fcde1533c129b7e957b2`. Argo CD v3.5.5 is self-hosted open-source software
+tracking `main`, the `helm/three-tier` chart and `gitops/argocd/values-eks.yaml`.
+Automatic sync and self-healing are enabled; automatic pruning is disabled to protect data.
+Image promotion is explicit: after a green CI run, commit its full SHA in both image tags and
+`appVersion`. A configuration Git revision can differ from the deployed image revision.
+
+The previous Flux runtime is paused before Argo CD adopts the chart. The old application
+and monitoring Deployments are scaled to zero, retaining their data and manifests.
+Optional Argo CD controllers are scaled to zero to fit the existing single worker's Pod capacity.
+The local minikube application uses its separate `values-local.yaml` with native ARM images.
+
+The EKS Ingress controller uses a ClusterIP Service, avoiding a paid cloud load balancer.
+`scripts/recording-browser.py` maps `notes.aws.project.local` to the localhost forwarding
+port **28080**, which forwards to the actual NGINX Ingress controller. `/` and `/api` pass
+real HTTP CRUD verification through its configured hostname. This is a forwarded Ingress
+hostname, not a public LoadBalancer IP. Because there is no LoadBalancer status address,
+only this Ingress has the documented Argo annotation `argocd.argoproj.io/ignore-healthcheck`;
+its HTTP routes are verified separately. Deployment and PVC health checks remain active.
+See [Argo CD's health documentation](https://argo-cd.readthedocs.io/en/stable/operator-manual/health/).
+
+Recording endpoints: Ingress 28080, Prometheus 49091, Grafana 43001 and Argo CD 48080.
+They bind to localhost. The browser helper signs into Argo CD with the initial password in
+memory; it uses an isolated browser and does not read Chrome profile credentials.
+Prometheus scrapes both EKS backend Pods and Grafana provisions the live application dashboard.
+
+## Presentation, evidence and cleanup
+
+The [12-slide PowerPoint](demo/presentation.pptx), [PDF](demo/presentation.pdf),
+[recording guide](demo/README.md) and [complete rubric audit](demo/RUBRIC-CHECKLIST.md)
+are in `demo/`. Every screenshot is indexed with its environment and provenance in
+[evidence/completion/README.md](evidence/completion/README.md). Historical artifacts remain intact.
+
+**Pending submission requirements:** the student-recorded presentation video must be uploaded
+under `demo/` or as a GitHub release asset, and actual Terraform destroy completion must be
+captured after recording/evaluation. A destroy plan is not completed cleanup. Missing video
+means zero for M10 under the rubric, even with the slides and README present.
+
+To review cleanup without removing resources:
+
+```bash
+./scripts/cleanup-aws.sh --plan
+```
+
+Only after the live demonstration/evaluation and after privately backing up any wanted notes:
+
+```bash
+./scripts/cleanup-aws.sh --execute 2>&1 | tee evidence/completion/terraform-destroy-complete.txt
+```
+
+This permanently removes the homework resources. The helper first removes application PVCs
+while EBS CSI is running and then executes Terraform destroy. Capture the real completion
+screenshot and verify no remaining homework resources or EBS volumes. The Google Form must
+be submitted by the student; the agent does not submit it.
+
+## Known limitations
+
+This classroom app has no authentication or public TLS endpoint; keep its demo services
+private. EKS has one worker, so two application replicas do not provide node redundancy.
+Free-plan credit availability is checked before cloud operations, and no paid upgrade is
+permitted. Test output includes one non-failing Starlette deprecation warning.
+The final video and actual destroy proof remain required before claiming a complete submission.

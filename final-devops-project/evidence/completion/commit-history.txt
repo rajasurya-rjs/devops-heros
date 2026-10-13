@@ -1,0 +1,15 @@
+7dbae34 Preserve Argo CD ownership and roll backend on configuration changes
+33af500 Add Argo CD GitOps deployment and full-history secret review
+05d05bf Complete FastAPI capstone with migrations and verified local checks
+b8af15c Document three-tier project and add presentation [skip ci]
+cd4a3de Add frontend backend and PostgreSQL project tiers [skip ci]
+dabf0a7 Polish DevOps assignment documentation [skip ci]
+5e0729f Complete verified AWS EKS capstone deployment [skip ci]
+c0da73b Complete verified AWS Terraform sessions 18 and 19 [skip ci]
+94b439e Configure AWS Agent Toolkit project rules with zero-cash constraint [skip ci]
+ab34fdd Complete remaining local DevOps assignments and document AWS execution blockers [skip ci]
+d83b470 Demonstrate GitOps configuration rollout and size Grafana from observed usage [skip ci]
+f352cbc Pin local and GitOps deployments to the verified container image [skip ci]
+e1b3f65 Publish scanned amd64 and arm64 images for CI and Apple Silicon
+b7a1538 Remove unused installer dependencies flagged by image security gate
+178e93a Stabilize health probes and pin verified pipeline tooling

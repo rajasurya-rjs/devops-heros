@@ -1,0 +1,72 @@
+2026-10-13T12:56:22Z	INFO	[vulndb] Need to update DB
+2026-10-13T12:56:22Z	INFO	[vulndb] Downloading vulnerability DB...
+2026-10-13T12:56:22Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+12.92 MiB / 127.19 MiB [------>_____________________________________________________] 10.16% ? p/s ?40.43 MiB / 127.19 MiB [------------------->________________________________________] 31.79% ? p/s ?71.53 MiB / 127.19 MiB [--------------------------------->__________________________] 56.24% ? p/s ?102.36 MiB / 127.19 MiB [------------------------------------>________] 80.48% 149.04 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 149.04 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 149.04 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 142.09 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 142.09 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 142.09 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 132.92 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 132.92 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 132.92 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 124.35 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 124.35 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 124.35 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 116.33 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [------------------------------------------->] 100.00% 116.33 MiB p/s ETA 0s127.19 MiB / 127.19 MiB [-----------------------------------------------] 100.00% 38.77 MiB p/s 3.5s2026-10-13T12:56:27Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+2026-10-13T12:56:27Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-13T12:56:36Z	WARN	Third-party SBOM may lead to inaccurate vulnerability detection
+2026-10-13T12:56:36Z	WARN	Recommend using Trivy to generate SBOMs
+2026-10-13T12:56:36Z	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
+2026-10-13T12:56:36Z	INFO	Detected OS	family="alpine" version="3.24.2"
+2026-10-13T12:56:36Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=29
+2026-10-13T12:56:36Z	INFO	Number of language-specific files	num=1
+2026-10-13T12:56:36Z	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-13T12:56:36Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
+
+Report Summary
+
+┌──────────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┐
+│                                      Target                                      │    Type    │ Vulnerabilities │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:33af500857a55ffe0931a33203- │   alpine   │        0        │
+│ d8f55825211c63 (alpine 3.24.2)                                                   │            │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/alembic-1.20.0.dist-info/METADATA         │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/annotated_doc-0.0.5.dist-info/METADATA    │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/annotated_types-0.8.0.dist-info/METADATA  │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/anyio-4.15.1.dist-info/METADATA           │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/click-8.5.0.dist-info/METADATA            │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/fastapi-0.143.0.dist-info/METADATA        │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/h11-0.16.0.dist-info/METADATA             │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/idna-3.20.dist-info/METADATA              │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/mako-1.4.3.dist-info/METADATA             │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/markupsafe-3.0.4.dist-info/METADATA       │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/opentelemetry_api-1.45.1.dist-info/METAD- │ python-pkg │        0        │
+│ ATA                                                                              │            │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/prometheus_client-0.26.0.dist-info/METAD- │ python-pkg │        0        │
+│ ATA                                                                              │            │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/psycopg-3.3.6.dist-info/METADATA          │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/psycopg_binary-3.3.6.dist-info/METADATA   │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/pydantic-2.14.0.dist-info/METADATA        │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/pydantic_core-2.50.0.dist-info/METADATA   │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/sqlalchemy-2.1.4.dist-info/METADATA       │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/starlette-1.7.0.dist-info/METADATA        │ python-pkg │        0        │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/typing_extensions-4.16.0.dist-info/METAD- │ python-pkg │        0        │
+│ ATA                                                                              │            │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/typing_inspection-0.4.4.dist-info/METADA- │ python-pkg │        0        │
+│ TA                                                                               │            │                 │
+├──────────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┤
+│ usr/local/lib/python3.13/site-packages/uvicorn-0.54.0.dist-info/METADATA         │ python-pkg │        0        │
+└──────────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+

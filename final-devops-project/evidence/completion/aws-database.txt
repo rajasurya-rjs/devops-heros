@@ -1,0 +1,10 @@
+ id |                            text                            
+----+------------------------------------------------------------
+  2 | Rajasurya: frontend, backend and PostgreSQL are connected.
+(1 row)
+
+ version_num 
+-------------
+ 0001_notes
+(1 row)
+

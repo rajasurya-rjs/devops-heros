@@ -1,3 +1,4 @@
+name: ops-notes-capstone
 services:
   frontend:
     image: ${FRONTEND_IMAGE:-ops-notes-frontend:local}

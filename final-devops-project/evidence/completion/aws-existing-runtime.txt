@@ -1,0 +1,13 @@
+NAME                              READY   STATUS    RESTARTS   AGE
+pod/grafana-6f7b597dd9-n4d4s      1/1     Running   0          8d
+pod/ops-notes-6b844dd54b-gwhhq    1/1     Running   0          8d
+pod/ops-notes-6b844dd54b-pjr48    1/1     Running   0          8d
+pod/prometheus-6468567cd5-rfts5   1/1     Running   0          8d
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/grafana      ClusterIP   172.20.39.92    <none>        3000/TCP   8d
+service/ops-notes    ClusterIP   172.20.85.6     <none>        8080/TCP   8d
+service/prometheus   ClusterIP   172.20.88.135   <none>        9090/TCP   8d
+
+NAME                                  CLASS   HOSTS                ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/ops-notes   nginx   ops.homework.local             80      8d

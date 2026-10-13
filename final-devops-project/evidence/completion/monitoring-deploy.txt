@@ -1,0 +1,7 @@
+Release "notes-monitoring" does not exist. Installing it now.
+NAME: notes-monitoring
+LAST DEPLOYED: Tue Oct 13 18:15:58 2026
+NAMESPACE: project-monitoring
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None

@@ -1,0 +1,17 @@
+2026-10-13T12:56:36Z	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-13T12:56:37Z	INFO	Detected OS	family="alpine" version="3.24.2"
+2026-10-13T12:56:37Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=71
+2026-10-13T12:56:37Z	INFO	Number of language-specific files	num=0
+
+Report Summary
+
+┌──────────────────────────────────────────────────────────────────────────────────┬────────┬─────────────────┐
+│                                      Target                                      │  Type  │ Vulnerabilities │
+├──────────────────────────────────────────────────────────────────────────────────┼────────┼─────────────────┤
+│ ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:33af500857a55ffe0931a3320- │ alpine │        0        │
+│ 3d8f55825211c63 (alpine 3.24.2)                                                  │        │                 │
+└──────────────────────────────────────────────────────────────────────────────────┴────────┴─────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+

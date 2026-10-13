@@ -1,0 +1,13 @@
+{
+  "accountId": "089540175430",
+  "accountPlanType": "FREE",
+  "accountPlanStatus": "ACTIVE",
+  "accountPlanRemainingCredits": {
+    "amount": 71.84,
+    "unit": "USD"
+  },
+  "accountPlanExpirationDate": "2027-04-05T08:24:38.467000+00:00"
+}
+All four recording endpoints returned HTTP 200.
+Ready: Ingress 28080, Prometheus 49091, Grafana 43001, Argo CD 48080.
+Run python3 scripts/recording-browser.py to open the isolated recording browser.

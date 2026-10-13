@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.16, pytest-9.1.1, pluggy-1.6.0 -- /opt/hostedtoolcache/Python/3.13.16/x64/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/devops-heros/devops-heros/final-devops-project/backend
+configfile: pytest.ini
+plugins: platformdirs-4.13.0, anyio-4.15.1
+collecting ... collected 23 items
+
+final-devops-project/backend/tests/test_api.py::test_health PASSED       [  4%]
+final-devops-project/backend/tests/test_api.py::test_readiness PASSED    [  8%]
+final-devops-project/backend/tests/test_api.py::test_crud PASSED         [ 13%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body0] PASSED [ 17%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body1] PASSED [ 21%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body2] PASSED [ 26%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body3] PASSED [ 30%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body4] PASSED [ 34%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body5] PASSED [ 39%]
+final-devops-project/backend/tests/test_api.py::test_invalid_note[body6] PASSED [ 43%]
+final-devops-project/backend/tests/test_api.py::test_sql_injection_is_data PASSED [ 47%]
+final-devops-project/backend/tests/test_api.py::test_missing_note[get] PASSED [ 52%]
+final-devops-project/backend/tests/test_api.py::test_missing_note[put] PASSED [ 56%]
+final-devops-project/backend/tests/test_api.py::test_missing_note[delete] PASSED [ 60%]
+final-devops-project/backend/tests/test_api.py::test_invalid_identifier PASSED [ 65%]
+final-devops-project/backend/tests/test_api.py::test_body_size_limit PASSED [ 69%]
+final-devops-project/backend/tests/test_api.py::test_metrics PASSED      [ 73%]
+final-devops-project/backend/tests/test_api.py::test_secret_is_not_returned PASSED [ 78%]
+final-devops-project/backend/tests/test_api.py::test_openapi_documentation PASSED [ 82%]
+final-devops-project/backend/tests/test_api.py::test_readiness_failure PASSED [ 86%]
+final-devops-project/backend/tests/test_api.py::test_migration_revision PASSED [ 91%]
+final-devops-project/backend/tests/test_api.py::test_unknown_route PASSED [ 95%]
+final-devops-project/backend/tests/test_migrations.py::test_migration_adopts_existing_notes_without_data_loss PASSED [100%]
+
+=============================== warnings summary ===============================
+../../../../../opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages/fastapi/testclient.py:1
+  /opt/hostedtoolcache/Python/3.13.16/x64/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 23 passed, 1 warning in 0.82s =========================

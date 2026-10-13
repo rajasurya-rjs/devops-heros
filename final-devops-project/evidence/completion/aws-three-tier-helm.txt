@@ -1,0 +1,2 @@
+NAME 	NAMESPACE         	REVISION	UPDATED                             	STATUS  	CHART                            	APP VERSION
+notes	project-three-tier	1       	2026-10-13 19:02:30.996369 +0530 IST	deployed	operations-notes-three-tier-1.1.0	fastapi-v2 
