@@ -1,0 +1,19 @@
+frontend:
+  replicas: 2
+  repository: ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend
+  tag: cdf8c14b34055fc15651fcde1533c129b7e957b2
+backend:
+  repository: ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend
+  tag: cdf8c14b34055fc15651fcde1533c129b7e957b2
+appVersion: cdf8c14b34055fc15651fcde1533c129b7e957b2
+appTitle: Operations Notes
+existingSecret: three-tier-credentials
+storageClass: homework-gp3
+storageSize: 1Gi
+replicas: 2
+ingress:
+  enabled: true
+  className: nginx
+  host: notes.aws.project.local
+hpa:
+  enabled: false

@@ -41,13 +41,16 @@ spec:
             limits: {cpu: 300m, memory: 256Mi}
           startupProbe:
             httpGet: {path: /ready, port: 8080}
+            timeoutSeconds: 6
             failureThreshold: 60
             periodSeconds: 3
           readinessProbe:
             httpGet: {path: /ready, port: 8080}
+            timeoutSeconds: 6
             periodSeconds: 3
           livenessProbe:
             httpGet: {path: /health, port: 8080}
+            timeoutSeconds: 3
             periodSeconds: 10
           securityContext:
             readOnlyRootFilesystem: true

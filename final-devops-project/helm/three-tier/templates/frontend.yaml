@@ -16,8 +16,8 @@ spec:
           resources:
             requests: {cpu: 10m, memory: 16Mi}
             limits: {cpu: 100m, memory: 64Mi}
-          readinessProbe: {httpGet: {path: /health, port: 8080}, periodSeconds: 3}
-          livenessProbe: {httpGet: {path: /, port: 8080}, periodSeconds: 10}
+          readinessProbe: {httpGet: {path: /, port: 8080}, timeoutSeconds: 3, periodSeconds: 3}
+          livenessProbe: {httpGet: {path: /, port: 8080}, timeoutSeconds: 3, periodSeconds: 10}
           securityContext:
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
