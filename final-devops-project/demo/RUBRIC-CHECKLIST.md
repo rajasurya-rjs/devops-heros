@@ -1,7 +1,8 @@
 # Session 21 — complete rubric audit
 
-Audited on **13 October 2026**. Repository: **https://github.com/rajasurya-rjs/devops-heros**.
+Rechecked on **14 October 2026**. Repository: **https://github.com/rajasurya-rjs/devops-heros**.
 The capstone lives under `final-devops-project/`. This is a readiness audit, not a grade.
+[Today’s fresh verification](../evidence/recheck-2026-10-14/README.md) records the new local and live EKS checks.
 
 **Two completion requirements remain:** student-recorded walkthrough uploaded to this
 repository, and real Terraform destroy completion evidence after recording/evaluation.
@@ -29,10 +30,10 @@ The rubric gives **zero for M10 if the video is missing**. A destroy plan does n
 | M5: Push main trigger (1) | Workflow `push.branches: [main]`; real main runs recorded. |
 | M5: pytest gates builds (3) | Test job precedes dependent build jobs and exits on failure. |
 | M5: Frontend build (2) | `npm ci` and `npm run build` in test job. |
-| M5: Both Docker images built (3) | Backend/frontend build matrix. |
+| M5: Both Docker images built (3) | Both backend/frontend builds in the gated build job. |
 | M5: Both images pushed GHCR (3) | [Backend package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-backend), [frontend package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-frontend). |
 | M5: Commit SHA tags (2) | Full 40-character SHAs; [backend screenshot](../images/29-ghcr-backend.png), [frontend screenshot](../images/30-ghcr-frontend.png). |
-| M6: Trivy on both images (3) | Workflow matrix; [actual downloaded CI reports](../images/current-trivy-terminal.png). |
+| M6: Trivy on both images (3) | Workflow loops over both images; [actual downloaded CI reports](../images/current-trivy-terminal.png). |
 | M6: HIGH/CRITICAL failure (1) | `--severity HIGH,CRITICAL --exit-code 1`, without ignoring unfixed findings. |
 | M6: Explanation (1) | [Three-sentence explanation](../evidence/completion/README.md#trivy-explanation). |
 | M7: Valid HCL (2) | `terraform/`; init, validate, fmt and mock-provider checks recorded. |

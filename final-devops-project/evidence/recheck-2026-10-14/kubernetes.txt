@@ -1,0 +1,21 @@
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/backend-6d556b897-t24pq     1/1     Running   0          15h
+pod/backend-6d556b897-vqbml     1/1     Running   0          15h
+pod/database-0                  1/1     Running   0          16h
+pod/frontend-6d7b8d6cb6-6tzmg   1/1     Running   0          16h
+pod/frontend-6d7b8d6cb6-bqjnk   1/1     Running   0          16h
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/backend    2/2     2            2           16h
+deployment.apps/frontend   2/2     2            2           16h
+
+NAME               TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/backend    ClusterIP   172.20.97.229   <none>        8080/TCP   16h
+service/database   ClusterIP   None            <none>        5432/TCP   16h
+service/frontend   ClusterIP   172.20.218.21   <none>        8080/TCP   16h
+
+NAME                                 CLASS   HOSTS                     ADDRESS   PORTS   AGE
+ingress.networking.k8s.io/frontend   nginx   notes.aws.project.local             80      16h
+
+NAME                                             STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/postgres-data-database-0   Bound    pvc-c65daf8c-b8d5-4a83-b490-1a8c9b512a27   1Gi        RWO            homework-gp3   <unset>                 16h

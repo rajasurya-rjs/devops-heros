@@ -7,7 +7,14 @@ see [every rubric requirement](RUBRIC-CHECKLIST.md).
 
 ## Open the current EKS demonstration
 
-From `final-devops-project`, keep the forwarding terminal open:
+From `final-devops-project`, if AWS reports an expired session, restore the homework
+session first and complete the browser sign-in:
+
+```bash
+aws login --profile devops-homework --region ap-southeast-2
+```
+
+Keep the forwarding terminal open:
 
 ```bash
 ./scripts/recording-up.sh
@@ -85,6 +92,15 @@ OPS_HOST=notes.aws.project.local python3 kubernetes/verify-api.py http://127.0.0
 AWS_PROFILE=devops-homework terraform -chdir=terraform plan -input=false \
   -var-file="$HOME/.local/share/devops-homework/capstone/terraform-inputs.json"
 ```
+
+For the Terraform segment, show the genuine saved apply output as well as your current plan:
+
+```bash
+cat evidence/completion/terraform-access-apply.txt
+```
+
+The file records the actual 13 October apply, with two in-place access updates. The current
+plan can correctly report no changes. Keep that distinction clear in your narration.
 
 The EKS Ingress uses an internal NGINX Service and localhost forwarding, with no public
 LoadBalancer. Argo CD's load-balancer-address health check is ignored **only for that
