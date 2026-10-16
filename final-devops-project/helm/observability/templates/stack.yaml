@@ -105,6 +105,8 @@ kind: Deployment
 metadata: {name: grafana, namespace: {{ .Release.Namespace }}}
 spec:
   replicas: 1
+  # A single-worker capstone must not need room for two Grafana pods during updates.
+  strategy: {type: Recreate, rollingUpdate: null}
   selector:
     matchLabels: {app: grafana}
   template:
@@ -119,9 +121,9 @@ spec:
             - {name: GF_AUTH_ANONYMOUS_ENABLED, value: "true"}
             - {name: GF_AUTH_ANONYMOUS_ORG_ROLE, value: Viewer}
             - {name: GF_AUTH_DISABLE_LOGIN_FORM, value: "true"}
+            - {name: GOMEMLIMIT, value: {{ .Values.grafana.goMemoryLimit | quote }}}
           resources:
-            requests: {cpu: 100m, memory: 128Mi}
-            limits: {cpu: 500m, memory: 512Mi}
+{{ toYaml .Values.grafana.resources | indent 12 }}
           readinessProbe:
             httpGet: {path: /api/health, port: 3000}
             timeoutSeconds: 3

@@ -1,0 +1,174 @@
+{
+  "startedUtc": "2026-10-16T13:09:55.639058+00:00",
+  "kind": "Real EKS localhost tunnel recovery and availability checks",
+  "samples": [
+    {
+      "seconds": 0.0,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 10.0,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 20.0,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": false,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 29.4,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 39.4,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 49.3,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 59.2,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 69.2,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 79.2,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 89.2,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 99.3,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 109.4,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 119.3,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 129.4,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 139.5,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 149.6,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 160.2,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    },
+    {
+      "seconds": 170.2,
+      "http200": {
+        "ingress": true,
+        "prometheus": true,
+        "grafana": true,
+        "argocd": true
+      }
+    }
+  ],
+  "terminatedOwnGrafanaTunnelAtSeconds": 20.0,
+  "recoveredAtSeconds": 29.4,
+  "peerTunnelPidsUnchanged": true,
+  "durationSeconds": 180.2,
+  "result": "passed",
+  "finishedUtc": "2026-10-16T13:13:16.718703+00:00"
+}

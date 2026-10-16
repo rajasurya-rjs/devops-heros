@@ -1,0 +1,14 @@
+{
+  "time": "2026-10-16T13:07:36Z",
+  "availableMiB": 1266.7,
+  "monitoring": [
+    {
+      "name": "grafana-6f7b597dd9-bcl8g",
+      "workingMiB": 351.5
+    },
+    {
+      "name": "prometheus-8c57f955-jsr6j",
+      "workingMiB": 27.5
+    }
+  ]
+}

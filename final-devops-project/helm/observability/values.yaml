@@ -3,6 +3,11 @@ prometheus:
   image: prom/prometheus:v3.15.0
 grafana:
   image: grafana/grafana:13.2.3
+  # Leave room above Go's soft target for plugins, mappings and other native memory.
+  goMemoryLimit: 768MiB
+  resources:
+    requests: {cpu: 100m, memory: 256Mi}
+    limits: {cpu: 500m, memory: 1Gi}
 
 # Enable only for the optional alert troubleshooting exercise.
 demonstrateUnavailableTarget: false

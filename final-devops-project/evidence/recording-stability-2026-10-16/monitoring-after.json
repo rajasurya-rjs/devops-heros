@@ -1,0 +1,57 @@
+{
+  "checkedUtc": "2026-10-16T13:13:20.049985+00:00",
+  "pods": [
+    {
+      "name": "grafana-7bd744494d-r2h48",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "grafana",
+          "ready": true,
+          "restartCount": 0
+        }
+      ]
+    },
+    {
+      "name": "prometheus-7bc496766f-cznkv",
+      "phase": "Running",
+      "containers": [
+        {
+          "name": "prometheus",
+          "ready": true,
+          "restartCount": 0
+        }
+      ]
+    }
+  ],
+  "grafanaResources": {
+    "limits": {
+      "cpu": "500m",
+      "memory": "1Gi"
+    },
+    "requests": {
+      "cpu": "100m",
+      "memory": "256Mi"
+    }
+  },
+  "grafanaMemoryTarget": [
+    {
+      "name": "GOMEMLIMIT",
+      "value": "768MiB"
+    }
+  ],
+  "memory": {
+    "time": "2026-10-16T13:13:07Z",
+    "availableMiB": 1311.4,
+    "monitoring": [
+      {
+        "name": "prometheus-7bc496766f-cznkv",
+        "workingMiB": 32.9
+      },
+      {
+        "name": "grafana-7bd744494d-r2h48",
+        "workingMiB": 461.9
+      }
+    ]
+  }
+}

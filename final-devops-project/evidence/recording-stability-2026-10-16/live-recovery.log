@@ -1,0 +1,19 @@
+{
+  "accountId": "089540175430",
+  "accountPlanType": "FREE",
+  "accountPlanStatus": "ACTIVE",
+  "accountPlanRemainingCredits": {
+    "amount": 52.11,
+    "unit": "USD"
+  },
+  "accountPlanExpirationDate": "2027-04-05T08:24:38.467000+00:00"
+}
+All four recording endpoints returned HTTP 200.
+Ready: Ingress 28080, Prometheus 49091, Grafana 43001, Argo CD 48080.
+Connections recover independently after a drop. A brief service outage can still be visible.
+Run python3 scripts/recording-browser.py to open the recording browser.
+Keep this terminal running. Ctrl-C stops only this helper's forwards.
+grafana: endpoint unavailable; checking and reconnecting only this connection.
+grafana: HTTP 200; connection recovered.
+grafana: connection stopped; reconnecting automatically.
+grafana: HTTP 200; connection recovered.

@@ -30,6 +30,12 @@ python3 scripts/recording-browser.py
 
 The isolated browser opens the real EKS Argo CD, Ingress, Prometheus and Grafana pages.
 It signs into Argo CD without printing the password. Keep it open while recording.
+The forwarding helper checks each endpoint and reconnects a failed tunnel independently;
+the other pages stay connected. A service restart or network outage can still cause a
+brief interruption. Its private logs are under
+`~/.local/share/devops-homework/capstone/recording/`. Grafana has a 1 GiB container limit
+and a 768 MiB Go soft memory target after a genuine 512 MiB OOM restart on 16 October.
+This uses the existing worker; no additional AWS nodes or paid features are required.
 AWS Console sign-in uses your own homework project, **For Each and Every**; selected
 Region **ap-southeast-2**. Never show credentials, private Terraform inputs or Secret values.
 

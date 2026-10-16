@@ -1,0 +1,8 @@
+{
+  "timeUtc": "2026-10-16T13:12:14.635403+00:00",
+  "kind": "Actual isolated Chrome check after the deliberate recovery test",
+  "dashboardLoaded": true,
+  "noDataVisible": false,
+  "appReloads": 5,
+  "screenshot": "images/recording-grafana-stability.png"
+}

@@ -1,0 +1,17 @@
+test_occupied_port_fails_before_starting_any_child (test_recording_forwards.ForwardRecoveryTests.test_occupied_port_fails_before_starting_any_child) ... ok
+test_recovers_dead_and_unresponsive_tunnels_without_stopping_peer (test_recording_forwards.ForwardRecoveryTests.test_recovers_dead_and_unresponsive_tunnels_without_stopping_peer) ... All four recording endpoints returned HTTP 200.
+Ready: Ingress 28080, Prometheus 49091, Grafana 43001, Argo CD 48080.
+Connections recover independently after a drop. A brief service outage can still be visible.
+Run python3 scripts/recording-browser.py to open the recording browser.
+Keep this terminal running. Ctrl-C stops only this helper's forwards.
+first: connection stopped; reconnecting automatically.
+first: HTTP 200; connection recovered.
+first: endpoint unavailable; checking and reconnecting only this connection.
+first: HTTP 200; connection recovered.
+ok
+test_unhealthy_startup_never_reports_ready_and_cleans_up (test_recording_forwards.ForwardRecoveryTests.test_unhealthy_startup_never_reports_ready_and_cleans_up) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.578s
+
+OK

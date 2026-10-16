@@ -1,0 +1,102 @@
+{
+  "targets": [
+    {
+      "health": "up",
+      "scrapeUrl": "http://10.24.0.182:8080/metrics",
+      "lastError": ""
+    },
+    {
+      "health": "up",
+      "scrapeUrl": "http://10.24.0.174:8080/metrics",
+      "lastError": ""
+    }
+  ],
+  "grafanaDatasourceQueries": [
+    {
+      "panel": "HTTP responses per second",
+      "expression": "sum(rate(ops_requests_total{job=\"operations-notes-three-tier\"}[1m]))",
+      "series": [
+        {
+          "metric": {},
+          "value": [
+            1792156284.539,
+            "1.5272727272727273"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "HTTP errors per second",
+      "expression": "sum(rate(ops_errors_total{job=\"operations-notes-three-tier\"}[1m]))",
+      "series": [
+        {
+          "metric": {},
+          "value": [
+            1792156285.755,
+            "0"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "CPU seconds",
+      "expression": "ops_cpu_seconds_total{job=\"operations-notes-three-tier\"}",
+      "series": [
+        {
+          "metric": {
+            "__name__": "ops_cpu_seconds_total",
+            "instance": "10.24.0.174:8080",
+            "job": "operations-notes-three-tier",
+            "pod": "backend-6d556b897-vqbml"
+          },
+          "value": [
+            1792156286.99,
+            "868.8309840000001"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "ops_cpu_seconds_total",
+            "instance": "10.24.0.182:8080",
+            "job": "operations-notes-three-tier",
+            "pod": "backend-6d556b897-t24pq"
+          },
+          "value": [
+            1792156286.99,
+            "881.424054"
+          ]
+        }
+      ]
+    },
+    {
+      "panel": "Peak memory (Linux KiB)",
+      "expression": "ops_memory_maxrss{job=\"operations-notes-three-tier\"}",
+      "series": [
+        {
+          "metric": {
+            "__name__": "ops_memory_maxrss",
+            "instance": "10.24.0.174:8080",
+            "job": "operations-notes-three-tier",
+            "pod": "backend-6d556b897-vqbml"
+          },
+          "value": [
+            1792156288.222,
+            "81892"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "ops_memory_maxrss",
+            "instance": "10.24.0.182:8080",
+            "job": "operations-notes-three-tier",
+            "pod": "backend-6d556b897-t24pq"
+          },
+          "value": [
+            1792156288.222,
+            "81456"
+          ]
+        }
+      ]
+    }
+  ]
+}
