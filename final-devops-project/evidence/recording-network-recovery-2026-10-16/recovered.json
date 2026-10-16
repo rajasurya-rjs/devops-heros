@@ -1,0 +1,24 @@
+{
+  "checkedUtc": "2026-10-16T14:25:54.037906+00:00",
+  "endpoints": {
+    "grafana": 200,
+    "app": 200,
+    "argocd": 200
+  },
+  "backendTargets": [
+    {
+      "health": "up",
+      "lastError": ""
+    },
+    {
+      "health": "up",
+      "lastError": ""
+    }
+  ],
+  "populatedPanels": [
+    "HTTP responses per second",
+    "HTTP errors per second",
+    "CPU seconds",
+    "Peak memory (Linux KiB)"
+  ]
+}

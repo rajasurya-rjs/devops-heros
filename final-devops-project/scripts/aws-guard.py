@@ -3,13 +3,15 @@
 import json
 import subprocess
 import argparse
+import ipaddress
+import urllib.request
 
 PROFILE = "devops-homework"
 REGION = "ap-southeast-2"
 PROJECT_ID = "089540175430"
 
 
-def check(kubeconfig_path=None):
+def check(kubeconfig_path=None, check_client_ip=False):
     def aws(*args):
         return json.loads(subprocess.check_output(
             ["aws", *args, "--region", REGION, "--profile", PROFILE, "--output", "json"],
@@ -25,6 +27,13 @@ def check(kubeconfig_path=None):
         raise SystemExit("STOP: ACTIVE Free plan with available credits could not be verified.")
     if kubeconfig_path:
         cluster = aws("eks", "describe-cluster", "--name", "rajasurya-final-devops")["cluster"]
+        if check_client_ip:
+            with urllib.request.urlopen('https://checkip.amazonaws.com', timeout=10) as response:
+                client_ip = ipaddress.IPv4Address(response.read().decode().strip())
+            allowed = cluster['resourcesVpcConfig']['publicAccessCidrs']
+            if not any(client_ip in ipaddress.ip_network(cidr) for cidr in allowed):
+                raise SystemExit('STOP: your current public internet IP is outside the EKS access list. '
+                                 'Your network changed. Refresh the homework Terraform access rule before recording.')
         config = json.loads(subprocess.check_output([
             "kubectl", "--kubeconfig", kubeconfig_path, "--context", "devops-homework-eks",
             "config", "view", "--minify", "-o", "json",
@@ -40,5 +49,8 @@ def check(kubeconfig_path=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--kubeconfig")
+    parser.add_argument("--check-client-ip", action="store_true")
     args = parser.parse_args()
-    print(json.dumps(check(args.kubeconfig), indent=2))
+    if args.check_client_ip and not args.kubeconfig:
+        parser.error('--check-client-ip requires --kubeconfig')
+    print(json.dumps(check(args.kubeconfig, args.check_client_ip), indent=2))

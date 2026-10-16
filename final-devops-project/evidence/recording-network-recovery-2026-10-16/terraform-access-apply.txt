@@ -1,0 +1,22 @@
+module.cloud.aws_security_group.web: Modifying... [id=sg-028c9037eba80af67]
+aws_eks_cluster.main: Modifying... [id=rajasurya-final-devops]
+module.cloud.aws_security_group.web: Modifications complete after 3s [id=sg-028c9037eba80af67]
+aws_eks_cluster.main: Still modifying... [id=rajasurya-final-devops, 00m10s elapsed]
+aws_eks_cluster.main: Modifications complete after 18s [id=rajasurya-final-devops]
+
+Apply complete! Resources: 0 added, 2 changed, 0 destroyed.
+
+Outputs:
+
+cloud = {
+  "bucket_name" = "rajasurya-24bcs10086-final-20261005"
+  "instance_id" = "i-029fb2fc75faa02df"
+  "subnet_ids" = [
+    "subnet-0a003dcfb1d6234e0",
+    "subnet-0d9e385ec0ffa74df",
+  ]
+  "vpc_id" = "vpc-01f95e9237ca7dae1"
+  "web_url" = "http://3.106.200.186"
+}
+cluster_endpoint = "https://A061F6949C61C5CF09F68F2330DCACE1.yl4.ap-southeast-2.eks.amazonaws.com"
+cluster_name = "rajasurya-final-devops"

@@ -3,6 +3,7 @@
 import argparse
 from dataclasses import dataclass, field
 import fcntl
+import os
 from pathlib import Path
 import signal
 import socket
@@ -25,6 +26,9 @@ class Forward:
     retry_at: float = 0
     failures: int = 0
     healthy: bool = False
+    started_at: float = 0
+    connected_once: bool = False
+    outage_reported: bool = False
 
     @property
     def port(self):
@@ -34,7 +38,7 @@ class Forward:
         try:
             request = urllib.request.Request(
                 f"http://127.0.0.1:{self.port}{self.path}", headers=self.headers)
-            with urllib.request.urlopen(request, timeout=2) as response:
+            with urllib.request.urlopen(request, timeout=5) as response:
                 return response.status == 200
         except (OSError, ValueError):
             return False
@@ -42,17 +46,22 @@ class Forward:
 
 def stop_child(forward):
     if forward.process is not None:
+        # kubectl may be waiting on its AWS credential child. Stop the owned group too.
+        try:
+            os.killpg(forward.process.pid, signal.SIGTERM)
+        except ProcessLookupError:
+            pass
         if forward.process.poll() is None:
-            forward.process.terminate()
             try:
                 forward.process.wait(timeout=3)
             except subprocess.TimeoutExpired:
-                forward.process.kill()
+                os.killpg(forward.process.pid, signal.SIGKILL)
                 forward.process.wait()
         forward.process = None
 
 
-def supervise(kube, runtime_dir, forwards, stopped, interval=3, startup_timeout=90):
+def supervise(kube, runtime_dir, forwards, stopped, interval=3, startup_timeout=90,
+              connection_grace=75):
     runtime_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
     lock_path = runtime_dir / "supervisor.lock"
     lock_path.touch(mode=0o600, exist_ok=True)
@@ -83,6 +92,7 @@ def supervise(kube, runtime_dir, forwards, stopped, interval=3, startup_timeout=
                         print(f"{forward.name}: connection stopped; reconnecting automatically.", flush=True)
                         stop_child(forward)
                         forward.healthy = False
+                        forward.outage_reported = True
                         forward.failures = 0
                         forward.retry_at = now + interval
                     if forward.process is None and now >= forward.retry_at:
@@ -92,20 +102,27 @@ def supervise(kube, runtime_dir, forwards, stopped, interval=3, startup_timeout=
                                     forward.namespace, forward.service, forward.ports],
                             stdin=subprocess.DEVNULL, stdout=forward.logfile,
                             stderr=subprocess.STDOUT, start_new_session=True)
+                        forward.started_at = time.monotonic()
+                        forward.connected_once = False
                     if forward.process is not None:
                         healthy = forward.probe()
                         if healthy:
-                            if not forward.healthy and ready:
+                            if forward.outage_reported and ready:
                                 print(f"{forward.name}: HTTP 200; connection recovered.", flush=True)
                             forward.healthy = True
+                            forward.connected_once = True
+                            forward.outage_reported = False
                             forward.failures = 0
                         else:
                             forward.failures += 1
-                            if forward.healthy:
-                                print(f"{forward.name}: endpoint unavailable; checking and reconnecting only this connection.", flush=True)
                             forward.healthy = False
-                            # A stuck tunnel may remain alive after a broken network path.
-                            if forward.failures >= 3:
+                            # Allow slow credential loading/API negotiation to finish.
+                            # A refused localhost socket during startup is not a hung tunnel.
+                            grace_elapsed = time.monotonic() - forward.started_at >= connection_grace
+                            if forward.failures >= 3 and (forward.connected_once or grace_elapsed):
+                                if not forward.outage_reported:
+                                    print(f"{forward.name}: three failed checks; reconnecting only this connection. If all pages fail, check your network and EKS IP access.", flush=True)
+                                forward.outage_reported = True
                                 stop_child(forward)
                                 forward.failures = 0
                                 forward.retry_at = time.monotonic() + interval
@@ -133,7 +150,7 @@ def main():
     parser.add_argument("runtime_dir", type=Path)
     args = parser.parse_args()
     stopped = threading.Event()
-    for signum in (signal.SIGINT, signal.SIGTERM):
+    for signum in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
         signal.signal(signum, lambda *_: stopped.set())
     kube = ["kubectl", "--kubeconfig", args.kubeconfig, "--context", "devops-homework-eks"]
     forwards = [

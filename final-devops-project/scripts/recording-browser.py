@@ -7,7 +7,7 @@ import subprocess
 from playwright.sync_api import sync_playwright
 
 kubeconfig_path = str(Path.home() / ".local/share/devops-homework/capstone/kubeconfig")
-subprocess.run(["python3", "scripts/aws-guard.py", "--kubeconfig", kubeconfig_path], check=True)
+subprocess.run(["python3", "scripts/aws-guard.py", "--kubeconfig", kubeconfig_path, "--check-client-ip"], check=True)
 kube = ["kubectl", "--kubeconfig", kubeconfig_path, "--context", "devops-homework-eks"]
 raw = subprocess.check_output(kube + ["get", "secret", "argocd-initial-admin-secret", "-n", "argocd", "-o", "json"], text=True)
 password = base64.b64decode(json.loads(raw)["data"]["password"]).decode()

@@ -41,6 +41,13 @@ brief interruption. Its private logs are under
 `~/.local/share/devops-homework/capstone/recording/`. Grafana has a 1 GiB container limit
 and a 768 MiB Go soft memory target after a genuine 512 MiB OOM restart on 16 October.
 This uses the existing worker; no additional AWS nodes or paid features are required.
+Keep the same network during recording. EKS permits the laptop's configured public
+IPv4 `/32`; switching Wi-Fi, hotspot or VPN can change that address and block every
+cloud forward. Startup now checks that address explicitly. Refresh the private
+Terraform `web_cidr` input and apply the reviewed access-only plan if the network
+changes. The 16 October recovery evidence records an actual update with zero added
+or destroyed resources. The helper also allows slow connections to start before
+retrying and cleans up their credential child processes.
 AWS Console sign-in uses your own homework project, **For Each and Every**; selected
 Region **ap-southeast-2**. Never show credentials, private Terraform inputs or Secret values.
 

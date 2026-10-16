@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import socket
+import subprocess
 import sys
 import tempfile
 import threading
@@ -39,6 +40,9 @@ class ForwardRecoveryTests(unittest.TestCase):
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 import sys
+import time
+delay = Path(__file__).with_name('startup-delay')
+if delay.exists(): time.sleep(float(delay.read_text()))
 port = int(sys.argv[-1].split(':')[0])
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -112,6 +116,43 @@ Server(('127.0.0.1', port), Handler).serve_forever()
             self.assertIsNone(occupied.process)
             # The existing listener is still bound and was not terminated.
             self.assertEqual(listener.getsockname()[1], occupied.port)
+
+    def test_slow_startup_is_not_repeatedly_killed_before_it_can_connect(self):
+        # The former three-check restart loop prevented a slow tunnel from ever starting.
+        (self.root / 'startup-delay').write_text('1.0')
+        first = self.forward('slow')
+        self.start([first])
+        wait_for(lambda: first.process is not None)
+        original = first.process
+        wait_for(lambda: first.healthy)
+        self.assertIs(first.process, original)
+        self.assertTrue(first.probe())
+
+    def test_cleanup_stops_the_credential_process_group(self):
+        self.fake.write_text('''
+import subprocess, sys, time
+from pathlib import Path
+child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(60)'])
+Path(__file__).with_name('credential-child').write_text(str(child.pid))
+time.sleep(60)
+''')
+        first = self.forward('credential')
+        self.start([first])
+        child_file = self.root / 'credential-child'
+        wait_for(child_file.exists)
+        child_pid = int(child_file.read_text())
+        self.stopped.set()
+        self.thread.join(timeout=8)
+        def child_stopped():
+            try:
+                # A terminated child may briefly remain as a zombie awaiting OS reaping.
+                status = subprocess.check_output(
+                    ['ps', '-o', 'stat=', '-p', str(child_pid)], text=True).strip()
+                return status.startswith('Z') or not status
+            except subprocess.CalledProcessError:
+                return True
+        wait_for(child_stopped)
+        self.assertFalse(self.thread.is_alive())
 
     def test_unhealthy_startup_never_reports_ready_and_cleans_up(self):
         first = self.forward("first")

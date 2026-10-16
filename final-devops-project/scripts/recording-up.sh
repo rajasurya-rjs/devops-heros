@@ -3,7 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 kubeconfig_path=${1:-$HOME/.local/share/devops-homework/capstone/kubeconfig}
 runtime_dir=$HOME/.local/share/devops-homework/capstone/recording
-python3 scripts/aws-guard.py --kubeconfig "$kubeconfig_path"
+python3 scripts/aws-guard.py --kubeconfig "$kubeconfig_path" --check-client-ip
 kube=(kubectl --kubeconfig "$kubeconfig_path" --context devops-homework-eks)
 status=$("${kube[@]}" get application operations-notes -n argocd -o 'jsonpath={.status.sync.status}{" "}{.status.health.status}')
 [[ "$status" == 'Synced Healthy' ]] || { printf 'Recording is not ready: Argo CD is %s\n' "$status" >&2; exit 1; }
