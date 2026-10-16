@@ -4,7 +4,7 @@
 
 - [Presentation — PowerPoint](presentation.pptx)
 - [Presentation — PDF](presentation.pdf)
-- [Speaking script with OPEN, DO and TYPE cues](RECORDING-SCRIPT.md)
+- [Speaking script with separate SAY, SHOW, TYPE and WAIT cues](RECORDING-SCRIPT.md)
 - [Exact recording steps and commands](../final-devops-project/demo/README.md)
 - [Every scored criterion and required artifact](../final-devops-project/demo/RUBRIC-CHECKLIST.md)
 - [Complete technical documentation](../final-devops-project/README.md)

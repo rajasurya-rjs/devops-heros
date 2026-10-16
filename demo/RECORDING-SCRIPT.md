@@ -1,265 +1,346 @@
-# Operations Notes — recording setup and speaking script
+# Operations Notes — read-aloud recording script
 
-Read the quoted sentences aloud in your own voice. Text under **OPEN**, **DO** and
-**TYPE** is an instruction for you; do not read those labels aloud. You can use your
-own words. Only describe a result as successful after it appears on screen.
+**Use your School Chrome profile. Follow the browser tabs from 1 to 15.**
 
-The required order is slides → codebase → real push and CI/CD → Terraform and AWS →
-Argo CD → Kubernetes → Prometheus → Grafana. The extra application, test and Docker
-demonstrations below help you show the rest of the grading criteria.
+**Read ONLY the text in the quoted boxes under SAY.**
+SHOW, TYPE, CLICK, WAIT and CHECK are instructions for you. Do not read them aloud.
+Finish the instruction before reading the next SAY box. Speak normally and take your time.
 
-## Before recording — arrange your laptop
+## Your screen map — prepare before recording
 
-You will show one demo terminal window. Two other terminal tabs keep connections
-alive in the background. These three tabs are inside the same Terminal application.
-Do not close the two helper tabs until you finish.
+Your browser tabs are already arranged like this. Keep this order.
 
-### Terminal tab 1: connections
-
-Paste:
-
-```bash
-cd /Users/rajasurya/Downloads/devops-heros/final-devops-project
-./scripts/recording-up.sh
-```
-
-Wait for **All four recording endpoints returned HTTP 200** and **Ready**. Leave it
-running. The updated helper automatically reconnects individual dropped connections.
-If a page briefly loses its connection, wait for the helper's recovered message and
-refresh the page. Pause the demonstration if an endpoint remains unavailable.
-If the AWS session has expired, finish this sign-in and retry the helper:
-
-```bash
-aws login --profile devops-homework --region ap-southeast-2
-```
-
-If a port is occupied, do not stop unrelated applications. Check whether your existing
-capstone helper is already running. Do not start a second copy.
-
-### Terminal tab 2: browser
-
-Open a new Terminal tab with Command-T, then paste:
-
-```bash
-cd /Users/rajasurya/Downloads/devops-heros/final-devops-project
-python3 scripts/recording-browser.py
-```
-
-It opens a separate Chrome window with four real EKS pages. Leave this terminal tab
-running too. Do not press Enter at its closing prompt until after recording.
-
-In that Chrome window, arrange the tabs and keep them open:
-
-| Tab | Page |
+| Tab | Screen |
 | --- | --- |
-| App | `http://notes.aws.project.local:28080` |
-| Argo CD | `http://127.0.0.1:48080/applications/argocd/operations-notes?view=tree` |
-| Prometheus | `http://127.0.0.1:49091/targets` |
-| Grafana | `http://127.0.0.1:43001/d/ops-three-tier?orgId=1&from=now-15m&to=now` |
-| GitHub | `https://github.com/rajasurya-rjs/devops-heros` |
-| Actions | `https://github.com/rajasurya-rjs/devops-heros/actions/workflows/three-tier-project.yml` |
+| 1 | [Presentation PDF](https://github.com/rajasurya-rjs/devops-heros/blob/main/demo/presentation.pdf) |
+| 2 | [Project code](https://github.com/rajasurya-rjs/devops-heros/tree/main/final-devops-project) |
+| 3 | [Local app](http://localhost:13000) |
+| 4 | [Three-tier Project CI CD](https://github.com/rajasurya-rjs/devops-heros/actions/workflows/three-tier-project.yml) |
+| 5 | [Backend image package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-backend) |
+| 6 | [Frontend image package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-frontend) |
+| 7 | [AWS VPC](https://ap-southeast-2.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-2#vpcs:) |
+| 8 | [AWS subnets](https://ap-southeast-2.console.aws.amazon.com/vpcconsole/home?region=ap-southeast-2#subnets:) |
+| 9 | [AWS EKS](https://ap-southeast-2.console.aws.amazon.com/eks/home?region=ap-southeast-2#/clusters/rajasurya-final-devops) |
+| 10 | [Argo CD](http://127.0.0.1:48080/applications/argocd/operations-notes?view=tree) |
+| 11 | [EKS app through Ingress](http://notes.aws.project.local:28080) |
+| 12 | [Prometheus Targets](http://127.0.0.1:49091/targets) |
+| 13 | [Grafana dashboard](http://127.0.0.1:43001/d/ops-three-tier?orgId=1&from=now-15m&to=now) |
+| 14 | [Project README](https://github.com/rajasurya-rjs/devops-heros/blob/main/final-devops-project/README.md) |
+| 15 | [Commit history](https://github.com/rajasurya-rjs/devops-heros/commits/main/) |
 
-Use the helper's browser for the app hostname. An ordinary browser window may not
-resolve it. Sign in to GitHub yourself if necessary; no password needs to be recorded.
+Your Terminal tabs, matching your screenshots:
 
-In your usual signed-in browser, open the AWS Console. Select the homework project
-**For Each and Every** and **Sydney / ap-southeast-2**. Prepare these pages:
+| Terminal tab | Use |
+| --- | --- |
+| 1 | Forwarding helper. Keep running; leave it in the background. |
+| 2 | Old isolated browser helper. Leave it in the background; the recording uses School Chrome. |
+| 3 | Completed School browser setup. You do not need to show it. |
+| **4** | **Demo terminal. This is the tab with the successful Docker build. Use it for every command below.** |
 
-- VPC → Your VPCs → `vpc-01f95e9237ca7dae1`.
-- VPC → Subnets → the two subnets belonging to that VPC.
-- EKS → Clusters → `rajasurya-final-devops` → Overview.
-- That cluster → Compute → managed node group `homework-workers-free`.
+VS Code is your separate code window. It already has the whole `devops-heros` folder open.
+To open a file quickly, press **Command + P**, paste the file path shown below, and press Return.
+The VS Code paths below start from that repository root.
 
-Do not open access keys, private inputs, `.env`, Secrets, Terraform state or login caches.
+**Before pressing Record — do this silently:**
 
-### Terminal tab 3: the visible demo terminal
+- Make sure Argo CD is signed in in School Chrome and the EKS app loads there.
+- In tab 8, filter subnets to VPC `vpc-01f95e9237ca7dae1`.
+- In tab 9, locate **Compute** in the left sidebar. You will click it during the demo.
+- Check that all four Grafana panels finish loading.
+- Make sure you can display one whole slide clearly in tab 1. The same PDF is also
+  saved locally at `/Users/rajasurya/Downloads/devops-heros/demo/presentation.pdf`.
+- Keep this script on your phone or another screen if possible.
+- Check that your microphone records your voice.
 
-Open another Terminal tab and paste:
+**TYPE in Terminal tab 4 before recording:**
 
 ```bash
 cd /Users/rajasurya/Downloads/devops-heros/final-devops-project
 export KUBECONFIG="$HOME/.local/share/devops-homework/capstone/kubeconfig"
-docker compose up -d --build --wait
-docker compose ps
+clear
 ```
 
-All three services should be healthy. This runs Ops Notes on **13000** and leaves
-Histomics' port 3000 alone. Add `http://localhost:13000` as a browser tab for the local demo.
+Return to **browser tab 1, slide 1**. Start recording with your microphone enabled.
 
-Open the whole `devops-heros` folder in VS Code. Expand `final-devops-project` in the
-Explorer. Keep these files easy to find:
+---
 
-- `backend/app/routes.py`, `models.py`, `main.py`.
-- `backend/alembic/versions/` and its migration file.
-- `backend/tests/test_api.py` and `backend/tests/conftest.py`.
-- `frontend/src/main.js`.
-- `backend/Dockerfile`, `frontend/Dockerfile`, `docker-compose.yml`.
-- Repository-root `.github/workflows/three-tier-project.yml`.
-- `terraform/main.tf`, `terraform/eks.tf`, `terraform/terraform.tfvars.example`.
-- `helm/three-tier/values.yaml`, `helm/three-tier/templates/`.
-- `gitops/argocd/values-eks.yaml`.
-- Repository-root `README.md` and `demo/`.
-
-Open `demo/presentation.pdf` from the repository root, or the PPTX in PowerPoint.
-Keep this script beside your laptop or on another device if possible. Make a short
-test recording to check that your voice and screen text are clear before the full take.
-
-## Part 1 — present the slides first
-
-**OPEN:** the presentation, starting at slide 1. Advance once after each paragraph.
+## 1 — Presentation first · browser tab 1
 
 ### Slide 1 — Operations Notes
 
-> Hi everyone, I am Rajasurya. In this video, I will explain my DevOps capstone project,
-> Operations Notes. First I will show the architecture, and then I will demonstrate
-> the application, pipeline, AWS infrastructure, Kubernetes and monitoring.
+**SHOW:** the whole first slide.
+
+**SAY:**
+
+> Hi everyone, I'm Rajasurya. This is my DevOps capstone project, Operations Notes.
+> First, I'll explain the project using these slides. Then I'll show the working setup.
 
 ### Slide 2 — Project overview
 
-> This application is for keeping deployment checks and incident notes in one place.
-> We can add a note, view it, edit it and delete it. The main idea of this project is
-> to take a working application through the complete DevOps process.
+**SHOW:** slide 2.
+
+**SAY:**
+
+> This app keeps deployment checks and incident notes in one place.
+> We can add a note, read it, edit it and delete it.
 
 ### Slide 3 — Tech stack
 
-> For the frontend, I used HTML and JavaScript with Vite, served through NGINX. The
-> backend is Python with FastAPI, and the database is PostgreSQL. For delivery, I used
-> Docker, GitHub Actions, GHCR, Helm and Argo CD. Terraform manages the AWS
-> infrastructure, and Prometheus and Grafana provide monitoring.
+**SHOW:** slide 3.
 
-### Slide 4 — Application architecture
+**SAY:**
 
-> Here, the browser reaches the frontend through NGINX Ingress. Requests starting
-> with slash API go to the FastAPI backend. The backend reads and writes notes in
-> PostgreSQL. Separately, Prometheus collects metrics from the backend, and Grafana
-> displays those metrics in a dashboard.
+> The frontend uses HTML and JavaScript. The backend uses FastAPI, and the database is Postgres.
+> The other tools here handle testing, containers, deployment, security and monitoring.
+
+### Slide 4 — Architecture
+
+**SHOW:** slide 4. Point along the arrows as you speak.
+
+**SAY:**
+
+> Here, the browser reaches the frontend through Ingress. API requests go to the backend.
+> The backend stores notes in Postgres. Prometheus collects metrics, and Grafana shows the graphs.
 
 ### Slide 5 — API and database
 
-> The backend has health and readiness checks, along with the notes APIs. Alembic
-> manages the database schema, so table creation is recorded as a migration. In
-> Kubernetes, PostgreSQL uses persistent storage so the data can survive an
-> application restart.
+**SHOW:** slide 5.
+
+**SAY:**
+
+> The app has health checks and the notes APIs.
+> Alembic manages changes to the database schema. The database also has persistent storage in Kubernetes.
 
 ### Slide 6 — Testing and security
 
-> The test suite covers the notes APIs, validation, readiness, metrics and migrations.
-> The tests use separate test storage. The pipeline also runs code and dependency
-> checks, secret scanning, and Trivy scans for both container images. HIGH or CRITICAL
-> findings cause the image security gate to fail.
+**SHOW:** slide 6.
 
-### Slide 7 — CI/CD flow
+**SAY:**
 
-> A push to main starts GitHub Actions. Tests and the frontend build run first. Then
-> the pipeline builds and scans both images and publishes them to GHCR using the
-> full commit SHA. It also deploys them into a temporary kind cluster and checks
-> that the application works with PostgreSQL and two replicas per application tier.
+> The tests cover the APIs, validation, health checks and migrations.
+> The pipeline also checks code, dependencies and secrets. Trivy scans both container images.
 
-### Slide 8 — AWS infrastructure with Terraform
+### Slide 7 — CI/CD
 
-> Terraform defines the VPC, two public subnets, EKS cluster and managed worker node
-> group in the Sydney region. The infrastructure is already provisioned. I will show
-> the current plan and the actual resources in the AWS Console during the live demo.
+**SHOW:** slide 7.
+
+**SAY:**
+
+> A push to main starts the pipeline. Tests run before the image builds.
+> After scanning, the images go to GHCR with the commit ID as the tag.
+> CI also checks a Helm deployment in a temporary kind cluster.
+
+### Slide 8 — AWS and Terraform
+
+**SHOW:** slide 8.
+
+**SAY:**
+
+> Terraform manages the AWS infrastructure in Sydney.
+> It includes a VPC, two public subnets, an EKS cluster and a worker node group.
 
 ### Slide 9 — Kubernetes and Helm
 
-> The application runs in the project-three-tier namespace. There are two frontend
-> replicas and two backend replicas. ClusterIP Services connect the components, and
-> Ingress routes the frontend and API requests. The Helm chart keeps these resources
-> together as one application release.
+**SHOW:** slide 9.
 
-### Slide 10 — GitOps with Argo CD
+**SAY:**
 
-> Argo CD watches the configuration in Git. When the desired configuration changes,
-> it reconciles the application in EKS. I will demonstrate this with a small visible
-> title change and show the application reaching Synced and Healthy.
+> There are two frontend replicas and two backend replicas.
+> Helm defines the application resources. Services connect the components, and Ingress routes the requests.
 
-### Slide 11 — Prometheus and Grafana
+### Slide 10 — GitOps
 
-> The backend exposes a metrics endpoint. Prometheus scrapes the backend pods, and
-> Grafana uses that data to show application traffic and performance. I will show
-> the live targets and dashboard in the walkthrough.
+**SHOW:** slide 10.
 
-### Slide 12 — Key learnings
+**SAY:**
 
-> My main learning is that opening the homepage alone is not enough. We also need
-> to check the API, database, tests, deployment health and monitoring. I also learned
-> the importance of keeping credentials private, using immutable image tags, and
-> cleaning up cloud resources after the evaluation.
+> Argo CD watches the application configuration in Git.
+> I'll change the app title during this demo and show that change reaching EKS.
 
-## Part 2 — codebase and working application
+### Slide 11 — Monitoring
 
-**OPEN:** VS Code Explorer, with `final-devops-project` expanded.
+**SHOW:** slide 11.
 
-> Now I will show the implementation. This folder contains the backend, frontend,
-> Terraform, Kubernetes, Helm, GitOps and monitoring configuration. The workflow file
-> is under dot GitHub, workflows, at the repository root.
+**SAY:**
 
-**OPEN:** `backend/app/routes.py`, then `models.py`, then the Alembic migration.
+> The backend exposes a metrics endpoint.
+> Prometheus collects those metrics. Grafana shows application requests, errors, CPU and memory.
 
-> These routes implement GET, POST, PUT and DELETE for notes. The model defines the
-> notes table, and this Alembic migration creates it. So the database schema is
-> managed through code.
+### Slide 12 — Learnings
 
-**OPEN:** `backend/app/main.py`, then `frontend/src/main.js`.
+**SHOW:** slide 12.
 
-> The backend also exposes health, readiness and metrics endpoints. Here in the
-> frontend, we can see the API calls used to load, create, edit and delete notes.
+**SAY:**
 
-**OPEN:** local app tab, `http://localhost:13000`.
+> My main takeaway is that checking only the homepage is not enough.
+> We also need to check the API, database, tests and monitoring. Cloud cleanup is part of the work too.
 
-**DO:** Add `Deployment check: backend and database are healthy`. Refresh the page,
-edit that note to add `— verified`, then delete only that demo note. Narrow the window
-briefly to show the responsive layout, then restore it.
+**SAY:**
 
-> I will add a deployment note here. After refreshing, the note is still available
-> because it is stored in PostgreSQL. Now I will edit it and delete it. This shows
-> the frontend and backend working together with the database.
+> Okay, now I'll show the actual project.
 
-**OPEN:** demo terminal. **TYPE:**
+## 2 — Code overview · browser tab 2, then VS Code
+
+**SHOW:** browser tab 2. Point to the backend, frontend, Terraform, Helm, GitOps and monitoring folders.
+
+**SAY:**
+
+> This is the project folder in my GitHub repository.
+> The app code and the deployment configuration are kept together here.
+
+**SHOW:** VS Code. Open `final-devops-project/backend/app/routes.py`.
+
+**SAY:**
+
+> These are the notes API routes. GET reads notes, POST creates a note,
+> PUT updates it, and DELETE removes it.
+
+**SHOW:** `final-devops-project/backend/app/models.py`.
+
+**SAY:**
+
+> This model defines the notes table. Each note has an ID and its text.
+
+**SHOW:** `final-devops-project/backend/alembic/versions/0001_notes.py`.
+
+**SAY:**
+
+> This is the Alembic migration that creates the table.
+> So the database structure is managed through code.
+
+**SHOW:** `final-devops-project/backend/app/main.py`.
+
+**SAY:**
+
+> This file starts the FastAPI app. It also provides health, readiness and metrics endpoints.
+> Readiness checks whether the database is available.
+
+**SHOW:** `final-devops-project/frontend/src/main.js`.
+
+**SAY:**
+
+> The frontend makes API calls here. These calls load the notes and handle adding, editing and deleting.
+
+## 3 — Working local app, tests and Docker · browser tab 3 and Terminal tab 4
+
+**SHOW:** browser tab 3, `http://localhost:13000`.
+
+**SAY:**
+
+> This is the app running locally with Docker Compose.
+> I'll create one note and check the full flow.
+
+**CLICK:** the note input. Type `Live demo: deployment check completed`, then click **Add note**.
+
+**SAY:**
+
+> The note is added. Now I'll refresh the page.
+
+**CLICK:** browser Refresh. Find your new note again.
+
+**WAIT:** the note must still be visible before continuing.
+
+**SAY:**
+
+> The note is still here after refreshing. It is stored in Postgres.
+
+**CLICK:** **Edit** beside only your new demo note. Change it to
+`Live demo: deployment check completed and verified`. Accept the edit.
+
+**SAY:**
+
+> Now the text is updated. I'll delete this demo note also.
+
+**CLICK:** **Delete** beside only that demo note.
+
+**WAIT:** confirm that demo note disappears.
+
+**SHOW:** briefly narrow the browser window, then restore its normal size.
+
+**SAY:**
+
+> The layout also adjusts to a smaller window.
+
+**SHOW:** Terminal tab 4.
+
+**TYPE:**
 
 ```bash
 curl -fsS http://localhost:13000/health
+```
+
+**WAIT:** for the successful JSON response.
+
+**SAY:**
+
+> The health endpoint is responding. Next, I'll run the tests.
+
+**TYPE:**
+
+```bash
 backend/.venv/bin/python -m pytest -c backend/pytest.ini backend/tests -v
 ```
 
-**WAIT:** for the results. If all tests pass:
+**WAIT:** for the final test summary. It must show **23 passed** before the next speech.
+If the result is different, stop and check it instead of reading a success claim.
 
-> The health endpoint is responding, and all 23 tests have passed. These tests cover
-> several endpoints and include success cases and invalid requests.
+**SAY:**
 
-**OPEN:** `backend/tests/conftest.py`.
+> All 23 tests have passed. They cover the API behavior, invalid inputs, metrics and migrations.
 
-> This fixture uses a temporary test database by default. PostgreSQL tests require
-> a dedicated database ending in underscore test. The production database is not
-> used for the test suite.
+**SHOW:** VS Code → `final-devops-project/backend/tests/conftest.py`.
 
-**OPEN:** both Dockerfiles, then `docker-compose.yml`.
+**SAY:**
 
-> The frontend uses a multi-stage build: Node builds the assets and NGINX serves
-> them. Both application images run as non-root users. Docker Compose brings up the
-> frontend, backend and PostgreSQL together. I use port 13000 on this laptop because
-> another application needs port 3000.
+> This fixture uses separate test storage. The PostgreSQL tests require a dedicated test database.
+> These tests do not use the live application database.
 
-**OPEN:** demo terminal. **TYPE:**
+**SHOW:** `final-devops-project/backend/Dockerfile`, then `final-devops-project/frontend/Dockerfile`.
+
+**SAY:**
+
+> These files build the application images. The frontend has two stages:
+> Node builds the files, and NGINX serves them. Both app images run as non-root users.
+
+**SHOW:** `final-devops-project/docker-compose.yml`.
+
+**SAY:**
+
+> Compose brings up the frontend, backend and Postgres together.
+> On this laptop, I use port 13000 because port 3000 is needed by another application.
+
+**SHOW:** Terminal tab 4.
+
+**TYPE:**
 
 ```bash
 docker compose up -d --build --wait
+```
+
+**WAIT:** for success. Then **TYPE:**
+
+```bash
 docker compose ps
 ```
 
-**WAIT:** for success and healthy services. Show the output before moving on.
+**CHECK:** frontend, backend and database all show **healthy**.
 
-## Part 3 — make a real push and show CI/CD
+**SAY:**
 
-**OPEN:** `.github/workflows/three-tier-project.yml` at the repository root.
+> The build completed, and all three services are healthy.
+> Now I'll show the automated pipeline.
 
-> This workflow runs on a push to main. The test and security job must pass before
-> the image job starts. Both images are scanned before they are pushed to GHCR.
+## 4 — Real push and CI/CD · browser tab 4, VS Code and Terminal tab 4
 
-**OPEN:** `final-devops-project/gitops/argocd/values-eks.yaml`.
+**SHOW:** browser tab 4. This is the correct **Three-tier Project CI CD** workflow.
 
-**DO:** Change only:
+**SAY:**
+
+> These are the earlier pipeline runs. I'll trigger a new run now with a real push.
+
+**SHOW:** VS Code → `final-devops-project/gitops/argocd/values-eks.yaml`.
+
+**CLICK / EDIT:** change only this line:
 
 ```yaml
 appTitle: Operations Notes
@@ -268,78 +349,152 @@ appTitle: Operations Notes
 to:
 
 ```yaml
-appTitle: Operations Notes - Video Demo
+appTitle: Operations Notes - Live Demo
 ```
 
-Save with Command-S. If that demo title is already present, use a different visible
-title so this is a genuine new change.
+Press **Command + S** to save. The value must actually change.
+If you already used `Operations Notes - Live Demo` in a previous take, choose a new visible title
+and remember that exact text for the later app check.
 
-> For the live demonstration, I am changing the application title in the GitOps
-> configuration. I will commit this change and push it to main.
+**SAY:**
 
-**OPEN:** demo terminal. **TYPE, one line at a time:**
+> I'm changing the app title in the GitOps configuration.
+> I'll push this change and then show the pipeline and the updated app.
+
+**SHOW:** Terminal tab 4. **TYPE:**
 
 ```bash
 python3 scripts/aws-guard.py --kubeconfig "$KUBECONFIG"
+```
+
+**CHECK:** the command succeeds and shows an ACTIVE FREE plan with available credits.
+Stop if it fails.
+
+**SAY:**
+
+> This check confirms I'm using the homework AWS project with an active Free plan and credits.
+
+**TYPE each command separately. Wait for each to finish:**
+
+```bash
 git diff -- gitops/argocd/values-eks.yaml
+```
+
+**CHECK:** the diff shows your title change. Then:
+
+```bash
 git add gitops/argocd/values-eks.yaml
-git commit -m "Demonstrate the capstone GitOps title rollout"
+```
+
+```bash
+git commit -m "Demonstrate the capstone title change during the live walkthrough"
+```
+
+```bash
 git push origin main
 ```
 
-**STOP if the guard fails.** Do not bypass the Free-plan check. If Git says there
-is nothing to commit, return to the file, make a new title change and save it.
+**WAIT:** the push must succeed. If it says there is nothing to commit, return to the title file,
+make a new change, save it, and retry. Do not present an old run as this new push.
 
-**OPEN:** Actions tab. Refresh and open the new **Three-tier Project CI CD** run
-for the commit you just pushed. Keep recording while it runs; explain the workflow
-and open the job logs. Wait for this new run to finish successfully.
+**SAY:**
 
-> This is the run triggered by my push. First it runs the backend tests and builds
-> the frontend. After those checks, it builds the two Docker images and runs Trivy.
-> It then publishes the scanned images and verifies a Helm deployment in kind.
+> The change is pushed to main. I'll open the run created by this commit.
 
-**AFTER the new run is green:**
+**SHOW:** browser tab 4. Refresh. Click the newest run matching
+**Demonstrate the capstone title change during the live walkthrough** and your new commit ID.
 
-> The complete run has now passed. I will show the security results and image tags.
+**SAY:**
 
-**OPEN:** the **Trivy gates for both application images** step. Show the backend
-and frontend summaries. If both summaries show zero HIGH and CRITICAL findings:
+> This is the new run. The test and security job runs first.
+> The image job depends on that job passing.
 
-> Trivy scanned both final container images. In this run, it found no HIGH or
-> CRITICAL vulnerabilities, so the security gate passed. This result is based on
-> the vulnerability database at the time of the scan.
+**SHOW:** while the run is in progress, switch to VS Code and open the repository-root
+`.github/workflows/three-tier-project.yml`.
+This is outside the `final-devops-project` folder.
 
-If findings appear or the job fails, explain the actual result and resolve it before
-claiming a successful final walkthrough.
+**SAY:**
 
-**OPEN:** repository page → Packages → `ops-notes-backend`, then
-`ops-notes-frontend`. Open the newly published versions and show their full SHA tags.
+> Here, push to main is the trigger. The first job runs tests with SQLite and Postgres.
+> It also builds the frontend and runs the code, dependency and secret checks.
 
-> Both images have been published with the Git commit SHA. This identifies the
-> exact version, instead of relying on a moving latest tag.
+**SHOW:** scroll to the `build-push-deploy` job and the Trivy commands.
 
-## Part 4 — Terraform and AWS Console
+**SAY:**
 
-**OPEN:** `terraform/main.tf`, `eks.tf`, and `terraform.tfvars.example`.
+> This next job builds both images. Trivy scans them before publishing.
+> A HIGH or CRITICAL finding makes this gate fail.
 
-> These files define the AWS infrastructure. The example variables file documents
-> the required inputs without including real credentials. My real inputs and
-> Terraform state are kept outside Git.
+**SHOW:** return to browser tab 4 and the new run. Open the jobs and their logs as they progress.
 
-**OPEN:** demo terminal. **TYPE:**
+**WAIT:** keep recording until **both jobs in this new run are green**.
+The latest runs took about three minutes, but this one may take longer. Waiting is normal.
+Do not read the next success statement while the run is still in progress or failed.
+
+**SAY — only after the whole new run passes:**
+
+> The complete pipeline has passed. It also deployed the app into a temporary kind cluster
+> and checked the frontend, backend and Postgres connection.
+
+**CLICK:** `build-push-deploy` → **Trivy gates for both application images**.
+Show the backend and frontend summaries, scrolling between them.
+
+**CHECK:** both scans show no HIGH or CRITICAL findings before reading this:
+
+**SAY:**
+
+> Trivy scanned both final container images. This run found no HIGH or CRITICAL vulnerabilities,
+> so the gate passed. That result is based on the vulnerability database at scan time.
+
+## 5 — Backend image · browser tab 5
+
+**SHOW:** tab 5. Refresh after the new pipeline passes.
+Find the full commit-ID tag for the push you just made. Point to the tag and the pull command.
+
+**SAY:**
+
+> This is the published backend image. Its tag is the full Git commit ID.
+> That lets us identify the exact version.
+
+## 6 — Frontend image · browser tab 6
+
+**SHOW:** tab 6. Refresh and point to the matching new commit-ID tag.
+
+**SAY:**
+
+> The frontend image is published here also, with the same commit ID.
+> So both images can be traced back to the source change.
+
+### Terraform — before moving to AWS tabs 7, 8 and 9
+
+**SHOW:** VS Code → `final-devops-project/terraform/main.tf`, then
+`final-devops-project/terraform/eks.tf`.
+
+**SAY:**
+
+> Now, coming to infrastructure. Terraform defines the AWS network and the EKS setup here.
+> These resources are already provisioned.
+
+**SHOW:** `final-devops-project/terraform/terraform.tfvars.example`.
+
+**SAY:**
+
+> This example file documents the inputs. My real inputs and Terraform state are kept outside Git.
+
+**SHOW:** Terminal tab 4. **TYPE:**
 
 ```bash
 AWS_PROFILE=devops-homework terraform -chdir=terraform plan -input=false -var-file="$HOME/.local/share/devops-homework/capstone/terraform-inputs.json"
 ```
 
-**WAIT:** for completion. If it reports **No changes**:
+**WAIT:** for completion. The pre-recording check returned **No changes**.
+Read the next speech only if your current run also returns No changes.
+If it reports errors or proposes changes, check those results before continuing.
 
-> This current plan reports no changes because the infrastructure is already
-> provisioned and matches this configuration. I will also show the saved output
-> from the earlier real apply.
+**SAY:**
 
-If it proposes changes, describe those actual changes. Do not apply them just to
-make the video more interesting.
+> The current plan says no changes. The existing infrastructure matches the configuration.
+> I'll also show the saved output from an earlier real apply.
 
 **TYPE:**
 
@@ -347,129 +502,247 @@ make the video more interesting.
 cat evidence/completion/terraform-access-apply.txt
 ```
 
-> This is saved evidence from the real access update on 13 October. It is an
-> earlier execution log; the plan we just ran is the current check.
+**SHOW:** the actual apply summary in the saved output.
 
-**OPEN:** AWS Console VPC page, then the two subnets, then the EKS cluster and its
-Compute tab. Show **ap-southeast-2**, the Active cluster and Active node group.
+**SAY:**
 
-> Here is the actual VPC in Sydney, with two public subnets. This is the EKS
-> cluster, and this is its managed worker node group. These resources are the
-> infrastructure managed by Terraform for this project.
+> This is the saved access-update apply from 13 October.
+> It is earlier execution evidence. The plan we just ran is the current check.
 
-## Part 5 — Argo CD and the GitOps result
+## 7 — AWS VPC · browser tab 7
 
-**OPEN:** Argo CD tab → `operations-notes`. Wait for **Synced** and **Healthy**.
-Use Refresh if necessary. Show the Git revision and the source configuration.
+**SHOW:** tab 7. Point to the selected Region `ap-southeast-2` in the URL and the project
+**For Each and Every**. Select the VPC named `rajasurya-final-devops-vpc`.
+Its ID is `vpc-01f95e9237ca7dae1`.
 
-> Argo CD is tracking main in my repository. It has picked up the title change
-> and reconciled the Helm configuration into EKS. The application is now Synced
-> and Healthy.
+**SAY:**
 
-**OPEN:** EKS app tab, `http://notes.aws.project.local:28080`. Refresh. Point to
-**Operations Notes - Video Demo** in the subtitle below the main heading.
+> This is the actual VPC in the homework AWS project, in Sydney.
+> It is available and managed by Terraform.
 
-> The updated title is visible here. This demonstrates the configuration moving
-> from a Git commit to the running application through Argo CD.
+## 8 — Two public subnets · browser tab 8
 
-> The configuration revision and the container image version are separate. This
-> demo changes configuration. CI verifies the newly built images in kind, while
-> EKS uses the explicitly selected immutable image version in these values.
+**SHOW:** tab 8, filtered to that VPC. Point to these two rows:
 
-If the title is not visible yet, wait for Argo CD to sync and the backend rollout
-to finish; then refresh. Do not claim the change reached the app before it does.
+- `rajasurya-final-devops-public-0`
+- `rajasurya-final-devops-public-1`
 
-## Part 6 — Kubernetes, Helm and Ingress
+**SAY:**
 
-**OPEN:** demo terminal. **TYPE each command and show its output:**
+> These are the two public subnets for this VPC.
+> They are in different availability zones.
+
+## 9 — EKS and worker node group · browser tab 9
+
+**SHOW:** tab 9, cluster `rajasurya-final-devops`. Point to **Active**.
+
+**SAY:**
+
+> This is the actual EKS cluster. Its status is Active.
+
+**CLICK:** **Compute** in the left sidebar, as shown in your AWS screenshot.
+Find **Node groups**, then open `homework-workers-free`.
+
+**WAIT / CHECK:** show the Active node group and its running worker node.
+
+**SAY:**
+
+> This is the managed worker node group. The application workloads run on its worker node.
+
+## 10 — Argo CD, then Kubernetes · browser tab 10 and Terminal tab 4
+
+**SHOW:** browser tab 10. Click **Refresh** in Argo CD if needed.
+
+**WAIT / CHECK:** it must show **Synced**, **Healthy**, and the new Git revision from your live push.
+The last sync panel should also reflect the actual application change once that sync has completed.
+
+**SAY:**
+
+> Argo CD watches main in this repository. It has picked up my title change.
+> The application is now Synced and Healthy.
+
+**CLICK:** **Details** and show the repository source and Helm configuration path, then close the details panel.
+
+**SAY:**
+
+> This is the GitOps flow. I changed the desired configuration in Git,
+> and Argo CD applied that configuration to EKS.
+
+**SHOW:** Terminal tab 4. **TYPE:**
 
 ```bash
 kubectl --context devops-homework-eks get pods -n project-three-tier
+```
+
+**WAIT / CHECK:** all five application pods are **Running**, with **1/1 Ready**.
+If a rollout is still finishing, wait and run the command again.
+
+**SAY:**
+
+> Here are the application pods. There are two frontend pods, two backend pods,
+> and one Postgres pod. They are all Running and Ready.
+
+**TYPE:**
+
+```bash
 kubectl --context devops-homework-eks get deploy,svc,ingress,pvc -n project-three-tier
+```
+
+**SHOW:** the deployment counts, Service types, Ingress hostname and Bound PVC.
+
+**SAY:**
+
+> Both application deployments have two ready replicas. The frontend and backend use ClusterIP Services.
+> The database volume is Bound, and the Ingress hostname is listed here.
+
+**TYPE:**
+
+```bash
 helm --kube-context devops-homework-eks list -n project-three-tier
 ```
 
-> These are the application pods. There are two frontend pods, two backend pods
-> and the PostgreSQL pod. The deployments show two ready replicas each. The
-> application Services are ClusterIP, and the database has persistent storage.
-> Helm shows the installed application release.
+**CHECK:** release `notes` is **deployed**.
 
-**OPEN:** `helm/three-tier/values.yaml` and the frontend/backend templates.
+**SAY:**
 
-> The Helm chart defines these resources and the Ingress routes. Slash goes to
-> the frontend, and slash API goes to the backend.
+> Helm shows the installed application release as deployed.
 
-**OPEN:** EKS app tab again. Add and delete a new note named `EKS live demo`.
+**SHOW:** VS Code → `final-devops-project/helm/three-tier/Chart.yaml`, then
+`final-devops-project/helm/three-tier/templates/frontend.yaml`.
+Scroll to the Ingress paths near the bottom.
 
-> This browser is reaching the real EKS Ingress through a local forwarding
-> connection. The cluster uses an internal NGINX Service rather than a public
-> cloud LoadBalancer. Here I can create and delete a note through that route.
+**SAY:**
 
-## Part 7 — metrics and Prometheus
+> These are the Helm chart files. Ingress sends slash API to the backend,
+> and slash to the frontend.
 
-**OPEN:** demo terminal. **TYPE:**
+## 11 — EKS application and the visible GitOps change · browser tab 11
+
+**SHOW:** tab 11. Refresh.
+Point to the title you entered in step 4, normally **Operations Notes - Live Demo**,
+in the smaller version line below the description.
+The large main heading stays **Operations Notes**.
+
+**WAIT:** the smaller title must actually show your new value before reading this:
+
+**SAY:**
+
+> Here, the new title is visible. This is the change I pushed during the recording.
+> It has reached the running application through Argo CD.
+
+**SAY:**
+
+> The configuration revision and image version are separate here.
+> This demo changes configuration. EKS uses the image version selected in the values file,
+> while CI tests the new images in kind.
+
+**CLICK:** add a note named `EKS live check`, then edit that note to `EKS live check verified`.
+Delete only that demo note when finished.
+
+**SAY:**
+
+> Adding, editing and deleting work here on EKS also.
+> I'm reaching the real cluster Ingress through a local forwarding connection.
+
+### Metrics — before moving to Prometheus
+
+**SHOW:** Terminal tab 4. **TYPE:**
 
 ```bash
-curl -fsS -H 'Host: notes.aws.project.local' http://127.0.0.1:28080/metrics
+curl -fsS http://notes.aws.project.local:28080/metrics
 ```
 
-> This is the backend metrics endpoint. It returns Prometheus-formatted metrics,
-> including application requests and latency.
+**WAIT:** for the metrics output. Point to metric names and numeric values.
 
-**OPEN:** Prometheus tab → Targets. Expand the backend target group if collapsed.
-Point to both backend endpoints and their **UP** status.
+**SAY:**
 
-> Prometheus is scraping both backend pods. Both targets show UP, which confirms
-> that Prometheus can reach the metrics endpoints and collect their data.
+> This is the backend metrics endpoint through Ingress.
+> It returns metrics in the format Prometheus can collect.
 
-## Part 8 — Grafana
+## 12 — Prometheus · browser tab 12
 
-**OPEN:** EKS app tab. Refresh it a few times and load the notes. Then open Grafana.
-Keep the last 15 minutes selected and refresh the dashboard. Allow a little time
-for the next scrape; check that the panels contain data.
+**SHOW:** tab 12. Expand the application target group if needed.
 
-> This is the Grafana application dashboard. It uses Prometheus as its data
-> source. After making requests to the application, we can see the request
-> activity here. The dashboard also helps us observe latency and errors.
+**WAIT / CHECK:** it must show **2/2 up** and both endpoints **UP**.
+After a backend rollout, the pod names or IPs can change. Use the current rows.
 
-Point to actual populated panels. Do not call an empty panel a working live result.
+**SAY:**
 
-## Part 9 — documentation and closing
+> Prometheus is collecting metrics from both backend pods.
+> Both targets show UP, so the scrapes are working.
 
-**OPEN:** repository-root `README.md`, then the GitHub commit history and `demo/`.
+## 13 — Grafana · browser tab 13
 
-> The README explains the architecture, local setup, pipeline, Terraform, Helm
-> deployment and monitoring. The repository also includes the presentation and
-> genuine execution evidence. The commit history records the project changes.
+**SHOW:** tab 13. Keep **Last 15 minutes** selected. Wait for the refresh to finish.
+All four panels should contain data. The error-rate line can correctly be zero.
 
-> This is a capstone environment with one worker node, so it is not a highly
-> available production setup. The Ingress access in this demonstration uses local
-> forwarding. After the live evaluation, I will run the cleanup procedure and
-> add the actual Terraform destroy completion evidence.
+**SAY:**
 
-> That completes my walkthrough of Operations Notes, from application development
-> and testing to deployment, security and monitoring. Thank you.
+> This is the live Grafana dashboard. It gets its data from Prometheus.
 
-## After recording — submission is not finished until these are done
+**SHOW:** point to each panel as you name it.
 
-1. Watch the recording. Confirm audible narration, readable output, slides first,
-   a real push and the new pipeline finishing green, AWS proof, Argo CD, Kubernetes,
-   UP targets and populated Grafana panels. There is no duration or face-camera
-   requirement in the instructions you supplied.
-2. Upload the actual video to this same GitHub repository: repository-root
-   `demo/walkthrough.mp4`, or a release asset as the rubric permits. A renamed MOV
-   is not an MP4 conversion. Keep the existing PPTX/PDF committed.
-3. Restore `appTitle: Operations Notes` in `gitops/argocd/values-eks.yaml`, save,
-   run the AWS guard, then commit and push that restoration. Check Argo CD again.
-4. Keep the cluster available for the required live evaluation. At the agreed
-   cleanup time, use the documented cleanup procedure in the capstone demo README
-   and capture the real **Destroy complete!** output. A destroy plan is not proof
-   that resources were destroyed. Cleanup permanently deletes the homework stack.
-5. Add the genuine cleanup evidence and verify the uploaded video link works.
-6. Submit the repository link yourself using the instructor's form. The assistant
-   will not submit the form. Confirm the deadline with the instructor: the supplied
-   notice says Sunday 19 October 2026, but 19 October is Monday. Until clarified,
-   prepare by Sunday 18 October, 11:59 PM IST.
+**SAY:**
 
-The script helps cover the required demonstrations. Final marks are decided by the
-grader; the video, actual destroy evidence and form submission must still be completed.
+> Here are HTTP responses per second and HTTP errors per second.
+> Below, we can see CPU time and peak memory for the backend pods.
+> These panels show that application metrics are reaching the dashboard.
+
+## 14 — Documentation · browser tab 14
+
+**SHOW:** tab 14. Scroll through architecture, local setup, CI/CD, Terraform,
+Kubernetes deployment, monitoring, and known limitations.
+
+**SAY:**
+
+> The README explains the setup and the main parts of the project.
+> It includes the architecture, local commands, pipeline, AWS, Kubernetes and monitoring steps.
+
+**SAY:**
+
+> This capstone uses one worker node, and I access Ingress through local forwarding.
+> After the live evaluation, I'll clean up the AWS resources and add the actual destroy completion proof.
+
+## 15 — Commit history and closing · browser tab 15
+
+**SHOW:** tab 15. Refresh so your new live-demo commit is visible. Scroll enough to show
+more of the meaningful project history, including at least ten commits.
+
+**SAY:**
+
+> This is the commit history. The latest entry is the change I made during this video.
+> The earlier commits show the application and DevOps work over time.
+
+**SAY:**
+
+> So, that's my Operations Notes project. We have seen the app, tests, containers,
+> pipeline, security scans, AWS infrastructure, GitOps, Kubernetes and monitoring.
+> Thank you for watching.
+
+**STOP RECORDING.**
+
+---
+
+## After recording — instructions only, do not read aloud
+
+- Play back the video. Check your voice, readable text, all slides, the real push,
+  the new full green pipeline, AWS proof, Argo CD, Kubernetes, UP targets and populated Grafana panels.
+- Upload the real MP4 to this same GitHub repository, under repository-root
+  `demo/walkthrough.mp4`, or as a release asset as the rubric permits. A MOV needs
+  actual conversion to MP4; changing its filename is not conversion.
+- Keep the PPTX/PDF committed. The video is mandatory and is not yet provided by this script.
+- Restore `appTitle: Operations Notes` after recording. Run the AWS guard, commit
+  the restoration and push it; check Argo CD again.
+- Keep the cluster for any agreed live evaluation. At cleanup time, follow
+  `final-devops-project/demo/README.md` and capture actual Terraform destroy completion.
+  A destroy plan is not completion proof. Cleanup permanently removes the homework stack.
+- Submit the repository URL yourself using the instructor's form. The assistant does not submit it.
+- The deadline notice has conflicting wording: Sunday is 18 October 2026; 19 October is Monday.
+  Until the instructor confirms the intended date, prepare by 18 October, 11:59 PM IST.
+
+## If something does not match — instructions only
+
+Pause and check the actual result. Do not read a success line while a command fails,
+a job is still running, a target is down or a panel is empty. The helper can reconnect
+a dropped tunnel; wait for its recovery message, then refresh the affected page.
+If you need to fix a real issue, do that before your final take.

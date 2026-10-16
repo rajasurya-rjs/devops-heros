@@ -1,5 +1,10 @@
 # Record and finish the submission
 
+For the current **School Chrome profile** setup and the exact fifteen-tab order,
+follow the [complete read-aloud script](../../demo/RECORDING-SCRIPT.md). It uses
+Terminal tab 4 for live commands. The optional isolated-browser setup below is an
+alternative; the prepared School profile can access the hostname and sign in directly.
+
 The **12-slide PPTX and PDF are ready**. Start with [presentation.pptx](presentation.pptx),
 then record a continuous live walkthrough. Speaker notes provide narration cues.
 The mandatory video and actual post-evaluation destroy screenshot are still pending;
