@@ -2,6 +2,7 @@
 
 **Rajasurya J · 24BCS10086 · Operations Notes**
 
+- [▶ PRESENTATION VIDEO — WATCH / DOWNLOAD](PRESENTATION-VIDEO-LINK.md)
 - [Presentation — PowerPoint](presentation.pptx)
 - [Presentation — PDF](presentation.pdf)
 - [Actual AWS cleanup terminal recording — WebM, silent](aws-cleanup.webm)
