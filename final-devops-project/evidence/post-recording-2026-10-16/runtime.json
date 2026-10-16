@@ -1,0 +1,2164 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "checksum/app-config": "fe666cbc1cefced1fd0f11daa9ea5f7f6544541965be92850201153234a95b9b"
+        },
+        "creationTimestamp": "2026-10-16T14:35:33Z",
+        "generateName": "backend-6b554fbb9f-",
+        "generation": 1,
+        "labels": {
+          "app": "backend",
+          "pod-template-hash": "6b554fbb9f",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "backend-6b554fbb9f-gfhrw",
+        "namespace": "project-three-tier",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "backend-6b554fbb9f",
+            "uid": "d9f86206-a817-41ea-86d6-80bc5ac79401"
+          }
+        ],
+        "resourceVersion": "4224304",
+        "uid": "e1d72044-923a-427a-8b65-9c94dc6f8abe"
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "PGPASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "key": "password",
+                    "name": "three-tier-credentials"
+                  }
+                }
+              },
+              {
+                "name": "APP_TOKEN",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "key": "token",
+                    "name": "three-tier-credentials"
+                  }
+                }
+              }
+            ],
+            "envFrom": [
+              {
+                "configMapRef": {
+                  "name": "backend-config"
+                }
+              }
+            ],
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/health",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "name": "backend",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 6
+            },
+            "resources": {
+              "limits": {
+                "cpu": "300m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "20m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "startupProbe": {
+              "failureThreshold": 60,
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 6
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-kp6lz",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "runAsGroup": 10001,
+          "runAsNonRoot": true,
+          "runAsUser": 10001
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "emptyDir": {},
+            "name": "tmp"
+          },
+          {
+            "name": "kube-api-access-kp6lz",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "20m",
+          "memory": "64Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:33Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:33Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:39Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:39Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:33Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "20m",
+              "memory": "64Mi"
+            },
+            "containerID": "containerd://a8f259d322e0db6736956caf73494a86ae123a32f77db2218aabb0918f6c046c",
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imageID": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend@sha256:582e142321be098cdf841e53e2e75493e10f2f0e06085d9d4a4e8383420ece5f",
+            "lastState": {},
+            "name": "backend",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "300m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "20m",
+                "memory": "64Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T14:35:33Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 10001,
+                "supplementalGroups": [
+                  10001
+                ],
+                "uid": 10001
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-kp6lz",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.82",
+        "podIPs": [
+          {
+            "ip": "10.24.0.82"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "300m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "memory": "64Mi"
+          }
+        },
+        "startTime": "2026-10-16T14:35:33Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "checksum/app-config": "fe666cbc1cefced1fd0f11daa9ea5f7f6544541965be92850201153234a95b9b"
+        },
+        "creationTimestamp": "2026-10-16T14:35:23Z",
+        "generateName": "backend-6b554fbb9f-",
+        "generation": 1,
+        "labels": {
+          "app": "backend",
+          "pod-template-hash": "6b554fbb9f",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "backend-6b554fbb9f-ggq7g",
+        "namespace": "project-three-tier",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "backend-6b554fbb9f",
+            "uid": "d9f86206-a817-41ea-86d6-80bc5ac79401"
+          }
+        ],
+        "resourceVersion": "4224233",
+        "uid": "a51a1ab8-9872-45ed-b1c7-7781975a7669"
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "PGPASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "key": "password",
+                    "name": "three-tier-credentials"
+                  }
+                }
+              },
+              {
+                "name": "APP_TOKEN",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "key": "token",
+                    "name": "three-tier-credentials"
+                  }
+                }
+              }
+            ],
+            "envFrom": [
+              {
+                "configMapRef": {
+                  "name": "backend-config"
+                }
+              }
+            ],
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/health",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "name": "backend",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 6
+            },
+            "resources": {
+              "limits": {
+                "cpu": "300m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "20m",
+                "memory": "64Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "startupProbe": {
+              "failureThreshold": 60,
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 6
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-8jgxb",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "runAsGroup": 10001,
+          "runAsNonRoot": true,
+          "runAsUser": 10001
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "emptyDir": {},
+            "name": "tmp"
+          },
+          {
+            "name": "kube-api-access-8jgxb",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "20m",
+          "memory": "64Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:24Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:23Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:33Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:33Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T14:35:23Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "20m",
+              "memory": "64Mi"
+            },
+            "containerID": "containerd://b294c4664adc059da4a7768c50480a4b3be98ed4f7395db2bd7b83e585aacdb8",
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imageID": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend@sha256:582e142321be098cdf841e53e2e75493e10f2f0e06085d9d4a4e8383420ece5f",
+            "lastState": {},
+            "name": "backend",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "300m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "20m",
+                "memory": "64Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T14:35:24Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 10001,
+                "supplementalGroups": [
+                  10001
+                ],
+                "uid": 10001
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-8jgxb",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.44",
+        "podIPs": [
+          {
+            "ip": "10.24.0.44"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "300m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "memory": "64Mi"
+          }
+        },
+        "startTime": "2026-10-16T14:35:23Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-13T13:32:38Z",
+        "generateName": "database-",
+        "generation": 1,
+        "labels": {
+          "app": "database",
+          "apps.kubernetes.io/pod-index": "0",
+          "controller-revision-hash": "database-66f94b7c89",
+          "statefulset.kubernetes.io/pod-name": "database-0",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "database-0",
+        "namespace": "project-three-tier",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "StatefulSet",
+            "name": "database",
+            "uid": "18a82dda-888b-4c25-8285-20c0d030842d"
+          }
+        ],
+        "resourceVersion": "3122113",
+        "uid": "5b4c39a9-bd05-4e94-8a14-bc6affd1f851"
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "POSTGRES_USER",
+                "value": "notes"
+              },
+              {
+                "name": "POSTGRES_DB",
+                "value": "notes"
+              },
+              {
+                "name": "PGDATA",
+                "value": "/var/lib/postgresql/data/pgdata"
+              },
+              {
+                "name": "POSTGRES_PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "key": "password",
+                    "name": "three-tier-credentials"
+                  }
+                }
+              }
+            ],
+            "image": "postgres:17-alpine",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "pg_isready",
+                  "-U",
+                  "notes",
+                  "-d",
+                  "notes"
+                ]
+              },
+              "failureThreshold": 3,
+              "initialDelaySeconds": 30,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 1
+            },
+            "name": "postgres",
+            "ports": [
+              {
+                "containerPort": 5432,
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "pg_isready",
+                  "-U",
+                  "notes",
+                  "-d",
+                  "notes"
+                ]
+              },
+              "failureThreshold": 3,
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 1
+            },
+            "resources": {
+              "limits": {
+                "cpu": "300m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "30m",
+                "memory": "64Mi"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/var/lib/postgresql/data",
+                "name": "postgres-data"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-mqv4r",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "hostname": "database-0",
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "fsGroup": 70,
+          "runAsGroup": 70,
+          "runAsUser": 70
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "subdomain": "database",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "name": "postgres-data",
+            "persistentVolumeClaim": {
+              "claimName": "postgres-data-database-0"
+            }
+          },
+          {
+            "name": "kube-api-access-mqv4r",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "30m",
+          "memory": "64Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:48Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:58Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:58Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "30m",
+              "memory": "64Mi"
+            },
+            "containerID": "containerd://2d7c8883404f7e3cc451d08865e4882283d6ba0df747ad9b82db7fc12009d062",
+            "image": "docker.io/library/postgres:17-alpine",
+            "imageID": "docker.io/library/postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+            "lastState": {},
+            "name": "postgres",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "300m",
+                "memory": "256Mi"
+              },
+              "requests": {
+                "cpu": "30m",
+                "memory": "64Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-13T13:32:54Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 70,
+                "supplementalGroups": [
+                  70
+                ],
+                "uid": 70
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/var/lib/postgresql/data",
+                "name": "postgres-data"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-mqv4r",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.171",
+        "podIPs": [
+          {
+            "ip": "10.24.0.171"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "300m",
+            "memory": "256Mi"
+          },
+          "requests": {
+            "cpu": "28m",
+            "memory": "64Mi"
+          }
+        },
+        "startTime": "2026-10-13T13:32:41Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-13T13:32:38Z",
+        "generateName": "frontend-6d7b8d6cb6-",
+        "generation": 1,
+        "labels": {
+          "app": "frontend",
+          "pod-template-hash": "6d7b8d6cb6",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "frontend-6d7b8d6cb6-6tzmg",
+        "namespace": "project-three-tier",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "frontend-6d7b8d6cb6",
+            "uid": "4bbb9892-8b47-4af5-8ccd-37242f7da737"
+          }
+        ],
+        "resourceVersion": "3122052",
+        "uid": "1540db37-51ad-4c2b-90fd-7b9b5d4b6af8"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "name": "frontend",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "16Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-2twqk",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "runAsGroup": 101,
+          "runAsNonRoot": true,
+          "runAsUser": 101
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "emptyDir": {},
+            "name": "tmp"
+          },
+          {
+            "name": "kube-api-access-2twqk",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "10m",
+          "memory": "16Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:39Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:38Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:46Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:46Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:38Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            },
+            "containerID": "containerd://161982abd1d4204a42d191b559cfa69c92c8236b31a1720299e995e4632055b4",
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imageID": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend@sha256:dd148c96072b7a679a599f11478851b49d76201d39cea33c2d08b2e6fb677e7b",
+            "lastState": {},
+            "name": "frontend",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "16Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-13T13:32:46Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 101,
+                "supplementalGroups": [
+                  101
+                ],
+                "uid": 101
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-2twqk",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.124",
+        "podIPs": [
+          {
+            "ip": "10.24.0.124"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "100m",
+            "memory": "64Mi"
+          },
+          "requests": {
+            "memory": "16Mi"
+          }
+        },
+        "startTime": "2026-10-13T13:32:38Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-13T13:32:38Z",
+        "generateName": "frontend-6d7b8d6cb6-",
+        "generation": 1,
+        "labels": {
+          "app": "frontend",
+          "pod-template-hash": "6d7b8d6cb6",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "frontend-6d7b8d6cb6-bqjnk",
+        "namespace": "project-three-tier",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "frontend-6d7b8d6cb6",
+            "uid": "4bbb9892-8b47-4af5-8ccd-37242f7da737"
+          }
+        ],
+        "resourceVersion": "3122043",
+        "uid": "b830924c-542d-4224-89e6-a9f16147c739"
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imagePullPolicy": "IfNotPresent",
+            "livenessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "name": "frontend",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/",
+                "port": 8080,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 3,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "16Mi"
+              }
+            },
+            "securityContext": {
+              "allowPrivilegeEscalation": false,
+              "capabilities": {
+                "drop": [
+                  "ALL"
+                ]
+              },
+              "readOnlyRootFilesystem": true
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-f4jjr",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {
+          "runAsGroup": 101,
+          "runAsNonRoot": true,
+          "runAsUser": 101
+        },
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "emptyDir": {},
+            "name": "tmp"
+          },
+          {
+            "name": "kube-api-access-f4jjr",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "10m",
+          "memory": "16Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:39Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:38Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:46Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:46Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-13T13:32:38Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "10m",
+              "memory": "16Mi"
+            },
+            "containerID": "containerd://edb686751239115cbef84de91d988a64c79e6895e9e72be3fa46f5361908d004",
+            "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+            "imageID": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend@sha256:dd148c96072b7a679a599f11478851b49d76201d39cea33c2d08b2e6fb677e7b",
+            "lastState": {},
+            "name": "frontend",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "100m",
+                "memory": "64Mi"
+              },
+              "requests": {
+                "cpu": "10m",
+                "memory": "16Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-13T13:32:46Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 101,
+                "supplementalGroups": [
+                  101
+                ],
+                "uid": 101
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/tmp",
+                "name": "tmp"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-f4jjr",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.26",
+        "podIPs": [
+          {
+            "ip": "10.24.0.26"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "100m",
+            "memory": "64Mi"
+          },
+          "requests": {
+            "memory": "16Mi"
+          }
+        },
+        "startTime": "2026-10-13T13:32:38Z"
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "operations-notes:apps/Deployment:project-three-tier/backend",
+          "deployment.kubernetes.io/revision": "4",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{\"argocd.argoproj.io/tracking-id\":\"operations-notes:apps/Deployment:project-three-tier/backend\"},\"name\":\"backend\",\"namespace\":\"project-three-tier\"},\"spec\":{\"replicas\":2,\"selector\":{\"matchLabels\":{\"app\":\"backend\"}},\"template\":{\"metadata\":{\"annotations\":{\"checksum/app-config\":\"fe666cbc1cefced1fd0f11daa9ea5f7f6544541965be92850201153234a95b9b\"},\"labels\":{\"app\":\"backend\"}},\"spec\":{\"containers\":[{\"env\":[{\"name\":\"PGPASSWORD\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"password\",\"name\":\"three-tier-credentials\"}}},{\"name\":\"APP_TOKEN\",\"valueFrom\":{\"secretKeyRef\":{\"key\":\"token\",\"name\":\"three-tier-credentials\"}}}],\"envFrom\":[{\"configMapRef\":{\"name\":\"backend-config\"}}],\"image\":\"ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/health\",\"port\":8080},\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"backend\",\"ports\":[{\"containerPort\":8080}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/ready\",\"port\":8080},\"periodSeconds\":3,\"timeoutSeconds\":6},\"resources\":{\"limits\":{\"cpu\":\"300m\",\"memory\":\"256Mi\"},\"requests\":{\"cpu\":\"20m\",\"memory\":\"64Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"startupProbe\":{\"failureThreshold\":60,\"httpGet\":{\"path\":\"/ready\",\"port\":8080},\"periodSeconds\":3,\"timeoutSeconds\":6},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"securityContext\":{\"runAsGroup\":10001,\"runAsNonRoot\":true,\"runAsUser\":10001},\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp\"}]}}}}\n",
+          "meta.helm.sh/release-name": "notes",
+          "meta.helm.sh/release-namespace": "project-three-tier"
+        },
+        "creationTimestamp": "2026-10-13T13:32:37Z",
+        "generation": 5,
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "name": "backend",
+        "namespace": "project-three-tier",
+        "resourceVersion": "4224331",
+        "uid": "60cdbf58-3592-41f0-9d2b-e8a1a722e5ca"
+      },
+      "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 2,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "matchLabels": {
+            "app": "backend"
+          }
+        },
+        "strategy": {
+          "rollingUpdate": {
+            "maxSurge": "25%",
+            "maxUnavailable": "25%"
+          },
+          "type": "RollingUpdate"
+        },
+        "template": {
+          "metadata": {
+            "annotations": {
+              "checksum/app-config": "fe666cbc1cefced1fd0f11daa9ea5f7f6544541965be92850201153234a95b9b"
+            },
+            "labels": {
+              "app": "backend"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "env": [
+                  {
+                    "name": "PGPASSWORD",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "password",
+                        "name": "three-tier-credentials"
+                      }
+                    }
+                  },
+                  {
+                    "name": "APP_TOKEN",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "key": "token",
+                        "name": "three-tier-credentials"
+                      }
+                    }
+                  }
+                ],
+                "envFrom": [
+                  {
+                    "configMapRef": {
+                      "name": "backend-config"
+                    }
+                  }
+                ],
+                "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/health",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 3
+                },
+                "name": "backend",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 3,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 6
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "300m",
+                    "memory": "256Mi"
+                  },
+                  "requests": {
+                    "cpu": "20m",
+                    "memory": "64Mi"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  },
+                  "readOnlyRootFilesystem": true
+                },
+                "startupProbe": {
+                  "failureThreshold": 60,
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 3,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 6
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/tmp",
+                    "name": "tmp"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {
+              "runAsGroup": 10001,
+              "runAsNonRoot": true,
+              "runAsUser": 10001
+            },
+            "terminationGracePeriodSeconds": 30,
+            "volumes": [
+              {
+                "emptyDir": {},
+                "name": "tmp"
+              }
+            ]
+          }
+        }
+      },
+      "status": {
+        "availableReplicas": 2,
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-10-13T13:33:06Z",
+            "lastUpdateTime": "2026-10-13T13:33:06Z",
+            "message": "Deployment has minimum availability.",
+            "reason": "MinimumReplicasAvailable",
+            "status": "True",
+            "type": "Available"
+          },
+          {
+            "lastTransitionTime": "2026-10-13T13:32:38Z",
+            "lastUpdateTime": "2026-10-16T14:35:39Z",
+            "message": "ReplicaSet \"backend-6b554fbb9f\" has successfully progressed.",
+            "reason": "NewReplicaSetAvailable",
+            "status": "True",
+            "type": "Progressing"
+          }
+        ],
+        "observedGeneration": 5,
+        "readyReplicas": 2,
+        "replicas": 2,
+        "terminatingReplicas": 0,
+        "updatedReplicas": 2
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "operations-notes:apps/Deployment:project-three-tier/frontend",
+          "deployment.kubernetes.io/revision": "1",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"annotations\":{\"argocd.argoproj.io/tracking-id\":\"operations-notes:apps/Deployment:project-three-tier/frontend\"},\"name\":\"frontend\",\"namespace\":\"project-three-tier\"},\"spec\":{\"replicas\":2,\"selector\":{\"matchLabels\":{\"app\":\"frontend\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"frontend\"}},\"spec\":{\"containers\":[{\"image\":\"ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":8080},\"periodSeconds\":10,\"timeoutSeconds\":3},\"name\":\"frontend\",\"ports\":[{\"containerPort\":8080}],\"readinessProbe\":{\"httpGet\":{\"path\":\"/\",\"port\":8080},\"periodSeconds\":3,\"timeoutSeconds\":3},\"resources\":{\"limits\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"},\"requests\":{\"cpu\":\"10m\",\"memory\":\"16Mi\"}},\"securityContext\":{\"allowPrivilegeEscalation\":false,\"capabilities\":{\"drop\":[\"ALL\"]},\"readOnlyRootFilesystem\":true},\"volumeMounts\":[{\"mountPath\":\"/tmp\",\"name\":\"tmp\"}]}],\"securityContext\":{\"runAsGroup\":101,\"runAsNonRoot\":true,\"runAsUser\":101},\"volumes\":[{\"emptyDir\":{},\"name\":\"tmp\"}]}}}}\n",
+          "meta.helm.sh/release-name": "notes",
+          "meta.helm.sh/release-namespace": "project-three-tier"
+        },
+        "creationTimestamp": "2026-10-13T13:32:37Z",
+        "generation": 2,
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "name": "frontend",
+        "namespace": "project-three-tier",
+        "resourceVersion": "3124524",
+        "uid": "f41b88c8-f924-4fe2-8128-f6908a10f180"
+      },
+      "spec": {
+        "progressDeadlineSeconds": 600,
+        "replicas": 2,
+        "revisionHistoryLimit": 10,
+        "selector": {
+          "matchLabels": {
+            "app": "frontend"
+          }
+        },
+        "strategy": {
+          "rollingUpdate": {
+            "maxSurge": "25%",
+            "maxUnavailable": "25%"
+          },
+          "type": "RollingUpdate"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "frontend"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "image": "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+                "imagePullPolicy": "IfNotPresent",
+                "livenessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 10,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 3
+                },
+                "name": "frontend",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "readinessProbe": {
+                  "failureThreshold": 3,
+                  "httpGet": {
+                    "path": "/",
+                    "port": 8080,
+                    "scheme": "HTTP"
+                  },
+                  "periodSeconds": 3,
+                  "successThreshold": 1,
+                  "timeoutSeconds": 3
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "requests": {
+                    "cpu": "10m",
+                    "memory": "16Mi"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  },
+                  "readOnlyRootFilesystem": true
+                },
+                "terminationMessagePath": "/dev/termination-log",
+                "terminationMessagePolicy": "File",
+                "volumeMounts": [
+                  {
+                    "mountPath": "/tmp",
+                    "name": "tmp"
+                  }
+                ]
+              }
+            ],
+            "dnsPolicy": "ClusterFirst",
+            "restartPolicy": "Always",
+            "schedulerName": "default-scheduler",
+            "securityContext": {
+              "runAsGroup": 101,
+              "runAsNonRoot": true,
+              "runAsUser": 101
+            },
+            "terminationGracePeriodSeconds": 30,
+            "volumes": [
+              {
+                "emptyDir": {},
+                "name": "tmp"
+              }
+            ]
+          }
+        }
+      },
+      "status": {
+        "availableReplicas": 2,
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-10-13T13:32:46Z",
+            "lastUpdateTime": "2026-10-13T13:32:46Z",
+            "message": "Deployment has minimum availability.",
+            "reason": "MinimumReplicasAvailable",
+            "status": "True",
+            "type": "Available"
+          },
+          {
+            "lastTransitionTime": "2026-10-13T13:32:38Z",
+            "lastUpdateTime": "2026-10-13T13:32:46Z",
+            "message": "ReplicaSet \"frontend-6d7b8d6cb6\" has successfully progressed.",
+            "reason": "NewReplicaSetAvailable",
+            "status": "True",
+            "type": "Progressing"
+          }
+        ],
+        "observedGeneration": 2,
+        "readyReplicas": 2,
+        "replicas": 2,
+        "terminatingReplicas": 0,
+        "updatedReplicas": 2
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "operations-notes:/Service:project-three-tier/backend",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{\"argocd.argoproj.io/tracking-id\":\"operations-notes:/Service:project-three-tier/backend\"},\"name\":\"backend\",\"namespace\":\"project-three-tier\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app\":\"backend\"}}}\n",
+          "meta.helm.sh/release-name": "notes",
+          "meta.helm.sh/release-namespace": "project-three-tier"
+        },
+        "creationTimestamp": "2026-10-13T13:32:37Z",
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "name": "backend",
+        "namespace": "project-three-tier",
+        "resourceVersion": "3124518",
+        "uid": "7252458b-4019-4c7d-9496-51617ee8c4b7"
+      },
+      "spec": {
+        "clusterIP": "172.20.97.229",
+        "clusterIPs": [
+          "172.20.97.229"
+        ],
+        "internalTrafficPolicy": "Cluster",
+        "ipFamilies": [
+          "IPv4"
+        ],
+        "ipFamilyPolicy": "SingleStack",
+        "ports": [
+          {
+            "port": 8080,
+            "protocol": "TCP",
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app": "backend"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "operations-notes:/Service:project-three-tier/database",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{\"argocd.argoproj.io/tracking-id\":\"operations-notes:/Service:project-three-tier/database\"},\"name\":\"database\",\"namespace\":\"project-three-tier\"},\"spec\":{\"clusterIP\":\"None\",\"ports\":[{\"port\":5432,\"targetPort\":5432}],\"selector\":{\"app\":\"database\"}}}\n",
+          "meta.helm.sh/release-name": "notes",
+          "meta.helm.sh/release-namespace": "project-three-tier"
+        },
+        "creationTimestamp": "2026-10-13T13:32:37Z",
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "name": "database",
+        "namespace": "project-three-tier",
+        "resourceVersion": "3124516",
+        "uid": "c283a100-a198-4761-af8b-e8e9d452650e"
+      },
+      "spec": {
+        "clusterIP": "None",
+        "clusterIPs": [
+          "None"
+        ],
+        "internalTrafficPolicy": "Cluster",
+        "ipFamilies": [
+          "IPv4"
+        ],
+        "ipFamilyPolicy": "SingleStack",
+        "ports": [
+          {
+            "port": 5432,
+            "protocol": "TCP",
+            "targetPort": 5432
+          }
+        ],
+        "selector": {
+          "app": "database"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Service",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/tracking-id": "operations-notes:/Service:project-three-tier/frontend",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{\"argocd.argoproj.io/tracking-id\":\"operations-notes:/Service:project-three-tier/frontend\"},\"name\":\"frontend\",\"namespace\":\"project-three-tier\"},\"spec\":{\"ports\":[{\"port\":8080,\"targetPort\":8080}],\"selector\":{\"app\":\"frontend\"}}}\n",
+          "meta.helm.sh/release-name": "notes",
+          "meta.helm.sh/release-namespace": "project-three-tier"
+        },
+        "creationTimestamp": "2026-10-13T13:32:37Z",
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "name": "frontend",
+        "namespace": "project-three-tier",
+        "resourceVersion": "3124517",
+        "uid": "4461dfcb-ff62-47f6-8b6d-2a21608c90e1"
+      },
+      "spec": {
+        "clusterIP": "172.20.218.21",
+        "clusterIPs": [
+          "172.20.218.21"
+        ],
+        "internalTrafficPolicy": "Cluster",
+        "ipFamilies": [
+          "IPv4"
+        ],
+        "ipFamilyPolicy": "SingleStack",
+        "ports": [
+          {
+            "port": 8080,
+            "protocol": "TCP",
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "app": "frontend"
+        },
+        "sessionAffinity": "None",
+        "type": "ClusterIP"
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "networking.k8s.io/v1",
+      "kind": "Ingress",
+      "metadata": {
+        "annotations": {
+          "argocd.argoproj.io/ignore-healthcheck": "true",
+          "argocd.argoproj.io/tracking-id": "operations-notes:networking.k8s.io/Ingress:project-three-tier/frontend",
+          "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"Ingress\",\"metadata\":{\"annotations\":{\"argocd.argoproj.io/ignore-healthcheck\":\"true\",\"argocd.argoproj.io/tracking-id\":\"operations-notes:networking.k8s.io/Ingress:project-three-tier/frontend\"},\"name\":\"frontend\",\"namespace\":\"project-three-tier\"},\"spec\":{\"ingressClassName\":\"nginx\",\"rules\":[{\"host\":\"notes.aws.project.local\",\"http\":{\"paths\":[{\"backend\":{\"service\":{\"name\":\"backend\",\"port\":{\"number\":8080}}},\"path\":\"/api\",\"pathType\":\"Prefix\"},{\"backend\":{\"service\":{\"name\":\"frontend\",\"port\":{\"number\":8080}}},\"path\":\"/\",\"pathType\":\"Prefix\"}]}}]}}\n",
+          "meta.helm.sh/release-name": "notes",
+          "meta.helm.sh/release-namespace": "project-three-tier"
+        },
+        "creationTimestamp": "2026-10-13T13:32:38Z",
+        "generation": 1,
+        "labels": {
+          "app.kubernetes.io/managed-by": "Helm"
+        },
+        "name": "frontend",
+        "namespace": "project-three-tier",
+        "resourceVersion": "3135700",
+        "uid": "eaf48228-69a9-4bcf-b88b-6922f9d87747"
+      },
+      "spec": {
+        "ingressClassName": "nginx",
+        "rules": [
+          {
+            "host": "notes.aws.project.local",
+            "http": {
+              "paths": [
+                {
+                  "backend": {
+                    "service": {
+                      "name": "backend",
+                      "port": {
+                        "number": 8080
+                      }
+                    }
+                  },
+                  "path": "/api",
+                  "pathType": "Prefix"
+                },
+                {
+                  "backend": {
+                    "service": {
+                      "name": "frontend",
+                      "port": {
+                        "number": 8080
+                      }
+                    }
+                  },
+                  "path": "/",
+                  "pathType": "Prefix"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "PersistentVolumeClaim",
+      "metadata": {
+        "annotations": {
+          "pv.kubernetes.io/bind-completed": "yes",
+          "pv.kubernetes.io/bound-by-controller": "yes",
+          "volume.beta.kubernetes.io/storage-provisioner": "ebs.csi.aws.com",
+          "volume.kubernetes.io/selected-node": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+          "volume.kubernetes.io/storage-provisioner": "ebs.csi.aws.com"
+        },
+        "creationTimestamp": "2026-10-13T13:32:38Z",
+        "finalizers": [
+          "kubernetes.io/pvc-protection"
+        ],
+        "labels": {
+          "app": "database"
+        },
+        "name": "postgres-data-database-0",
+        "namespace": "project-three-tier",
+        "resourceVersion": "3121960",
+        "uid": "c65daf8c-b8d5-4a83-b490-1a8c9b512a27"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "1Gi"
+          }
+        },
+        "storageClassName": "homework-gp3",
+        "volumeMode": "Filesystem",
+        "volumeName": "pvc-c65daf8c-b8d5-4a83-b490-1a8c9b512a27"
+      },
+      "status": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "capacity": {
+          "storage": "1Gi"
+        },
+        "phase": "Bound"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

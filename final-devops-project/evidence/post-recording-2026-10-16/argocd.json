@@ -1,0 +1,27 @@
+{
+  "health": {
+    "lastTransitionTime": "2026-10-16T14:35:39Z",
+    "status": "Healthy"
+  },
+  "sync": {
+    "comparedTo": {
+      "destination": {
+        "namespace": "project-three-tier",
+        "server": "https://kubernetes.default.svc"
+      },
+      "source": {
+        "helm": {
+          "releaseName": "notes",
+          "valueFiles": [
+            "../../gitops/argocd/values-eks.yaml"
+          ]
+        },
+        "path": "final-devops-project/helm/three-tier",
+        "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+        "targetRevision": "main"
+      }
+    },
+    "revision": "361c4637c8f01f82b6332293c23d8a8da9d5e6ee",
+    "status": "Synced"
+  }
+}

@@ -1,0 +1,100 @@
+aws_iam_role.cluster: Refreshing state... [id=rajasurya-final-eks-cluster]
+aws_iam_role.ebs: Refreshing state... [id=rajasurya-final-ebs-csi]
+aws_iam_role.node: Refreshing state... [id=rajasurya-final-eks-node]
+aws_cloudwatch_log_group.cluster: Refreshing state... [id=/aws/eks/rajasurya-final-devops/cluster]
+aws_launch_template.node: Refreshing state... [id=lt-05ba07372261d1312]
+module.cloud.data.aws_ami.linux: Reading...
+module.cloud.aws_vpc.main: Refreshing state... [id=vpc-01f95e9237ca7dae1]
+module.cloud.aws_s3_bucket.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+aws_iam_role_policy_attachment.cluster: Refreshing state... [id=rajasurya-final-eks-cluster/arn:aws:iam::aws:policy/AmazonEKSClusterPolicy]
+aws_iam_role_policy_attachment.ebs: Refreshing state... [id=rajasurya-final-ebs-csi/arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy]
+aws_iam_role_policy_attachment.node["AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy]
+aws_iam_role_policy_attachment.node["AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly]
+aws_iam_role_policy_attachment.node["AmazonEKS_CNI_Policy"]: Refreshing state... [id=rajasurya-final-eks-node/arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy]
+module.cloud.data.aws_ami.linux: Read complete after 3s [id=ami-0587b5bb1bc9eab99]
+module.cloud.aws_internet_gateway.main: Refreshing state... [id=igw-03024f21ada5ee6db]
+module.cloud.aws_subnet.public[0]: Refreshing state... [id=subnet-0a003dcfb1d6234e0]
+module.cloud.aws_subnet.public[1]: Refreshing state... [id=subnet-0d9e385ec0ffa74df]
+module.cloud.aws_security_group.web: Refreshing state... [id=sg-028c9037eba80af67]
+module.cloud.aws_route_table.public: Refreshing state... [id=rtb-0b68880791a93a328]
+module.cloud.aws_route_table_association.public[0]: Refreshing state... [id=rtbassoc-03ce8a9b6897c6fd2]
+module.cloud.aws_route_table_association.public[1]: Refreshing state... [id=rtbassoc-04647510f2a76d67b]
+aws_eks_cluster.main: Refreshing state... [id=rajasurya-final-devops]
+module.cloud.aws_instance.web: Refreshing state... [id=i-029fb2fc75faa02df]
+aws_eks_node_group.main: Refreshing state... [id=rajasurya-final-devops:homework-workers-free]
+aws_eks_addon.metrics: Refreshing state... [id=rajasurya-final-devops:metrics-server]
+aws_eks_addon.pod_identity: Refreshing state... [id=rajasurya-final-devops:eks-pod-identity-agent]
+aws_eks_pod_identity_association.ebs: Refreshing state... [id=a-mh3tje0hchl1a8roo]
+aws_eks_addon.ebs: Refreshing state... [id=rajasurya-final-devops:aws-ebs-csi-driver]
+module.cloud.aws_s3_bucket_public_access_block.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+module.cloud.aws_s3_bucket_server_side_encryption_configuration.artifacts: Refreshing state... [id=rajasurya-24bcs10086-final-20261005]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # aws_eks_cluster.main will be updated in-place
+  ~ resource "aws_eks_cluster" "main" {
+        id                            = "rajasurya-final-devops"
+        name                          = "rajasurya-final-devops"
+        tags                          = {}
+        # (14 unchanged attributes hidden)
+
+      ~ vpc_config {
+          ~ public_access_cidrs       = [
+              - "27.61.45.31/32",
+              + "202.131.146.146/32",
+            ]
+            # (7 unchanged attributes hidden)
+        }
+
+        # (9 unchanged blocks hidden)
+    }
+
+  # module.cloud.aws_security_group.web will be updated in-place
+  ~ resource "aws_security_group" "web" {
+        id                     = "sg-028c9037eba80af67"
+      ~ ingress                = [
+          - {
+              - cidr_blocks      = [
+                  - "27.61.45.31/32",
+                ]
+              - from_port        = 80
+              - ipv6_cidr_blocks = []
+              - prefix_list_ids  = []
+              - protocol         = "tcp"
+              - security_groups  = []
+              - self             = false
+              - to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + cidr_blocks      = [
+                  + "202.131.146.146/32",
+                ]
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+        name                   = "rajasurya-final-devops-web-17747293dd333d23e8f9c04db9"
+        tags                   = {}
+        # (9 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Saved the plan to:
+~/.local/share/devops-homework/capstone/post-recording-access.tfplan
+
+To perform exactly these actions, run the following command to apply:
+    terraform apply "~/.local/share/devops-homework/capstone/post-recording-access.tfplan"

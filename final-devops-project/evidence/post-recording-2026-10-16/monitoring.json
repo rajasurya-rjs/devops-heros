@@ -1,0 +1,602 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "creationTimestamp": "2026-10-16T13:08:41Z",
+        "generateName": "grafana-7bd744494d-",
+        "generation": 1,
+        "labels": {
+          "app": "grafana",
+          "pod-template-hash": "7bd744494d",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "grafana-7bd744494d-r2h48",
+        "namespace": "project-monitoring",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "grafana-7bd744494d",
+            "uid": "91426078-1f73-47d7-8cac-33cc6e8d8bde"
+          }
+        ],
+        "resourceVersion": "4202441",
+        "uid": "a928b6e0-1441-4872-8368-1cb278a4e07f"
+      },
+      "spec": {
+        "containers": [
+          {
+            "env": [
+              {
+                "name": "GF_AUTH_ANONYMOUS_ENABLED",
+                "value": "true"
+              },
+              {
+                "name": "GF_AUTH_ANONYMOUS_ORG_ROLE",
+                "value": "Viewer"
+              },
+              {
+                "name": "GF_AUTH_DISABLE_LOGIN_FORM",
+                "value": "true"
+              },
+              {
+                "name": "GOMEMLIMIT",
+                "value": "768MiB"
+              }
+            ],
+            "image": "grafana/grafana:13.2.3",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "grafana",
+            "ports": [
+              {
+                "containerPort": 3000,
+                "protocol": "TCP"
+              }
+            ],
+            "readinessProbe": {
+              "failureThreshold": 3,
+              "httpGet": {
+                "path": "/api/health",
+                "port": 3000,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 5,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "resources": {
+              "limits": {
+                "cpu": "500m",
+                "memory": "1Gi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              }
+            },
+            "startupProbe": {
+              "failureThreshold": 60,
+              "httpGet": {
+                "path": "/api/health",
+                "port": 3000,
+                "scheme": "HTTP"
+              },
+              "periodSeconds": 5,
+              "successThreshold": 1,
+              "timeoutSeconds": 3
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/etc/grafana/provisioning/datasources/datasource.yaml",
+                "name": "provisioning",
+                "subPath": "datasource.yaml"
+              },
+              {
+                "mountPath": "/etc/grafana/provisioning/dashboards/dashboard.yaml",
+                "name": "provisioning",
+                "subPath": "dashboard.yaml"
+              },
+              {
+                "mountPath": "/var/lib/grafana/dashboards",
+                "name": "dashboard"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-62qp7",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "default",
+        "serviceAccountName": "default",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "grafana-provisioning"
+            },
+            "name": "provisioning"
+          },
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "grafana-dashboard"
+            },
+            "name": "dashboard"
+          },
+          {
+            "name": "kube-api-access-62qp7",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "100m",
+          "memory": "256Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:42Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:57Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:57Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "100m",
+              "memory": "256Mi"
+            },
+            "containerID": "containerd://c27c488e159dd95e5f85e553e6d27c564cf75016fbdfc61a68f4180290234047",
+            "image": "docker.io/grafana/grafana:13.2.3",
+            "imageID": "docker.io/grafana/grafana@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572",
+            "lastState": {},
+            "name": "grafana",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "500m",
+                "memory": "1Gi"
+              },
+              "requests": {
+                "cpu": "100m",
+                "memory": "256Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T13:08:42Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 0,
+                "supplementalGroups": [
+                  0
+                ],
+                "uid": 472
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/etc/grafana/provisioning/datasources/datasource.yaml",
+                "name": "provisioning"
+              },
+              {
+                "mountPath": "/etc/grafana/provisioning/dashboards/dashboard.yaml",
+                "name": "provisioning"
+              },
+              {
+                "mountPath": "/var/lib/grafana/dashboards",
+                "name": "dashboard"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-62qp7",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.64",
+        "podIPs": [
+          {
+            "ip": "10.24.0.64"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "500m",
+            "memory": "1Gi"
+          },
+          "requests": {
+            "cpu": "79m",
+            "memory": "256Mi"
+          }
+        },
+        "startTime": "2026-10-16T13:08:41Z"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "annotations": {
+          "checksum/scrape-settings": "1a723787e107dc63825d3933561693d1cb2896382a7be5ed7f4e25f7f822a1cb",
+          "kubectl.kubernetes.io/restartedAt": "2026-10-13T20:19:05+05:30"
+        },
+        "creationTimestamp": "2026-10-16T13:08:40Z",
+        "generateName": "prometheus-7bc496766f-",
+        "generation": 1,
+        "labels": {
+          "app": "prometheus",
+          "pod-template-hash": "7bc496766f",
+          "topology.kubernetes.io/region": "ap-southeast-2",
+          "topology.kubernetes.io/zone": "ap-southeast-2a"
+        },
+        "name": "prometheus-7bc496766f-cznkv",
+        "namespace": "project-monitoring",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ReplicaSet",
+            "name": "prometheus-7bc496766f",
+            "uid": "41138c0e-a15e-4fcd-b6d5-715a24e6620c"
+          }
+        ],
+        "resourceVersion": "4202651",
+        "uid": "cf3859df-a133-4723-b9ee-77086b25bf6c"
+      },
+      "spec": {
+        "containers": [
+          {
+            "args": [
+              "--config.file=/etc/prometheus/prometheus.yml",
+              "--storage.tsdb.retention.time=2h"
+            ],
+            "image": "prom/prometheus:v3.15.0",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "prometheus",
+            "ports": [
+              {
+                "containerPort": 9090,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "limits": {
+                "cpu": "200m",
+                "memory": "192Mi"
+              },
+              "requests": {
+                "cpu": "30m",
+                "memory": "64Mi"
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "volumeMounts": [
+              {
+                "mountPath": "/etc/prometheus",
+                "name": "config"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-kxswl",
+                "readOnly": true
+              }
+            ]
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "enableServiceLinks": true,
+        "nodeName": "ip-10-24-0-11.ap-southeast-2.compute.internal",
+        "preemptionPolicy": "PreemptLowerPriority",
+        "priority": 0,
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "serviceAccount": "capstone-prometheus",
+        "serviceAccountName": "capstone-prometheus",
+        "terminationGracePeriodSeconds": 30,
+        "tolerations": [
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          },
+          {
+            "effect": "NoExecute",
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "tolerationSeconds": 300
+          }
+        ],
+        "volumes": [
+          {
+            "configMap": {
+              "defaultMode": 420,
+              "name": "prometheus-config"
+            },
+            "name": "config"
+          },
+          {
+            "name": "kube-api-access-kxswl",
+            "projected": {
+              "defaultMode": 420,
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ],
+                    "name": "kube-root-ca.crt"
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        },
+                        "path": "namespace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "status": {
+        "allocatedResources": {
+          "cpu": "30m",
+          "memory": "64Mi"
+        },
+        "conditions": [
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodReadyToStartContainers"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:40Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Initialized"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "Ready"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:41Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "ContainersReady"
+          },
+          {
+            "lastProbeTime": null,
+            "lastTransitionTime": "2026-10-16T13:08:40Z",
+            "observedGeneration": 1,
+            "status": "True",
+            "type": "PodScheduled"
+          }
+        ],
+        "containerStatuses": [
+          {
+            "allocatedResources": {
+              "cpu": "30m",
+              "memory": "64Mi"
+            },
+            "containerID": "containerd://074f18f539feaa46d2d2494b2f37cf600239c50666ca72e4bcfc4721b9d00bed",
+            "image": "docker.io/prom/prometheus:v3.15.0",
+            "imageID": "docker.io/prom/prometheus@sha256:efd719c99d83b060d9daefdcf00360461adf279f45ef5391f8d111892118753e",
+            "lastState": {},
+            "name": "prometheus",
+            "ready": true,
+            "resources": {
+              "limits": {
+                "cpu": "200m",
+                "memory": "192Mi"
+              },
+              "requests": {
+                "cpu": "30m",
+                "memory": "64Mi"
+              }
+            },
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-10-16T13:08:41Z"
+              }
+            },
+            "user": {
+              "linux": {
+                "gid": 65534,
+                "supplementalGroups": [
+                  65534
+                ],
+                "uid": 65534
+              }
+            },
+            "volumeMounts": [
+              {
+                "mountPath": "/etc/prometheus",
+                "name": "config"
+              },
+              {
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                "name": "kube-api-access-kxswl",
+                "readOnly": true,
+                "recursiveReadOnly": "Disabled"
+              }
+            ]
+          }
+        ],
+        "hostIP": "10.24.0.11",
+        "hostIPs": [
+          {
+            "ip": "10.24.0.11"
+          }
+        ],
+        "observedGeneration": 1,
+        "phase": "Running",
+        "podIP": "10.24.0.89",
+        "podIPs": [
+          {
+            "ip": "10.24.0.89"
+          }
+        ],
+        "qosClass": "Burstable",
+        "resources": {
+          "limits": {
+            "cpu": "200m",
+            "memory": "192Mi"
+          },
+          "requests": {
+            "cpu": "28m",
+            "memory": "64Mi"
+          }
+        },
+        "startTime": "2026-10-16T13:08:40Z"
+      }
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}

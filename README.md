@@ -7,8 +7,8 @@ frontend, FastAPI API and PostgreSQL storage, with pytest, Alembic migrations, D
 GitHub Actions, Helm, Ingress, HPA and Prometheus/Grafana.
 
 **Capstone submission:** [slides and video folder](demo/) · [full rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md).
-The mandatory video is still pending. The supplied deadline has a weekday/date conflict;
-see [submission readiness](demo/README.md).
+The [student walkthrough](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is uploaded to this repository’s release. The supplied deadline
+has a weekday/date conflict; see [submission readiness](demo/README.md).
 
 ## Final capstone: Operations Notes
 
@@ -64,8 +64,7 @@ the real EKS Ingress, Prometheus, Grafana and Argo CD to localhost for the walkt
 [recording guide](final-devops-project/demo/README.md) and
 [rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md). This private classroom app has
 no login/public TLS, and the single EKS worker does not provide node redundancy. The
-mandatory student video and actual Terraform destroy proof after recording/evaluation
-remain pending. The EKS Ingress uses localhost forwarding rather than a paid LoadBalancer.
+[student video](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is available. Actual Terraform destroy proof remains pending after evaluation. The EKS Ingress uses localhost forwarding rather than a paid LoadBalancer.
 
 **Name:** Rajasurya J
 **Roll number:** 24BCS10086

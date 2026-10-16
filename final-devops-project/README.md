@@ -298,10 +298,13 @@ The [12-slide PowerPoint](demo/presentation.pptx), [PDF](demo/presentation.pdf),
 are in `demo/`. Every screenshot is indexed with its environment and provenance in
 [evidence/completion/README.md](evidence/completion/README.md). Historical artifacts remain intact.
 
-**Pending submission requirements:** the student-recorded presentation video must be uploaded
-under `demo/` or as a GitHub release asset, and actual Terraform destroy completion must be
-captured after recording/evaluation. A destroy plan is not completed cleanup. Missing video
-means zero for M10 under the rubric, even with the slides and README present.
+**[Student walkthrough — recorded and uploaded](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4)** (33:47, original MP4).
+The [video index](../demo/README.md) links the same-repository release asset and approximate chapters.
+The live demo push passed [the complete capstone pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38916498054).
+
+**Remaining submission actions:** capture actual Terraform destroy completion after evaluation,
+and have the student submit the public repository URL through the form. A destroy plan is not
+completed cleanup. The agent does not submit the form.
 
 To review cleanup without removing resources:
 

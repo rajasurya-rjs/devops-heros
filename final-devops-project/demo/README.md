@@ -7,8 +7,8 @@ alternative; the prepared School profile can access the hostname and sign in dir
 
 The **12-slide PPTX and PDF are ready**. Start with [presentation.pptx](presentation.pptx),
 then record a continuous live walkthrough. Speaker notes provide narration cues.
-The mandatory video and actual post-evaluation destroy screenshot are still pending;
-see [every rubric requirement](RUBRIC-CHECKLIST.md).
+The **[student recording](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is uploaded**; see the [chapter index](../../demo/README.md).
+The actual post-evaluation destroy screenshot is still pending; see [every rubric requirement](RUBRIC-CHECKLIST.md).
 
 ## Open the current EKS demonstration
 

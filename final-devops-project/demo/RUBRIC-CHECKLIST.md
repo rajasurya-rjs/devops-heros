@@ -2,12 +2,18 @@
 
 Rechecked on **16 October 2026**. Repository: **https://github.com/rajasurya-rjs/devops-heros**.
 The capstone lives under `final-devops-project/`. This is a readiness audit, not a grade.
-All **47 scored criteria total 100 points**. [Today’s fresh verification](../evidence/audit-2026-10-16/README.md) records the source, artifact, local and live EKS checks. This is not a promise of full marks.
+The current linked `GRADING.md` has **46 scored criteria totaling 100 points**. [Today’s fresh verification](../evidence/audit-2026-10-16/README.md) records the source, artifact, local and live EKS checks. This is not a promise of full marks.
 
-**Completion/confirmation still required:** student-recorded walkthrough uploaded to this
-repository; actual Terraform destroy evidence after recording/evaluation; and the student’s
-submission of the public repository URL through the latest capstone form.
-The rubric gives **zero for M10 if the video is missing**. A destroy plan does not satisfy M7 cleanup.
+**Recording completed and uploaded:** [original 33:47 walkthrough](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4).
+**Still required:** actual Terraform destroy evidence after evaluation, and confirmation of
+student submission of the public repository URL through the capstone form.
+A destroy plan does not satisfy M7 cleanup.
+
+Rechecked the instructor’s [current GRADING.md](https://github.com/Nency-Ravaliya/devops-heros/blob/main/session21-python/GRADING.md)
+and Session 21 README on 16 October. The current linked rubric assigns M10 2 points for
+README and 3 for a live commit/pipeline/deployment demonstration. The separately supplied
+submission instructions also require an uploaded recording and slides; both artifacts are
+now present. Earlier audit files retain the older 47-criterion/video-and-slides scoring wording.
 
 | Scored criterion | Audit status | Proof / remaining action |
 |---|---|---|
@@ -56,8 +62,7 @@ The rubric gives **zero for M10 if the video is missing**. A destroy plan does n
 | M9: Grafana installed/accessed (2) | Verified / evidence present | [EKS Grafana dashboard](../images/aws-current-grafana.png). |
 | M9: Populated live panel (3) | Verified / evidence present | [Live positive request rate](../evidence/audit-2026-10-16/prometheus-live-rate.json), four provisioned panels, [populated Grafana screenshot](../images/aws-current-grafana.png). |
 | M10: Complete technical README (2) | Verified / evidence present | Capstone `README.md` and root README entry, all required sections. |
-| M10: Video in repo/release (2) | PENDING — mandatory recording/upload | **PENDING: student recording**. Follow [recording guide](README.md); upload MP4 to `demo/` or same repo release asset. Missing video makes entire M10 zero. |
-| M10: ≥8-slide PPT/PDF committed (1) | Verified / evidence present | [Repository-root PPTX](../../demo/presentation.pptx), [PDF](../../demo/presentation.pdf): 12 slides, architecture diagram and speaker notes; hashes match preserved capstone copies. |
+| M10: Live commit → pipeline → deployment change (3) | Recording and successful run present | [Student walkthrough](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4), [green live-demo CI](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38916498054), and [recorded/live Argo status](../evidence/post-recording-2026-10-16/argocd.json). The configuration title changed; the EKS image SHA remains separately pinned. |
 ## Submission artifacts beyond the scoring table
 
 All source directories, requirements, migration, Dockerfiles, Compose, workflow, Terraform,
@@ -86,14 +91,35 @@ are separately tested. The Helm release was installed with Helm before Argo adop
 | M7 | All HCL, non-empty plan screenshot, AWS VPC/EKS Console screenshot, destroy completion screenshot | Everything present **except actual destroy completion**. |
 | M8 | Namespace/bootstrap, chart, Running Pods screenshot, Services screenshot, `helm list` screenshot, Ingress browser | Present; the combined [EKS terminal screenshot](../images/current-kubernetes-terminal.png) contains Pods, Services and Helm list. |
 | M9 | Prometheus/Grafana values, metrics curl screenshot, Targets UP screenshot, populated Grafana screenshot | Present; current live targets and dashboard API reverified. |
-| M10 | Root technical README, root `demo/` video, ≥8-slide PPT/PDF | Root README and 12-slide deck present; **video missing**. |
+| M10 | Root technical README, live/recorded demonstration; supplied instructions also require video and slides | Root README, [same-repo release recording](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4), [12-slide PPTX](../../demo/presentation.pptx) and [PDF](../../demo/presentation.pdf) present. |
 
 ## Mandatory video content audit
 
-The recording guide covers every required segment: **PPT first**, real push and end-to-end CI,
-codebase/design, Terraform plan/apply and AWS Console, Argo CD synced application and GitOps
-change, Kubernetes Pods/Services/Ingress, Prometheus UP and live Grafana panel. These are
-instructions until the student's real video has been recorded and uploaded.
+The [actual recording and chapter index](../../demo/README.md) now cover presentation slides,
+codebase, local app, live push and CI, GHCR, Terraform source/plan/saved apply output, AWS Console,
+Argo CD, Kubernetes/Helm, Ingress app, two UP Prometheus targets and populated Grafana panels.
+Visual samples and complete media decoding were checked; narration has not been transcribed
+word for word. Authentic command corrections and CI waiting remain in the original file.
+
+## Post-recording verification
+
+- 23 local pytest cases and 8 helper tests pass; both Helm charts lint; Terraform fmt/validate pass.
+- All three Compose services are healthy on port 13000.
+- [Live-demo CI metadata](../evidence/post-recording-2026-10-16/live-demo-ci.json) and downloaded
+  [actual CI reports](../evidence/post-recording-2026-10-16/ci/) preserve SQLite/PostgreSQL test,
+  Trivy, API and deployment proof for the student’s real push.
+- [Fresh EKS runtime](../evidence/post-recording-2026-10-16/runtime.json): five Ready/Running
+  application Pods, both Deployments 2/2, ClusterIP Services and Bound database PVC.
+- [Monitoring Pods](../evidence/post-recording-2026-10-16/monitoring.json) have zero restarts;
+  [two Prometheus targets are UP](../evidence/post-recording-2026-10-16/prometheus-targets.json),
+  and [Grafana is healthy](../evidence/post-recording-2026-10-16/grafana-health.json).
+- Current and Git-history secret scans pass with the existing reviewed classroom exceptions.
+  Required local artifact links resolve; both copies of each slide file match.
+- The laptop’s public IP changed back after recording. The actual reviewed
+  [access-only Terraform plan](../evidence/post-recording-2026-10-16/network-access-plan.txt)
+  and [successful apply](../evidence/post-recording-2026-10-16/network-access-apply.txt) restore
+  the current `/32`: zero added, two updated, zero destroyed. ACTIVE FREE with $52.11 credits
+  was verified before this update. No nodes or paid features were added.
 
 ## Submission and deadline checks
 
