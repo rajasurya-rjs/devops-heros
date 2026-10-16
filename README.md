@@ -6,7 +6,7 @@ The [Session 21 Operations Notes capstone](final-devops-project/README.md) provi
 frontend, FastAPI API and PostgreSQL storage, with pytest, Alembic migrations, Docker,
 GitHub Actions, Helm, Ingress, HPA and Prometheus/Grafana.
 
-**Capstone submission:** [slides and video folder](demo/) · [full rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md).
+**Capstone submission:** [slides and video folder](demo/) · [Instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md).
 The [student walkthrough](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is uploaded to this repository’s release. The supplied deadline
 has a weekday/date conflict; see [submission readiness](demo/README.md).
 
@@ -46,7 +46,8 @@ uses an explicit tested SHA.
 **Infrastructure:** Terraform creates a VPC, two public subnets, EKS and a managed worker
 node group in **ap-southeast-2**. Only the `devops-homework` profile is used. Guard scripts
 verify the correct project, ACTIVE FREE plan and available credits before cloud changes.
-Credentials, state and private variables stay outside Git. Actual cleanup follows evaluation.
+Credentials, state and private variables stay outside Git. The AWS deployment was destroyed
+on 16 October 2026 after recording; the walkthrough and dated evidence preserve its working state.
 
 **Kubernetes/Helm:** namespace/bootstrap manifests are in `final-devops-project/k8s/` and
 `kubernetes/`; the three-tier chart is in `helm/three-tier/`. Run the guarded
@@ -62,9 +63,13 @@ the real EKS Ingress, Prometheus, Grafana and Argo CD to localhost for the walkt
 **Presentation and limitations:** [12-slide PPT](demo/presentation.pptx),
 [PDF](demo/presentation.pdf),
 [recording guide](final-devops-project/demo/README.md) and
-[rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md). This private classroom app has
+[Instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md). This private classroom app has
 no login/public TLS, and the single EKS worker does not provide node redundancy. The
-[student video](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is available. Actual Terraform destroy proof remains pending after evaluation. The EKS Ingress uses localhost forwarding rather than a paid LoadBalancer.
+[student video](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is available.
+AWS has been destroyed: [actual completion log](final-devops-project/evidence/completion/terraform-destroy-complete.txt) and
+[completion screenshot](final-devops-project/images/terraform-destroy-complete.png). Cloud demo URLs are no longer live;
+local Docker Compose remains runnable at localhost:13000. The recorded EKS Ingress used
+localhost forwarding rather than a paid LoadBalancer.
 
 **Name:** Rajasurya J
 **Roll number:** 24BCS10086

@@ -1,5 +1,22 @@
 # Current capstone verification — 13 October 2026
 
+## Cleanup completed — 16 October 2026
+
+The original deployment evidence below is historical. The student recording and slides are
+published in [repository-root demo](../../../demo/README.md). Actual Terraform cleanup is now complete:
+[successful final destroy output](terraform-destroy-complete.txt),
+[genuine terminal screenshot](../../images/terraform-destroy-complete.png), and
+[post-cleanup AWS inventory](aws-cleanup-verification.json).
+The [first attempt](terraform-destroy-first-attempt.txt) removed 26 resources but ended with
+an expired Internet Gateway request. After refreshing the expired CLI login, the final retry
+removed the remaining gateway and VPC and exited 0. Terraform state is empty. The selected
+Region has no EKS clusters, active EC2 instances, EBS volumes, load balancers, Elastic IPs,
+S3 buckets, or the capstone VPC/gateway, IAM roles and cluster log group. The cloud demo is
+no longer live; local Docker Compose remains runnable at localhost:13000.
+
+
+> Later status — 16 October 2026: the [student walkthrough](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) has been recorded and uploaded. AWS teardown also completed after recording; see [actual cleanup completion](terraform-destroy-complete.txt). The original attempt removed 26 resources before an expired request; the successful retry removed the final two and exited 0. The results and pending items below describe this report’s original capture time.
+
 All files here are actual command outputs or downloaded GitHub Actions artifacts.
 Screenshots under `images/` show actual isolated-browser pages or actual readonly ttyd
 terminal sessions. No execution or destroy completion is simulated.
@@ -78,7 +95,7 @@ HIGH/CRITICAL vulnerabilities, and the pipeline is configured to fail when eithe
 is found, including unfixed findings. A clean report means no matching finding was detected
 at scan time; it is not a guarantee that the software has no vulnerabilities.
 
-## Still pending
+## Pending at the original 13 October capture
 
 The user will record the mandatory PPT-first live presentation and upload it to this
 repository. Actual Terraform destroy and its completion screenshot come after recording/

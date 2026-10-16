@@ -9,8 +9,8 @@ read, edit and delete notes. The responsive HTML/JavaScript frontend uses a Fast
 backend and PostgreSQL database. This is an original application domain, rather than a
 copy of the TaskBoard reference application.
 
-The project follows the [Session 21 brief](https://github.com/Nency-Ravaliya/devops-heros/tree/main/session21-python)
-and its [grading rubric](https://github.com/Nency-Ravaliya/devops-heros/blob/main/session21-python/GRADING.md).
+The project follows the [submission guidelines](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/SUBMISSION.md)
+and the [grading rubric](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md).
 
 ## Architecture
 
@@ -294,17 +294,23 @@ Prometheus scrapes both EKS backend Pods and Grafana provisions the live applica
 ## Presentation, evidence and cleanup
 
 The [12-slide PowerPoint](demo/presentation.pptx), [PDF](demo/presentation.pdf),
-[recording guide](demo/README.md) and [complete rubric audit](demo/RUBRIC-CHECKLIST.md)
-are in `demo/`. Every screenshot is indexed with its environment and provenance in
+[recording guide](demo/README.md) and [Instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md)
+are linked here. Screenshots are indexed with their environment and provenance in
 [evidence/completion/README.md](evidence/completion/README.md). Historical artifacts remain intact.
 
 **[Student walkthrough — recorded and uploaded](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4)** (33:47, original MP4).
 The [video index](../demo/README.md) links the same-repository release asset and approximate chapters.
 The live demo push passed [the complete capstone pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38916498054).
+The latest source verification also passed: [final green pipeline](https://github.com/rajasurya-rjs/devops-heros/actions/runs/38925353641).
 
-**Remaining submission actions:** capture actual Terraform destroy completion after evaluation,
-and have the student submit the public repository URL through the form. A destroy plan is not
-completed cleanup. The agent does not submit the form.
+**AWS cleanup completed on 16 October 2026 after recording.** See the
+[actual completion log](evidence/completion/terraform-destroy-complete.txt) and [completion screenshot](images/terraform-destroy-complete.png).
+The first attempt removed 26 of the original 28 resources before an expired request
+interrupted Internet Gateway deletion. The successful retry removed the final two
+resources and exited with status 0. The [first-attempt log](evidence/completion/terraform-destroy-first-attempt.txt)
+is retained. Cloud URLs are no longer live; the video and dated screenshots preserve
+the running deployment. Local Docker Compose remains runnable at localhost:13000.
+The student still submits the public repository URL through the form; the agent does not submit it.
 
 To review cleanup without removing resources:
 
@@ -329,4 +335,6 @@ This classroom app has no authentication or public TLS endpoint; keep its demo s
 private. EKS has one worker, so two application replicas do not provide node redundancy.
 Free-plan credit availability is checked before cloud operations, and no paid upgrade is
 permitted. Test output includes one non-failing Starlette deprecation warning.
-The final video and actual destroy proof remain required before claiming a complete submission.
+The walkthrough and actual cleanup completion evidence are available. The AWS deployment
+has been deleted, so its browser URLs and kubeconfig no longer connect to a live cluster.
+The local Compose stack can still be started independently. Student form submission is separate.

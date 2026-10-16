@@ -4,9 +4,10 @@
 
 - [Presentation — PowerPoint](presentation.pptx)
 - [Presentation — PDF](presentation.pdf)
+- [Actual AWS cleanup terminal recording — WebM, silent](aws-cleanup.webm)
 - [Speaking script with separate SAY, SHOW, TYPE and WAIT cues](RECORDING-SCRIPT.md)
 - [Exact recording steps and commands](../final-devops-project/demo/README.md)
-- [Every scored criterion and required artifact](../final-devops-project/demo/RUBRIC-CHECKLIST.md)
+- [Instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md)
 - [Complete technical documentation](../final-devops-project/README.md)
 
 ## Recorded walkthrough — uploaded
@@ -67,5 +68,9 @@ This is a precaution, not an asserted change to the official deadline.
 
 The student submits **https://github.com/rajasurya-rjs/devops-heros** through the
 [final capstone form](https://forms.gle/XWAP1vAumDJgAPM1A) supplied in the submission guidelines. The agent
-never submits the Google Form. Actual Terraform destroy proof must be captured after
-recording/evaluation; the prepared destroy plan is not completion evidence.
+never submits the Google Form. AWS teardown completed after recording on 16 October 2026:
+[actual completion log](../final-devops-project/evidence/completion/terraform-destroy-complete.txt) and
+[screenshot](../final-devops-project/images/terraform-destroy-complete.png). The original attempt removed 26 resources
+before an expired request interrupted Internet Gateway deletion; the successful retry
+removed the final two resources. Cloud demo URLs are no longer live; the recording
+preserves the demonstration and local Compose remains runnable at localhost:13000.

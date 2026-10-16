@@ -1,7 +1,9 @@
 # Full rubric audit — 16 October 2026
 
+> Later status — 16 October 2026: the [student walkthrough](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) has been recorded and uploaded. AWS teardown also completed after recording; see [actual cleanup completion](../completion/terraform-destroy-complete.txt). The original attempt removed 26 resources before an expired request; the successful retry removed the final two and exited 0. The results and pending items below describe this report’s original capture time.
+
 All **47 scored criteria, totaling 100 points**, are mapped individually in the
-[full checklist](../../demo/RUBRIC-CHECKLIST.md). This report distinguishes code/artifact
+[Instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md). This report distinguishes code/artifact
 readiness, actual executions, student presentation requirements and missing submission actions.
 No numerical grade is guaranteed.
 

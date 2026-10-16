@@ -8,9 +8,13 @@ alternative; the prepared School profile can access the hostname and sign in dir
 The **12-slide PPTX and PDF are ready**. Start with [presentation.pptx](presentation.pptx),
 then record a continuous live walkthrough. Speaker notes provide narration cues.
 The **[student recording](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4) is uploaded**; see the [chapter index](../../demo/README.md).
-The actual post-evaluation destroy screenshot is still pending; see [every rubric requirement](RUBRIC-CHECKLIST.md).
+AWS cleanup completed after recording on 16 October 2026: [completion log](../evidence/completion/terraform-destroy-complete.txt) and
+[screenshot](../images/terraform-destroy-complete.png). The first attempt removed 26 resources before an expired
+Internet Gateway request; the successful retry removed the final two and exited 0.
+The EKS, Argo CD, Prometheus and Grafana URLs below describe the recorded deployment
+and are no longer live. Local Compose remains runnable at localhost:13000.
 
-## Open the current EKS demonstration
+## Reproduce the recorded EKS demonstration with a new deployment
 
 From `final-devops-project`, if AWS reports an expired session, restore the homework
 session first and complete the browser sign-in:
@@ -130,7 +134,7 @@ Save your MP4 in the **repository-root** `demo/walkthrough.mp4` (from this capst
 directory, `../demo/walkthrough.mp4`), then commit/push it if under GitHub's 100 MB
 per-file limit. For a larger recording, upload it as an asset to a release in this same
 homework repository; the rubric explicitly allows release assets. Add its direct GitHub
-link here and in the checklist. A YouTube link alone does not meet this rubric.
+link here and in the repository-root `demo/README.md`. A YouTube link alone does not meet this rubric.
 
 ## Cleanup after recording/evaluation
 
@@ -142,6 +146,6 @@ After the live evaluation, privately back up any notes you want to retain, then 
 ```
 
 Capture the actual `Destroy complete!` terminal output, verify no homework volumes/resources
-remain, commit the log/screenshot, and update the checklist. Do not substitute the destroy
+remain, then retain the genuine log and screenshot. Do not substitute the destroy
 plan screenshot for completion. This action permanently removes the homework application.
 Do not run it before recording or while the grader still needs the cluster.

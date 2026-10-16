@@ -1,0 +1,71 @@
+{
+  "checked_at_utc": "2026-10-16T18:37:47.979141+00:00",
+  "profile": "devops-homework",
+  "region": "ap-southeast-2",
+  "project_id": "089540175430",
+  "terraform_managed_resources": [],
+  "inventory": {
+    "eks": {
+      "exit_code": 0,
+      "result": {
+        "clusters": []
+      }
+    },
+    "volumes": {
+      "exit_code": 0,
+      "result": {
+        "Volumes": []
+      }
+    },
+    "instances": {
+      "exit_code": 0,
+      "result": {
+        "Reservations": []
+      }
+    },
+    "load_balancers": {
+      "exit_code": 0,
+      "result": {
+        "LoadBalancers": []
+      }
+    },
+    "elastic_ips": {
+      "exit_code": 0,
+      "result": {
+        "Addresses": []
+      }
+    },
+    "vpc": {
+      "exit_code": 0,
+      "result": {
+        "Vpcs": []
+      }
+    },
+    "gateways": {
+      "exit_code": 0,
+      "result": {
+        "InternetGateways": []
+      }
+    },
+    "buckets": {
+      "exit_code": 0,
+      "result": {
+        "Buckets": [],
+        "Owner": {
+          "ID": "94bf8f91cdc6f94ee823e04f0b0dafa100cd758e77fea62c16d343ca0c030e48"
+        },
+        "Prefix": null
+      }
+    },
+    "roles": {
+      "exit_code": 0,
+      "result": []
+    },
+    "logs": {
+      "exit_code": 0,
+      "result": {
+        "logGroups": []
+      }
+    }
+  }
+}

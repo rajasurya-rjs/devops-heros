@@ -3,7 +3,7 @@
 The repository and its 12-slide PPTX/PDF were checked against every Session 21 rubric
 criterion and submission artifact. All local links are valid, both presentation formats
 contain twelve slides, and the repository is PUBLIC. The complete criterion mapping is
-in `demo/RUBRIC-CHECKLIST.md`.
+in the [instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md).
 
 Actual fresh checks:
 
