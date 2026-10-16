@@ -77,8 +77,8 @@ python3 scripts/aws-guard.py --kubeconfig "$HOME/.local/share/devops-homework/ca
 git add gitops/argocd/values-eks.yaml
 git commit -m 'Demonstrate the capstone title rollout during the presentation'
 git push origin main
-gh run list --workflow three-tier-project.yml --limit 1
-gh run watch <run-id> --exit-status
+gh run list --repo rajasurya-rjs/devops-heros --workflow three-tier-project.yml --limit 1
+gh run watch <run-id> --repo rajasurya-rjs/devops-heros --exit-status
 ```
 
 Use the actual run ID displayed. Argo CD polls main and applies the title; refresh the app
