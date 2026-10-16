@@ -1,0 +1,14 @@
+[
+  {
+    "repository": "rajasurya-rjs/devops-heros/ops-notes-backend",
+    "tag": "002f01c8bd0b3d70d40e312442d762b757a1b1f8",
+    "status": 200,
+    "digest": "sha256:8e54aae15a0b35b808a359c3955dd9d84acb3392553e0b618164c6337b8c4635"
+  },
+  {
+    "repository": "rajasurya-rjs/devops-heros/ops-notes-frontend",
+    "tag": "002f01c8bd0b3d70d40e312442d762b757a1b1f8",
+    "status": 200,
+    "digest": "sha256:97e9a5aa7812ec30d30fc42b31d7ef382e591f3d8dda14866ab8b5e4db311ffe"
+  }
+]

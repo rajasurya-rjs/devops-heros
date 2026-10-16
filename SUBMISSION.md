@@ -1,5 +1,19 @@
 # DevOps homework submission values
 
+## Final capstone — latest supplied submission instructions
+
+- Submit this single public repository URL: **https://github.com/rajasurya-rjs/devops-heros**
+- [Final capstone submission form](https://forms.gle/XWAP1vAumDJgAPM1A) — the student submits it; the agent never submits the form.
+- [Presentation/video folder](demo/), [recording guide](final-devops-project/demo/README.md),
+  [full rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md).
+- Video upload and actual post-evaluation Terraform destroy proof are still pending.
+- Deadline wording conflicts: “Sunday, 19 October 2026, 11:59 PM IST.” October 19 is
+  Monday; Sunday is October 18. Confirm with the instructor; prepare for October 18
+  until clarified.
+
+## Earlier course-wide homework form
+
+
 **Name:** Rajasurya J
 
 **Enrollment number:** 24BCS10086

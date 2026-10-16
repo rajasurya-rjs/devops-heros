@@ -24,14 +24,28 @@ fi
 # --execute permanently removes homework data. Keep any desired database backup privately first.
 python3 scripts/aws-guard.py --kubeconfig "$kubeconfig_path"
 kube=(kubectl --kubeconfig "$kubeconfig_path" --context devops-homework-eks)
-# Remove controllers before workloads, and PVCs while EBS CSI still runs.
+# Finalize owned GitOps objects while their controllers are still alive. Deleting
+# controller namespaces first can strand CR finalizers and block namespace cleanup.
+argocd_crd=$("${kube[@]}" get crd applications.argoproj.io --ignore-not-found -o name)
+if [[ -n "$argocd_crd" ]]; then
+  "${kube[@]}" delete application operations-notes -n argocd --ignore-not-found --wait=true --timeout=300s
+fi
+flux_crd=$("${kube[@]}" get crd kustomizations.kustomize.toolkit.fluxcd.io --ignore-not-found -o name)
+if [[ -n "$flux_crd" ]]; then
+  "${kube[@]}" delete kustomization notes -n hw-gitops --ignore-not-found --wait=true --timeout=300s
+fi
+source_crd=$("${kube[@]}" get crd gitrepositories.source.toolkit.fluxcd.io --ignore-not-found -o name)
+if [[ -n "$source_crd" ]]; then
+  "${kube[@]}" delete gitrepository homework -n hw-gitops --ignore-not-found --wait=true --timeout=300s
+fi
 "${kube[@]}" delete namespace argocd hw-gitops --ignore-not-found --wait=true --timeout=300s
-"${kube[@]}" delete namespace project-three-tier project-monitoring final-homework ingress-nginx \
+# Remove all homework application namespaces and PVCs while EBS CSI still runs.
+"${kube[@]}" delete namespace project-three-tier project-monitoring final-homework gitops-homework ingress-nginx \
   --ignore-not-found --wait=true --timeout=300s
 remaining_volumes=$("${kube[@]}" get pv -o json)
 python3 - "$remaining_volumes" <<'PY'
 import json,sys
-names={'project-three-tier','final-homework','project-monitoring'}
+names={'project-three-tier','final-homework','project-monitoring','gitops-homework'}
 remaining=[p['metadata']['name'] for p in json.loads(sys.argv[1])['items']
            if p['spec'].get('claimRef',{}).get('namespace') in names]
 if remaining:raise SystemExit('STOP: wait for homework PV/EBS cleanup before destroying CSI: '+', '.join(remaining))

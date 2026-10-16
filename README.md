@@ -6,6 +6,10 @@ The [Session 21 Operations Notes capstone](final-devops-project/README.md) provi
 frontend, FastAPI API and PostgreSQL storage, with pytest, Alembic migrations, Docker,
 GitHub Actions, Helm, Ingress, HPA and Prometheus/Grafana.
 
+**Capstone submission:** [slides and video folder](demo/) · [full rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md).
+The mandatory video is still pending. The supplied deadline has a weekday/date conflict;
+see [submission readiness](demo/README.md).
+
 ## Final capstone: Operations Notes
 
 An original app for deployment checks and incident notes, with create/read/update/delete.
@@ -55,8 +59,8 @@ The backend exposes `/metrics`; Prometheus discovers each backend Pod and Grafan
 provisions request-rate, errors, CPU and memory panels. `scripts/recording-up.sh` forwards
 the real EKS Ingress, Prometheus, Grafana and Argo CD to localhost for the walkthrough.
 
-**Presentation and limitations:** [12-slide PPT](final-devops-project/demo/presentation.pptx),
-[PDF](final-devops-project/demo/presentation.pdf),
+**Presentation and limitations:** [12-slide PPT](demo/presentation.pptx),
+[PDF](demo/presentation.pdf),
 [recording guide](final-devops-project/demo/README.md) and
 [rubric audit](final-devops-project/demo/RUBRIC-CHECKLIST.md). This private classroom app has
 no login/public TLS, and the single EKS worker does not provide node redundancy. The

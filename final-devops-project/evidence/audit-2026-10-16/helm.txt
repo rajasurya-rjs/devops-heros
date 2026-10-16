@@ -1,0 +1,5 @@
+NAME            	NAMESPACE         	REVISION	UPDATED                             	STATUS  	CHART                               	APP VERSION
+aws-ingress     	ingress-nginx     	1       	2026-10-05 15:08:17.675707 +0530 IST	deployed	nginx-ingress-2.7.3                 	5.6.3      
+notes           	project-three-tier	1       	2026-10-13 19:02:30.996369 +0530 IST	deployed	operations-notes-three-tier-1.1.0   	fastapi-v2 
+notes-monitoring	project-monitoring	2       	2026-10-13 20:18:44.905005 +0530 IST	deployed	operations-notes-observability-1.0.0	           
+ops-notes       	final-homework    	1       	2026-10-05 15:08:50.670983 +0530 IST	deployed	ops-notes-0.1.0                     	v1         

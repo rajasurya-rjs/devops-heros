@@ -1,0 +1,12 @@
+{
+    "Name": "homework-workers-free",
+    "Status": "ACTIVE",
+    "Instances": [
+        "c7i-flex.large"
+    ],
+    "Scaling": {
+        "minSize": 1,
+        "maxSize": 2,
+        "desiredSize": 1
+    }
+}

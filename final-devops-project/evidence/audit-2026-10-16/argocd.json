@@ -1,0 +1,373 @@
+{
+    "apiVersion": "argoproj.io/v1alpha1",
+    "kind": "Application",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"argoproj.io/v1alpha1\",\"kind\":\"Application\",\"metadata\":{\"annotations\":{},\"name\":\"operations-notes\",\"namespace\":\"argocd\"},\"spec\":{\"destination\":{\"namespace\":\"project-three-tier\",\"server\":\"https://kubernetes.default.svc\"},\"project\":\"capstone\",\"source\":{\"helm\":{\"releaseName\":\"notes\",\"valueFiles\":[\"../../gitops/argocd/values-eks.yaml\"]},\"path\":\"final-devops-project/helm/three-tier\",\"repoURL\":\"https://github.com/rajasurya-rjs/devops-heros.git\",\"targetRevision\":\"main\"},\"syncPolicy\":{\"automated\":{\"prune\":false,\"selfHeal\":true},\"syncOptions\":[\"CreateNamespace=true\"]}}}\n"
+        },
+        "creationTimestamp": "2026-10-13T13:34:58Z",
+        "generation": 1259,
+        "name": "operations-notes",
+        "namespace": "argocd",
+        "resourceVersion": "4087462",
+        "uid": "96c23378-c2a4-405d-91b3-466a19063ae7"
+    },
+    "spec": {
+        "destination": {
+            "namespace": "project-three-tier",
+            "server": "https://kubernetes.default.svc"
+        },
+        "project": "capstone",
+        "source": {
+            "helm": {
+                "releaseName": "notes",
+                "valueFiles": [
+                    "../../gitops/argocd/values-eks.yaml"
+                ]
+            },
+            "path": "final-devops-project/helm/three-tier",
+            "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+            "targetRevision": "main"
+        },
+        "syncPolicy": {
+            "automated": {
+                "prune": false,
+                "selfHeal": true
+            },
+            "syncOptions": [
+                "CreateNamespace=true"
+            ]
+        }
+    },
+    "status": {
+        "controllerNamespace": "argocd",
+        "health": {
+            "lastTransitionTime": "2026-10-13T14:50:43Z",
+            "status": "Healthy"
+        },
+        "history": [
+            {
+                "deployStartedAt": "2026-10-13T13:39:51Z",
+                "deployedAt": "2026-10-13T13:39:52Z",
+                "id": 0,
+                "initiatedBy": {
+                    "automated": true
+                },
+                "revision": "5e6cbf244afc69b1d13d95481121d226d259600c",
+                "source": {
+                    "helm": {
+                        "releaseName": "notes",
+                        "valueFiles": [
+                            "../../gitops/argocd/values-eks.yaml"
+                        ]
+                    },
+                    "path": "final-devops-project/helm/three-tier",
+                    "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                    "targetRevision": "main"
+                }
+            },
+            {
+                "deployStartedAt": "2026-10-13T14:23:16Z",
+                "deployedAt": "2026-10-13T14:23:16Z",
+                "id": 1,
+                "initiatedBy": {
+                    "automated": true
+                },
+                "revision": "85d52c9a0743127ad09dc4c9ecf2772087475301",
+                "source": {
+                    "helm": {
+                        "releaseName": "notes",
+                        "valueFiles": [
+                            "../../gitops/argocd/values-eks.yaml"
+                        ]
+                    },
+                    "path": "final-devops-project/helm/three-tier",
+                    "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                    "targetRevision": "main"
+                }
+            },
+            {
+                "deployStartedAt": "2026-10-13T14:42:49Z",
+                "deployedAt": "2026-10-13T14:42:51Z",
+                "id": 2,
+                "initiatedBy": {
+                    "automated": true
+                },
+                "revision": "5bd0dddb7d16254106879a208e9bfe21f3dc266a",
+                "source": {
+                    "helm": {
+                        "releaseName": "notes",
+                        "valueFiles": [
+                            "../../gitops/argocd/values-eks.yaml"
+                        ]
+                    },
+                    "path": "final-devops-project/helm/three-tier",
+                    "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                    "targetRevision": "main"
+                }
+            },
+            {
+                "deployStartedAt": "2026-10-13T14:50:30Z",
+                "deployedAt": "2026-10-13T14:50:30Z",
+                "id": 3,
+                "initiatedBy": {
+                    "automated": true
+                },
+                "revision": "92d269a0ca4f0cba95d7c42503e4226defe177d5",
+                "source": {
+                    "helm": {
+                        "releaseName": "notes",
+                        "valueFiles": [
+                            "../../gitops/argocd/values-eks.yaml"
+                        ]
+                    },
+                    "path": "final-devops-project/helm/three-tier",
+                    "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                    "targetRevision": "main"
+                }
+            }
+        ],
+        "operationState": {
+            "finishedAt": "2026-10-13T14:50:30Z",
+            "message": "successfully synced (all tasks run)",
+            "operation": {
+                "initiatedBy": {
+                    "automated": true
+                },
+                "retry": {
+                    "limit": 5
+                },
+                "sync": {
+                    "revision": "92d269a0ca4f0cba95d7c42503e4226defe177d5",
+                    "source": {
+                        "helm": {
+                            "releaseName": "notes",
+                            "valueFiles": [
+                                "../../gitops/argocd/values-eks.yaml"
+                            ]
+                        },
+                        "path": "final-devops-project/helm/three-tier",
+                        "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                        "targetRevision": "main"
+                    },
+                    "syncOptions": [
+                        "CreateNamespace=true"
+                    ]
+                }
+            },
+            "phase": "Succeeded",
+            "startedAt": "2026-10-13T14:50:30Z",
+            "syncResult": {
+                "resources": [
+                    {
+                        "group": "",
+                        "hookPhase": "Running",
+                        "kind": "ConfigMap",
+                        "message": "configmap/backend-config configured",
+                        "name": "backend-config",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "",
+                        "hookPhase": "Running",
+                        "kind": "Service",
+                        "message": "service/database unchanged",
+                        "name": "database",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "",
+                        "hookPhase": "Running",
+                        "kind": "Service",
+                        "message": "service/frontend unchanged",
+                        "name": "frontend",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "",
+                        "hookPhase": "Running",
+                        "kind": "Service",
+                        "message": "service/backend unchanged",
+                        "name": "backend",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "apps",
+                        "hookPhase": "Running",
+                        "images": [
+                            "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2"
+                        ],
+                        "kind": "Deployment",
+                        "message": "deployment.apps/frontend unchanged",
+                        "name": "frontend",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "apps",
+                        "hookPhase": "Running",
+                        "images": [
+                            "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2"
+                        ],
+                        "kind": "Deployment",
+                        "message": "deployment.apps/backend configured",
+                        "name": "backend",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "apps",
+                        "hookPhase": "Running",
+                        "images": [
+                            "postgres:17-alpine"
+                        ],
+                        "kind": "StatefulSet",
+                        "message": "statefulset.apps/database configured",
+                        "name": "database",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    },
+                    {
+                        "group": "networking.k8s.io",
+                        "hookPhase": "Running",
+                        "kind": "Ingress",
+                        "message": "ingress.networking.k8s.io/frontend unchanged",
+                        "name": "frontend",
+                        "namespace": "project-three-tier",
+                        "status": "Synced",
+                        "syncPhase": "Sync",
+                        "version": "v1"
+                    }
+                ],
+                "revision": "92d269a0ca4f0cba95d7c42503e4226defe177d5",
+                "source": {
+                    "helm": {
+                        "releaseName": "notes",
+                        "valueFiles": [
+                            "../../gitops/argocd/values-eks.yaml"
+                        ]
+                    },
+                    "path": "final-devops-project/helm/three-tier",
+                    "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                    "targetRevision": "main"
+                }
+            }
+        },
+        "reconciledAt": "2026-10-16T05:31:04Z",
+        "resourceHealthSource": "appTree",
+        "resources": [
+            {
+                "kind": "ConfigMap",
+                "name": "backend-config",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "kind": "Service",
+                "name": "backend",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "kind": "Service",
+                "name": "database",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "kind": "Service",
+                "name": "frontend",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "group": "apps",
+                "kind": "Deployment",
+                "name": "backend",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "group": "apps",
+                "kind": "Deployment",
+                "name": "frontend",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "group": "apps",
+                "kind": "StatefulSet",
+                "name": "database",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            },
+            {
+                "group": "networking.k8s.io",
+                "kind": "Ingress",
+                "name": "frontend",
+                "namespace": "project-three-tier",
+                "status": "Synced",
+                "version": "v1"
+            }
+        ],
+        "sourceHydrator": {},
+        "sourceType": "Helm",
+        "summary": {
+            "externalURLs": [
+                "http://notes.aws.project.local/",
+                "http://notes.aws.project.local/api"
+            ],
+            "images": [
+                "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-backend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+                "ghcr.io/rajasurya-rjs/devops-heros/ops-notes-frontend:cdf8c14b34055fc15651fcde1533c129b7e957b2",
+                "postgres:17-alpine"
+            ]
+        },
+        "sync": {
+            "comparedTo": {
+                "destination": {
+                    "namespace": "project-three-tier",
+                    "server": "https://kubernetes.default.svc"
+                },
+                "source": {
+                    "helm": {
+                        "releaseName": "notes",
+                        "valueFiles": [
+                            "../../gitops/argocd/values-eks.yaml"
+                        ]
+                    },
+                    "path": "final-devops-project/helm/three-tier",
+                    "repoURL": "https://github.com/rajasurya-rjs/devops-heros.git",
+                    "targetRevision": "main"
+                }
+            },
+            "revision": "002f01c8bd0b3d70d40e312442d762b757a1b1f8",
+            "status": "Synced"
+        }
+    }
+}

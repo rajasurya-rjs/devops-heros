@@ -1,0 +1,10 @@
+{
+    "Name": "rajasurya-final-devops",
+    "Status": "ACTIVE",
+    "Version": "1.36",
+    "VPC": "vpc-01f95e9237ca7dae1",
+    "Subnets": [
+        "subnet-0d9e385ec0ffa74df",
+        "subnet-0a003dcfb1d6234e0"
+    ]
+}

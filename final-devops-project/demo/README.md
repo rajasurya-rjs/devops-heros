@@ -108,7 +108,8 @@ Ingress**, while HTTP routing is tested separately and workload health checks st
 
 ## Upload the video
 
-Save your MP4 as `demo/walkthrough.mp4`, then commit/push it if under GitHub's 100 MB
+Save your MP4 in the **repository-root** `demo/walkthrough.mp4` (from this capstone
+directory, `../demo/walkthrough.mp4`), then commit/push it if under GitHub's 100 MB
 per-file limit. For a larger recording, upload it as an asset to a release in this same
 homework repository; the rubric explicitly allows release assets. Add its direct GitHub
 link here and in the checklist. A YouTube link alone does not meet this rubric.

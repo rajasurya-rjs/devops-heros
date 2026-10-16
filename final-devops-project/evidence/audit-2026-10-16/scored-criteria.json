@@ -1,0 +1,284 @@
+[
+  {
+    "module": 1,
+    "criterion": "FastAPI `/health`",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 1,
+    "criterion": "GET/POST/PUT/DELETE endpoints",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 1,
+    "criterion": "PostgreSQL table + Alembic",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 1,
+    "criterion": "Frontend renders + API calls",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 1,
+    "criterion": "Responsive usable UI",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 2,
+    "criterion": "pytest passes",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 2,
+    "criterion": "\u22655 cases / \u22653 endpoints",
+    "points": 4,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 2,
+    "criterion": "Isolated database",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 2,
+    "criterion": "pytest config",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 3,
+    "criterion": "Public repository",
+    "points": 2,
+    "status": "Public verified; FORM UNCONFIRMED"
+  },
+  {
+    "module": 3,
+    "criterion": "Meaningful commits",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 3,
+    "criterion": ".gitignore",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 4,
+    "criterion": "Backend Dockerfile builds",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 4,
+    "criterion": "Frontend Node\u2192NGINX multi-stage",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 4,
+    "criterion": "Non-root images",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 4,
+    "criterion": "Compose starts all three services",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "Workflow present",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "Push main trigger",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "pytest gates builds",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "Frontend build",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "Both Docker images built",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "Both images pushed GHCR",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 5,
+    "criterion": "Commit SHA tags",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 6,
+    "criterion": "Trivy on both images",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 6,
+    "criterion": "HIGH/CRITICAL failure",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 6,
+    "criterion": "Explanation",
+    "points": 1,
+    "status": "Written explanation ready; demonstrate in video"
+  },
+  {
+    "module": 7,
+    "criterion": "Valid HCL",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 7,
+    "criterion": "Terraform init",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 7,
+    "criterion": "Non-empty error-free plan",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 7,
+    "criterion": "VPC + two public subnets provisioned",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 7,
+    "criterion": "EKS + worker node group",
+    "points": 4,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 7,
+    "criterion": "Actual destroy",
+    "points": 2,
+    "status": "PENDING \u2014 after recording/evaluation"
+  },
+  {
+    "module": 7,
+    "criterion": "tfvars example / no credentials",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "Namespace",
+    "points": 1,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "Complete chart",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "Helm install/upgrade",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "\u22652 backend/frontend replicas",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "ClusterIP Services",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "Ingress `/` + `/api`",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 8,
+    "criterion": "All app Pods Running",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 9,
+    "criterion": "`/metrics` output",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 9,
+    "criterion": "Prometheus installed / scraping",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 9,
+    "criterion": "Grafana installed/accessed",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 9,
+    "criterion": "Populated live panel",
+    "points": 3,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 10,
+    "criterion": "Complete technical README",
+    "points": 2,
+    "status": "Verified / evidence present"
+  },
+  {
+    "module": 10,
+    "criterion": "Video in repo/release",
+    "points": 2,
+    "status": "PENDING \u2014 mandatory recording/upload"
+  },
+  {
+    "module": 10,
+    "criterion": "\u22658-slide PPT/PDF committed",
+    "points": 1,
+    "status": "Verified / evidence present"
+  }
+]

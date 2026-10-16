@@ -1,0 +1,4 @@
+NAME                            IMAGE                      COMMAND                  SERVICE    CREATED          STATUS                    PORTS
+ops-notes-capstone-backend-1    ops-notes-backend:local    "sh -c 'python -m ap…"   backend    20 seconds ago   Up 11 seconds (healthy)   8080/tcp
+ops-notes-capstone-database-1   postgres:17-alpine         "docker-entrypoint.s…"   database   2 days ago       Up 18 seconds (healthy)   5432/tcp
+ops-notes-capstone-frontend-1   ops-notes-frontend:local   "/docker-entrypoint.…"   frontend   19 seconds ago   Up 5 seconds (healthy)    127.0.0.1:3000->8080/tcp

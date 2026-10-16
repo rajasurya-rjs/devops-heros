@@ -1,0 +1,14 @@
+[
+    {
+        "Id": "subnet-0d9e385ec0ffa74df",
+        "State": "available",
+        "AZ": "ap-southeast-2b",
+        "PublicIP": true
+    },
+    {
+        "Id": "subnet-0a003dcfb1d6234e0",
+        "State": "available",
+        "AZ": "ap-southeast-2a",
+        "PublicIP": true
+    }
+]

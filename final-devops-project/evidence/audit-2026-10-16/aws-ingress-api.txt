@@ -1,0 +1,67 @@
+GET / -> HTTP 200
+Operations Notes frontend loaded
+GET /health -> HTTP 200
+{"status":"ok","version":"cdf8c14b34055fc15651fcde1533c129b7e957b2"}
+GET /ready -> HTTP 200
+{"status":"ok"}
+GET /api/config -> HTTP 200
+{"title":"Operations Notes","version":"cdf8c14b34055fc15651fcde1533c129b7e957b2","secret_injected":true,"database":"PostgreSQL"}
+GET /api/notes -> HTTP 200
+[{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":2},{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":4},{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":6}]
+POST /api/notes -> HTTP 201
+{"text":"Release check from the three-tier API","id":7}
+GET /api/notes -> HTTP 200
+[{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":2},{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":4},{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":6},{"text":"Release check from the three-tier API","id":7}]
+PUT /api/notes/7 -> HTTP 200
+{"text":"API update checked","id":7}
+DELETE /api/notes/7 -> HTTP 200
+{"deleted":true}
+GET /api/notes -> HTTP 200
+[{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":2},{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":4},{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":6}]
+GET /metrics -> HTTP 200
+# HELP ops_requests_total HTTP responses served
+# TYPE ops_requests_total counter
+ops_requests_total 143075.0
+# HELP ops_requests_created HTTP responses served
+# TYPE ops_requests_created gauge
+ops_requests_created 1.7919030364642062e+09
+# HELP ops_errors_total HTTP error responses
+# TYPE ops_errors_total counter
+ops_errors_total 0.0
+# HELP ops_errors_created HTTP error responses
+# TYPE ops_errors_created gauge
+ops_errors_created 1.7919030364642284e+09
+# HELP ops_request_duration_seconds HTTP request latency
+# TYPE ops_request_duration_seconds histogram
+ops_request_duration_seconds_bucket{le="0.005"} 142967.0
+ops_request_duration_seconds_bucket{le="0.01"} 143049.0
+ops_request_duration_seconds_bucket{le="0.025"} 143070.0
+ops_request_duration_seconds_bucket{le="0.05"} 143070.0
+ops_request_duration_seconds_bucket{le="0.075"} 143071.0
+ops_request_duration_seconds_bucket{le="0.1"} 143072.0
+ops_request_duration_seconds_bucket{le="0.25"} 143075.0
+ops_request_duration_seconds_bucket{le="0.5"} 143075.0
+ops_request_duration_seconds_bucket{le="0.75"} 143075.0
+ops_request_duration_seconds_bucket{le="1.0"} 143075.0
+ops_request_duration_seconds_bucket{le="2.5"} 143075.0
+ops_request_duration_seconds_bucket{le="5.0"} 143075.0
+ops_request_duration_seconds_bucket{le="7.5"} 143075.0
+ops_request_duration_seconds_bucket{le="10.0"} 143075.0
+ops_request_duration_seconds_bucket{le="+Inf"} 143075.0
+ops_request_duration_seconds_count 143075.0
+ops_request_duration_seconds_sum 181.7110834021587
+# HELP ops_request_duration_seconds_created HTTP request latency
+# TYPE ops_request_duration_seconds_created gauge
+ops_request_duration_seconds_created 1.791903036464251e+09
+# TYPE ops_uptime_seconds gauge
+ops_uptime_seconds 225830.47891932807
+# TYPE ops_cpu_seconds_total counter
+ops_cpu_seconds_total 773.727245
+# TYPE ops_memory_maxrss gauge
+ops_memory_maxrss 81892
+
+GET /burn -> HTTP 200
+{"work":720272}
+POST /api/notes -> HTTP 201
+{"text":"Rajasurya: frontend, backend and PostgreSQL are connected.","id":8}
+All API endpoints passed through the frontend; database: PostgreSQL

@@ -1,63 +1,63 @@
 # Session 21 — complete rubric audit
 
-Rechecked on **14 October 2026**. Repository: **https://github.com/rajasurya-rjs/devops-heros**.
+Rechecked on **16 October 2026**. Repository: **https://github.com/rajasurya-rjs/devops-heros**.
 The capstone lives under `final-devops-project/`. This is a readiness audit, not a grade.
-[Today’s fresh verification](../evidence/recheck-2026-10-14/README.md) records the new local and live EKS checks.
+All **47 scored criteria total 100 points**. [Today’s fresh verification](../evidence/audit-2026-10-16/README.md) records the source, artifact, local and live EKS checks. This is not a promise of full marks.
 
-**Two completion requirements remain:** student-recorded walkthrough uploaded to this
-repository, and real Terraform destroy completion evidence after recording/evaluation.
+**Completion/confirmation still required:** student-recorded walkthrough uploaded to this
+repository; actual Terraform destroy evidence after recording/evaluation; and the student’s
+submission of the public repository URL through the latest capstone form.
 The rubric gives **zero for M10 if the video is missing**. A destroy plan does not satisfy M7 cleanup.
 
-| Module / scored criterion | Status and proof |
-|---|---|
-| M1: FastAPI `/health` (2) | Verified in [EKS API log](../evidence/completion/aws-ingress-api.txt). |
-| M1: GET/POST/PUT/DELETE endpoints (3) | `backend/app/`; CRUD passes through EKS Ingress and Compose. |
-| M1: PostgreSQL table + Alembic (2) | `backend/alembic/versions/0001_notes.py`; [live database](../evidence/completion/aws-database.txt). |
-| M1: Frontend renders + API calls (2) | `frontend/`; [Compose screenshot](../images/24-current-compose-browser.png), [EKS browser](../images/aws-current-ingress-browser.png). |
-| M1: Responsive usable UI (1) | [Mobile screenshot](../images/25-current-mobile.png). |
-| M2: pytest passes (3) | 23 tests pass; [terminal screenshot](../images/current-pytest-terminal.png). CI also passes on PostgreSQL. |
-| M2: ≥5 cases / ≥3 endpoints (4) | `backend/tests/`: 23 cases covering CRUD, health, readiness, metrics, validation and migrations. |
-| M2: Isolated database (2) | Temporary SQLite or dedicated `notes_test` PostgreSQL; production environment cannot select test storage. |
-| M2: pytest config (1) | `backend/pytest.ini` and `backend/tests/conftest.py`. |
-| M3: Public repository (2) | Public URL above; student submits it in the form. Agent does not submit the form. |
-| M3: Meaningful commits (2) | More than ten; [history screenshot](../images/current-commits-terminal.png). |
-| M3: .gitignore (1) | Repository-root `.gitignore` excludes `.env`, `__pycache__`, `node_modules`, `.venv`, credentials and Terraform state. |
-| M4: Backend Dockerfile builds (2) | `backend/Dockerfile`; actual Compose build + green CI. |
-| M4: Frontend Node→NGINX multi-stage (3) | `frontend/Dockerfile`; actual Compose build + green CI. |
-| M4: Non-root images (2) | [Compose terminal](../images/current-compose-terminal.png) shows both application user IDs; chart enforces non-root too. |
-| M4: Compose starts all three services (3) | `docker-compose.yml`; [actual terminal](../images/current-compose-terminal.png) shows healthy frontend/backend/database. |
-| M5: Workflow present (1) | Repository-root `.github/workflows/three-tier-project.yml`. |
-| M5: Push main trigger (1) | Workflow `push.branches: [main]`; real main runs recorded. |
-| M5: pytest gates builds (3) | Test job precedes dependent build jobs and exits on failure. |
-| M5: Frontend build (2) | `npm ci` and `npm run build` in test job. |
-| M5: Both Docker images built (3) | Both backend/frontend builds in the gated build job. |
-| M5: Both images pushed GHCR (3) | [Backend package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-backend), [frontend package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-frontend). |
-| M5: Commit SHA tags (2) | Full 40-character SHAs; [backend screenshot](../images/29-ghcr-backend.png), [frontend screenshot](../images/30-ghcr-frontend.png). |
-| M6: Trivy on both images (3) | Workflow loops over both images; [actual downloaded CI reports](../images/current-trivy-terminal.png). |
-| M6: HIGH/CRITICAL failure (1) | `--severity HIGH,CRITICAL --exit-code 1`, without ignoring unfixed findings. |
-| M6: Explanation (1) | [Three-sentence explanation](../evidence/completion/README.md#trivy-explanation). |
-| M7: Valid HCL (2) | `terraform/`; init, validate, fmt and mock-provider checks recorded. |
-| M7: Terraform init (1) | [Actual init output](../evidence/completion/terraform-init.txt). |
-| M7: Non-empty error-free plan (2) | [Actual two-update plan](../evidence/completion/terraform-access-plan.txt) and [plan screenshot](../images/current-terraform-plan-terminal.png); applied successfully. |
-| M7: VPC + two public subnets provisioned (3) | [AWS Console VPC screenshot](../images/27-aws-vpc-console.png), VPC/subnet JSON. |
-| M7: EKS + worker node group (4) | [AWS EKS Console](../images/26-aws-eks-console.png), node group JSON and Ready node. |
-| M7: Actual destroy (2) | **PENDING after recording/evaluation**. `scripts/cleanup-aws.sh` is ready; current destroy plan proves planning only. |
-| M7: tfvars example / no credentials (1) | `terraform/terraform.tfvars.example`; credentials/state remain outside Git; current and history secret scans pass with exact reviewed classroom exceptions. |
-| M8: Namespace (1) | `k8s/namespace.yaml`; live `project-three-tier` namespace. |
-| M8: Complete chart (3) | `helm/three-tier/Chart.yaml`, `values.yaml`, templates. |
-| M8: Helm install/upgrade (3) | [Actual EKS deploy](../evidence/completion/aws-three-tier-deploy.txt); release `notes` deployed. |
-| M8: ≥2 backend/frontend replicas (2) | [Current EKS terminal](../images/current-kubernetes-terminal.png) shows 2/2 each. |
-| M8: ClusterIP Services (2) | Same terminal shows backend/frontend Services. |
-| M8: Ingress `/` + `/api` (2) | Helm template and actual EKS CRUD verification; [hostname browser](../images/aws-current-ingress-browser.png). |
-| M8: All app Pods Running (2) | Same EKS terminal: both frontend, both backend and database Running/Ready. |
-| M9: `/metrics` output (2) | [Live curl terminal](../images/current-metrics-terminal.png), API log. |
-| M9: Prometheus installed / scraping (3) | [EKS Targets UP](../images/aws-current-prometheus.png), two healthy targets in JSON. |
-| M9: Grafana installed/accessed (2) | [EKS Grafana dashboard](../images/aws-current-grafana.png). |
-| M9: Populated live panel (3) | Same dashboard has request-rate, CPU and memory data. |
-| M10: Complete technical README (2) | Capstone `README.md` and root README entry, all required sections. |
-| M10: Video in repo/release (2) | **PENDING: student recording**. Follow [recording guide](README.md); upload MP4 to `demo/` or same repo release asset. Missing video makes entire M10 zero. |
-| M10: ≥8-slide PPT/PDF committed (1) | [12-slide PPTX](presentation.pptx), [PDF](presentation.pdf), including architecture diagram and speaker notes. |
-
+| Scored criterion | Audit status | Proof / remaining action |
+|---|---|---|
+| M1: FastAPI `/health` (2) | Verified / evidence present | Fresh [EKS Ingress API verification](../evidence/audit-2026-10-16/aws-ingress-api.txt) and Compose verification return HTTP 200. |
+| M1: GET/POST/PUT/DELETE endpoints (3) | Verified / evidence present | `backend/app/`; CRUD passes through EKS Ingress and Compose. |
+| M1: PostgreSQL table + Alembic (2) | Verified / evidence present | `backend/alembic/versions/0001_notes.py`; [live database](../evidence/completion/aws-database.txt). |
+| M1: Frontend renders + API calls (2) | Verified / evidence present | `frontend/`; [Compose screenshot](../images/24-current-compose-browser.png), [EKS browser](../images/aws-current-ingress-browser.png). |
+| M1: Responsive usable UI (1) | Verified / evidence present | [Mobile screenshot](../images/25-current-mobile.png). |
+| M2: pytest passes (3) | Verified / evidence present | 23 tests pass today: [fresh output](../evidence/audit-2026-10-16/pytest.txt); [terminal screenshot](../images/current-pytest-terminal.png). CI also passes against dedicated PostgreSQL. |
+| M2: ≥5 cases / ≥3 endpoints (4) | Verified / evidence present | `backend/tests/`: 23 cases covering CRUD, health, readiness, metrics, validation and migrations. |
+| M2: Isolated database (2) | Verified / evidence present | Temporary SQLite or dedicated `notes_test` PostgreSQL; production environment cannot select test storage. |
+| M2: pytest config (1) | Verified / evidence present | `backend/pytest.ini` and `backend/tests/conftest.py`. |
+| M3: Public repository (2) | Public verified; FORM UNCONFIRMED | Public URL above; student submits it in the form. Agent does not submit the form. |
+| M3: Meaningful commits (2) | Verified / evidence present | More than ten; [history screenshot](../images/current-commits-terminal.png). |
+| M3: .gitignore (1) | Verified / evidence present | Repository-root `.gitignore` excludes `.env`, `__pycache__`, `node_modules`, `.venv`, credentials and Terraform state. |
+| M4: Backend Dockerfile builds (2) | Verified / evidence present | `backend/Dockerfile`; actual Compose build + green CI. |
+| M4: Frontend Node→NGINX multi-stage (3) | Verified / evidence present | `frontend/Dockerfile`; actual Compose build + green CI. |
+| M4: Non-root images (2) | Verified / evidence present | [Compose terminal](../images/current-compose-terminal.png) shows both application user IDs; chart enforces non-root too. |
+| M4: Compose starts all three services (3) | Verified / evidence present | Three healthy services; [actual port-3000 verification](../evidence/audit-2026-10-16/compose-services-3000.txt) and [required localhost:3000 screenshot](../images/audit-localhost-3000.png). Default port 13000 restored afterward. |
+| M5: Workflow present (1) | Verified / evidence present | Repository-root `.github/workflows/three-tier-project.yml`. |
+| M5: Push main trigger (1) | Verified / evidence present | Workflow `push.branches: [main]`; real main runs recorded. |
+| M5: pytest gates builds (3) | Verified / evidence present | Test job precedes dependent build jobs and exits on failure. |
+| M5: Frontend build (2) | Verified / evidence present | `npm ci` and `npm run build` in test job. |
+| M5: Both Docker images built (3) | Verified / evidence present | Both backend/frontend builds in the gated build job. |
+| M5: Both images pushed GHCR (3) | Verified / evidence present | [Backend package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-backend), [frontend package](https://github.com/rajasurya-rjs/devops-heros/pkgs/container/devops-heros%2Fops-notes-frontend). |
+| M5: Commit SHA tags (2) | Verified / evidence present | Full 40-character SHAs; [backend screenshot](../images/29-ghcr-backend.png), [frontend screenshot](../images/30-ghcr-frontend.png). |
+| M6: Trivy on both images (3) | Verified / evidence present | Workflow loops over both images; [actual downloaded CI reports](../images/current-trivy-terminal.png). |
+| M6: HIGH/CRITICAL failure (1) | Verified / evidence present | `--severity HIGH,CRITICAL --exit-code 1`, without ignoring unfixed findings. |
+| M6: Explanation (1) | Written explanation ready; demonstrate in video | [Three-sentence explanation](../evidence/completion/README.md#trivy-explanation). |
+| M7: Valid HCL (2) | Verified / evidence present | `terraform/`; init, validate, fmt and mock-provider checks recorded. |
+| M7: Terraform init (1) | Verified / evidence present | Fresh [init output](../evidence/audit-2026-10-16/terraform-init.txt), no errors. |
+| M7: Non-empty error-free plan (2) | Verified / evidence present | [Actual two-update plan](../evidence/completion/terraform-access-plan.txt) and [plan screenshot](../images/current-terraform-plan-terminal.png); applied successfully. |
+| M7: VPC + two public subnets provisioned (3) | Verified / evidence present | [AWS Console VPC screenshot](../images/27-aws-vpc-console.png), VPC/subnet JSON. |
+| M7: EKS + worker node group (4) | Verified / evidence present | [AWS EKS Console](../images/26-aws-eks-console.png), node group JSON and Ready node. |
+| M7: Actual destroy (2) | PENDING — after recording/evaluation | **PENDING after recording/evaluation**. `scripts/cleanup-aws.sh` is ready; current destroy plan proves planning only. |
+| M7: tfvars example / no credentials (1) | Verified / evidence present | `terraform/terraform.tfvars.example`; credentials/state remain outside Git; current and history secret scans pass with exact reviewed classroom exceptions. |
+| M8: Namespace (1) | Verified / evidence present | `k8s/namespace.yaml`; live `project-three-tier` namespace. |
+| M8: Complete chart (3) | Verified / evidence present | `helm/three-tier/Chart.yaml`, `values.yaml`, templates. |
+| M8: Helm install/upgrade (3) | Verified / evidence present | [Actual EKS deploy](../evidence/completion/aws-three-tier-deploy.txt); release `notes` deployed. |
+| M8: ≥2 backend/frontend replicas (2) | Verified / evidence present | [Fresh EKS runtime](../evidence/audit-2026-10-16/kubernetes.txt): both Deployments 2/2 Ready; five Pods Running, zero restarts. [Screenshot](../images/current-kubernetes-terminal.png). |
+| M8: ClusterIP Services (2) | Verified / evidence present | Same terminal shows backend/frontend Services. |
+| M8: Ingress `/` + `/api` (2) | Verified / evidence present | Helm template and actual EKS CRUD verification; [hostname browser](../images/aws-current-ingress-browser.png). |
+| M8: All app Pods Running (2) | Verified / evidence present | [Fresh EKS runtime](../evidence/audit-2026-10-16/kubernetes.txt): both Deployments 2/2 Ready; five Pods Running, zero restarts. [Screenshot](../images/current-kubernetes-terminal.png). |
+| M9: `/metrics` output (2) | Verified / evidence present | [Live curl terminal](../images/current-metrics-terminal.png), API log. |
+| M9: Prometheus installed / scraping (3) | Verified / evidence present | [Fresh targets JSON](../evidence/audit-2026-10-16/prometheus-targets.json): both backend targets UP; [browser screenshot](../images/aws-current-prometheus.png). |
+| M9: Grafana installed/accessed (2) | Verified / evidence present | [EKS Grafana dashboard](../images/aws-current-grafana.png). |
+| M9: Populated live panel (3) | Verified / evidence present | [Live positive request rate](../evidence/audit-2026-10-16/prometheus-live-rate.json), four provisioned panels, [populated Grafana screenshot](../images/aws-current-grafana.png). |
+| M10: Complete technical README (2) | Verified / evidence present | Capstone `README.md` and root README entry, all required sections. |
+| M10: Video in repo/release (2) | PENDING — mandatory recording/upload | **PENDING: student recording**. Follow [recording guide](README.md); upload MP4 to `demo/` or same repo release asset. Missing video makes entire M10 zero. |
+| M10: ≥8-slide PPT/PDF committed (1) | Verified / evidence present | [Repository-root PPTX](../../demo/presentation.pptx), [PDF](../../demo/presentation.pdf): 12 slides, architecture diagram and speaker notes; hashes match preserved capstone copies. |
 ## Submission artifacts beyond the scoring table
 
 All source directories, requirements, migration, Dockerfiles, Compose, workflow, Terraform,
@@ -66,11 +66,27 @@ cover app/mobile, pytest, commit history, Compose, CI, GHCR, Trivy, Terraform pl
 Pods/Services/Helm, Ingress, metrics, Prometheus and Grafana. The
 [evidence index](../evidence/completion/README.md) records provenance and environments.
 
-Browser evidence uses **localhost:13000** because port 3000 belongs to Histomics. The grader's
-3000 example is changed deliberately and documented. EKS Ingress is demonstrated through
+The required **localhost:3000** screenshot is now included. Port 3000 was verified free,
+used temporarily for the genuine Compose screenshot, then Ops Notes was restored to
+**13000** to preserve the user’s port allocation for Histomics. EKS Ingress is demonstrated through
 its hostname and a localhost port-forward to the actual controller, without a public paid
 LoadBalancer. Its load-balancer status check is ignored only for that Ingress; HTTP routes
 are separately tested. The Helm release was installed with Helm before Argo adopted its objects.
+
+## Required submission artifacts — item by item
+
+| Module | Required submission artifacts | Result |
+|---|---|---|
+| M1 | `backend/app/`, Alembic versions, requirements, `frontend/`, Compose, running browser image | Present; real API/browser execution verified. |
+| M2 | `backend/tests/`, pytest config, `pytest -v` terminal screenshot | Present; 23 tests pass. |
+| M3 | Public repo URL, screenshot with ≥10 meaningful commits | Present; actual form submission unconfirmed. |
+| M4 | Both Dockerfiles, Compose, actual successful build/start terminal screenshot, browser at localhost:3000 | Present, including the new [port-3000 browser](../images/audit-localhost-3000.png). Normal runtime restored to 13000. |
+| M5 | Workflow YAML, successful Actions URL, SHA-tagged GHCR screenshot | Present; fresh post-audit pipeline checked before reporting completion. |
+| M6 | Trivy steps, scan-output screenshot, 2–3 sentence explanation | Present for both images; student must explain the scan in the video. |
+| M7 | All HCL, non-empty plan screenshot, AWS VPC/EKS Console screenshot, destroy completion screenshot | Everything present **except actual destroy completion**. |
+| M8 | Namespace/bootstrap, chart, Running Pods screenshot, Services screenshot, `helm list` screenshot, Ingress browser | Present; the combined [EKS terminal screenshot](../images/current-kubernetes-terminal.png) contains Pods, Services and Helm list. |
+| M9 | Prometheus/Grafana values, metrics curl screenshot, Targets UP screenshot, populated Grafana screenshot | Present; current live targets and dashboard API reverified. |
+| M10 | Root technical README, root `demo/` video, ≥8-slide PPT/PDF | Root README and 12-slide deck present; **video missing**. |
 
 ## Mandatory video content audit
 
@@ -79,6 +95,18 @@ codebase/design, Terraform plan/apply and AWS Console, Argo CD synced applicatio
 change, Kubernetes Pods/Services/Ingress, Prometheus UP and live Grafana panel. These are
 instructions until the student's real video has been recorded and uploaded.
 
-Keep AWS running only through recording/evaluation. Add genuine destroy completion output
-and screenshot afterwards. No deadline or instructor-access status was provided; the student
-must ensure timely submission and repository access. No numerical grade is guaranteed.
+## Submission and deadline checks
+
+- The repository is PUBLIC. Submit **https://github.com/rajasurya-rjs/devops-heros** to the
+  [latest supplied capstone form](https://forms.gle/XWAP1vAumDJgAPM1A). Actual submission
+  is unconfirmed; the agent does not submit Google Forms.
+- The guideline says **“Sunday, 19 October 2026, 11:59 PM IST.”** October 19 is Monday;
+  Sunday is October 18. Instructor confirmation is pending. Prepare for **October 18,
+  11:59 PM IST** until the intended deadline is clarified. This is a precaution, not a
+  change to the official deadline. Late submissions lose 5 points per 24 hours.
+- Root `README.md` has the required technical sections; repository-root `demo/` now has
+  the actual PPTX/PDF plus a video status and recording-order index.
+- The application domain is Operations Notes, with its own frontend and notes API/model;
+  the course TaskBoard reference is not the submitted application.
+- Preserve AWS only through recording/evaluation; then capture genuine destroy completion
+  and verify cleanup. No numerical grade is guaranteed.

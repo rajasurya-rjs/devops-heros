@@ -1,0 +1,219 @@
+ Image ops-notes-backend:local Building 
+ Image ops-notes-frontend:local Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.12kB done
+#1 DONE 0.0s
+
+#2 [backend internal] load build definition from Dockerfile
+#2 transferring dockerfile: 640B 0.0s done
+#2 DONE 0.2s
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 368B done
+#3 DONE 0.2s
+
+#4 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#4 ...
+
+#5 [auth] library/nginx:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/python:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [auth] library/node:pull token for registry-1.docker.io
+#7 DONE 0.0s
+
+#8 [frontend internal] load metadata for docker.io/library/nginx:1.30-alpine
+#8 ...
+
+#4 [frontend internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 3.3s
+
+#9 [backend internal] load metadata for docker.io/library/python:3.13-alpine
+#9 DONE 3.3s
+
+#10 [backend internal] load .dockerignore
+#10 transferring context: 195B 0.0s done
+#10 DONE 0.0s
+
+#11 [backend internal] load build context
+#11 transferring context: 611B done
+#11 DONE 0.0s
+
+#12 [backend 1/7] FROM docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a
+#12 resolve docker.io/library/python:3.13-alpine@sha256:2d9aefe2fef018a7eb2c13064c89c71929800fd2e5dccdbf52ea5da5bb8d929a 0.0s done
+#12 DONE 0.0s
+
+#8 [frontend internal] load metadata for docker.io/library/nginx:1.30-alpine
+#8 ...
+
+#13 [backend 2/7] WORKDIR /app
+#13 CACHED
+
+#14 [backend 3/7] COPY backend/requirements.txt ./
+#14 CACHED
+
+#15 [backend 4/7] RUN pip install --no-cache-dir -r requirements.txt     && python -m pip uninstall -y pip setuptools wheel     && rm -rf /usr/local/lib/python3.13/ensurepip     && addgroup -g 10001 app && adduser -D -u 10001 -G app app
+#15 CACHED
+
+#16 [backend 5/7] COPY --chown=app:app backend/app ./app
+#16 CACHED
+
+#17 [backend 6/7] COPY --chown=app:app backend/alembic ./alembic
+#17 CACHED
+
+#18 [backend 7/7] COPY --chown=app:app backend/alembic.ini ./
+#18 CACHED
+
+#19 [backend] exporting to image
+#19 exporting layers done
+#19 exporting manifest sha256:1650da6c5209e4f35bbb5973e493c25f7061ef0fe8884000bf593fbb30895db4 done
+#19 exporting config sha256:bf0992637b18c583c908560bb2e2cd7bbec5f693d6d2f5ced0b4c8ebad868d2a done
+#19 exporting attestation manifest sha256:5a1174d6919ba93df4217f0bcc7758049a1c8f5a3756719b958b37d34d64fbc3 0.1s done
+#19 exporting manifest list sha256:b046141336464c8e2089212a506cd80bdc01b91d840772a7c35a0d023ff0ba37 0.1s done
+#19 naming to docker.io/library/ops-notes-backend:local 0.0s done
+#19 unpacking to docker.io/library/ops-notes-backend:local 0.1s done
+#19 DONE 0.4s
+
+#8 [frontend internal] load metadata for docker.io/library/nginx:1.30-alpine
+#8 ...
+
+#20 [backend] resolving provenance for metadata file
+#20 DONE 0.0s
+
+#8 [frontend internal] load metadata for docker.io/library/nginx:1.30-alpine
+#8 DONE 4.6s
+
+#10 [frontend internal] load .dockerignore
+#10 CACHED
+
+#21 [frontend internal] load build context
+#21 DONE 0.0s
+
+#22 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5
+#22 resolve docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5 0.1s done
+#22 DONE 0.1s
+
+#23 [frontend build 1/6] FROM docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402
+#23 resolve docker.io/library/node:22-alpine@sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402 0.1s done
+#23 DONE 0.1s
+
+#21 [frontend internal] load build context
+#21 transferring context: 30.30kB 0.0s done
+#21 DONE 0.1s
+
+#24 [frontend build 2/6] WORKDIR /src
+#24 CACHED
+
+#25 [frontend build 3/6] COPY frontend/package*.json ./
+#25 CACHED
+
+#26 [frontend build 4/6] RUN npm ci
+#26 CACHED
+
+#27 [frontend build 5/6] COPY frontend/ ./
+#27 CACHED
+
+#28 [frontend build 6/6] RUN npm run build
+#28 CACHED
+
+#22 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5
+#22 DONE 0.4s
+
+#22 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 0B / 19.86MB 0.2s
+#22 sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 0B / 4.68MB 0.2s
+#22 sha256:2b13e5fe41edd63155ae022db47e310536955502eda85a66e31e79c425874609 0B / 1.40kB 0.2s
+#22 sha256:ef8016a3b358a0b1bcdb4178b68b14cdfe12d5ce30b205ace919d6acfc2dc9b9 0B / 405B 0.2s
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 1.31MB / 19.86MB 0.9s
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 5.24MB / 19.86MB 1.5s
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 6.29MB / 19.86MB 2.0s
+#22 sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 1.05MB / 4.68MB 2.0s
+#22 sha256:ef8016a3b358a0b1bcdb4178b68b14cdfe12d5ce30b205ace919d6acfc2dc9b9 405B / 405B 1.9s done
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 9.44MB / 19.86MB 2.1s
+#22 sha256:0a24a1b45b092aa7df084650c022f2572b91ef41bed04f9dd4253de6ffcff4fe 0B / 1.21kB 0.2s
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 12.58MB / 19.86MB 2.3s
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 14.68MB / 19.86MB 2.6s
+#22 sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 2.10MB / 4.68MB 2.6s
+#22 sha256:2b13e5fe41edd63155ae022db47e310536955502eda85a66e31e79c425874609 1.40kB / 1.40kB 2.5s done
+#22 sha256:0a24a1b45b092aa7df084650c022f2572b91ef41bed04f9dd4253de6ffcff4fe 1.21kB / 1.21kB 0.5s done
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 18.87MB / 19.86MB 2.7s
+#22 sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 19.86MB / 19.86MB 2.8s done
+#22 sha256:08804edad18d5c3d65d3b2a9305e5910319105d88dd03ee9c76a503f61e7813b 0B / 964B 0.2s
+#22 sha256:9e161b57dfd979ee6047a0c8f3d50dd450617e4c11a2990df802c0bf48b0e160 0B / 629B 0.2s
+#22 sha256:9e161b57dfd979ee6047a0c8f3d50dd450617e4c11a2990df802c0bf48b0e160 629B / 629B 0.3s done
+#22 sha256:08804edad18d5c3d65d3b2a9305e5910319105d88dd03ee9c76a503f61e7813b 964B / 964B 0.4s done
+#22 sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 3.15MB / 4.68MB 3.2s
+#22 sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 4.01MB / 4.68MB 3.6s
+#22 sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 4.68MB / 4.68MB 3.8s done
+#22 extracting sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659
+#22 extracting sha256:36c809fd23846aa71c21c9f8df90b657456e492bcf1fce078dc2f95fe12be659 0.5s done
+#22 extracting sha256:9e161b57dfd979ee6047a0c8f3d50dd450617e4c11a2990df802c0bf48b0e160
+#22 extracting sha256:9e161b57dfd979ee6047a0c8f3d50dd450617e4c11a2990df802c0bf48b0e160 0.3s done
+#22 DONE 5.4s
+
+#22 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5
+#22 extracting sha256:08804edad18d5c3d65d3b2a9305e5910319105d88dd03ee9c76a503f61e7813b
+#22 extracting sha256:08804edad18d5c3d65d3b2a9305e5910319105d88dd03ee9c76a503f61e7813b 0.3s done
+#22 DONE 5.6s
+
+#22 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5
+#22 extracting sha256:ef8016a3b358a0b1bcdb4178b68b14cdfe12d5ce30b205ace919d6acfc2dc9b9 0.1s done
+#22 extracting sha256:0a24a1b45b092aa7df084650c022f2572b91ef41bed04f9dd4253de6ffcff4fe 0.1s done
+#22 DONE 5.7s
+
+#22 [frontend stage-1 1/4] FROM docker.io/library/nginx:1.30-alpine@sha256:970364228b1e4f932abc22d321932816782cca8a20b85a77552a7cfe9acfb3b5
+#22 extracting sha256:2b13e5fe41edd63155ae022db47e310536955502eda85a66e31e79c425874609 0.0s done
+#22 extracting sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf
+#22 extracting sha256:10a6a52e9768d70e5006f17f40dd837922e8e2e66ae9878f4e03facabadd3ebf 2.1s done
+#22 DONE 7.9s
+
+#29 [frontend stage-1 2/4] RUN apk upgrade --no-cache
+#29 4.958 (1/1) Upgrading zlib (1.3.2-r0 -> 1.3.2-r1)
+#29 5.018 OK: 58.7 MiB in 71 packages
+#29 DONE 6.2s
+
+#30 [frontend stage-1 3/4] COPY docker/frontend.conf /etc/nginx/nginx.conf
+#30 DONE 0.1s
+
+#31 [frontend stage-1 4/4] COPY --from=build /src/dist/ /usr/share/nginx/html/
+#31 DONE 0.1s
+
+#32 [frontend] exporting to image
+#32 exporting layers
+#32 exporting layers 0.2s done
+#32 exporting manifest sha256:789a8952b6bf0eab76514f6aee77ce629966241147f82240450fff817f50be54 0.1s done
+#32 exporting config sha256:945f4f3241aa70bcd06e6b7fd505721436ed9ca54fb9f8533f254f9a6c5ee415 0.1s done
+#32 exporting attestation manifest sha256:6245b9b1cce7f3cd6b57fe95f980e5db0f9edcb1ac5e487c77c1b6cbf8019857 0.0s done
+#32 exporting manifest list sha256:2edee9fb6fdc484cbc77505f09ba76b2604033011a6d1679b5c539f9bd77a1ee
+#32 exporting manifest list sha256:2edee9fb6fdc484cbc77505f09ba76b2604033011a6d1679b5c539f9bd77a1ee 0.0s done
+#32 naming to docker.io/library/ops-notes-frontend:local done
+#32 unpacking to docker.io/library/ops-notes-frontend:local
+#32 unpacking to docker.io/library/ops-notes-frontend:local 0.4s done
+#32 DONE 1.2s
+
+#33 [frontend] resolving provenance for metadata file
+#33 DONE 0.2s
+ Image ops-notes-backend:local Built 
+ Image ops-notes-frontend:local Built 
+ Container ops-notes-capstone-backend-1 Recreate 
+ Container ops-notes-capstone-backend-1 Recreated 
+ Container ops-notes-capstone-frontend-1 Recreate 
+ Container ops-notes-capstone-frontend-1 Recreated 
+ Container ops-notes-capstone-database-1 Starting 
+ Container ops-notes-capstone-database-1 Started 
+ Container ops-notes-capstone-database-1 Waiting 
+ Container ops-notes-capstone-database-1 Healthy 
+ Container ops-notes-capstone-backend-1 Starting 
+ Container ops-notes-capstone-backend-1 Started 
+ Container ops-notes-capstone-backend-1 Waiting 
+ Container ops-notes-capstone-backend-1 Healthy 
+ Container ops-notes-capstone-frontend-1 Starting 
+ Container ops-notes-capstone-frontend-1 Started 
+ Container ops-notes-capstone-backend-1 Waiting 
+ Container ops-notes-capstone-database-1 Waiting 
+ Container ops-notes-capstone-frontend-1 Waiting 
+ Container ops-notes-capstone-backend-1 Healthy 
+ Container ops-notes-capstone-database-1 Healthy 
+ Container ops-notes-capstone-frontend-1 Healthy 

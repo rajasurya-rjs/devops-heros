@@ -1,0 +1,182 @@
+{
+  "meta": {
+    "type": "db",
+    "canSave": false,
+    "canEdit": false,
+    "canAdmin": false,
+    "canStar": false,
+    "canDelete": false,
+    "slug": "operations-notes-three-tiers",
+    "url": "/d/ops-three-tier/operations-notes-three-tiers",
+    "expires": "0001-01-01T00:00:00Z",
+    "created": "2026-10-13T13:33:39Z",
+    "updated": "2026-10-13T13:33:39Z",
+    "updatedBy": "Anonymous",
+    "createdBy": "Anonymous",
+    "version": 1,
+    "hasAcl": false,
+    "isFolder": false,
+    "apiVersion": "v0alpha1",
+    "folderId": 2316394057355264,
+    "folderUid": "cg13wxqsjw7b4c",
+    "folderTitle": "Homework",
+    "folderUrl": "/dashboards/f/cg13wxqsjw7b4c/homework",
+    "provisioned": true,
+    "provisionedExternalId": "dashboard-three-tier.json",
+    "annotationsPermissions": {
+      "dashboard": {
+        "canAdd": false,
+        "canEdit": false,
+        "canDelete": false
+      }
+    }
+  },
+  "dashboard": {
+    "id": 2316394152931328,
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "homework-prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        },
+        "targets": [
+          {
+            "expr": "sum(rate(ops_requests_total{job=\"operations-notes-three-tier\"}[1m]))",
+            "refId": "A"
+          }
+        ],
+        "title": "HTTP responses per second",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "homework-prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        },
+        "targets": [
+          {
+            "expr": "sum(rate(ops_errors_total{job=\"operations-notes-three-tier\"}[1m]))",
+            "refId": "A"
+          }
+        ],
+        "title": "HTTP errors per second",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "homework-prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        },
+        "targets": [
+          {
+            "expr": "ops_cpu_seconds_total{job=\"operations-notes-three-tier\"}",
+            "legendFormat": "{{pod}}",
+            "refId": "A"
+          }
+        ],
+        "title": "CPU seconds",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "homework-prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "kbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 8
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        },
+        "targets": [
+          {
+            "expr": "ops_memory_maxrss{job=\"operations-notes-three-tier\"}",
+            "legendFormat": "{{pod}}",
+            "refId": "A"
+          }
+        ],
+        "title": "Peak memory (Linux KiB)",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "5s",
+    "schemaVersion": 39,
+    "time": {
+      "from": "now-15m",
+      "to": "now"
+    },
+    "title": "Operations Notes - Three Tiers",
+    "uid": "ops-three-tier",
+    "version": 1
+  }
+}

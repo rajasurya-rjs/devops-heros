@@ -1,0 +1,5 @@
+{
+    "Id": "vpc-01f95e9237ca7dae1",
+    "State": "available",
+    "CIDR": "10.24.0.0/16"
+}

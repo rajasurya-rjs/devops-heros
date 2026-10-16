@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   test-security:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -55,7 +55,7 @@ jobs:
           path: reports/
   build-push:
     needs: test-security
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
       packages: write
@@ -117,7 +117,7 @@ jobs:
           path: reports/
   deploy-kubernetes:
     needs: build-push
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4

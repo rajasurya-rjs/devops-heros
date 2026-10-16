@@ -11,7 +11,7 @@ permissions:
   contents: read
 jobs:
   test-security:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     services:
       postgres:
         image: postgres:17-alpine
@@ -59,7 +59,7 @@ jobs:
         with: {name: three-tier-test-security, path: reports/}
   build-push-deploy:
     needs: test-security
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions: {contents: read, packages: write}
     steps:
       - uses: actions/checkout@v4
