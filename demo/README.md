@@ -5,12 +5,13 @@
 - [Presentation — PowerPoint](presentation.pptx)
 - [Presentation — PDF](presentation.pdf)
 - [Actual AWS cleanup terminal recording — WebM, silent](aws-cleanup.webm)
-- [Speaking script with separate SAY, SHOW, TYPE and WAIT cues](RECORDING-SCRIPT.md)
 - [Exact recording steps and commands](../final-devops-project/demo/README.md)
 - [Instructor’s grading requirements](https://github.com/Nency-Ravaliya/devsecops-python/blob/main/GRADING.md)
 - [Complete technical documentation](../final-devops-project/README.md)
 
 ## Recorded walkthrough — uploaded
+
+**Video release URL:** https://github.com/rajasurya-rjs/devops-heros/releases/tag/capstone-walkthrough-2026-10-16
 
 **[Download/watch the complete student recording](https://github.com/rajasurya-rjs/devops-heros/releases/download/capstone-walkthrough-2026-10-16/walkthrough.mp4)** · [Release page](https://github.com/rajasurya-rjs/devops-heros/releases/tag/capstone-walkthrough-2026-10-16)
 
